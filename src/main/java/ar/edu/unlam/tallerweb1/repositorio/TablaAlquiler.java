@@ -8,7 +8,7 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 public class TablaAlquiler {
 
     private static final TablaAlquiler instance = new TablaAlquiler();
-    private Map<Auto, Alquiler> TablaAlquiler = new HashMap<>();
+    private Map<Long, Alquiler> TablaAlquiler = new HashMap<>();
 
     //EN ESTA TABLA, IDENTIFICAMOS UN ALQUILER CON EL MISMO AUTO QUE CONTIENE, POR EL MOMENTO
 
@@ -23,12 +23,12 @@ public class TablaAlquiler {
 
     public boolean existeAlquilerCon(Auto auto) {
 
-        return this.TablaAlquiler.containsKey(auto);
+        return this.TablaAlquiler.containsKey(auto.getId());
     }
 
     public void agregar(Alquiler alquiler) {
 
-        this.TablaAlquiler.put(alquiler.getAuto(), alquiler);
+        this.TablaAlquiler.put(alquiler.getAuto_id(), alquiler);
     }
 
     public void reset() {
@@ -39,7 +39,7 @@ public class TablaAlquiler {
     public Alquiler buscoAlquiler(Auto auto) {
 
         if(existeAlquilerCon(auto)) {
-            return TablaAlquiler.get(auto);
+            return TablaAlquiler.get(auto.getId());
         }
 
         return null;

@@ -5,7 +5,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Auto {
-    private Integer id;
+    private Long id;
     private String marca;
     private String modelo;
     private String imagen;
@@ -13,7 +13,7 @@ public class Auto {
     private Boolean terceros;
     private Integer añoFabricación;
 
-    public Auto(int id, String marca, String modelo, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
+    public Auto(Long id, String marca, String modelo, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
@@ -27,11 +27,11 @@ public class Auto {
     }
 
     @Id
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
