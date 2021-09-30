@@ -20,11 +20,11 @@ public class DatosAlquiler {
     }
 
     public Auto getAuto() {
-        return this.auto;
+        return auto;
     }
 
     public Cliente getCliente() {
-        return this.cliente;
+        return cliente;
     }
 
     public String getF_Inicio() {

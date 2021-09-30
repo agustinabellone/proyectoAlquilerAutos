@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.*;
 public class testControladorAlquiler {
 
     Cliente cliente = new Cliente();
-    Auto auto = new Auto();
+    Auto auto = new Auto((long)123, "", "", "", "", null, null);
 
     ControladorAlquiler controladorAlquiler= new ControladorAlquiler();
 
