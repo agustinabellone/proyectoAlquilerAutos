@@ -17,7 +17,7 @@ public class testControladorAlquiler {
 
     ControladorAlquiler controladorAlquiler= new ControladorAlquiler();
 
-    private static final String fechaInicio = "10/01/21";
+    private static final String fechaInicio = "10/01/21"; //USAR DATEEE, LOCALDATE...
     private static final String fechaSalida = "18/01/21";
 
     DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, fechaInicio, fechaSalida );
