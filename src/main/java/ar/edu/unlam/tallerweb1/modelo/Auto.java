@@ -5,15 +5,15 @@ import javax.persistence.Id;
 
 @Entity
 public class Auto {
-    private int id;
+    private Integer id;
     private String marca;
     private String modelo;
     private String imagen;
     private String patente;
-    private boolean terceros;
-    private int añoFabricación;
+    private Boolean terceros;
+    private Integer añoFabricación;
 
-    public Auto(int id, String marca, String modelo, String imagen, String patente, boolean terceros, int añoFabricación) {
+    public Auto(int id, String marca, String modelo, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
@@ -27,11 +27,11 @@ public class Auto {
     }
 
     @Id
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -67,19 +67,19 @@ public class Auto {
         this.patente = patente;
     }
 
-    public boolean isTerceros() {
+    public Boolean isTerceros() {
         return terceros;
     }
 
-    public void setTerceros(boolean terceros) {
+    public void setTerceros(Boolean terceros) {
         this.terceros = terceros;
     }
 
-    public int getAñoFabricación() {
+    public Integer getAñoFabricación() {
         return añoFabricación;
     }
 
-    public void setAñoFabricación(int añoFabricación) {
+    public void setAñoFabricación(Integer añoFabricación) {
         this.añoFabricación = añoFabricación;
     }
 

@@ -5,7 +5,33 @@ import ar.edu.unlam.tallerweb1.modelo.Cliente;
 
 public class DatosAlquiler {
 
-    public DatosAlquiler(Cliente cliente, Auto auto, String fechaInicio, String fechaSalida) {
+    private Auto auto;
+    private Cliente cliente;
+    private String f_ingreso;
+    private String f_regreso;
 
+    public DatosAlquiler(Cliente cliente, Auto auto, String fechaInicio, String fechaRegreso) {
+
+        this.auto=auto;
+        this.cliente=cliente;
+        this.f_ingreso=fechaInicio;
+        this.f_regreso=fechaRegreso;
+
+    }
+
+    public Auto getAuto() {
+        return this.auto;
+    }
+
+    public Cliente getCliente() {
+        return this.cliente;
+    }
+
+    public String getF_Inicio() {
+        return this.f_ingreso;
+    }
+
+    public String getF_Regreso() {
+        return this.f_regreso;
     }
 }
