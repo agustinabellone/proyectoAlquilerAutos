@@ -16,7 +16,7 @@ public class ControladorAlquiler {
     private TablaAlquiler tablaAlquiler= TablaAlquiler.getInstance();
 
     @RequestMapping(path = "/alquilarAuto", method = RequestMethod.POST)
-    public ModelAndView alquilarAuto(@ModelAttribute("datosAlquiler")DatosAlquiler datosAlquiler, HttpServletRequest request){
+    public ModelAndView alquilarAuto(@ModelAttribute("datosAlquiler")DatosAlquiler datosAlquiler){
         //request.getSession().getAttribute("Rol");
         ModelMap model= new ModelMap();
 
