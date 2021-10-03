@@ -10,7 +10,11 @@ public class ControladorUsuarioAdministrador {
         ModelMap model = new ModelMap();
         if (administrador.getRol() == "Admin") {
             model.put("mensaje", "El auto se envio correctamente a mantenimiento");
+            model.put("rolDelUsuario",administrador.getRol());
             return new ModelAndView("mantenimiento", model);
         }
+        model.put("mensaje","Error: no tiene permisos de administrador");
+        model.put("rolDelUsuario",administrador.getRol());
+        return new ModelAndView("home",model);
     }
 }

@@ -34,6 +34,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     }
 
     private void givenQueExisteUnUsuarioAdministrador() {
+        usuarioAdministrador.setRol("Admin");
     }
 
     private Auto givenQueExisteUnAuto() {
@@ -41,6 +42,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     }
 
     private void givenUnUsuarioSinRolDeAdministrador() {
+        usuarioNoAdminstrador.setRol("Invitado");
     }
 
     private ModelAndView whenEnvioElAutoAMantenimiento(Auto auto, String fechaInicial, Usuario usuario) {
