@@ -21,6 +21,11 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         thenElEnvioEsExitoso(mav, "El auto se envio correctamente a mantenimiento");
     }
 
+    @Test
+    public void queUnUsuarioSinRolDeAdministradorNoPuedaEnviarUnaAutoAMantenimiento() {
+
+    }
+
     private void givenQueExisteUnUsuarioAdministrador() {
     }
 
