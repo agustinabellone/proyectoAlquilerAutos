@@ -23,7 +23,11 @@ public class ControladorEnviarAutoAMenteniminetoTest {
 
     @Test
     public void queUnUsuarioSinRolDeAdministradorNoPuedaEnviarUnaAutoAMantenimiento() {
+        givenUnUsuarioSinRolDeAdministrador();
+        Auto AUTO = givenQueExisteUnAuto();
 
+        ModelAndView mav = whenEnvioElAutoAMantenimiento(AUTO, FECHA_INICIAL);
+        thenElEnvioEsFalla(mav, "Error: no tiene permisos de administrador");
     }
 
     private void givenQueExisteUnUsuarioAdministrador() {
@@ -33,12 +37,20 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         return new Auto();
     }
 
+    private void givenUnUsuarioSinRolDeAdministrador() {
+    }
+
     private ModelAndView whenEnvioElAutoAMantenimiento(Auto auto, String fechaInicial) {
         return controladorUsuarioAdministrador.enviarAutoAManteniminento(auto, fechaInicial);
     }
 
     private void thenElEnvioEsExitoso(ModelAndView mav, String mensaje) {
         assertThat(mav.getViewName()).isEqualTo("mantenimiento");
+        assertThat(mav.getModel().get("mensaje")).isEqualTo(mensaje);
+    }
+
+    private void thenElEnvioEsFalla(ModelAndView mav, String mensaje) {
+        assertThat(mav.getViewName()).isEqualTo("home");
         assertThat(mav.getModel().get("mensaje")).isEqualTo(mensaje);
     }
 }
