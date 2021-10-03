@@ -12,7 +12,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     private ControladorUsuarioAdministrador controladorUsuarioAdministrador = new ControladorUsuarioAdministrador();
 
     @Test
-    public void queUnUsuarioAdministradorPuedaEnviarUnAutoAMantenimiento() {
+    public void queUnUsuarioConRolDeAdministradorPuedaEnviarUnAutoAMantenimiento() {
         givenQueExisteUnUsuarioAdministrador();
         Auto AUTO = givenQueExisteUnAuto();
 
