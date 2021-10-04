@@ -83,4 +83,10 @@ public class Auto {
         this.añoFabricación = añoFabricación;
     }
 
+    public void setKm(int kilometrosDefiniddos) {
+    }
+
+    public int getKm() {
+        return 0;
+    }
 }

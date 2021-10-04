@@ -10,6 +10,7 @@ import static org.assertj.core.api.Assertions.*;
 public class ControladorEnviarAutoAMenteniminetoTest {
 
     private static final String FECHA_INICIAL = "3/10/21";
+    private static final int KILOMETROS_DEFINIDDOS = 100;
     private ControladorUsuarioAdministrador controladorUsuarioAdministrador = new ControladorUsuarioAdministrador();
     private Usuario usuarioAdministrador = new Usuario();
     private Usuario usuarioNoAdminstrador = new Usuario();
@@ -17,7 +18,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
 
     @Test
     public void queUnUsuarioConRolDeAdministradorPuedaEnviarUnAutoAMantenimiento() {
-        givenQueExisteUnUsuarioAdministrador();
+        givenQueExisteUnUsuarioConRolAdministrador();
         Auto AUTO = givenQueExisteUnAuto();
 
         ModelAndView mav = whenEnvioElAutoAMantenimiento(AUTO, FECHA_INICIAL, usuarioAdministrador);
@@ -37,7 +38,12 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         thenElEnvioEsFalla(mav, mensaje, usuarioNoAdminstrador, "home");
     }
 
-    private void givenQueExisteUnUsuarioAdministrador() {
+    @Test
+    public void cuandoUnAutoLlegaAUnKilometrajeDefinidoDebeSerEnviadoAMantenimientoCorrectamente() {
+    }
+
+
+    private void givenQueExisteUnUsuarioConRolAdministrador() {
         usuarioAdministrador.setRol("Admin");
     }
 
