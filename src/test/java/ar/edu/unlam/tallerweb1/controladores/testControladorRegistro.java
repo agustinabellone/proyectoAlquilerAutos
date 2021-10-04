@@ -30,7 +30,7 @@ public class testControladorRegistro {
     }
 
     private void thenElRegistroEsExitoso() {
-        assertThat(mav.getViewName()).isEqualTo("login");
+        assertThat(mav.getViewName()).isEqualTo("redirect:/login");
     }
 
     ////////////////////////////////////////////////////////////

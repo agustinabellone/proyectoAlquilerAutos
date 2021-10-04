@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,13 +9,17 @@ import javax.persistence.Id;
 public class Cliente {
     private Long id;
     private String email;
-    private String contraseña;
+    private String clave;
 
     public Cliente(Long id) {
         this.id=id;
     }
 
-    public Cliente(){
+    public Cliente(){}
+
+    public Cliente(DatosRegistro datosRegistro) {
+        this.email = datosRegistro.getEmail();
+        this.clave = datosRegistro.getClave();
     }
 
     @Id
@@ -33,12 +39,12 @@ public class Cliente {
         this.email = email;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getClave() {
+        return clave;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setClave(String contraseña) {
+        this.clave = clave;
     }
 }
 

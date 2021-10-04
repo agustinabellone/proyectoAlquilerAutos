@@ -1,5 +1,10 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
+import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
+import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
+import ar.edu.unlam.tallerweb1.repositorio.TablaCliente;
+import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControladorRegistro {
+    private TablaCliente tablaCliente = TablaCliente.getInstance();
+    private ServicioRegistro servicioRegistro = new ServicioRegistro();
+
 
     @RequestMapping(path = "/registro", method = RequestMethod.GET)
     public ModelAndView mostrarFormularioDeRegistro() {
@@ -23,11 +31,15 @@ public class ControladorRegistro {
 
         ModelMap modelo = new ModelMap();
 
-        if(LasClavesSonDistintas(datosRegistro)){
-            return registroFallido(modelo, "Las claves deben ser iguales");
+        try {
+            servicioRegistro.registrar(datosRegistro);
         }
-        if(LaClaveTieneLongitudIncorrecta(datosRegistro)) {
+        catch (ClavesDistintasException e){
+            return registroFallido(modelo, "Las claves deben ser iguales");
+        } catch (ClaveLongitudIncorrectaException e){
             return registroFallido(modelo, "La clave debe tener al menos 8 caracteres");
+        } catch (ClienteYaExisteException e){
+            return registroFallido(modelo, "El usuario ya se encuentra registrado");
         }
         return registroExitoso();
     }
@@ -41,11 +53,4 @@ public class ControladorRegistro {
         return new ModelAndView("registro", modelo);
     }
 
-    private boolean LaClaveTieneLongitudIncorrecta(DatosRegistro datosRegistro) {
-        return datosRegistro.getClave().length() < 8;
-    }
-
-    private boolean LasClavesSonDistintas(DatosRegistro datosRegistro) {
-        return !datosRegistro.getClave().equals(datosRegistro.getRepiteClave());
-    }
 }
