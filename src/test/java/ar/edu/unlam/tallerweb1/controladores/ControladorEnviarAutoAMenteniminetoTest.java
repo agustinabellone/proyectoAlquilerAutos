@@ -13,6 +13,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     private ControladorUsuarioAdministrador controladorUsuarioAdministrador = new ControladorUsuarioAdministrador();
     private Usuario usuarioAdministrador = new Usuario();
     private Usuario usuarioNoAdminstrador = new Usuario();
+    private String mensaje;
 
     @Test
     public void queUnUsuarioConRolDeAdministradorPuedaEnviarUnAutoAMantenimiento() {
@@ -21,7 +22,8 @@ public class ControladorEnviarAutoAMenteniminetoTest {
 
         ModelAndView mav = whenEnvioElAutoAMantenimiento(AUTO, FECHA_INICIAL, usuarioAdministrador);
 
-        thenElEnvioEsExitoso(mav, "El auto se envio correctamente a mantenimiento",usuarioAdministrador);
+        mensaje = "El auto se envio correctamente a mantenimiento";
+        thenElEnvioEsExitoso(mav, mensaje, usuarioAdministrador, "mantenimiento");
     }
 
     @Test
@@ -30,7 +32,9 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         Auto AUTO = givenQueExisteUnAuto();
 
         ModelAndView mav = whenEnvioElAutoAMantenimiento(AUTO, FECHA_INICIAL, usuarioNoAdminstrador);
-        thenElEnvioEsFalla(mav, "Error: no tiene permisos de administrador",usuarioNoAdminstrador);
+
+        mensaje = "Error: no tiene permisos de administrador";
+        thenElEnvioEsFalla(mav, mensaje, usuarioNoAdminstrador, "home");
     }
 
     private void givenQueExisteUnUsuarioAdministrador() {
@@ -49,14 +53,14 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         return controladorUsuarioAdministrador.enviarAutoAManteniminento(auto, fechaInicial, usuario);
     }
 
-    private void thenElEnvioEsExitoso(ModelAndView mav, String mensaje, Usuario usuarioAdministrador) {
-        assertThat(mav.getViewName()).isEqualTo("mantenimiento");
+    private void thenElEnvioEsExitoso(ModelAndView mav, String mensaje, Usuario usuarioAdministrador, String viewName) {
+        assertThat(mav.getViewName()).isEqualTo(viewName);
         assertThat(mav.getModel().get("mensaje")).isEqualTo(mensaje);
         assertThat(mav.getModel().get("rolDelUsuario")).isEqualTo(usuarioAdministrador.getRol());
     }
 
-    private void thenElEnvioEsFalla(ModelAndView mav, String mensaje, Usuario usuarioNoAdminstrador) {
-        assertThat(mav.getViewName()).isEqualTo("home");
+    private void thenElEnvioEsFalla(ModelAndView mav, String mensaje, Usuario usuarioNoAdminstrador, String viewName) {
+        assertThat(mav.getViewName()).isEqualTo(viewName);
         assertThat(mav.getModel().get("mensaje")).isEqualTo(mensaje);
         assertThat(mav.getModel().get("rolDelUsuario")).isEqualTo(usuarioNoAdminstrador.getRol());
     }

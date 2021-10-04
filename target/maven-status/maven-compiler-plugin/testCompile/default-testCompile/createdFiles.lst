@@ -1,2 +1,5 @@
-ar\edu\unlam\tallerweb1\SpringTest.class
-ar\edu\unlam\tallerweb1\persistencia\ConexionBaseDeDatosTest.class
+SpringTest.class
+ar/edu/unlam/tallerweb1/controladores/testControladorSuscripcion.class
+ar/edu/unlam/tallerweb1/controladores/ControladorEnviarAutoAMenteniminetoTest.class
+ar/edu/unlam/tallerweb1/controladores/testControladorAlquiler.class
+ar/edu/unlam/tallerweb1/servicios/testServicioAlquiler.class
