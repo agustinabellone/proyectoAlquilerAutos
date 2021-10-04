@@ -9,6 +9,7 @@ ar/edu/unlam/tallerweb1/Exceptions/AutoYaAlquiladoException.class
 ar/edu/unlam/tallerweb1/modelo/Cliente.class
 ar/edu/unlam/tallerweb1/controladores/DatosAlquiler.class
 ar/edu/unlam/tallerweb1/servicios/ServicioAlquilar.class
+ar/edu/unlam/tallerweb1/controladores/DatosEnvioAMantenimiento.class
 ar/edu/unlam/tallerweb1/controladores/ControladorSuscripcion.class
 ar/edu/unlam/tallerweb1/controladores/DatosSuscripcion.class
 ar/edu/unlam/tallerweb1/servicios/ServicioAlquilarImpls.class
