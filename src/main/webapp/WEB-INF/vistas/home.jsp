@@ -19,8 +19,8 @@
 <body>
 <header class = "d-flex flex-row-reverse p-3">
     <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
-    <button type="button" class="btn btn-primary">Iniciar sesión</button>
-    <button type="button" class="btn btn-default">Crear cuenta</button>
+        <a href="login" class="btn btn-primary">Iniciar sesión</a>
+        <a href="registro" class="btn btn-default">Crear cuenta</a>
     </div>
 </header>
 <section>
