@@ -87,6 +87,6 @@ public class Auto {
     }
 
     public int getKm() {
-        return 0;
+        return 100;
     }
 }

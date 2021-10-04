@@ -40,6 +40,26 @@ public class ControladorEnviarAutoAMenteniminetoTest {
 
     @Test
     public void cuandoUnAutoLlegaAUnKilometrajeDefinidoDebeSerEnviadoAMantenimientoCorrectamente() {
+        givenQueExisteUnUsuarioConRolAdministrador();
+        Auto conKmDefinidos = givenQueExisteUnAutoCon(KILOMETROS_DEFINIDDOS);
+
+        ModelAndView mav = whenEnvioElAutoAMantenimiento(conKmDefinidos, FECHA_INICIAL, usuarioAdministrador);
+
+        mensaje = "El auto se envio correctamente a mantenimiento";
+        thenElAutoConKilometrosDefinidosEsExitoso(mav, conKmDefinidos, mensaje, usuarioAdministrador, "mantenimiento");
+    }
+
+    private void thenElAutoConKilometrosDefinidosEsExitoso(ModelAndView mav, Auto conKmDefinidos, String mensaje, Usuario usuarioNoAdminstrador, String viewName) {
+        assertThat(mav.getViewName()).isEqualTo(viewName);
+        assertThat(mav.getModel().get("mensaje")).isEqualTo(mensaje);
+        assertThat(mav.getModel().get("kilometrosDefinidos")).isEqualTo(conKmDefinidos.getKm());
+        assertThat(mav.getModel().get("rolDelUsuario")).isEqualTo(usuarioNoAdminstrador.getRol());
+    }
+
+    private Auto givenQueExisteUnAutoCon(int kilometrosDefiniddos) {
+        Auto auto = new Auto();
+        auto.setKm(kilometrosDefiniddos);
+        return auto;
     }
 
 
