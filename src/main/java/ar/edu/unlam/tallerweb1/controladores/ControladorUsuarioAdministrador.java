@@ -1,25 +1,28 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
+
+@Controller
 public class ControladorUsuarioAdministrador {
 
     private ModelMap model = new ModelMap();
     private String viewName;
     private String mensaje;
 
-    public ModelAndView enviarAutoAManteniminento(Auto auto, String fechaInicial, Usuario usuario) {
+    public ModelAndView enviarAutoAManteniminento(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
 
-        if (esAdministrador(usuario)) {
-            enviarElAutoAMantenimiento(auto, fechaInicial);
+        if (esAdministrador(datosEnvioAMantenimiento.getUsuario())) {
+            enviarElAutoAMantenimientoCon(datosEnvioAMantenimiento);
         } else {
-            noEnviarElAutoAMantenimientoYredirigirAlHome(usuario);
+            noEnviarElAutoAMantenimientoYredirigirAlHome();
         }
+
         model.put("mensaje", mensaje);
-        model.put("rolDelUsuario", usuario.getRol());
+        model.put("rolDelUsuario", datosEnvioAMantenimiento.getUsuario().getRol());
         return new ModelAndView(viewName, model);
     }
 
@@ -27,14 +30,14 @@ public class ControladorUsuarioAdministrador {
         return administrador.getRol() == "Admin";
     }
 
-    private void enviarElAutoAMantenimiento(Auto auto, String fechaInicial) {
+    private void enviarElAutoAMantenimientoCon(DatosEnvioAMantenimiento datos) {
         viewName = "mantenimiento";
         mensaje = "El auto se envio correctamente a mantenimiento";
-        model.put("kilometrosDefinidos", auto.getKm());
-        model.put("fechaDeEnvioAMantenimiento", fechaInicial);
+        model.put("kilometrosDefinidos", datos.getAuto().getKm());
+        model.put("fechaDeEnvioAMantenimiento", datos.getFechaInicial());
     }
 
-    private void noEnviarElAutoAMantenimientoYredirigirAlHome(Usuario usuario) {
+    private void noEnviarElAutoAMantenimientoYredirigirAlHome() {
         viewName = "home";
         mensaje = "Error: no tiene permisos de administrador";
     }

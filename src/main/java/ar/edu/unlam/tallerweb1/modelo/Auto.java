@@ -12,6 +12,7 @@ public class Auto {
     private String patente;
     private Boolean terceros;
     private Integer añoFabricación;
+    private int kilometros;
 
     public Auto(Long id, String marca, String modelo, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
         this.id = id;
@@ -87,6 +88,7 @@ public class Auto {
     }
 
     public int getKm() {
-        return 100;
+        this.kilometros = 100;
+        return kilometros;
     }
 }
