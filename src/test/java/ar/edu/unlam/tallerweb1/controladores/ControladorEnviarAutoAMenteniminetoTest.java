@@ -15,16 +15,17 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     private Usuario usuarioAdministrador = new Usuario();
     private Usuario usuarioNoAdminstrador = new Usuario();
     private String mensaje;
+    private ModelAndView modelAndView = new ModelAndView();
 
     @Test
     public void queUnUsuarioConRolDeAdministradorPuedaEnviarUnAutoAMantenimiento() {
         givenQueExisteUnUsuarioConRolAdministrador();
         Auto AUTO = givenQueExisteUnAuto();
 
-        ModelAndView mav = whenEnvioElAutoAMantenimiento(AUTO, FECHA_INICIAL, usuarioAdministrador);
+        modelAndView = whenEnvioElAutoAMantenimiento(AUTO, FECHA_INICIAL, usuarioAdministrador);
 
         mensaje = "El auto se envio correctamente a mantenimiento";
-        thenElEnvioEsExitoso(mav, mensaje, usuarioAdministrador, "mantenimiento");
+        thenElEnvioEsExitoso(modelAndView, mensaje, usuarioAdministrador, "mantenimiento");
     }
 
     @Test
@@ -32,10 +33,10 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         givenUnUsuarioSinRolDeAdministrador();
         Auto AUTO = givenQueExisteUnAuto();
 
-        ModelAndView mav = whenEnvioElAutoAMantenimiento(AUTO, FECHA_INICIAL, usuarioNoAdminstrador);
+        modelAndView = whenEnvioElAutoAMantenimiento(AUTO, FECHA_INICIAL, usuarioNoAdminstrador);
 
         mensaje = "Error: no tiene permisos de administrador";
-        thenElEnvioEsFalla(mav, mensaje, usuarioNoAdminstrador, "home");
+        thenElEnvioEsFalla(modelAndView, mensaje, usuarioNoAdminstrador, "home");
     }
 
     @Test
@@ -43,10 +44,10 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         givenQueExisteUnUsuarioConRolAdministrador();
         Auto conKmDefinidos = givenQueExisteUnAutoCon(KILOMETROS_DEFINIDDOS);
 
-        ModelAndView mav = whenEnvioElAutoAMantenimiento(conKmDefinidos, FECHA_INICIAL, usuarioAdministrador);
+        modelAndView = whenEnvioElAutoAMantenimiento(conKmDefinidos, FECHA_INICIAL, usuarioAdministrador);
 
         mensaje = "El auto se envio correctamente a mantenimiento";
-        thenElAutoConKilometrosDefinidosEsExitoso(mav, conKmDefinidos, mensaje, usuarioAdministrador, "mantenimiento");
+        thenElAutoConKilometrosDefinidosEsExitoso(modelAndView, conKmDefinidos, mensaje, usuarioAdministrador, "mantenimiento");
     }
 
     private void thenElAutoConKilometrosDefinidosEsExitoso(ModelAndView mav, Auto conKmDefinidos, String mensaje, Usuario usuarioNoAdminstrador, String viewName) {

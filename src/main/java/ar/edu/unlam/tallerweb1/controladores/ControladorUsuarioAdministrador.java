@@ -14,7 +14,7 @@ public class ControladorUsuarioAdministrador {
     public ModelAndView enviarAutoAManteniminento(Auto auto, String fechaInicial, Usuario usuario) {
 
         if (esAdministrador(usuario)) {
-            enviarElAutoAMantenimiento(auto);
+            enviarElAutoAMantenimiento(auto, fechaInicial);
         } else {
             noEnviarElAutoAMantenimientoYredirigirAlHome(usuario);
         }
@@ -27,11 +27,11 @@ public class ControladorUsuarioAdministrador {
         return administrador.getRol() == "Admin";
     }
 
-    private void enviarElAutoAMantenimiento(Auto auto) {
+    private void enviarElAutoAMantenimiento(Auto auto, String fechaInicial) {
         viewName = "mantenimiento";
         mensaje = "El auto se envio correctamente a mantenimiento";
-        model.put("kilometrosDefinidos",auto.getKm());
-
+        model.put("kilometrosDefinidos", auto.getKm());
+        model.put("fechaDeEnvioAMantenimiento", fechaInicial);
     }
 
     private void noEnviarElAutoAMantenimientoYredirigirAlHome(Usuario usuario) {
