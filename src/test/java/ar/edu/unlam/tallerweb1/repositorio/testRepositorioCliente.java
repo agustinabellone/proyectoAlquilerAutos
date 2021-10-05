@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 public class testRepositorioCliente extends SpringTest {
 
     @Autowired
-    private RepositorioCliente repositorioCliente;
+    private  RepositorioCliente repositorioCliente;
 
     /// TEST DE EJEMPLO
     @Test

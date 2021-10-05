@@ -1,2 +1,9 @@
-ar\edu\unlam\tallerweb1\SpringTest.class
-ar\edu\unlam\tallerweb1\persistencia\ConexionBaseDeDatosTest.class
+ar/edu/unlam/tallerweb1/persistencia/testConexionBaseDeDatos.class
+ar/edu/unlam/tallerweb1/SpringTest.class
+ar/edu/unlam/tallerweb1/controladores/testControladorRegistro.class
+ar/edu/unlam/tallerweb1/repositorio/testRepositorioCliente.class
+ar/edu/unlam/tallerweb1/controladores/testControladorSuscripcion.class
+ar/edu/unlam/tallerweb1/persistencia/testPersistenciaRegistro.class
+ar/edu/unlam/tallerweb1/controladores/testControladorAlquiler.class
+ar/edu/unlam/tallerweb1/servicios/testServicioRegistro.class
+ar/edu/unlam/tallerweb1/servicios/testServicioAlquiler.class
