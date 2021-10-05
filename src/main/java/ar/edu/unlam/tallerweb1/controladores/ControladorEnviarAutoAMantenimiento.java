@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMantenimiento;
-import ar.edu.unlam.tallerweb1.servicios.ServicioMantenimientoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,23 +17,17 @@ public class ControladorEnviarAutoAMantenimiento {
     private ServicioMantenimiento servicioMantenimiento;
 
     @Autowired
-    public ControladorEnviarAutoAMantenimiento(ServicioMantenimiento servicioMantenimiento){
+    public ControladorEnviarAutoAMantenimiento(ServicioMantenimiento servicioMantenimiento) {
         this.servicioMantenimiento = servicioMantenimiento;
     }
 
     public ModelAndView enviarAutoAManteniminento(DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
 
         if (esAdministrador(datosEnvioAMantenimiento.getUsuario())) {
-            try {
-                enviarElAutoAMantenimientoCon(datosEnvioAMantenimiento);
-                servicioMantenimiento.enviarAutoAMantenimiento(datosEnvioAMantenimiento);
-            } catch (Exception e) {
-                throw new Exception();
-            }
+            enviarElAutoAMantenimientoSinoLanzaUnaExcepcion(datosEnvioAMantenimiento);
         } else {
             noEnviarElAutoAMantenimientoYredirigirAlHome();
         }
-
         model.put("mensaje", mensaje);
         model.put("rolDelUsuario", datosEnvioAMantenimiento.getUsuario().getRol());
         return new ModelAndView(viewName, model);
@@ -44,15 +37,20 @@ public class ControladorEnviarAutoAMantenimiento {
         return administrador.getRol() == "Admin";
     }
 
-    private void enviarElAutoAMantenimientoCon(DatosEnvioAMantenimiento datos) {
-        viewName = "mantenimiento";
-        mensaje = "El auto se envio correctamente a mantenimiento";
-        model.put("kilometrosDefinidos", datos.getAuto().getKm());
-        model.put("fechaDeEnvioAMantenimiento", datos.getFechaInicial());
+    private void enviarElAutoAMantenimientoSinoLanzaUnaExcepcion(DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
+        try {
+            servicioMantenimiento.enviarAutoAMantenimiento(datosEnvioAMantenimiento);
+            viewName = "mantenimiento";
+            mensaje = "El auto se envio correctamente a mantenimiento";
+            model.put("kilometrosDefinidos", datosEnvioAMantenimiento.getAuto().getKm());
+            model.put("fechaDeEnvioAMantenimiento", datosEnvioAMantenimiento.getFechaInicial());
+        } catch (Exception e) {
+            throw new Exception();
+        }
     }
 
     private void noEnviarElAutoAMantenimientoYredirigirAlHome() {
-        viewName = "home";
-        mensaje = "Error: no tiene permisos de administrador";
+        viewName = "Lista-de-autos";
+        mensaje = "El envio falla";
     }
 }

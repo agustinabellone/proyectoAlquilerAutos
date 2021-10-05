@@ -13,42 +13,32 @@ import static org.mockito.Mockito.mock;
 
 public class ControladorEnviarAutoAMenteniminetoTest {
 
-    private static final String FECHA_INICIAL = "3/10/21";
-    private static final int KILOMETROS_DEFINIDDOS = 100;
-
-    private ServicioMantenimiento servicioMantenimiento = mock(ServicioMantenimientoImpl.class);
-    private ControladorEnviarAutoAMantenimiento controladorEnviarAutoAMantenimiento = new ControladorEnviarAutoAMantenimiento(servicioMantenimiento);
-    private Usuario usuario = new Usuario();
-    private ModelAndView modelAndView = new ModelAndView();
-    private Auto auto = new Auto();
-    private DatosEnvioAMantenimiento datosEnvioAMantenimiento = new DatosEnvioAMantenimiento(auto, FECHA_INICIAL, usuario);
-
     @Test
     public void queUnUsuarioConRolDeAdministradorPuedaEnviarUnAutoAMantenimiento() throws Exception {
-        givenQueExisteUnUsuarioConRolAdministrador();
+        Usuario administrador = givenQueExisteUnUsuarioConRolDe(ADMINISTRADOR);
         givenQueExisteUnAuto();
 
-        modelAndView = whenEnvioElAutoAMantenimientoCon(datosEnvioAMantenimiento);
+        modelAndView = whenEnvioElAutoAMantenimientoCon(datosEnviadosPorUsuarioAdministrador);
 
-        thenElEnvioEsExitoso("El auto se envio correctamente a mantenimiento", "mantenimiento");
+        thenElEnvioEsExitoso(administrador, "El auto se envio correctamente a mantenimiento", "mantenimiento");
     }
 
     @Test
     public void queUnUsuarioSinRolDeAdministradorNoPuedaEnviarUnaAutoAMantenimiento() throws Exception {
-        givenUnUsuarioSinRolDeAdministrador();
+        Usuario invitado = givenQueExisteUnUsuarioConRolDe(INVITADO);
         givenQueExisteUnAuto();
 
-        modelAndView = whenEnvioElAutoAMantenimientoCon(datosEnvioAMantenimiento);
+        modelAndView = whenEnvioElAutoAMantenimientoCon(datosEnviadosPorUsuarioInvitado);
 
-        thenElEnvioEsFalla("Error: no tiene permisos de administrador", "home");
+        thenElEnvioEsFalla(invitado, "El envio falla", "Lista-de-autos");
     }
 
     @Test
     public void cuandoUnAutoLlegaAUnKilometrajeDefinidoDebeSerEnviadoAMantenimientoCorrectamente() throws Exception {
-        givenQueExisteUnUsuarioConRolAdministrador();
+        givenQueExisteUnUsuarioConRolDe(ADMINISTRADOR);
         Auto conKmDefinidos = givenQueExisteUnAutoCon(KILOMETROS_DEFINIDDOS);
 
-        modelAndView = whenEnvioElAutoAMantenimientoCon(datosEnvioAMantenimiento);
+        modelAndView = whenEnvioElAutoAMantenimientoCon(datosEnviadosPorUsuarioAdministrador);
 
 
         thenElAutoConKilometrosDefinidosEsExitoso(conKmDefinidos, "El auto se envio correctamente a mantenimiento", "mantenimiento");
@@ -57,45 +47,42 @@ public class ControladorEnviarAutoAMenteniminetoTest {
 
     @Test(expected = Exception.class)
     public void queNoSePuedaEnviarAlMismoAutoDosVecesAMantenimiento() throws Exception {
-        givenQueExisteUnUsuarioConRolAdministrador();
+        Usuario administrador = givenQueExisteUnUsuarioConRolDe(ADMINISTRADOR);
         givenQueExisteUnAutoEnMatenimiento();
 
-        whenEnvioElAutoAMantenimientoCon(datosEnvioAMantenimiento);
+        whenEnvioElAutoAMantenimientoCon(datosEnviadosPorUsuarioAdministrador);
 
+        thenElEnvioEsFalla(administrador, "El envio falla", "Lista-de-autos");
     }
 
-    private void givenQueExisteUnAutoEnMatenimiento() throws Exception {
-        doThrow(Exception.class).when(servicioMantenimiento).enviarAutoAMantenimiento(datosEnvioAMantenimiento);
+    private Usuario givenQueExisteUnUsuarioConRolDe(Usuario usuario) {
+        return usuario;
+    }
+
+    private Auto givenQueExisteUnAuto() {
+        return AUTO;
     }
 
     private Auto givenQueExisteUnAutoCon(int kilometrosDefiniddos) {
-        auto.setKm(kilometrosDefiniddos);
-        return auto;
+        AUTO.setKm(100);
+        return AUTO;
     }
 
-
-    private void givenQueExisteUnUsuarioConRolAdministrador() {
-        usuario.setRol("Admin");
-    }
-
-    private void givenQueExisteUnAuto() {
-    }
-
-    private void givenUnUsuarioSinRolDeAdministrador() {
-        usuario.setRol("Invitado");
+    private void givenQueExisteUnAutoEnMatenimiento() throws Exception {
+        doThrow(Exception.class).when(servicioMantenimiento).enviarAutoAMantenimiento(datosEnviadosPorUsuarioAdministrador);
     }
 
     private ModelAndView whenEnvioElAutoAMantenimientoCon(DatosEnvioAMantenimiento datos) throws Exception {
         return controladorEnviarAutoAMantenimiento.enviarAutoAManteniminento(datos);
     }
 
-    private void thenElEnvioEsExitoso(String mensaje, String viewName) {
+    private void thenElEnvioEsExitoso(Usuario usuario, String mensaje, String viewName) {
         assertThat(modelAndView.getViewName()).isEqualTo(viewName);
         assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
         assertThat(modelAndView.getModel().get("rolDelUsuario")).isEqualTo(usuario.getRol());
     }
 
-    private void thenElEnvioEsFalla(String mensaje, String viewName) {
+    private void thenElEnvioEsFalla(Usuario usuario, String mensaje, String viewName) {
         assertThat(modelAndView.getViewName()).isEqualTo(viewName);
         assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
         assertThat(modelAndView.getModel().get("rolDelUsuario")).isEqualTo(usuario.getRol());
@@ -106,6 +93,20 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         assertThat(modelAndView.getViewName()).isEqualTo(viewName);
         assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
         assertThat(modelAndView.getModel().get("kilometrosDefinidos")).isEqualTo(conKmDefinidos.getKm());
-        assertThat(modelAndView.getModel().get("rolDelUsuario")).isEqualTo(usuario.getRol());
     }
+
+    private static final String FECHA_INICIAL = "3/10/21";
+    private static final int KILOMETROS_DEFINIDDOS = 100;
+    private static Usuario INVITADO = new Usuario("Invitado");
+    private static Usuario ADMINISTRADOR = new Usuario("Admin");
+    private static Auto AUTO = new Auto();
+
+    private ServicioMantenimiento servicioMantenimiento = mock(ServicioMantenimientoImpl.class);
+    private ModelAndView modelAndView = new ModelAndView();
+    private ControladorEnviarAutoAMantenimiento controladorEnviarAutoAMantenimiento
+            = new ControladorEnviarAutoAMantenimiento(servicioMantenimiento);
+    private DatosEnvioAMantenimiento datosEnviadosPorUsuarioAdministrador
+            = new DatosEnvioAMantenimiento(AUTO, FECHA_INICIAL, ADMINISTRADOR);
+    private DatosEnvioAMantenimiento datosEnviadosPorUsuarioInvitado
+            = new DatosEnvioAMantenimiento(AUTO, FECHA_INICIAL, INVITADO);
 }
