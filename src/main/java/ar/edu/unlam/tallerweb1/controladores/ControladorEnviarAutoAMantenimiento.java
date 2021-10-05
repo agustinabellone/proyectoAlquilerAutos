@@ -25,8 +25,8 @@ public class ControladorEnviarAutoAMantenimiento {
     public ModelAndView enviarAutoAManteniminento(DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
 
         if (esAdministrador(datosEnvioAMantenimiento.getUsuario())) {
-            enviarElAutoAMantenimientoCon(datosEnvioAMantenimiento);
             try {
+                enviarElAutoAMantenimientoCon(datosEnvioAMantenimiento);
                 servicioMantenimiento.enviarAutoAMantenimiento(datosEnvioAMantenimiento);
             } catch (Exception e) {
                 throw new Exception();
