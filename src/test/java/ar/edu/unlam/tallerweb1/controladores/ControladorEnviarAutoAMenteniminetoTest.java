@@ -8,10 +8,10 @@ import org.springframework.web.servlet.ModelAndView;
 import static org.assertj.core.api.Assertions.*;
 
 public class ControladorEnviarAutoAMenteniminetoTest {
-    // TODO: HACER EL TEST DEL CASO CONTRARIO DE EL AUTO CON KM DEFINIDOS
+
     private static final String FECHA_INICIAL = "3/10/21";
     private static final int KILOMETROS_DEFINIDDOS = 100;
-    private ControladorUsuarioAdministrador controladorUsuarioAdministrador = new ControladorUsuarioAdministrador();
+    private ControladorEnviarAutoAMantenimiento controladorEnviarAutoAMantenimiento = new ControladorEnviarAutoAMantenimiento();
     private Usuario usuario = new Usuario();
     private ModelAndView modelAndView = new ModelAndView();
     private Auto auto = new Auto();
@@ -48,6 +48,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         thenElAutoConKilometrosDefinidosEsExitoso(conKmDefinidos, "El auto se envio correctamente a mantenimiento", "mantenimiento");
     }
 
+
     private Auto givenQueExisteUnAutoCon(int kilometrosDefiniddos) {
         auto.setKm(kilometrosDefiniddos);
         return auto;
@@ -66,7 +67,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     }
 
     private ModelAndView whenEnvioElAutoAMantenimientoCon(DatosEnvioAMantenimiento datos) {
-        return controladorUsuarioAdministrador.enviarAutoAManteniminento(datos);
+        return controladorEnviarAutoAMantenimiento.enviarAutoAManteniminento(datos);
     }
 
     private void thenElEnvioEsExitoso(String mensaje, String viewName) {
@@ -79,6 +80,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         assertThat(modelAndView.getViewName()).isEqualTo(viewName);
         assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
         assertThat(modelAndView.getModel().get("rolDelUsuario")).isEqualTo(usuario.getRol());
+
     }
 
     private void thenElAutoConKilometrosDefinidosEsExitoso(Auto conKmDefinidos, String mensaje, String viewName) {

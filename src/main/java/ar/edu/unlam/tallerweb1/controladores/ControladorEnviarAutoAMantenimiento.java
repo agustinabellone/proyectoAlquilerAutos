@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-public class ControladorUsuarioAdministrador {
+public class ControladorEnviarAutoAMantenimiento {
 
     private ModelMap model = new ModelMap();
     private String viewName;
