@@ -1,6 +1,9 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioMantenimiento;
+import ar.edu.unlam.tallerweb1.servicios.ServicioMantenimientoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,11 +15,22 @@ public class ControladorEnviarAutoAMantenimiento {
     private ModelMap model = new ModelMap();
     private String viewName;
     private String mensaje;
+    private ServicioMantenimiento servicioMantenimiento;
 
-    public ModelAndView enviarAutoAManteniminento(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
+    @Autowired
+    public ControladorEnviarAutoAMantenimiento(ServicioMantenimiento servicioMantenimiento){
+        this.servicioMantenimiento = servicioMantenimiento;
+    }
+
+    public ModelAndView enviarAutoAManteniminento(DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
 
         if (esAdministrador(datosEnvioAMantenimiento.getUsuario())) {
             enviarElAutoAMantenimientoCon(datosEnvioAMantenimiento);
+            try {
+                servicioMantenimiento.enviarAutoAMantenimiento(datosEnvioAMantenimiento);
+            } catch (Exception e) {
+                throw new Exception();
+            }
         } else {
             noEnviarElAutoAMantenimientoYredirigirAlHome();
         }

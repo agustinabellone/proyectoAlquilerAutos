@@ -2,23 +2,29 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioMantenimiento;
+import ar.edu.unlam.tallerweb1.servicios.ServicioMantenimientoImpl;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 
 public class ControladorEnviarAutoAMenteniminetoTest {
 
     private static final String FECHA_INICIAL = "3/10/21";
     private static final int KILOMETROS_DEFINIDDOS = 100;
-    private ControladorEnviarAutoAMantenimiento controladorEnviarAutoAMantenimiento = new ControladorEnviarAutoAMantenimiento();
+
+    private ServicioMantenimiento servicioMantenimiento = mock(ServicioMantenimientoImpl.class);
+    private ControladorEnviarAutoAMantenimiento controladorEnviarAutoAMantenimiento = new ControladorEnviarAutoAMantenimiento(servicioMantenimiento);
     private Usuario usuario = new Usuario();
     private ModelAndView modelAndView = new ModelAndView();
     private Auto auto = new Auto();
     private DatosEnvioAMantenimiento datosEnvioAMantenimiento = new DatosEnvioAMantenimiento(auto, FECHA_INICIAL, usuario);
 
     @Test
-    public void queUnUsuarioConRolDeAdministradorPuedaEnviarUnAutoAMantenimiento() {
+    public void queUnUsuarioConRolDeAdministradorPuedaEnviarUnAutoAMantenimiento() throws Exception {
         givenQueExisteUnUsuarioConRolAdministrador();
         givenQueExisteUnAuto();
 
@@ -28,7 +34,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     }
 
     @Test
-    public void queUnUsuarioSinRolDeAdministradorNoPuedaEnviarUnaAutoAMantenimiento() {
+    public void queUnUsuarioSinRolDeAdministradorNoPuedaEnviarUnaAutoAMantenimiento() throws Exception {
         givenUnUsuarioSinRolDeAdministrador();
         givenQueExisteUnAuto();
 
@@ -38,7 +44,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     }
 
     @Test
-    public void cuandoUnAutoLlegaAUnKilometrajeDefinidoDebeSerEnviadoAMantenimientoCorrectamente() {
+    public void cuandoUnAutoLlegaAUnKilometrajeDefinidoDebeSerEnviadoAMantenimientoCorrectamente() throws Exception {
         givenQueExisteUnUsuarioConRolAdministrador();
         Auto conKmDefinidos = givenQueExisteUnAutoCon(KILOMETROS_DEFINIDDOS);
 
@@ -49,9 +55,17 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     }
 
 
-    @Test
-    public void queNoSePuedaEnviarAlMismoAutoDosVecesAMantenimiento() {
+    @Test(expected = Exception.class)
+    public void queNoSePuedaEnviarAlMismoAutoDosVecesAMantenimiento() throws Exception {
+        givenQueExisteUnUsuarioConRolAdministrador();
+        givenQueExisteUnAutoEnMatenimiento();
 
+        whenEnvioElAutoAMantenimientoCon(datosEnvioAMantenimiento);
+
+    }
+
+    private void givenQueExisteUnAutoEnMatenimiento() throws Exception {
+        doThrow(Exception.class).when(servicioMantenimiento).enviarAutoAMantenimiento(datosEnvioAMantenimiento);
     }
 
     private Auto givenQueExisteUnAutoCon(int kilometrosDefiniddos) {
@@ -71,7 +85,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
         usuario.setRol("Invitado");
     }
 
-    private ModelAndView whenEnvioElAutoAMantenimientoCon(DatosEnvioAMantenimiento datos) {
+    private ModelAndView whenEnvioElAutoAMantenimientoCon(DatosEnvioAMantenimiento datos) throws Exception {
         return controladorEnviarAutoAMantenimiento.enviarAutoAManteniminento(datos);
     }
 
