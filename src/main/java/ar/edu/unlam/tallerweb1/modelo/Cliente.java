@@ -1,18 +1,22 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Cliente {
+
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
     private String email;
     private String clave;
 
     public Cliente(Long id) {
-        this.id=id;
+        this.id = id;
     }
 
     public Cliente(){}
@@ -22,7 +26,7 @@ public class Cliente {
         this.clave = datosRegistro.getClave();
     }
 
-    @Id
+
     public Long getId() {
         return id;
     }
@@ -47,4 +51,3 @@ public class Cliente {
         this.clave = clave;
     }
 }
-
