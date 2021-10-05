@@ -49,6 +49,11 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     }
 
 
+    @Test
+    public void queNoSePuedaEnviarAlMismoAutoDosVecesAMantenimiento() {
+
+    }
+
     private Auto givenQueExisteUnAutoCon(int kilometrosDefiniddos) {
         auto.setKm(kilometrosDefiniddos);
         return auto;
