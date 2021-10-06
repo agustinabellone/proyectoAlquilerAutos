@@ -3,7 +3,6 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
-import ar.edu.unlam.tallerweb1.repositorio.TablaCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControladorRegistro {
-    private TablaCliente tablaCliente = TablaCliente.getInstance();
+
     private ServicioRegistro servicioRegistro = new ServicioRegistro();
 
 
@@ -27,7 +26,7 @@ public class ControladorRegistro {
     }
 
     @RequestMapping(path = "/validar-registro", method = RequestMethod.POST)
-    public ModelAndView registrar (@ModelAttribute("datosRegistro") DatosRegistro datosRegistro) {
+    public ModelAndView registrar(@ModelAttribute("datosRegistro") DatosRegistro datosRegistro) {
 
         ModelMap modelo = new ModelMap();
 

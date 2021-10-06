@@ -46,12 +46,11 @@
               </div>
             </form:form>
 
+          </div>
             <c:if test="${not empty error}">
-              <caption><span>${error}</span></caption>
+              <caption><p class="text-center text-danger">${error}</p></caption>
               <br>
             </c:if>
-
-          </div>
         </div>
         <a href="home" class="btn col text-center">Volver</a>
       </div>

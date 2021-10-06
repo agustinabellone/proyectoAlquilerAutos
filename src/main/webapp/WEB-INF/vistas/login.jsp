@@ -28,19 +28,12 @@
                         <form:form action="validar-login" method="POST" modelAttribute="datosLogin">
                             <div class="form-group">
                                 <label >Email</label>
-                                <input path="email" type="email" class="form-control" name="email"  />
+                                <form:input path="email" type="email" class="form-control" name="email"  />
                             </div>
 
                             <div class="form-group">
                                 <label>Contraseña</label>
-                                <input path="clave" type="password" class="form-control" name="password" />
-                            </div>
-
-                            <div class="form-group">
-                                <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" name="remember" id="remember" class="custom-control-input">
-                                    <label for="remember" class="custom-control-label">Recordar datos</label>
-                                </div>
+                                <form:input path="clave" type="password" class="form-control" name="password" />
                             </div>
 
                             <div class="form-group m-0">
@@ -51,6 +44,11 @@
                             </div>
                         </form:form>
                     </div>
+
+                    <c:if test="${not empty error}">
+                        <caption><p class="text-center text-danger">${error}</p></caption>
+                        <br>
+                    </c:if>
                 </div>
                 <a href="home" class="btn col text-center">Volver</a>
             </div>
