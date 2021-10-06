@@ -2,8 +2,11 @@ package ar.edu.unlam.tallerweb1.repositorio;
 
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class RepositorioClienteImpl implements RepositorioCliente {
@@ -24,4 +27,20 @@ public class RepositorioClienteImpl implements RepositorioCliente {
     public Cliente buscarPor(Long id) {
         return sessionFactory.getCurrentSession().get(Cliente.class, id);
     }
+
+    @Override
+    public List<Cliente> buscarPor(String email) {
+        return sessionFactory.getCurrentSession()
+                .createCriteria(Cliente.class)
+                .add(Restrictions.eq("email", email))
+                .list();
+    }
+
+    @Override
+    public List<Cliente> buscarTodos() {
+        return sessionFactory.getCurrentSession()
+                .createCriteria(Cliente.class)
+                .list();
+    }
+
 }
