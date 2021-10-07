@@ -15,6 +15,10 @@ public class DatosSuscripcion {
         this.tipoSuscripcion=tipoSuscripcion;
     }
 
+    public DatosSuscripcion() {
+
+    }
+
     public Cliente getCliente() {
         return cliente;
     }

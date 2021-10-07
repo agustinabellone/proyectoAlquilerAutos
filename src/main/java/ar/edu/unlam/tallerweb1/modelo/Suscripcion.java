@@ -2,15 +2,19 @@ package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosSuscripcion;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Suscripcion {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private Long Cliente_id;
+
+    @Column(nullable = false)
     private Long Tipo_id;
 
     public Suscripcion(){
@@ -38,12 +42,11 @@ public class Suscripcion {
         this.Tipo_id = tipo_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Id
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

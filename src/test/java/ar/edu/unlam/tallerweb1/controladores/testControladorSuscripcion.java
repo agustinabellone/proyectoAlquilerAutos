@@ -1,34 +1,34 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
-import ar.edu.unlam.tallerweb1.repositorio.TablaAlquiler;
-import ar.edu.unlam.tallerweb1.repositorio.TablaSuscripcion;
-import org.junit.Before;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcionImpl;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcionImpl;
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class testControladorSuscripcion {
 
-    private static final Long ID_CLIENTE=(long)123;
+    private static final Long ID_CLIENTE=123L;
+    private static final Long ID_TIPO=1L;
 
     private Cliente cliente = new Cliente(ID_CLIENTE) ;
-    private TipoSuscripcion tipoSuscripcion = new TipoSuscripcion() ;
+    private TipoSuscripcion tipoSuscripcion = new TipoSuscripcion(ID_TIPO, "") ;
 
-    private ControladorSuscripcion controladorSuscripcion= new ControladorSuscripcion();
+    private ServicioSuscripcion servicioSuscripcion = mock(ServicioSuscripcion.class);
+    private ControladorSuscripcion controladorSuscripcion= new ControladorSuscripcion(servicioSuscripcion);
 
     private DatosSuscripcion datosSuscripcion = new DatosSuscripcion(cliente, tipoSuscripcion );
 
     private ModelAndView mav;
 
-    @Before
-    public void init() {
-        TablaSuscripcion.getInstance().reset();
-
-    }
 
     @Test
     public void queUnClienteSePuedaSuscribirExitosamente(){
@@ -56,6 +56,9 @@ public class testControladorSuscripcion {
     @Test
     public void unClienteNoPuedeSuscribirseDosVeces(){
         givenExisteUnaSuscripcion(datosSuscripcion);
+        doThrow(ClienteYaSuscriptoException.class)
+                .when(servicioSuscripcion)
+                .suscribir(datosSuscripcion);
         whenUnClienteSeSuscribe(datosSuscripcion);
         thenLaSuscripcionFalla();
 
