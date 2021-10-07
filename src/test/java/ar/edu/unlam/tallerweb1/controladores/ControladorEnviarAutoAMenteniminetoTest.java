@@ -30,7 +30,7 @@ public class ControladorEnviarAutoAMenteniminetoTest {
 
         modelAndView = whenEnvioElAutoAMantenimientoCon(datosEnviadosPorUsuarioInvitado);
 
-        thenElEnvioEsFalla(invitado, "El envio falla", "Lista-de-autos");
+        thenElEnvioEsFalla(invitado, "No se envio correctamente ya que el usuario no es administrador", "lista-de-autos");
     }
 
     @Test
@@ -40,7 +40,6 @@ public class ControladorEnviarAutoAMenteniminetoTest {
 
         modelAndView = whenEnvioElAutoAMantenimientoCon(datosEnviadosPorUsuarioAdministrador);
 
-
         thenElAutoConKilometrosDefinidosEsExitoso(conKmDefinidos, "El auto se envio correctamente a mantenimiento", "mantenimiento");
     }
 
@@ -49,10 +48,8 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     public void queNoSePuedaEnviarAlMismoAutoDosVecesAMantenimiento() throws Exception {
         Usuario administrador = givenQueExisteUnUsuarioConRolDe(ADMINISTRADOR);
         givenQueExisteUnAutoEnMatenimiento();
-
         whenEnvioElAutoAMantenimientoCon(datosEnviadosPorUsuarioAdministrador);
-
-        thenElEnvioEsFalla(administrador, "El envio falla", "Lista-de-autos");
+        thenElEnvioEsFalla(administrador, "No se envio correctamente ya que existe un mismo auto en matenimiento", "lista-de-autos");
     }
 
     private Usuario givenQueExisteUnUsuarioConRolDe(Usuario usuario) {
@@ -79,20 +76,20 @@ public class ControladorEnviarAutoAMenteniminetoTest {
     private void thenElEnvioEsExitoso(Usuario usuario, String mensaje, String viewName) {
         assertThat(modelAndView.getViewName()).isEqualTo(viewName);
         assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
-        assertThat(modelAndView.getModel().get("rolDelUsuario")).isEqualTo(usuario.getRol());
+        assertThat(modelAndView.getModel().get("usuario")).isEqualTo(usuario.getRol());
     }
 
     private void thenElEnvioEsFalla(Usuario usuario, String mensaje, String viewName) {
         assertThat(modelAndView.getViewName()).isEqualTo(viewName);
         assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
-        assertThat(modelAndView.getModel().get("rolDelUsuario")).isEqualTo(usuario.getRol());
+        assertThat(modelAndView.getModel().get("usuario")).isEqualTo(usuario.getRol());
 
     }
 
     private void thenElAutoConKilometrosDefinidosEsExitoso(Auto conKmDefinidos, String mensaje, String viewName) {
         assertThat(modelAndView.getViewName()).isEqualTo(viewName);
         assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
-        assertThat(modelAndView.getModel().get("kilometrosDefinidos")).isEqualTo(conKmDefinidos.getKm());
+        assertThat(modelAndView.getModel().get("km-del-auto")).isEqualTo(conKmDefinidos.getKm());
     }
 
     private static final String FECHA_INICIAL = "3/10/21";

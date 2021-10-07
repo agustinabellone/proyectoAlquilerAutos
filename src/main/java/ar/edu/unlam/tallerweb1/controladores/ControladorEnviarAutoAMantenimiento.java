@@ -1,10 +1,14 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMantenimiento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -12,45 +16,74 @@ import org.springframework.web.servlet.ModelAndView;
 public class ControladorEnviarAutoAMantenimiento {
 
     private ModelMap model = new ModelMap();
-    private String viewName;
-    private String mensaje;
     private ServicioMantenimiento servicioMantenimiento;
+    private String viewName;
 
     @Autowired
     public ControladorEnviarAutoAMantenimiento(ServicioMantenimiento servicioMantenimiento) {
         this.servicioMantenimiento = servicioMantenimiento;
     }
 
-    public ModelAndView enviarAutoAManteniminento(DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
+    @RequestMapping(method = RequestMethod.GET, path = "/ir-lista-de-autos")
+    public ModelAndView irAListaDeAutos() {
+        DatosEnvioAMantenimiento datos = new DatosEnvioAMantenimiento();
+        ModelMap model = new ModelMap();
+        model.put("datosMantenimiento", datos);
 
-        if (esAdministrador(datosEnvioAMantenimiento.getUsuario())) {
-            enviarElAutoAMantenimientoSinoLanzaUnaExcepcion(datosEnvioAMantenimiento);
+        return new ModelAndView("lista-de-autos", model);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/mantenimiento")
+    public ModelAndView enviarAutoAManteniminento(@ModelAttribute("datosMantenimiento") DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
+        //seteoLosDatosQueLleganPorPost(datosEnvioAMantenimiento);
+
+        if (esAdministradorElUsuarioQueLlegaCon(datosEnvioAMantenimiento)) {
+            try {
+                servicioMantenimiento.enviarAutoAMantenimiento(datosEnvioAMantenimiento);
+            } catch (Exception e) {
+                viewName = "lista-de-autos";
+                throw new Exception();
+            }
+            model.put("datosMantenimiento", datosEnvioAMantenimiento);
+            model.put("mensaje", "El auto se envio correctamente a mantenimiento");
+            model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
+            model.put("km-del-auto", datosEnvioAMantenimiento.getAuto().getKm());
+            viewName = "mantenimiento";
         } else {
-            noEnviarElAutoAMantenimientoYredirigirAlHome();
+            model.put("mensaje", "No se envio correctamente ya que el usuario no es administrador");
+            model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
+            viewName = "lista-de-autos";
         }
-        model.put("mensaje", mensaje);
-        model.put("rolDelUsuario", datosEnvioAMantenimiento.getUsuario().getRol());
         return new ModelAndView(viewName, model);
     }
 
-    private boolean esAdministrador(Usuario administrador) {
-        return administrador.getRol() == "Admin";
+    private boolean esAdministradorElUsuarioQueLlegaCon(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
+        return datosEnvioAMantenimiento.getUsuario().getRol() == "Admin";
     }
 
-    private void enviarElAutoAMantenimientoSinoLanzaUnaExcepcion(DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
-        try {
-            servicioMantenimiento.enviarAutoAMantenimiento(datosEnvioAMantenimiento);
-            viewName = "mantenimiento";
-            mensaje = "El auto se envio correctamente a mantenimiento";
-            model.put("kilometrosDefinidos", datosEnvioAMantenimiento.getAuto().getKm());
-            model.put("fechaDeEnvioAMantenimiento", datosEnvioAMantenimiento.getFechaInicial());
-        } catch (Exception e) {
-            throw new Exception();
-        }
+    private void seteoLosDatosQueLleganPorPost(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
+        Auto auto = creoUnAuto();
+        Usuario usuario = creoUnUsuario();
+        seteoElAutoYElUsuarioALosDatosDeMantenimiento(datosEnvioAMantenimiento, auto, usuario);
     }
 
-    private void noEnviarElAutoAMantenimientoYredirigirAlHome() {
-        viewName = "Lista-de-autos";
-        mensaje = "El envio falla";
+    private Auto creoUnAuto() {
+        Auto auto = new Auto();
+        auto.setMarca("Ford");
+        auto.setModelo("Fiesta");
+        auto.setKm(100);
+        return auto;
     }
+
+    private Usuario creoUnUsuario() {
+        Usuario usuario = new Usuario("Admin");
+        return usuario;
+    }
+
+    private void seteoElAutoYElUsuarioALosDatosDeMantenimiento(DatosEnvioAMantenimiento datosEnvioAMantenimiento, Auto auto, Usuario usuario) {
+        datosEnvioAMantenimiento.setAuto(auto);
+        datosEnvioAMantenimiento.setUsuario(usuario);
+        datosEnvioAMantenimiento.setFechaInicial("07/10/21");
+    }
+
 }
