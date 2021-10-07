@@ -26,6 +26,48 @@ public class testServicioSuscripcion {
 
     }
 
+    @Test
+    public void unClienteRenuevaLaSuscripcion(){
+
+        Suscripcion suscripcion = giveExisteUnaSuscripcion();
+        suscripcion.setRenovacion(false);
+        whenUnClienteRenuevaLaSuscripcion(suscripcion);
+        theLaRenovacionEsExitosa(suscripcion);
+
+    }
+
+    @Test
+    public void unClienteMejoraSuSucripcion(){
+
+        Suscripcion suscripcion = giveExisteUnaSuscripcion();
+        Long nuevo_tipo=3L;
+        whenUnClienteMejoraSuSuscripcion(suscripcion, nuevo_tipo);
+        theLaMejoraEsExitosa(suscripcion, nuevo_tipo);
+
+    }
+
+    ///////////////////////////////////////////
+
+    private void whenUnClienteMejoraSuSuscripcion(Suscripcion suscripcion, Long nuevo_tipo) {
+        servicioSuscripcion.mejorarNivelSuscripcion(suscripcion, nuevo_tipo);
+    }
+
+    private void theLaMejoraEsExitosa(Suscripcion suscripcion, Long nuevo_tipo) {
+        assertThat(suscripcion.getTipo_id()).isEqualTo(nuevo_tipo);
+    }
+
+    private Suscripcion giveExisteUnaSuscripcion() {
+        return new Suscripcion();
+    }
+
+    private void whenUnClienteRenuevaLaSuscripcion(Suscripcion suscripcion) {
+        servicioSuscripcion.renovarSuscripcion(suscripcion);
+    }
+
+    private void theLaRenovacionEsExitosa(Suscripcion suscripcion) {
+        assertThat(suscripcion.getRenovacion()).isTrue();
+    }
+
     private Cliente givenExisteUnCliente() {
         return new Cliente();
     }

@@ -12,4 +12,6 @@ public interface RepositorioSuscripcion {
     List<Suscripcion> buscarPorTipo(Long id_tipo);
 
     Suscripcion buscarPorCliente(Long id);
+
+    void actualizarSuscripcion(Suscripcion suscripcion);
 }

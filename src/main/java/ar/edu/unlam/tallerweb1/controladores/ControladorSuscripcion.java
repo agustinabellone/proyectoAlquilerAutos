@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
+import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaRenovadaException;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,17 @@ public class ControladorSuscripcion {
             return new ModelAndView("ir-a-suscribir");
         }
 
+        return new ModelAndView("home");
+    }
+
+    @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)
+    public ModelAndView renovarSuscripcion(Suscripcion suscripcion) {
+
+        try{
+            servicioSuscripcion.renovarSuscripcion(suscripcion);
+        }catch(SuscripcionYaRenovadaException e){
+            return new ModelAndView("perfil"); //EL USUARIO RENUEVA SU SUSCRIPCION DESDE SU PERFIL
+        }
         return new ModelAndView("home");
     }
 }

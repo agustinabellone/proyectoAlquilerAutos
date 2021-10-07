@@ -14,8 +14,11 @@ public class Suscripcion {
     @Column(nullable = false)
     private Long Cliente_id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long Tipo_id;
+
+    @Column(nullable = true)
+    private Boolean Renovacion;
 
     public Suscripcion(){
 
@@ -24,6 +27,7 @@ public class Suscripcion {
     public Suscripcion(DatosSuscripcion datosSuscripcion) {
         this.Cliente_id = datosSuscripcion.getCliente().getId();
         this.Tipo_id = datosSuscripcion.getTipoSuscripcion().getId();
+        this.Renovacion=false;
     }
 
     public Long getCliente_id() {
@@ -48,5 +52,13 @@ public class Suscripcion {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setRenovacion(Boolean estado) {
+        this.Renovacion=estado;
+    }
+
+    public Boolean getRenovacion() {
+        return this.Renovacion;
     }
 }

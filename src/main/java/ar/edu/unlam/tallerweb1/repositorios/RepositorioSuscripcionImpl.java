@@ -29,6 +29,7 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
     public Suscripcion buscarPorId(Long id) {
 
         return this.sessionFactory.getCurrentSession().get(Suscripcion.class, id);
+
     }
 
     @Override
@@ -45,5 +46,11 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
                 .createCriteria(Suscripcion.class)
                 .add(Restrictions.eq("Cliente_id", id_cliente))
                 .uniqueResult();
+    }
+
+    @Override
+    public void actualizarSuscripcion(Suscripcion suscripcion) {
+        this.sessionFactory.getCurrentSession()
+                .update("Suscripcion", suscripcion);
     }
 }

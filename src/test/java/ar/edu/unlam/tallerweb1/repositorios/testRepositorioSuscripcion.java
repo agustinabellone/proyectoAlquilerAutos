@@ -54,6 +54,23 @@ public class testRepositorioSuscripcion extends SpringTest {
         thenEncuentroLaSuscripcionPorCliente(ID_CLIENTE);
     }
 
+    @Test
+    @Transactional
+    @Rollback
+    public void puedoActualizarUnaSuscripcion(){
+        Suscripcion suscripcion = givenExisteSuscripcion(ID_CLIENTE, ID_TIPO);
+        givenGuardoLaSuscripcion(suscripcion);
+        Long nuevo_tipo=ID_TIPO+1;
+        whenActualizoLaSuscripcion(suscripcion, nuevo_tipo);
+        thenEncuentroLaSuscripcionPorTipo(nuevo_tipo, 1);
+    }
+
+
+    private void whenActualizoLaSuscripcion(Suscripcion suscripcion, Long nuevo_tipo) {
+        suscripcion.setTipo_id(nuevo_tipo);
+        repositorioSuscripcion.actualizarSuscripcion(suscripcion);
+    }
+
     private Suscripcion givenExisteSuscripcion(Long id_cliente, Long id_tipo) {
         Suscripcion suscripcion = new Suscripcion();
         suscripcion.setCliente_id(id_cliente);

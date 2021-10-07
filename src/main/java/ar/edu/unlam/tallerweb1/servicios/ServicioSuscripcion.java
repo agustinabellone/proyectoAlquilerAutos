@@ -9,4 +9,8 @@ public interface ServicioSuscripcion {
     Suscripcion suscribir(DatosSuscripcion datosSuscripcion);
 
     Boolean existeSuscripcionPorCliente(Cliente cliente);
+
+    void renovarSuscripcion(Suscripcion suscripcion);
+
+    void mejorarNivelSuscripcion(Suscripcion suscripcion, Long nuevo_tipo);
 }
