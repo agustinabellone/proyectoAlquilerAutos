@@ -12,6 +12,10 @@ public class TipoSuscripcion {
     public TipoSuscripcion() {
     }
 
+    public TipoSuscripcion(Long id_tipo) {
+        this.id=id_tipo;
+    }
+
     public Long getId() {
         return id;
     }

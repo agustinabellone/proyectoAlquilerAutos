@@ -28,24 +28,23 @@ public class testControladorSuscripcion {
     private ServicioSuscripcion servicioSuscripcion = mock(ServicioSuscripcion.class);
     private ControladorSuscripcion controladorSuscripcion= new ControladorSuscripcion(servicioSuscripcion);
 
-    private DatosSuscripcion datosSuscripcion = new DatosSuscripcion(cliente, tipoSuscripcion );
-
     private ModelAndView mav;
 
 
     @Test
     public void queUnClienteSePuedaSuscribirExitosamente(){
         givenExisteUnClienteyUnTipoSuscripcion();
-        whenUnClienteSeSuscribe(datosSuscripcion);
+        whenUnClienteSeSuscribe(ID_CLIENTE, ID_TIPO);
         thenLaSuscripcionEsExitosa();
     }
 
     private void givenExisteUnClienteyUnTipoSuscripcion() {
     }
 
-    private void whenUnClienteSeSuscribe(DatosSuscripcion datosSuscripcion) {
+    private void whenUnClienteSeSuscribe(Long id_cliente, Long id_tipo) {
 
-        mav =  controladorSuscripcion.suscribirCliente(datosSuscripcion);
+
+        mav =  controladorSuscripcion.suscribirCliente(id_cliente, id_tipo);
 
     }
 
@@ -58,18 +57,18 @@ public class testControladorSuscripcion {
 
     @Test
     public void unClienteNoPuedeSuscribirseDosVeces(){
-        givenExisteUnaSuscripcion(datosSuscripcion);
+        givenExisteUnaSuscripcion(ID_CLIENTE, ID_TIPO);
         doThrow(ClienteYaSuscriptoException.class)
                 .when(servicioSuscripcion)
-                .suscribir(datosSuscripcion);
-        whenUnClienteSeSuscribe(datosSuscripcion);
+                .suscribir(ID_CLIENTE, ID_TIPO);
+        whenUnClienteSeSuscribe(ID_CLIENTE, ID_TIPO);
         thenLaSuscripcionFalla();
 
     }
 
-    private Suscripcion givenExisteUnaSuscripcion(DatosSuscripcion datosSuscripcion) {
+    private Suscripcion givenExisteUnaSuscripcion(Long id_cliente, Long id_tipo) {
 
-        return new Suscripcion(datosSuscripcion);
+        return new Suscripcion(id_cliente, id_tipo);
     }
 
     private void thenLaSuscripcionFalla() {
@@ -79,7 +78,7 @@ public class testControladorSuscripcion {
 
     @Test
     public void unClienteRenuevaLaSuscripcionExitosamente(){
-        Suscripcion suscripcion = givenExisteUnaSuscripcion(datosSuscripcion);
+        Suscripcion suscripcion = givenExisteUnaSuscripcion(ID_CLIENTE, ID_TIPO);
         whenUnClienteRenuevaLaSuscripcion(suscripcion);
         thenLasRenovacionEsExitosa();
 
@@ -95,7 +94,7 @@ public class testControladorSuscripcion {
 
     @Test
     public void unClienteNoPuedeRenovarDosVecesUnaSuscripcion(){
-        Suscripcion suscripcion = givenExisteUnaSuscripcion(datosSuscripcion);
+        Suscripcion suscripcion = givenExisteUnaSuscripcion(ID_CLIENTE, ID_TIPO);
         doThrow(SuscripcionYaRenovadaException.class)
                 .when(servicioSuscripcion)
                 .renovarSuscripcion(suscripcion);

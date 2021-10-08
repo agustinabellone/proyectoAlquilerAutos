@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
-import ar.edu.unlam.tallerweb1.controladores.DatosSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
@@ -15,14 +14,15 @@ public class testServicioSuscripcion {
 
     private RepositorioSuscripcion repositorioSuscripcion = mock(RepositorioSuscripcion.class);
     private ServicioSuscripcion servicioSuscripcion= new ServicioSuscripcionImpl(repositorioSuscripcion);
+    private static final Long ID_CLIENTE=123L;
+    private static final Long ID_TIPO=1L;
 
     @Test
     public void unClienteSeSuscribeExitosamente(){
 
         Cliente cliente = givenExisteUnCliente();
         TipoSuscripcion tipo = givenExisteUnTipoDeSuscripcion();
-        DatosSuscripcion datosSuscripcion = new DatosSuscripcion(cliente, tipo);
-        Suscripcion suscripcion = whenUnClienteSeSuscribe(datosSuscripcion);
+        Suscripcion suscripcion = whenUnClienteSeSuscribe(ID_CLIENTE, ID_TIPO);
         thenLaSuscripcionEsExitosa(suscripcion);
 
     }
@@ -50,9 +50,9 @@ public class testServicioSuscripcion {
     public void siElClienteYaEstaSuscriptoFallaLaSuscripcion(){
         Suscripcion suscripcion = giveExisteUnaSuscripcion();
         Long cliente_id = suscripcion.getCliente_id();
-        Cliente cliente = new Cliente(cliente_id);
+        Long tipo_id = suscripcion.getTipo_id();
         when(repositorioSuscripcion.buscarPorCliente(cliente_id)).thenReturn(new Suscripcion());
-        Suscripcion nueva_suscripcion = whenUnClienteSeSuscribe(new DatosSuscripcion(cliente, new TipoSuscripcion()));
+        Suscripcion nueva_suscripcion = whenUnClienteSeSuscribe(cliente_id, tipo_id);
         thenLaSuscripcionFalla(nueva_suscripcion);
     }
 
@@ -91,8 +91,8 @@ public class testServicioSuscripcion {
         return new TipoSuscripcion();
     }
 
-    private Suscripcion whenUnClienteSeSuscribe(DatosSuscripcion datosSuscripcion) {
-        return servicioSuscripcion.suscribir(datosSuscripcion);
+    private Suscripcion whenUnClienteSeSuscribe(Long id_cliente, Long id_tipo) {
+        return servicioSuscripcion.suscribir(id_cliente, id_tipo);
     }
 
     private void thenLaSuscripcionEsExitosa(Suscripcion suscripcion) {

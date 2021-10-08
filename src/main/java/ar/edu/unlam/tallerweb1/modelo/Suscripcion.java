@@ -1,7 +1,5 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import ar.edu.unlam.tallerweb1.controladores.DatosSuscripcion;
-
 import javax.persistence.*;
 
 @Entity
@@ -24,9 +22,9 @@ public class Suscripcion {
 
     }
 
-    public Suscripcion(DatosSuscripcion datosSuscripcion) {
-        this.Cliente_id = datosSuscripcion.getCliente().getId();
-        this.Tipo_id = datosSuscripcion.getTipoSuscripcion().getId();
+    public Suscripcion(Long id_cliente, Long id_tipo) {
+        this.Cliente_id = id_cliente;
+        this.Tipo_id = id_tipo;
         this.Renovacion=false;
     }
 

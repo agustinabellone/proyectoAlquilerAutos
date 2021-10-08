@@ -3,7 +3,6 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NivelDeSuscripcionActualMejorOIgualQueElNuevoException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaRenovadaException;
-import ar.edu.unlam.tallerweb1.controladores.DatosSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
@@ -27,19 +26,19 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 
 
     @Override
-    public Suscripcion suscribir(DatosSuscripcion datosSuscripcion) {
+    public Suscripcion suscribir(Long id_cliente, Long id_tipo) {
 
-        if(existeSuscripcionPorCliente(datosSuscripcion.getCliente())){
+        if(existeSuscripcionPorCliente(id_cliente)){
             throw new ClienteYaSuscriptoException();
         }
-        Suscripcion suscripcion = new Suscripcion(datosSuscripcion);
+        Suscripcion suscripcion = new Suscripcion(id_cliente, id_tipo);
         repositorioSuscripcion.guardar(suscripcion);
         return suscripcion;
     }
 
     @Override
-    public Boolean existeSuscripcionPorCliente(Cliente cliente) {
-        Suscripcion buscado = repositorioSuscripcion.buscarPorCliente(cliente.getId());
+    public Boolean existeSuscripcionPorCliente(Long id_cliente) {
+        Suscripcion buscado = repositorioSuscripcion.buscarPorCliente(id_cliente);
 
         if (Objects.isNull(buscado)){
             return false;
