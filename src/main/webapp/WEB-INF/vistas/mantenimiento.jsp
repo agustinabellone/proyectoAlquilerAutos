@@ -12,9 +12,10 @@
 </head>
 <body>
 <h1>${mensaje}</h1>
-<h2>${datosMantenimiento.auto.marca}</h2>
-<h2>${datosMantenimiento.auto.modelo}</h2>
-<h3>${datosMantenimiento.usuario.rol}</h3>
+<h2>${marca}</h2>
+<h2>${modelo}</h2>
+<h2>${usuario}</h2>
+<h2>${km-del-auto}</h2>
 <h2>${datosMantenimiento.fechaInicial}</h2>
 <br>
 
