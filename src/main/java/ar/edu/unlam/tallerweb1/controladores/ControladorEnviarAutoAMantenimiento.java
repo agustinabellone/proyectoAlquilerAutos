@@ -35,7 +35,7 @@ public class ControladorEnviarAutoAMantenimiento {
     @RequestMapping(method = RequestMethod.POST, path = "/mantenimiento")
     public ModelAndView enviarAutoAManteniminento(@ModelAttribute("datosMantenimiento") DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
         // TODO CUANDO SE UTILIZEN LAS VISTAS DESCOMENTAR ESTE METODO PARA QUE DE ESA FORMA MANDE EL AUTO Y EL USUARIO HARDCODEADO
-        //seteoLosDatosQueLleganPorPost(datosEnvioAMantenimiento);
+        //hardCodeoLosDatosQueLleganPorPost(datosEnvioAMantenimiento);
 
         if (esAdministradorElUsuarioQueLlegaCon(datosEnvioAMantenimiento)) {
             elServicioDeMantenimientoEnviaElAutoAMantenientoSiNoLanzaUnaException(datosEnvioAMantenimiento);
@@ -63,7 +63,10 @@ public class ControladorEnviarAutoAMantenimiento {
         model.put("datosMantenimiento", datosEnvioAMantenimiento);
         model.put("mensaje", "El auto se envio correctamente a mantenimiento");
         model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
+        model.put("marca", datosEnvioAMantenimiento.getAuto().getMarca());
+        model.put("modelo", datosEnvioAMantenimiento.getAuto().getModelo());
         model.put("km-del-auto", datosEnvioAMantenimiento.getAuto().getKm());
+        model.put("fecha",datosEnvioAMantenimiento.getFechaInicial());
         viewName = "mantenimiento";
     }
 
@@ -73,7 +76,7 @@ public class ControladorEnviarAutoAMantenimiento {
         viewName = "lista-de-autos";
     }
 
-    private void seteoLosDatosQueLleganPorPost(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
+    private void hardCodeoLosDatosQueLleganPorPost(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
         Auto auto = creoUnAuto();
         Usuario usuario = creoUnUsuario();
         seteoElAutoYElUsuarioALosDatosDeMantenimiento(datosEnvioAMantenimiento, auto, usuario);
