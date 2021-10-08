@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
 import ar.edu.unlam.tallerweb1.controladores.DatosSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
@@ -38,7 +39,6 @@ public class testServicioSuscripcion {
 
     @Test
     public void unClienteMejoraSuSucripcion(){
-
         Suscripcion suscripcion = giveExisteUnaSuscripcion();
         Long nuevo_tipo=3L;
         whenUnClienteMejoraSuSuscripcion(suscripcion, nuevo_tipo);
@@ -46,7 +46,19 @@ public class testServicioSuscripcion {
 
     }
 
-    ///////////////////////////////////////////
+    @Test(expected = ClienteYaSuscriptoException.class)
+    public void siElClienteYaEstaSuscriptoFallaLaSuscripcion(){
+        Suscripcion suscripcion = giveExisteUnaSuscripcion();
+        Long cliente_id = suscripcion.getCliente_id();
+        Cliente cliente = new Cliente(cliente_id);
+        when(repositorioSuscripcion.buscarPorCliente(cliente_id)).thenReturn(new Suscripcion());
+        Suscripcion nueva_suscripcion = whenUnClienteSeSuscribe(new DatosSuscripcion(cliente, new TipoSuscripcion()));
+        thenLaSuscripcionFalla(nueva_suscripcion);
+    }
+
+    private void thenLaSuscripcionFalla(Suscripcion nueva_suscripcion) {
+        assertThat(nueva_suscripcion).isNull();
+    }
 
     private void whenUnClienteMejoraSuSuscripcion(Suscripcion suscripcion, Long nuevo_tipo) {
         servicioSuscripcion.mejorarNivelSuscripcion(suscripcion, nuevo_tipo);
@@ -57,7 +69,10 @@ public class testServicioSuscripcion {
     }
 
     private Suscripcion giveExisteUnaSuscripcion() {
-        return new Suscripcion();
+        Suscripcion suscripcion = new Suscripcion();
+        suscripcion.setTipo_id(1L);
+        suscripcion.setCliente_id(5L);
+        return suscripcion;
     }
 
     private void whenUnClienteRenuevaLaSuscripcion(Suscripcion suscripcion) {
@@ -82,5 +97,6 @@ public class testServicioSuscripcion {
 
     private void thenLaSuscripcionEsExitosa(Suscripcion suscripcion) {
         assertThat(suscripcion).isNotNull();
+        verify(repositorioSuscripcion).guardar(suscripcion);
     }
 }
