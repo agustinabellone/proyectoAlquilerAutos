@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
-public class ControladorEnviarAutoAMenteniminetoTest {
+public class testControladorEnviarAutoAMentenimineto {
 
     @Test
     public void queUnUsuarioConRolDeAdministradorPuedaEnviarUnAutoAMantenimiento() throws Exception {
