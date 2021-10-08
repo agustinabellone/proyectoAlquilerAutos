@@ -29,7 +29,6 @@ public class ControladorEnviarAutoAMantenimiento {
         DatosEnvioAMantenimiento datos = new DatosEnvioAMantenimiento();
         ModelMap model = new ModelMap();
         model.put("datosMantenimiento", datos);
-
         return new ModelAndView("lista-de-autos", model);
     }
 
@@ -39,27 +38,39 @@ public class ControladorEnviarAutoAMantenimiento {
         //seteoLosDatosQueLleganPorPost(datosEnvioAMantenimiento);
 
         if (esAdministradorElUsuarioQueLlegaCon(datosEnvioAMantenimiento)) {
-            try {
-                servicioMantenimiento.enviarAutoAMantenimiento(datosEnvioAMantenimiento);
-            } catch (Exception e) {
-                viewName = "lista-de-autos";
-                throw new Exception();
-            }
-            model.put("datosMantenimiento", datosEnvioAMantenimiento);
-            model.put("mensaje", "El auto se envio correctamente a mantenimiento");
-            model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
-            model.put("km-del-auto", datosEnvioAMantenimiento.getAuto().getKm());
-            viewName = "mantenimiento";
+            elServicioDeMantenimientoEnviaElAutoAMantenientoSiNoLanzaUnaException(datosEnvioAMantenimiento);
+            enviarAlaVistaDeMantenimientoYPasarLosDatosDeMantenimentoAlModelMap(datosEnvioAMantenimiento);
         } else {
-            model.put("mensaje", "No se envio correctamente ya que el usuario no es administrador");
-            model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
-            viewName = "lista-de-autos";
+            enviarALaVistadeListaDeAutosYMandaUnMensajeDeError(datosEnvioAMantenimiento);
         }
         return new ModelAndView(viewName, model);
     }
 
     private boolean esAdministradorElUsuarioQueLlegaCon(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
         return datosEnvioAMantenimiento.getUsuario().getRol() == "Admin";
+    }
+
+    private void elServicioDeMantenimientoEnviaElAutoAMantenientoSiNoLanzaUnaException(DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
+        try {
+            servicioMantenimiento.enviarAutoAMantenimiento(datosEnvioAMantenimiento);
+        } catch (Exception e) {
+            viewName = "lista-de-autos";
+            throw new Exception();
+        }
+    }
+
+    private void enviarAlaVistaDeMantenimientoYPasarLosDatosDeMantenimentoAlModelMap(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
+        model.put("datosMantenimiento", datosEnvioAMantenimiento);
+        model.put("mensaje", "El auto se envio correctamente a mantenimiento");
+        model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
+        model.put("km-del-auto", datosEnvioAMantenimiento.getAuto().getKm());
+        viewName = "mantenimiento";
+    }
+
+    private void enviarALaVistadeListaDeAutosYMandaUnMensajeDeError(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
+        model.put("mensaje", "No se envio correctamente ya que el usuario no es administrador");
+        model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
+        viewName = "lista-de-autos";
     }
 
     private void seteoLosDatosQueLleganPorPost(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
