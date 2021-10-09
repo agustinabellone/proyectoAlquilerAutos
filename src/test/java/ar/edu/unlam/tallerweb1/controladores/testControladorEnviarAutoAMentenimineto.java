@@ -66,7 +66,7 @@ public class testControladorEnviarAutoAMentenimineto {
     }
 
     private void givenQueExisteUnAutoEnMatenimiento() throws Exception {
-        doThrow(Exception.class).when(servicioMantenimiento).enviarAutoAMantenimiento(datosEnviadosPorUsuarioAdministrador);
+        doThrow(Exception.class).when(servicioMantenimiento).enviar(datosEnviadosPorUsuarioAdministrador.getAuto(),datosEnviadosPorUsuarioAdministrador.getFechaInicial());
     }
 
     private ModelAndView whenEnvioElAutoAMantenimientoCon(DatosEnvioAMantenimiento datos) throws Exception {
