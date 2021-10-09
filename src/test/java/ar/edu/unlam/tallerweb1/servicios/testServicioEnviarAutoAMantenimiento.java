@@ -79,5 +79,6 @@ public class testServicioEnviarAutoAMantenimiento {
 
     private void thenLaObtencionEsExitosa(Auto obtenido) {
         assertThat(obtenido).isNotNull();
+        verify(repositorioEnviarAutoAMantenimiento,times(1)).buscarPor(obtenido.getPatente());
     }
 }
