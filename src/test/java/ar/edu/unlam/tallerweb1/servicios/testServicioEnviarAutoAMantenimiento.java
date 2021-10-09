@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.*;
 public class testServicioEnviarAutoAMantenimiento {
 
     @Test
-    public void alEnviarUnAutoAMantenimientoYaExistenteElEnvioFalla(){
+    public void queSePuedaEnviarUnAutoAMantenimiento(){
 
     }
 }
