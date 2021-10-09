@@ -52,7 +52,7 @@ public class ControladorEnviarAutoAMantenimiento {
 
     private void elServicioDeMantenimientoEnviaElAutoAMantenientoSiNoLanzaUnaException(DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
         try {
-            servicioMantenimiento.enviarAutoAMantenimiento(datosEnvioAMantenimiento);
+            servicioMantenimiento.enviar(datosEnvioAMantenimiento.getAuto(),datosEnvioAMantenimiento.getFechaInicial());
         } catch (Exception e) {
             viewName = "lista-de-autos";
             throw new Exception();
