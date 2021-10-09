@@ -7,8 +7,7 @@ import ar.edu.unlam.tallerweb1.repositorio.RepositorioEnviarAutoAMantenimiento;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class testServicioEnviarAutoAMantenimiento {
 
@@ -32,14 +31,26 @@ public class testServicioEnviarAutoAMantenimiento {
     }
 
     @Test
-    public void queSePuedaObtenerUnAutoExistenteEnMatenimiento() {
+    public void queSePuedaObtenerUnAutoExistenteEnMatenimiento() throws AutoNoExistente {
         givenUnAutoYaExistente(auto);
         Auto obtenido = whenObetengoElAuto(auto);
         thenLaObtencionEsExitosa(obtenido);
     }
 
     @Test (expected = AutoNoExistente.class)
-    public void queNoSePuedaObtenerUnAutoNoExistenteEnMatenimiento(){}
+    public void queNoSePuedaObtenerUnAutoNoExistenteEnMatenimiento() throws AutoNoExistente {
+        givenUnAutoNoExistenteEnMantiemiento();
+        Auto noExistente = whenObetengoElAuto(auto);
+        thenLaObtencionEsFalla(noExistente);
+    }
+
+    private void thenLaObtencionEsFalla(Auto auto) {
+        assertThat(auto).isNull();
+    }
+
+    private void givenUnAutoNoExistenteEnMantiemiento() throws AutoNoExistente {
+        doThrow(AutoNoExistente.class).when(repositorioEnviarAutoAMantenimiento).buscarPor(auto.getPatente());
+    }
 
     private Auto givenUnAuto() {
         return auto;
@@ -53,12 +64,13 @@ public class testServicioEnviarAutoAMantenimiento {
         return servicioEnviarAutoAMantenimiento.enviar(queNecesitaMantenimiento, FECHA_QUE_SE_ENVIA);
     }
 
-    private Auto whenObetengoElAuto(Auto auto) {
+    private Auto whenObetengoElAuto(Auto auto) throws AutoNoExistente {
         return servicioEnviarAutoAMantenimiento.obtenerPor(auto.getPatente());
     }
 
     private void thenElEnvioEsExitoso(Auto enviado, String fechaQueSeEnvia) {
         assertThat(enviado).isNotNull();
+        verify(repositorioEnviarAutoAMantenimiento,times(1)).guardar(enviado);
     }
 
     private void thenElEnvioFalla(Auto existente) {

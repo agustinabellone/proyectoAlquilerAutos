@@ -11,4 +11,9 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
     public Auto buscarPor(String patente) {
         return null;
     }
+
+    @Override
+    public void guardar(Auto enviado) {
+
+    }
 }

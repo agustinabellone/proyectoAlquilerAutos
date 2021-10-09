@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.repositorio.RepositorioEnviarAutoAMantenimiento;
@@ -24,6 +25,7 @@ public class ServicioMantenimientoImpl implements ServicioMantenimiento {
         if (existeElAuto(queNecesitaMantenimiento)) {
             throw new AutoYaExistente();
         }
+        repositorioEnviarAutoAMantenimiento.guardar(queNecesitaMantenimiento);
         return queNecesitaMantenimiento;
     }
 
@@ -32,7 +34,10 @@ public class ServicioMantenimientoImpl implements ServicioMantenimiento {
     }
 
     @Override
-    public Auto obtenerPor(String patente) {
+    public Auto obtenerPor(String patente) throws AutoNoExistente {
+        if (this.repositorioEnviarAutoAMantenimiento.buscarPor(patente) == null){
+            throw new AutoNoExistente();
+        }
         return new Auto();
     }
 }
