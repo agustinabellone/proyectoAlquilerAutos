@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.controladores.DatosEnvioAMantenimiento;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class ServicioMantenimientoImpl implements ServicioMantenimiento {
 
     @Override
-    public void enviar(Auto queNecesitaMantenimiento, String fecha_que_se_envia) {
+    public Auto enviar(Auto queNecesitaMantenimiento, String fecha_que_se_envia) throws Exception {
+        return queNecesitaMantenimiento;
+    }
 
+    @Override
+    public Auto obtenerPor(String patente) {
+        return new Auto();
     }
 }
