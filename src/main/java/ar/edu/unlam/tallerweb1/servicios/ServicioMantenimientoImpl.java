@@ -25,6 +25,9 @@ public class ServicioMantenimientoImpl implements ServicioMantenimiento {
         if (existeElAuto(queNecesitaMantenimiento)) {
             throw new AutoYaExistente();
         }
+        queNecesitaMantenimiento.setPatente("ABC123");
+        queNecesitaMantenimiento.setMarca("Ford");
+        queNecesitaMantenimiento.setModelo("Fiesta");
         repositorioEnviarAutoAMantenimiento.guardar(queNecesitaMantenimiento);
         return queNecesitaMantenimiento;
     }

@@ -18,9 +18,9 @@ public class testServicioEnviarAutoAMantenimiento {
 
     @Test
     public void queSePuedaEnviarUnAutoAMantenimiento() throws Exception {
-        Auto queNecesitaMantenimiento = givenUnAuto();
-        Auto enviado = whenEnvioAMantenimientoAlAuto(queNecesitaMantenimiento, FECHA_QUE_SE_ENVIA);
-        thenElEnvioEsExitoso(enviado, FECHA_QUE_SE_ENVIA);
+        givenUnAutoNoExistente(auto.getPatente());
+        Auto creado = whenEnvioAMantenimientoAlAuto(auto, FECHA_QUE_SE_ENVIA);
+        thenElEnvioEsExitoso(creado, FECHA_QUE_SE_ENVIA);
     }
 
     @Test(expected = AutoYaExistente.class)
@@ -52,8 +52,8 @@ public class testServicioEnviarAutoAMantenimiento {
         doThrow(AutoNoExistente.class).when(repositorioEnviarAutoAMantenimiento).buscarPor(auto.getPatente());
     }
 
-    private Auto givenUnAuto() {
-        return auto;
+    private void givenUnAutoNoExistente(String patente) {
+        when(repositorioEnviarAutoAMantenimiento.buscarPor(patente)).thenReturn(null);
     }
 
     private void givenUnAutoYaExistente(Auto auto) {
