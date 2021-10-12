@@ -74,7 +74,7 @@ public class testServicioEnviarAutoAMantenimiento {
     }
 
     private void thenElEnvioFalla(Auto existente) {
-        assertThat(existente).isNotNull();
+        verify(repositorioEnviarAutoAMantenimiento,never()).guardar(existente);
     }
 
     private void thenLaObtencionEsExitosa(Auto obtenido) {
