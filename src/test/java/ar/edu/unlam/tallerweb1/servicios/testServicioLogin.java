@@ -10,8 +10,8 @@ import static org.assertj.core.api.Assertions.*;
 
 public class testServicioLogin {
 
-    private ServicioLogin servicioLogin = new ServicioLogin();
-    private ServicioRegistro servicioRegistro = new ServicioRegistro();
+    private ServicioLogin servicioLogin = new ServicioLoginImpl();
+    private ServicioRegistro servicioRegistro = new ServicioRegistroImpl();
 
     public static final String EMAIL = "agus@gmail.com";
     public static final String CLAVE = "12345678";

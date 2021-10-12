@@ -2,6 +2,8 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioLoginImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorLogin {
 
-    private ServicioLogin servicioLogin = new ServicioLogin();
+    @Autowired
+    private ServicioLogin servicioLogin = new ServicioLoginImpl();
+
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView mostrarHome() {
