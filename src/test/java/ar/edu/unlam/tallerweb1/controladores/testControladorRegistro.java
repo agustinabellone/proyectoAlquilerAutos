@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class testControladorRegistro {
 
-    public static final String EMAIL = "agus@gmail.com";
+    public static final String EMAIL = "agustina@gmail.com";
     public static final String CLAVE = "12345678";
     public static final String CLAVE_DISTINTA = "87521458";
     public static final String CLAVE_LONGITUD_INCORRECTA = "8752";
