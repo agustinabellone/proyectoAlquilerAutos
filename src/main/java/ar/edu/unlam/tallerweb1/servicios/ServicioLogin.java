@@ -1,10 +1,11 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosLogin;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 
 
 public interface ServicioLogin {
 
-    boolean ingresar(DatosLogin datosLogin);
+    Cliente ingresar(DatosLogin datosLogin);
 
 }

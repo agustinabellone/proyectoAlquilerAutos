@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -29,11 +28,11 @@ public class RepositorioClienteImpl implements RepositorioCliente {
     }
 
     @Override
-    public List<Cliente> buscarPor(String email) {
-        return sessionFactory.getCurrentSession()
+    public Cliente buscarPorEmail(String email) {
+        return (Cliente) sessionFactory.getCurrentSession()
                 .createCriteria(Cliente.class)
                 .add(Restrictions.eq("email", email))
-                .list();
+                .uniqueResult();
     }
 
     @Override

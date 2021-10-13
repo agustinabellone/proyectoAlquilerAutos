@@ -1,22 +1,19 @@
 package ar.edu.unlam.tallerweb1.controladores;
-
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.repositorio.TablaCliente;
+import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class testControladorLogin {
 
-    private TablaCliente tablaCliente = TablaCliente.getInstance();
-
+    private ServicioLogin servicioLogin = mock(ServicioLogin.class);
+    private ControladorLogin controladorLogin = new ControladorLogin(servicioLogin);
 
     public static final String EMAIL = "agus@gmail.com";
-    public static final String EMAIL_INCORRECTO = "agustina@gmail.com";
     public static final String CLAVE = "12345678";
+    public static final String EMAIL_INCORRECTO = "agustina@gmail.com";
 
-
-    private ControladorLogin controladorLogin = new ControladorLogin();
     private ModelAndView mav;
 
     @Test
@@ -26,11 +23,7 @@ public class testControladorLogin {
         thenElIngresoEsExitoso();
     }
 
-    private void givenUsuarioExiste() {
-        Cliente cliente = new Cliente();
-        cliente.setEmail(EMAIL);
-        tablaCliente.agregar(cliente);
-    }
+    private void givenUsuarioExiste() {}
 
     private void whenElClienteIngresa(String email, String clave) {
         DatosLogin datosLogin = new DatosLogin(email, clave);

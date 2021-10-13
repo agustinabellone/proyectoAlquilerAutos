@@ -8,5 +8,4 @@ public interface ServicioRegistro {
 
     Cliente registrar(DatosRegistro datosRegistro);
 
-
 }

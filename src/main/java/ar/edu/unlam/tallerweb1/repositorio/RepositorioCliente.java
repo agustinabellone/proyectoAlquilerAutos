@@ -10,7 +10,7 @@ public interface RepositorioCliente {
 
     Cliente buscarPor(Long id);
 
-    List<Cliente> buscarPor(String email);
+    Cliente buscarPorEmail(String email);
 
     List<Cliente> buscarTodos();
 }

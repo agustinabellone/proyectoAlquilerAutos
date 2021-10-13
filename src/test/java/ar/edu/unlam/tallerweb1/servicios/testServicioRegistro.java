@@ -5,24 +5,22 @@ import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.repositorio.TablaCliente;
-import org.junit.Before;
+import ar.edu.unlam.tallerweb1.repositorio.RepositorioCliente;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 
 public class testServicioRegistro {
 
-    private ServicioRegistro servicioRegistro = new ServicioRegistroImpl();
+    private RepositorioCliente repositorioCliente = mock(RepositorioCliente.class);
+    private ServicioRegistro servicioRegistro = new ServicioRegistroImpl(repositorioCliente);
 
     public static final String EMAIL = "agus@gmail.com";
     public static final String CLAVE = "12345678";
     public static final String CLAVE_DISTINTA = "87521458";
     public static final String CLAVE_LONGITUD_INCORRECTA = "8752";
 
-    @Before
-    public void init(){
-        TablaCliente.getInstance().reset(); //DESPUES SE VA A HACER DE OTRA FORMA
-    }
 
     @Test
     public void siElUsuarioNoExisteYLasClavesSonIgualesElRegistroEsExitoso(){
@@ -68,14 +66,13 @@ public class testServicioRegistro {
 
     @Test(expected = ClienteYaExisteException.class)
     public void siElUsuarioExisteElRegistroFalla(){
-        givenExisteUsuario(EMAIL, CLAVE);
+        givenExisteUsuario();
+        doThrow(ClienteYaExisteException .class).when(repositorioCliente).buscarPorEmail(EMAIL);
         Cliente clienteRegistrado = whenRegistroUnUsuario(EMAIL, CLAVE, CLAVE);
         thenElRegistroFalla(clienteRegistrado);
     }
 
-    private void givenExisteUsuario(String email, String clave) {
-        servicioRegistro.registrar(new DatosRegistro(email, clave, clave));
-    }
+    private void givenExisteUsuario() {}
 
     ////////////////////////////////////////////
 

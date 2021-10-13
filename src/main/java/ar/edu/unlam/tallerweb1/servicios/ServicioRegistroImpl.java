@@ -5,16 +5,22 @@ import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.repositorio.TablaCliente;
+import ar.edu.unlam.tallerweb1.repositorio.RepositorioCliente;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 
 @Service("ServicioRegistro")
 @Transactional
 public class ServicioRegistroImpl implements ServicioRegistro{
 
-    private TablaCliente tablaCliente = TablaCliente.getInstance();
+    private RepositorioCliente repositorioCliente;
+
+    @Autowired
+    public ServicioRegistroImpl(RepositorioCliente repositorioCliente) {
+        this.repositorioCliente = repositorioCliente;
+    }
+
 
     @Override
     public Cliente registrar(DatosRegistro datosRegistro) {
@@ -24,11 +30,11 @@ public class ServicioRegistroImpl implements ServicioRegistro{
         if(LaClaveTieneLongitudIncorrecta(datosRegistro)) {
             throw new ClaveLongitudIncorrectaException();
         }
-        if(tablaCliente.existeClienteCon(datosRegistro.getEmail())){
+        if(repositorioCliente.buscarPorEmail(datosRegistro.getEmail()) != null){
             throw new ClienteYaExisteException();
         }
         Cliente nuevoCliente = new Cliente(datosRegistro);
-        tablaCliente.agregar(nuevoCliente);
+        repositorioCliente.guardar(nuevoCliente);
         return nuevoCliente;
     }
 
@@ -39,6 +45,5 @@ public class ServicioRegistroImpl implements ServicioRegistro{
     private boolean LaClaveTieneLongitudIncorrecta(DatosRegistro datosRegistro) {
         return datosRegistro.getClave().length() < 8;
     }
-
 
 }

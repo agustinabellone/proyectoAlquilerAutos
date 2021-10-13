@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
+import ar.edu.unlam.tallerweb1.repositorio.RepositorioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLoginImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorLogin {
 
+    private ServicioLogin servicioLogin;
+
     @Autowired
-    private ServicioLogin servicioLogin = new ServicioLoginImpl();
+    public ControladorLogin(ServicioLogin servicioLogin) {
+        this.servicioLogin = servicioLogin;
+    }
 
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)

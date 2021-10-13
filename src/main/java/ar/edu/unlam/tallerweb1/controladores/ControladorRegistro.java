@@ -3,8 +3,9 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
+import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
-import ar.edu.unlam.tallerweb1.servicios.ServicioRegistroImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,8 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorRegistro {
 
-    private ServicioRegistro servicioRegistro = new ServicioRegistroImpl();
+    private ServicioRegistro servicioRegistro;
 
+    @Autowired
+    public ControladorRegistro(ServicioRegistro servicioRegistro) {
+        this.servicioRegistro = servicioRegistro;
+    }
 
     @RequestMapping(path = "/registro", method = RequestMethod.GET)
     public ModelAndView mostrarFormularioDeRegistro() {
