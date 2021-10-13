@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository("RepositorioTipoSuscripcion")
-public class RepositorioTipoSuscripcionImpl implements RepositorioTipoSuscripcion{
+public class RepositorioTipoSuscripcionImpl implements RepositorioTipoSuscripcion {
 
     private SessionFactory sessionFactory;
 

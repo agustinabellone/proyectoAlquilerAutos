@@ -21,6 +21,7 @@ public class testControladorAlquiler {
 
     DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, fechaInicio, fechaSalida );
 
+
     private ModelAndView mav;
 
     @Before

@@ -1,17 +1,11 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaRenovadaException;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcionImpl;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcionImpl;
-import org.hibernate.SessionFactory;
 import org.junit.Test;
-import org.springframework.orm.hibernate3.SpringTransactionFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.assertj.core.api.Assertions.*;

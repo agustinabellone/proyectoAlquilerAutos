@@ -31,7 +31,7 @@ public class testRepositorioSuscripcion extends SpringTest {
     private RepositorioTipoSuscripcion repositorioTipoSuscripcion;
 
     @Autowired
-    private RepositorioCliente repositorioCliente;
+    private ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente repositorioCliente;
 
     @Test
     @Transactional
@@ -134,5 +134,16 @@ public class testRepositorioSuscripcion extends SpringTest {
         Suscripcion buscada = repositorioSuscripcion.buscarPorCliente(cliente);
         assertThat(buscada).isNotNull();
 
+    }
+
+    public static class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
+
+        @Autowired
+        private RepositorioEnviarAutoAMantenimiento repositorioEnviarAutoAMantenimiento;
+
+        @Test
+        public void queSeGuardeUnAutoEnMantenimientoCorrectamente() {
+
+        }
     }
 }
