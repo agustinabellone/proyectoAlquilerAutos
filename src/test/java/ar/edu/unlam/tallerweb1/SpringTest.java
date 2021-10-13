@@ -1,3 +1,5 @@
+package ar.edu.unlam.tallerweb1;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.runner.RunWith;
