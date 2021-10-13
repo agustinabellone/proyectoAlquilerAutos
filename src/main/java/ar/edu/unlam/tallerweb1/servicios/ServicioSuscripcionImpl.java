@@ -64,4 +64,10 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
         suscripcion.setTipoSuscripcion(nuevo_tipo);
         repositorioSuscripcion.actualizarSuscripcion(suscripcion);
     }
+
+    @Override
+    public Suscripcion buscarPorIdCliente(Long id) {
+        Cliente buscado = new Cliente(id);
+        return repositorioSuscripcion.buscarPorCliente(buscado);
+    }
 }

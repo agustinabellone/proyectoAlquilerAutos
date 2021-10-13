@@ -40,35 +40,7 @@
             <!-- row  -->
             <div class="row mt-4">
                 <!-- column  -->
-                <div class="col-md-4">
-                    <div class="card card-shadow border-0 mb-4">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center">
-                                <h5 class="font-weight-medium mb-0">Plan basico</h5>
-                                <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Popular</span></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-5 text-center">
-                                    <div class="price-box my-3">
-                                        <sup>$</sup><span class="text-dark display-5">2.600</span>
-                                        <h6 class="font-weight-light">1 MES</h6>
-                                        <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" href="suscribirse?id_tipo=1&id_cliente=200">SUSCRIBIRME</a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 align-self-center">
-                                    <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- column  -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="card card-shadow border-0 mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center">
@@ -80,7 +52,7 @@
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">2.600</span>
                                         <h6 class="font-weight-light">1 MES</h6>
-                                        <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" href=suscribirse?id_tipo=2&id_cliente=300">SUSCRIBIRME</a>
+                                        <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" href="suscribirse?id_tipo=2&id_cliente=300">SUSCRIBIRME</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-7 align-self-center">
@@ -97,7 +69,7 @@
                 </div>
                 <!-- column  -->
                 <!-- column  -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="card card-shadow border-0 mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center">
@@ -125,9 +97,51 @@
                 </div>
                 <!-- column  -->
             </div>
+            <!-- row  -->
+            <div class="row mt-4 ">
+                <!-- column  -->
+                <div class="col">
+                    <div class="card card-shadow border-0 mb-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center">
+                                <h5 class="font-weight-medium mb-0">Plan basico</h5>
+                                <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Popular</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5 text-center">
+                                    <div class="price-box my-3">
+                                        <sup>$</sup><span class="text-dark display-5">2.600</span>
+                                        <h6 class="font-weight-light">1 MES</h6>
+                                        <a class="btn btn-info-gradiant font-18 border-0 text-white p-3 btn-block mt-3" href="suscribirse?id_tipo=1&id_cliente=200">SUSCRIBIRME</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 align-self-center">
+                                    <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <form action=renovar-suscripcion method="post">
+                <div class="form-group">
+                    <label for="idCliente">Id del Cliente</label>
+                    <input type="text" class="form-text" name="id" id="idCliente" aria-describedby="emailHelp" placeholder="Ingrese Id">
+                    <small id="idHelp" class="form-text text-muted">Ingresa el Id del cliente ya suscripto</small>
+                </div>
+                <button type="submit" class="btn btn-primary ">Renovar</button>
+            </form>
         </div>
     </div>
 </section>
+
 
 </body>
 

@@ -13,4 +13,6 @@ public interface ServicioSuscripcion {
     void renovarSuscripcion(Suscripcion suscripcion);
 
     void mejorarNivelSuscripcion(Suscripcion suscripcion, TipoSuscripcion nuevo_tipo);
+
+    Suscripcion buscarPorIdCliente(Long id);
 }

@@ -16,4 +16,5 @@ public interface RepositorioSuscripcion {
     Suscripcion buscarPorCliente(Cliente cliente);
 
     void actualizarSuscripcion(Suscripcion suscripcion);
+
 }

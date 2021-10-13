@@ -87,7 +87,7 @@ public class testControladorSuscripcion {
     }
 
     private void whenUnClienteRenuevaLaSuscripcion(Suscripcion suscripcion) {
-        mav = controladorSuscripcion.renovarSuscripcion(suscripcion);
+        mav = controladorSuscripcion.renovarSuscripcion(suscripcion.getCliente().getId());
     }
 
     private void thenLasRenovacionEsExitosa() {

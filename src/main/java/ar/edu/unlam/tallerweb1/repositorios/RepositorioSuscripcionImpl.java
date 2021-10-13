@@ -55,4 +55,5 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
         this.sessionFactory.getCurrentSession()
                 .update("Suscripcion", suscripcion);
     }
+
 }

@@ -47,7 +47,9 @@ public class ControladorSuscripcion {
     }
 
     @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)
-    public ModelAndView renovarSuscripcion(Suscripcion suscripcion) {
+    public ModelAndView renovarSuscripcion(@RequestParam("id") Long id) {
+
+        Suscripcion suscripcion= servicioSuscripcion.buscarPorIdCliente(id);
 
         try{
             servicioSuscripcion.renovarSuscripcion(suscripcion);

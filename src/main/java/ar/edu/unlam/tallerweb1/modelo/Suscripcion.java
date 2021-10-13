@@ -1,8 +1,6 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.*;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 
 @Entity
 public class Suscripcion {
@@ -20,6 +18,9 @@ public class Suscripcion {
     @Column(nullable = true)
     private Boolean Renovacion;
 
+    @Column
+    private Short DiasRestantes;
+
     public Suscripcion(){
 
     }
@@ -28,6 +29,7 @@ public class Suscripcion {
         this.Cliente = cliente;
         this.TipoSuscripcion = tipoSuscripcion;
         this.Renovacion=false;
+        this.DiasRestantes=30;
     }
 
     public Long getId() {
@@ -60,5 +62,13 @@ public class Suscripcion {
 
     public void setRenovacion(Boolean renovacion) {
         Renovacion = renovacion;
+    }
+
+    public Short getDiasRestantes() {
+        return DiasRestantes;
+    }
+
+    public void setDiasRestantes(Short diasRestantes) {
+        DiasRestantes = diasRestantes;
     }
 }
