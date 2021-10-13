@@ -22,13 +22,10 @@
 </head>
 <body>
 <header class="d-flex flex-row-reverse p-3">
-    <div class=" d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
-        <button type="button" class="btn btn-primary">Iniciar sesion</button>
-        <button type="button" class="btn btn-default">Crear cuenta</button>
-    </div>
+
 </header>
 <section>
-    <div class="container">
+    <div class="container text-center">
         <div>
             <h1 class="display-4 p-4">Lista de Autos</h1>
         </div>
@@ -38,7 +35,7 @@
     <div class="pricing6 py-5 bg-light">
         <div class="container">
             <!-- row  -->
-            <div class="col mt-4 center-block">
+            <div class="col center-block">
                 <!-- column  -->
                 <div class="col-md-12">
                     <div class="card card-shadow border-0 mb-4">
@@ -65,8 +62,8 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="container">
-                                            <img src="https://www.automobilemag.com/uploads/sites/11/2014/02/2015-Ford-Focus-hatchback-front-view2.jpg?fit=around%7C875:492"
-                                                 alt="" style="width: 100%; height: auto;">
+                                                <img src="https://www.automobilemag.com/uploads/sites/11/2014/02/2015-Ford-Focus-hatchback-front-view2.jpg?fit=around%7C875:492"
+                                                     alt="" style="width: 100%; height: auto;">
                                             </div>
                                         </div>
                                         <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3"
@@ -104,8 +101,8 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="container">
-                                            <img src="https://3.bp.blogspot.com/-2S9cuFUrN7I/XKfwZuAAATI/AAAAAAAAdEc/TbKdrRbdwXkTCNy3-deFvJdESVCkA5VngCLcBGAs/s1600/Ficha-Tecnica-Chevrolet-Onix-2019.jpg"
-                                                 alt="" style="width: 100%; height: auto;">
+                                                <img src="https://3.bp.blogspot.com/-2S9cuFUrN7I/XKfwZuAAATI/AAAAAAAAdEc/TbKdrRbdwXkTCNy3-deFvJdESVCkA5VngCLcBGAs/s1600/Ficha-Tecnica-Chevrolet-Onix-2019.jpg"
+                                                     alt="" style="width: 100%; height: auto;">
                                             </div>
                                         </div>
                                         <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3"
@@ -141,8 +138,8 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="container">
-                                            <img src="https://acroadtrip.blob.core.windows.net/catalogo-imagenes/xl/RT_V_bde57fdcf34b4e75be144e7400b4c97a.jpg"
-                                                 alt="" style="width: 100%; height: auto;">
+                                                <img src="https://acroadtrip.blob.core.windows.net/catalogo-imagenes/xl/RT_V_bde57fdcf34b4e75be144e7400b4c97a.jpg"
+                                                     alt="" style="width: 100%; height: auto;">
                                             </div>
                                         </div>
                                         <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3"
