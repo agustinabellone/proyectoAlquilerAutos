@@ -29,7 +29,6 @@ public class testServicioAlquiler {
         Alquiler alquiler= whenUnClienteAlquilaUnAuto(datosAlquiler);
         thenElAlquilerEsExitoso(alquiler);
 
-
     }
 
     @Test(expected = AutoYaAlquiladoException.class)

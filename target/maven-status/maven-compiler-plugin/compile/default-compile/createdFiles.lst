@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ar/edu/unlam/tallerweb1/controladores/ControladorEnviarAutoAMantenimiento.class
 ar/edu/unlam/tallerweb1/modelo/TipoSuscripcion.class
 ar/edu/unlam/tallerweb1/servicios/ServicioMantenimientoImpl.class
@@ -22,3 +23,5 @@ ar/edu/unlam/tallerweb1/servicios/ServicioAlquilar.class
 ar/edu/unlam/tallerweb1/Exceptions/AutoNoExistente.class
 ar/edu/unlam/tallerweb1/controladores/DatosSuscripcion.class
 ar/edu/unlam/tallerweb1/modelo/Suscripcion.class
+=======
+>>>>>>> master
