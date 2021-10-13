@@ -31,7 +31,7 @@ public class testRepositorioSuscripcion extends SpringTest {
     private RepositorioTipoSuscripcion repositorioTipoSuscripcion;
 
     @Autowired
-    private RepositorioCliente repositorioCliente;
+    private ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente repositorioCliente;
 
     @Test
     @Transactional
