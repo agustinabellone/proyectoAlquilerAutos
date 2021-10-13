@@ -21,7 +21,6 @@ public class ServicioRegistroImpl implements ServicioRegistro{
         this.repositorioCliente = repositorioCliente;
     }
 
-
     @Override
     public Cliente registrar(DatosRegistro datosRegistro) {
         if(LasClavesSonDistintas(datosRegistro)){

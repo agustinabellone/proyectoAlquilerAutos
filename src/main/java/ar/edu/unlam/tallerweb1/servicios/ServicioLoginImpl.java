@@ -12,7 +12,6 @@ import javax.transaction.Transactional;
 @Transactional
 public class ServicioLoginImpl implements ServicioLogin {
 
-
     private RepositorioCliente repositorioCliente;
 
     @Autowired
@@ -20,10 +19,9 @@ public class ServicioLoginImpl implements ServicioLogin {
         this.repositorioCliente = repositorioCliente;
     }
 
-
     @Override
     public Cliente ingresar(DatosLogin datosLogin) {
-        if(repositorioCliente.buscarPorEmail(datosLogin.getEmail()) != null){
+        if(repositorioCliente.buscarPorEmail(datosLogin.getEmail()) == null){
             throw new ClienteNoExisteException();
         } else {
             return new Cliente();

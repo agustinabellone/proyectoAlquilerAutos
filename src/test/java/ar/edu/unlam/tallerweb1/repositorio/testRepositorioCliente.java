@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import javax.transaction.Transactional;
-
 import static org.assertj.core.api.Assertions.*;
 
 public class testRepositorioCliente extends SpringTest {
@@ -18,7 +17,7 @@ public class testRepositorioCliente extends SpringTest {
     @Transactional
     @Rollback
     public void guardarUnClienteDeberiaPersistirlo(){
-        Cliente cliente = givenExisteUnCliente("agustina@gmail.com");
+        Cliente cliente = givenExisteUnCliente("agus@gmail.com");
         Long id = whenGuardoUnCliente(cliente);
         thenEncuentroElCliente(id);
     }
