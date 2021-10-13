@@ -35,8 +35,10 @@ public class ControladorSuscripcion {
     public ModelAndView suscribirCliente(@RequestParam(value = "id_tipo") Long id_tipo,
                                          @RequestParam(value = "id_cliente")Long id_cliente) {
 
+        Cliente cliente = new Cliente(id_cliente);
+        TipoSuscripcion tipoSuscripcion = new TipoSuscripcion(id_tipo);
         try{
-            servicioSuscripcion.suscribir(id_cliente, id_tipo);
+            servicioSuscripcion.suscribir(cliente, tipoSuscripcion);
         }catch (ClienteYaSuscriptoException e){
             return new ModelAndView("ir-a-suscribir");
         }

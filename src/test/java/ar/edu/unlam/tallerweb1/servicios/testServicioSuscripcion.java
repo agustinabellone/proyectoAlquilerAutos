@@ -16,13 +16,15 @@ public class testServicioSuscripcion {
     private ServicioSuscripcion servicioSuscripcion= new ServicioSuscripcionImpl(repositorioSuscripcion);
     private static final Long ID_CLIENTE=123L;
     private static final Long ID_TIPO=1L;
+    private static final Cliente CLIENTE=new Cliente(ID_CLIENTE);
+    private static final TipoSuscripcion TIPO_SUSCRIPCION=new TipoSuscripcion(ID_TIPO);
 
     @Test
     public void unClienteSeSuscribeExitosamente(){
 
         Cliente cliente = givenExisteUnCliente();
         TipoSuscripcion tipo = givenExisteUnTipoDeSuscripcion();
-        Suscripcion suscripcion = whenUnClienteSeSuscribe(ID_CLIENTE, ID_TIPO);
+        Suscripcion suscripcion = whenUnClienteSeSuscribe(CLIENTE, TIPO_SUSCRIPCION);
         thenLaSuscripcionEsExitosa(suscripcion);
 
     }
@@ -40,19 +42,19 @@ public class testServicioSuscripcion {
     @Test
     public void unClienteMejoraSuSucripcion(){
         Suscripcion suscripcion = giveExisteUnaSuscripcion();
-        Long nuevo_tipo=3L;
-        whenUnClienteMejoraSuSuscripcion(suscripcion, nuevo_tipo);
-        theLaMejoraEsExitosa(suscripcion, nuevo_tipo);
+        TipoSuscripcion nuevo_TipoSuscripcion=new TipoSuscripcion(3L);
+        whenUnClienteMejoraSuSuscripcion(suscripcion, nuevo_TipoSuscripcion);
+        theLaMejoraEsExitosa(suscripcion, nuevo_TipoSuscripcion);
 
     }
 
     @Test(expected = ClienteYaSuscriptoException.class)
     public void siElClienteYaEstaSuscriptoFallaLaSuscripcion(){
         Suscripcion suscripcion = giveExisteUnaSuscripcion();
-        Long cliente_id = suscripcion.getCliente_id();
-        Long tipo_id = suscripcion.getTipo_id();
-        when(repositorioSuscripcion.buscarPorCliente(cliente_id)).thenReturn(new Suscripcion());
-        Suscripcion nueva_suscripcion = whenUnClienteSeSuscribe(cliente_id, tipo_id);
+        Cliente cliente = suscripcion.getCliente();
+        TipoSuscripcion tipoSuscripcion = suscripcion.getTipoSuscripcion();
+        when(repositorioSuscripcion.buscarPorCliente(cliente)).thenReturn(new Suscripcion());
+        Suscripcion nueva_suscripcion = whenUnClienteSeSuscribe(cliente, tipoSuscripcion);
         thenLaSuscripcionFalla(nueva_suscripcion);
     }
 
@@ -60,18 +62,18 @@ public class testServicioSuscripcion {
         assertThat(nueva_suscripcion).isNull();
     }
 
-    private void whenUnClienteMejoraSuSuscripcion(Suscripcion suscripcion, Long nuevo_tipo) {
-        servicioSuscripcion.mejorarNivelSuscripcion(suscripcion, nuevo_tipo);
+    private void whenUnClienteMejoraSuSuscripcion(Suscripcion suscripcion, TipoSuscripcion nuevo_TipoSuscripcion) {
+        servicioSuscripcion.mejorarNivelSuscripcion(suscripcion, nuevo_TipoSuscripcion);
     }
 
-    private void theLaMejoraEsExitosa(Suscripcion suscripcion, Long nuevo_tipo) {
-        assertThat(suscripcion.getTipo_id()).isEqualTo(nuevo_tipo);
+    private void theLaMejoraEsExitosa(Suscripcion suscripcion, TipoSuscripcion nuevo_TipoSuscripcion) {
+        assertThat(suscripcion.getTipoSuscripcion()).isEqualTo(nuevo_TipoSuscripcion);
     }
 
     private Suscripcion giveExisteUnaSuscripcion() {
         Suscripcion suscripcion = new Suscripcion();
-        suscripcion.setTipo_id(1L);
-        suscripcion.setCliente_id(5L);
+        suscripcion.setTipoSuscripcion(TIPO_SUSCRIPCION);
+        suscripcion.setCliente(CLIENTE);
         return suscripcion;
     }
 
@@ -91,8 +93,8 @@ public class testServicioSuscripcion {
         return new TipoSuscripcion();
     }
 
-    private Suscripcion whenUnClienteSeSuscribe(Long id_cliente, Long id_tipo) {
-        return servicioSuscripcion.suscribir(id_cliente, id_tipo);
+    private Suscripcion whenUnClienteSeSuscribe(Cliente cliente, TipoSuscripcion tipoSuscripcion) {
+        return servicioSuscripcion.suscribir(cliente, tipoSuscripcion);
     }
 
     private void thenLaSuscripcionEsExitosa(Suscripcion suscripcion) {

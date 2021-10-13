@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
+import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,18 +35,18 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
     }
 
     @Override
-    public List<Suscripcion> buscarPorTipo(Long id_tipo) {
+    public List<Suscripcion> buscarPorTipo(TipoSuscripcion tipoSuscripcion) {
         return sessionFactory.getCurrentSession()
                 .createCriteria(Suscripcion.class)
-                .add(Restrictions.eq("Tipo_id", id_tipo))
+                .add(Restrictions.eq("TipoSuscripcion", tipoSuscripcion))
                 .list();
     }
 
     @Override
-    public Suscripcion buscarPorCliente(Long id_cliente) {
+    public Suscripcion buscarPorCliente(Cliente cliente) {
         return (Suscripcion)this.sessionFactory.getCurrentSession()
                 .createCriteria(Suscripcion.class)
-                .add(Restrictions.eq("Cliente_id", id_cliente))
+                .add(Restrictions.eq("Cliente", cliente))
                 .uniqueResult();
     }
 

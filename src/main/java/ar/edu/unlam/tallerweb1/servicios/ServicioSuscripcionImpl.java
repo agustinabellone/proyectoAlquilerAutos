@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.NivelDeSuscripcionActualMejorOIgualQue
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaRenovadaException;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
+import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,19 +27,19 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 
 
     @Override
-    public Suscripcion suscribir(Long id_cliente, Long id_tipo) {
+    public Suscripcion suscribir(Cliente cliente, TipoSuscripcion tipoSuscripcion) {
 
-        if(existeSuscripcionPorCliente(id_cliente)){
+        if(existeSuscripcionPorCliente(cliente)){
             throw new ClienteYaSuscriptoException();
         }
-        Suscripcion suscripcion = new Suscripcion(id_cliente, id_tipo);
+        Suscripcion suscripcion = new Suscripcion(cliente, tipoSuscripcion);
         repositorioSuscripcion.guardar(suscripcion);
         return suscripcion;
     }
 
     @Override
-    public Boolean existeSuscripcionPorCliente(Long id_cliente) {
-        Suscripcion buscado = repositorioSuscripcion.buscarPorCliente(id_cliente);
+    public Boolean existeSuscripcionPorCliente(Cliente cliente) {
+        Suscripcion buscado = repositorioSuscripcion.buscarPorCliente(cliente);
 
         if (Objects.isNull(buscado)){
             return false;
@@ -56,11 +57,11 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     }
 
     @Override
-    public void mejorarNivelSuscripcion(Suscripcion suscripcion, Long nuevo_tipo) {
-        if(suscripcion.getTipo_id()>=nuevo_tipo){
+    public void mejorarNivelSuscripcion(Suscripcion suscripcion, TipoSuscripcion nuevo_tipo) {
+        if(suscripcion.getTipoSuscripcion().getId()>=nuevo_tipo.getId()){
             throw new NivelDeSuscripcionActualMejorOIgualQueElNuevoException();
         }
-        suscripcion.setTipo_id(nuevo_tipo);
+        suscripcion.setTipoSuscripcion(nuevo_tipo);
         repositorioSuscripcion.actualizarSuscripcion(suscripcion);
     }
 }

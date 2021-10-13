@@ -1,14 +1,16 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
+import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 
 public interface ServicioSuscripcion {
 
-    Suscripcion suscribir(Long id_cliente, Long id_tipo);
+    Suscripcion suscribir(Cliente cliente, TipoSuscripcion tipoSuscripcion);
 
-    Boolean existeSuscripcionPorCliente(Long id_cliente);
+    Boolean existeSuscripcionPorCliente(Cliente cliente);
 
     void renovarSuscripcion(Suscripcion suscripcion);
 
-    void mejorarNivelSuscripcion(Suscripcion suscripcion, Long nuevo_tipo);
+    void mejorarNivelSuscripcion(Suscripcion suscripcion, TipoSuscripcion nuevo_tipo);
 }

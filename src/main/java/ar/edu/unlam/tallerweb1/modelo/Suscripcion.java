@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.*;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 
 @Entity
 public class Suscripcion {
@@ -9,11 +11,11 @@ public class Suscripcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long Cliente_id;
+    @OneToOne
+    private Cliente Cliente;
 
-    @Column(nullable = true)
-    private Long Tipo_id;
+    @OneToOne
+    private TipoSuscripcion TipoSuscripcion;
 
     @Column(nullable = true)
     private Boolean Renovacion;
@@ -22,26 +24,10 @@ public class Suscripcion {
 
     }
 
-    public Suscripcion(Long id_cliente, Long id_tipo) {
-        this.Cliente_id = id_cliente;
-        this.Tipo_id = id_tipo;
+    public Suscripcion(Cliente cliente, TipoSuscripcion tipoSuscripcion) {
+        this.Cliente = cliente;
+        this.TipoSuscripcion = tipoSuscripcion;
         this.Renovacion=false;
-    }
-
-    public Long getCliente_id() {
-        return Cliente_id;
-    }
-
-    public void setCliente_id(Long cliente_id) {
-        Cliente_id = cliente_id;
-    }
-
-    public Long getTipo_id() {
-        return Tipo_id;
-    }
-
-    public void setTipo_id(Long tipo_id) {
-        this.Tipo_id = tipo_id;
     }
 
     public Long getId() {
@@ -52,11 +38,27 @@ public class Suscripcion {
         this.id = id;
     }
 
-    public void setRenovacion(Boolean estado) {
-        this.Renovacion=estado;
+    public Cliente getCliente() {
+        return Cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        Cliente = cliente;
+    }
+
+    public TipoSuscripcion getTipoSuscripcion() {
+        return TipoSuscripcion;
+    }
+
+    public void setTipoSuscripcion(TipoSuscripcion tipoSuscripcion) {
+        TipoSuscripcion = tipoSuscripcion;
     }
 
     public Boolean getRenovacion() {
-        return this.Renovacion;
+        return Renovacion;
+    }
+
+    public void setRenovacion(Boolean renovacion) {
+        Renovacion = renovacion;
     }
 }

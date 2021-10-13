@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
+import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 
 import java.util.List;
 
@@ -9,9 +11,9 @@ public interface RepositorioSuscripcion {
 
     Suscripcion buscarPorId(Long id);
 
-    List<Suscripcion> buscarPorTipo(Long id_tipo);
+    List<Suscripcion> buscarPorTipo(TipoSuscripcion tipoSuscripcion);
 
-    Suscripcion buscarPorCliente(Long id);
+    Suscripcion buscarPorCliente(Cliente cliente);
 
     void actualizarSuscripcion(Suscripcion suscripcion);
 }
