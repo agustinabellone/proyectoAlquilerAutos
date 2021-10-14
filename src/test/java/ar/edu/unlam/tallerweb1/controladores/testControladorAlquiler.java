@@ -26,7 +26,6 @@ public class testControladorAlquiler {
 
     @Before
     public void init() {
-
         TablaAlquiler.getInstance().reset();
     }
 

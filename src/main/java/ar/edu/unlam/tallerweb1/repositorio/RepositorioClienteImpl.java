@@ -29,10 +29,14 @@ public class RepositorioClienteImpl implements RepositorioCliente {
 
     @Override
     public Cliente buscarPorEmail(String email) {
-        return (Cliente) sessionFactory.getCurrentSession()
+        Cliente resultado = (Cliente) sessionFactory.getCurrentSession()
                 .createCriteria(Cliente.class)
                 .add(Restrictions.eq("email", email))
                 .uniqueResult();
+        if((resultado) != null) {
+            return new Cliente();
+        }
+        return null;
     }
 
     @Override

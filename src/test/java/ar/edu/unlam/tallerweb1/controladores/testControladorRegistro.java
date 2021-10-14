@@ -1,10 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
+import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class testControladorRegistro {
 
@@ -41,6 +43,9 @@ public class testControladorRegistro {
     @Test
     public void siLasClavesSonDistintasElRegistroFalla(){
         givenUsuarioNoExiste();
+        doThrow(ClavesDistintasException.class)
+                .when(servicioRegistro)
+                .registrar(new DatosRegistro(EMAIL, CLAVE, CLAVE_DISTINTA));
         whenRegistroUnUsuarioConClaves(EMAIL, CLAVE, CLAVE_DISTINTA);
         thenElRegistroFalla("Las claves deben ser iguales");
     }
@@ -56,6 +61,9 @@ public class testControladorRegistro {
     @Test
     public void siLaClaveTieneMenosDeOchoCaracteresElRegistroFalla(){
         givenUsuarioNoExiste();
+        doThrow(ClaveLongitudIncorrectaException.class)
+                .when(servicioRegistro)
+                .registrar(new DatosRegistro(EMAIL, CLAVE_LONGITUD_INCORRECTA, CLAVE_LONGITUD_INCORRECTA));
         whenRegistroUnUsuarioConClaves(EMAIL, CLAVE_LONGITUD_INCORRECTA, CLAVE_LONGITUD_INCORRECTA);
         thenElRegistroFalla("La clave debe tener al menos 8 caracteres");
     }

@@ -1,9 +1,10 @@
 package ar.edu.unlam.tallerweb1.controladores;
+import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class testControladorLogin {
 
@@ -40,6 +41,9 @@ public class testControladorLogin {
     @Test
     public void siElClienteNoExisteElIngresoFalla(){
         givenUsuarioNoExiste();
+        doThrow(ClienteNoExisteException.class)
+                .when(servicioLogin)
+                .ingresar(new DatosLogin(EMAIL_INCORRECTO, CLAVE));
         whenElClienteIngresa(EMAIL_INCORRECTO, CLAVE);
         thenElIngresoFalla("El usuario no existe");
     }
