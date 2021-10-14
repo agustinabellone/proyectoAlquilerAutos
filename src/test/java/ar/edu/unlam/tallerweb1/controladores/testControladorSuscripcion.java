@@ -1,10 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
-import ar.edu.unlam.tallerweb1.repositorio.TablaAlquiler;
-import ar.edu.unlam.tallerweb1.repositorio.TablaSuscripcion;
+import ar.edu.unlam.tallerweb1.repositorios.TablaSuscripcion;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
