@@ -12,6 +12,7 @@ public class Auto {
     private String patente;
     private Boolean terceros;
     private Integer añoFabricación;
+    private int kilometros;
 
     public Auto(Long id, String marca, String modelo, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
         this.id = id;
@@ -83,4 +84,11 @@ public class Auto {
         this.añoFabricación = añoFabricación;
     }
 
+    public void setKm(int kilometrosDefiniddos) {
+    }
+
+    public int getKm() {
+        this.kilometros = 100;
+        return kilometros;
+    }
 }
