@@ -1,10 +1,13 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Auto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id",unique=true, nullable = false)
     private Long id;
     private String marca;
     private String modelo;
@@ -13,6 +16,7 @@ public class Auto {
     private Boolean terceros;
     private Integer añoFabricación;
     private int kilometros;
+    private boolean disponible;
 
     public Auto(Long id, String marca, String modelo, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
         this.id = id;
@@ -22,12 +26,14 @@ public class Auto {
         this.patente = patente;
         this.terceros = terceros;
         this.añoFabricación = añoFabricación;
+        this.disponible = true;
     }
 
     public Auto() {
+        this.disponible=true;
     }
 
-    @Id
+
     public Long getId() {
         return id;
     }
@@ -90,5 +96,14 @@ public class Auto {
     public int getKm() {
         this.kilometros = 100;
         return kilometros;
+    }
+
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
     }
 }

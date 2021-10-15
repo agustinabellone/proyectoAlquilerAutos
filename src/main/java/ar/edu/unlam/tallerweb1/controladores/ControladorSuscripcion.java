@@ -9,7 +9,6 @@ import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +43,7 @@ public class ControladorSuscripcion {
             return new ModelAndView("ir-a-suscribir");
         }
 
-        return new ModelAndView("home");
+        return new ModelAndView("/home.jsp");
     }
 
     @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)
@@ -57,6 +56,6 @@ public class ControladorSuscripcion {
         }catch(SuscripcionYaRenovadaException e){
             return new ModelAndView("perfil"); //EL USUARIO RENUEVA SU SUSCRIPCION DESDE SU PERFIL
         }
-        return new ModelAndView("home");
+        return new ModelAndView("/home.jsp");
     }
 }

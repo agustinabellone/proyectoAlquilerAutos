@@ -9,6 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class ControladorHome {
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome() {
-        return new ModelAndView("home");
+        return new ModelAndView("/home.jsp");
     }
 }
