@@ -8,11 +8,15 @@ import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
 
     public static final String PATENTE = "ABC123";
+    public static final String FIESTA = "Fiesta";
+    public static final String FOCUS = "Focus";
 
     @Autowired
     private RepositorioEnviarAutoAMantenimiento repositorioEnviarAutoAMantenimiento;
@@ -22,14 +26,9 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     @Transactional
     public void queSePuedaBuscarPorPatente() {
         givenExisteUnAutoConPatente(PATENTE);
-        Auto buscado = whenBuscoUnAutoConPatente(PATENTE);
-        thenEncuentroEl(buscado);
+        Auto encontrado = whenBuscoUnAutoConPatente(PATENTE);
+        thenEncuentroEl(encontrado, PATENTE);
     }
-
-    @Test
-    @Rollback
-    @Transactional
-    public void queSePuedaBuscarPorModelo(){}
 
     private void givenExisteUnAutoConPatente(String patente) {
         Auto buscado = new Auto();
@@ -41,7 +40,37 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
         return repositorioEnviarAutoAMantenimiento.buscarPor(patente);
     }
 
-    private void thenEncuentroEl(Auto buscado) {
-        assertThat(buscado).isNotNull();
+    private void thenEncuentroEl(Auto encontrado, String patente) {
+        assertThat(encontrado).isNotNull();
+        assertThat(encontrado.getPatente()).isEqualTo(patente);
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaBuscarPorModelo() {
+        givenExistenAutosConModelo(FIESTA, 3);
+        givenExistenAutosConModelo(FOCUS, 2);
+        List<Auto> autosEncontrados = whenBuscoAutosConModelo(FOCUS);
+        thenEncuentroLosAutos(autosEncontrados, 2);
+    }
+
+    private void givenExistenAutosConModelo(String modelo, int cantidadDeAutos) {
+        for (int i = 0; i < cantidadDeAutos; i++) {
+            Auto buscado = new Auto();
+            buscado.setModelo(modelo);
+            session().save(buscado);
+        }
+    }
+
+    private List<Auto> whenBuscoAutosConModelo(String modelo) {
+        return repositorioEnviarAutoAMantenimiento.buscarPorModelo(modelo);
+    }
+
+    private void thenEncuentroLosAutos(List<Auto> autosEncontrados, int cantidadDeAutosEncontrados) {
+        assertThat(autosEncontrados).hasSize(cantidadDeAutosEncontrados);
+        for (Auto auto : autosEncontrados) {
+            assertThat(auto.getModelo()).isEqualTo(FOCUS);
+        }
     }
 }

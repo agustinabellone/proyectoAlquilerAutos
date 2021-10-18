@@ -8,6 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnviarAutoAMantenimiento {
 
@@ -30,5 +32,13 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
     @Override
     public void guardar(Auto enviado) {
 
+    }
+
+    @Override
+    public List<Auto> buscarPorModelo(String modelo) {
+        final Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Auto.class)
+                .add(Restrictions.eq("modelo", modelo))
+                .list();
     }
 }
