@@ -19,8 +19,11 @@
 <header class = "d-flex flex-row-reverse p-3"></header>
 <section>
     <div class="container">
-        <div>
-            <h1>Ingresaste a tu cuenta!</h1>
+        <div class="col-sm-12 d-flex justify-content-center">
+            <h1 class="text-center">¡Ingresaste a tu cuenta!</h1>
+        </div>
+        <div class="col-sm-12 d-flex justify-content-center">
+            <a href="alquilar-auto" class="btn btn-primary mt-5">Alquilar auto</a>
         </div>
     </div>
 </section>
