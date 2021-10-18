@@ -104,4 +104,9 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
             assertThat(auto.getMarca()).isEqualTo(FORD);
         }
     }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaBuscarUnAutoPorId(){}
 }
