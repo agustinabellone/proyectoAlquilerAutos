@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 import static org.assertj.core.api.Assertions.*;
@@ -17,8 +18,15 @@ public class testControladorRegistro {
 
     private ModelAndView mav;
 
-    private ServicioRegistro servicioRegistro = mock(ServicioRegistro.class);
-    private ControladorRegistro controladorRegistro = new ControladorRegistro(servicioRegistro);
+    private ServicioRegistro servicioRegistro;
+    private ControladorRegistro controladorRegistro;
+
+    @Before
+    public void init(){
+        servicioRegistro = mock(ServicioRegistro.class);
+        controladorRegistro = new ControladorRegistro(servicioRegistro);
+    }
+
 
     @Test
     public void siElUsuarioNoExisteYLasClavesSonIgualesElRegistroEsExitoso(){

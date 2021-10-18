@@ -1,9 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.repositorio.TablaAlquiler;
-import ar.edu.unlam.tallerweb1.repositorio.TablaSuscripcion;
+import ar.edu.unlam.tallerweb1.repositorios.TablaSuscripcion;
 import org.springframework.web.servlet.ModelAndView;
 
 public class ControladorSuscripcion {

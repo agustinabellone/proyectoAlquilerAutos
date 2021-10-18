@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 import static org.assertj.core.api.Assertions.*;
@@ -8,14 +9,20 @@ import static org.mockito.Mockito.*;
 
 public class testControladorLogin {
 
-    private ServicioLogin servicioLogin = mock(ServicioLogin.class);
-    private ControladorLogin controladorLogin = new ControladorLogin(servicioLogin);
-
     public static final String EMAIL = "agus@gmail.com";
     public static final String CLAVE = "12345678";
     public static final String EMAIL_INCORRECTO = "agustina@gmail.com";
 
     private ModelAndView mav;
+
+    private ServicioLogin servicioLogin;
+    private ControladorLogin controladorLogin;
+
+    @Before
+    public void init(){
+        servicioLogin = mock(ServicioLogin.class);
+        controladorLogin = new ControladorLogin(servicioLogin);
+    }
 
     @Test
     public void siElClienteExisteElIngresoEsExitoso(){
@@ -29,7 +36,6 @@ public class testControladorLogin {
     private void whenElClienteIngresa(String email, String clave) {
         DatosLogin datosLogin = new DatosLogin(email, clave);
         mav = controladorLogin.ingresar(datosLogin);
-
     }
 
     private void thenElIngresoEsExitoso() {

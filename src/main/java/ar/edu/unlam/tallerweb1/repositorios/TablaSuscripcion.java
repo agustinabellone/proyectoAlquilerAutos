@@ -1,4 +1,4 @@
-package ar.edu.unlam.tallerweb1.repositorio;
+package ar.edu.unlam.tallerweb1.repositorios;
 
 import java.util.HashMap;
 import java.util.Map;
