@@ -33,12 +33,12 @@ public class ServicioMantenimientoImpl implements ServicioMantenimiento {
     }
 
     private boolean existeElAuto(Auto queNecesitaMantenimiento) {
-        return this.repositorioEnviarAutoAMantenimiento.buscarPor(queNecesitaMantenimiento.getPatente()) != null;
+        return this.repositorioEnviarAutoAMantenimiento.buscarPorPatente(queNecesitaMantenimiento.getPatente()) != null;
     }
 
     @Override
     public Auto obtenerPor(String patente) throws AutoNoExistente {
-        if (this.repositorioEnviarAutoAMantenimiento.buscarPor(patente) == null){
+        if (this.repositorioEnviarAutoAMantenimiento.buscarPorPatente(patente) == null){
             throw new AutoNoExistente();
         }
         return new Auto();

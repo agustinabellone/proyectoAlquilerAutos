@@ -39,7 +39,7 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     }
 
     private Auto whenBuscoUnAutoConPatente(String patente) {
-        return repositorioEnviarAutoAMantenimiento.buscarPor(patente);
+        return repositorioEnviarAutoAMantenimiento.buscarPorPatente(patente);
     }
 
     private void thenEncuentroElAutoPorPatente(Auto encontrado, String patente) {
@@ -126,5 +126,30 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
 
     private void thenEncuentroElAutoPorId(Auto encontrado) {
         assertThat(encontrado).isNotNull();
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaBuscarUnAutoPorAnioDeFabricacion() {
+        givenExistenAutosConAnioDeFabriacion(2021, 5);
+        List<Auto> encontrado = whenBuscoUnAutoConAnioDeFabricacion(2021);
+        thenEncuentroElAutoPorAnioDeFabricacion(encontrado, 5);
+    }
+
+    private void givenExistenAutosConAnioDeFabriacion(int anioDeFabricacion, int cantidadDeAutos) {
+        for (int i = 0; i < cantidadDeAutos; i++) {
+            Auto buscado = new Auto();
+            buscado.setAñoFabricación(anioDeFabricacion);
+            session().save(buscado);
+        }
+    }
+
+    private List<Auto> whenBuscoUnAutoConAnioDeFabricacion(int anioDeFabricacion) {
+        return repositorioEnviarAutoAMantenimiento.buscarPorAnioDeFabricacion(anioDeFabricacion);
+    }
+
+    private void thenEncuentroElAutoPorAnioDeFabricacion(List<Auto> encontrado, int cantidadDeAutosEncontrados) {
+       assertThat(encontrado).hasSize(cantidadDeAutosEncontrados);
     }
 }

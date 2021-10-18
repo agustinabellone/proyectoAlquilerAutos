@@ -22,7 +22,7 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
     }
 
     @Override
-    public Auto buscarPor(String patente) {
+    public Auto buscarPorPatente(String patente) {
         return obtenerAutoPor(patente, propertyName);
     }
 
@@ -42,8 +42,14 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
     public Auto buscarPorId(Long idDelAuto) {
         session = getSession();
         return (Auto) session.createCriteria(Auto.class).
-                add(Restrictions.eq("id",idDelAuto)).
+                add(Restrictions.eq("id", idDelAuto)).
                 uniqueResult();
+    }
+
+    @Override
+    public List<Auto> buscarPorAnioDeFabricacion(int anioDeFabricacion) {
+        session = getSession();
+        return obtenerListadoDeAutosPor(anioDeFabricacion);
     }
 
     private Auto obtenerAutoPor(String patente, String propertyName) {
@@ -58,11 +64,19 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
         return sessionFactory.getCurrentSession();
     }
 
-    private List obtenerListadoDeAutosPor(String valor) {
+    private List<Auto> obtenerListadoDeAutosPor(String valor) {
         session = getSession();
         return session.createCriteria(Auto.class)
                 .add(Restrictions.eq(propertyName, valor))
                 .list();
+    }
+
+    private List<Auto> obtenerListadoDeAutosPor(int anioDeFabricacion) {
+        session = getSession();
+        propertyName = "añoFabricación";
+        return session.createCriteria(Auto.class).
+                add(Restrictions.eq(propertyName, anioDeFabricacion)).
+                list();
     }
 
     @Override

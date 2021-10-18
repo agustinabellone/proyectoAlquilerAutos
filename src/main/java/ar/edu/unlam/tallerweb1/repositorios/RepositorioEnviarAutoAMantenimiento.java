@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RepositorioEnviarAutoAMantenimiento {
 
-    Auto buscarPor(String patente);
+    Auto buscarPorPatente(String patente);
 
     void guardar(Auto enviado);
 
@@ -15,4 +15,6 @@ public interface RepositorioEnviarAutoAMantenimiento {
     List<Auto> buscarPorMarca(String marca);
 
     Auto buscarPorId(Long idDelAuto);
+
+    List<Auto> buscarPorAnioDeFabricacion(int anioDeFabricacion);
 }
