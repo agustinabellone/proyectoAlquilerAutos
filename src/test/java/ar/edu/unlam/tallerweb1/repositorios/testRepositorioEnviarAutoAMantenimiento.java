@@ -73,4 +73,9 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
             assertThat(auto.getModelo()).isEqualTo(FOCUS);
         }
     }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaBuscarPorMarca(){}
 }
