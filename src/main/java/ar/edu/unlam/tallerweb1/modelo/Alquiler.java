@@ -14,6 +14,7 @@ public class Alquiler {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
+
     @OneToOne
     private Auto auto;
 
