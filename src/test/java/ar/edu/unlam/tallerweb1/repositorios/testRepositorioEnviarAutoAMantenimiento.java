@@ -51,13 +51,13 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     @Rollback
     @Transactional
     public void queSePuedaBuscarPorModelo() {
-        givenExistenAutosConModelo(FIESTA, 3);
-        givenExistenAutosConModelo(FOCUS, 2);
+        givenExistenAutosConModelo(FIESTA, 3L);
+        givenExistenAutosConModelo(FOCUS, 2L);
         List<Auto> autosEncontrados = whenBuscoAutosConModelo(FOCUS);
         thenEncuentroLosAutosPorModelo(autosEncontrados, 2);
     }
 
-    private void givenExistenAutosConModelo(String modelo, int cantidadDeAutos) {
+    private void givenExistenAutosConModelo(String modelo, Long cantidadDeAutos) {
         for (int i = 0; i < cantidadDeAutos; i++) {
             Auto buscado = new Auto();
             buscado.setModelo(modelo);
@@ -108,5 +108,23 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     @Test
     @Rollback
     @Transactional
-    public void queSePuedaBuscarUnAutoPorId(){}
+    public void queSePuedaBuscarUnAutoPorId() {
+        Auto existente = givenExisteUnAutoConId();
+        Auto encontrado = whenBuscoUnAutoConId(existente);
+        thenEncuentroElAutoPorId(encontrado);
+    }
+
+    private Auto givenExisteUnAutoConId() {
+        Auto existente = new Auto();
+        session().save(existente);
+        return existente;
+    }
+
+    private Auto whenBuscoUnAutoConId(Auto buscado) {
+        return repositorioEnviarAutoAMantenimiento.buscarPorId(buscado.getId());
+    }
+
+    private void thenEncuentroElAutoPorId(Auto encontrado) {
+        assertThat(encontrado).isNotNull();
+    }
 }

@@ -13,4 +13,6 @@ public interface RepositorioEnviarAutoAMantenimiento {
     List<Auto> buscarPorModelo(String modelo);
 
     List<Auto> buscarPorMarca(String marca);
+
+    Auto buscarPorId(Long idDelAuto);
 }

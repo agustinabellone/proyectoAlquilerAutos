@@ -38,6 +38,14 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
         return obtenerListadoDeAutosPor(marca);
     }
 
+    @Override
+    public Auto buscarPorId(Long idDelAuto) {
+        session = getSession();
+        return (Auto) session.createCriteria(Auto.class).
+                add(Restrictions.eq("id",idDelAuto)).
+                uniqueResult();
+    }
+
     private Auto obtenerAutoPor(String patente, String propertyName) {
         session = getSession();
         propertyName = "patente";
