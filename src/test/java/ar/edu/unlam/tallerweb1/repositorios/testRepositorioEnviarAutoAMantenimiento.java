@@ -26,6 +26,11 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
         thenEncuentroEl(buscado);
     }
 
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaBuscarPorModelo(){}
+
     private void givenExisteUnAutoConPatente(String patente) {
         Auto buscado = new Auto();
         buscado.setPatente(patente);
