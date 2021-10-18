@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("RepositorioAlquiler")
 public class RepositorioAlquilerImpl implements RepositorioAlquiler{
 
     private SessionFactory sessionFactory;
