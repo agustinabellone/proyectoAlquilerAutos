@@ -31,14 +31,14 @@ public class testControladorRegistro {
     @Test
     public void siElUsuarioNoExisteYLasClavesSonIgualesElRegistroEsExitoso(){
         givenUsuarioNoExiste();
-        whenRegistroUnUsuarioConClaves(EMAIL, CLAVE, CLAVE);
+        DatosRegistro datosRegistro = new DatosRegistro(EMAIL, CLAVE, CLAVE);
+        whenRegistroUnUsuarioConClaves(datosRegistro);
         thenElRegistroEsExitoso();
     }
 
     private void givenUsuarioNoExiste() {}
 
-    private void whenRegistroUnUsuarioConClaves(String email, String clave, String repiteClave) {
-        DatosRegistro datosRegistro = new DatosRegistro(email, clave, repiteClave);
+    private void whenRegistroUnUsuarioConClaves(DatosRegistro datosRegistro) {
         mav = controladorRegistro.registrar(datosRegistro);
     }
 
@@ -51,10 +51,11 @@ public class testControladorRegistro {
     @Test
     public void siLasClavesSonDistintasElRegistroFalla(){
         givenUsuarioNoExiste();
+        DatosRegistro datosRegistro = new DatosRegistro(EMAIL, CLAVE, CLAVE_DISTINTA);
         doThrow(ClavesDistintasException.class)
                 .when(servicioRegistro)
-                .registrar(new DatosRegistro(EMAIL, CLAVE, CLAVE_DISTINTA));
-        whenRegistroUnUsuarioConClaves(EMAIL, CLAVE, CLAVE_DISTINTA);
+                .registrar(datosRegistro);
+        whenRegistroUnUsuarioConClaves(datosRegistro);
         thenElRegistroFalla("Las claves deben ser iguales");
     }
 
@@ -69,10 +70,11 @@ public class testControladorRegistro {
     @Test
     public void siLaClaveTieneMenosDeOchoCaracteresElRegistroFalla(){
         givenUsuarioNoExiste();
+        DatosRegistro datosRegistro = new DatosRegistro(EMAIL, CLAVE_LONGITUD_INCORRECTA, CLAVE_LONGITUD_INCORRECTA);
         doThrow(ClaveLongitudIncorrectaException.class)
                 .when(servicioRegistro)
-                .registrar(new DatosRegistro(EMAIL, CLAVE_LONGITUD_INCORRECTA, CLAVE_LONGITUD_INCORRECTA));
-        whenRegistroUnUsuarioConClaves(EMAIL, CLAVE_LONGITUD_INCORRECTA, CLAVE_LONGITUD_INCORRECTA);
+                .registrar(datosRegistro);
+        whenRegistroUnUsuarioConClaves(datosRegistro);
         thenElRegistroFalla("La clave debe tener al menos 8 caracteres");
     }
 }

@@ -37,7 +37,6 @@ public class RepositorioClienteImpl implements RepositorioCliente {
     }
 
 
-
     @Override
     public List<Cliente> buscarTodos() {
         return sessionFactory.getCurrentSession()

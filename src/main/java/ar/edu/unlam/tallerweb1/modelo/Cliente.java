@@ -12,6 +12,7 @@ public class Cliente {
     private Long id;
     @Column
     private String email;
+    @Column
     private String clave;
 
     public Cliente(Long id) {
@@ -24,7 +25,6 @@ public class Cliente {
         this.email = datosRegistro.getEmail();
         this.clave = datosRegistro.getClave();
     }
-
 
     public Long getId() {
         return id;

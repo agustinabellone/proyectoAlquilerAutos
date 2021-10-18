@@ -27,14 +27,14 @@ public class testControladorLogin {
     @Test
     public void siElClienteExisteElIngresoEsExitoso(){
         givenUsuarioExiste();
-        whenElClienteIngresa(EMAIL, CLAVE);
+        DatosLogin datosLogin = new DatosLogin(EMAIL, CLAVE);
+        whenElClienteIngresa(datosLogin);
         thenElIngresoEsExitoso();
     }
 
     private void givenUsuarioExiste() {}
 
-    private void whenElClienteIngresa(String email, String clave) {
-        DatosLogin datosLogin = new DatosLogin(email, clave);
+    private void whenElClienteIngresa(DatosLogin datosLogin) {
         mav = controladorLogin.ingresar(datosLogin);
     }
 
@@ -47,10 +47,11 @@ public class testControladorLogin {
     @Test
     public void siElClienteNoExisteElIngresoFalla(){
         givenUsuarioNoExiste();
+        DatosLogin datosLogin = new DatosLogin(EMAIL_INCORRECTO, CLAVE);
         doThrow(ClienteNoExisteException.class)
                 .when(servicioLogin)
-                .ingresar(new DatosLogin(EMAIL_INCORRECTO, CLAVE));
-        whenElClienteIngresa(EMAIL_INCORRECTO, CLAVE);
+                .ingresar(datosLogin);
+        whenElClienteIngresa(datosLogin);
         thenElIngresoFalla("El usuario no existe");
     }
 

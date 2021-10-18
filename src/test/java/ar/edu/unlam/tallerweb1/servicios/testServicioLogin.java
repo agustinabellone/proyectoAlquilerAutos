@@ -22,7 +22,8 @@ public class testServicioLogin {
     @Test
     public void siElClienteExisteElIngresoEsExitoso(){
         givenUsuarioExiste();
-        boolean ingreso = whenElClienteIngresa(EMAIL, CLAVE);
+        DatosLogin datosLogin = new DatosLogin(EMAIL, CLAVE);
+        boolean ingreso = whenElClienteIngresa(datosLogin);
         thenElIngresoEsExitoso(ingreso);
     }
 
@@ -30,8 +31,8 @@ public class testServicioLogin {
         when(repositorioCliente.buscarPorEmail(EMAIL)).thenReturn(new Cliente());
     }
 
-    private boolean whenElClienteIngresa(String email, String clave) {
-        return servicioLogin.ingresar(new DatosLogin(email, clave));
+    private boolean whenElClienteIngresa(DatosLogin datosLogin) {
+        return servicioLogin.ingresar(datosLogin);
     }
 
     private void thenElIngresoEsExitoso(boolean ingreso) {
@@ -41,8 +42,9 @@ public class testServicioLogin {
     @Test(expected = ClienteNoExisteException.class)
     public void siElClienteNoExisteElIngresoFalla(){
         givenUsuarioNoExiste();
+        DatosLogin datosLogin = new DatosLogin(EMAIL_INCORRECTO, CLAVE);
         doThrow(ClienteNoExisteException.class).when(repositorioCliente).buscarPorEmail(EMAIL_INCORRECTO);
-        boolean ingreso = whenElClienteIngresa(EMAIL_INCORRECTO, CLAVE);
+        boolean ingreso = whenElClienteIngresa(datosLogin);
         thenElIngresoFalla(ingreso);
     }
 
