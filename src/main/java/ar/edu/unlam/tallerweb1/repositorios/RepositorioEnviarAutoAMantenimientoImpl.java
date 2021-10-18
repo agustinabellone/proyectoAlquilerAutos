@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +13,8 @@ import java.util.List;
 public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnviarAutoAMantenimiento {
 
     private SessionFactory sessionFactory;
+    private Session session;
+    private String propertyName;
 
     @Autowired
     public RepositorioEnviarAutoAMantenimientoImpl(SessionFactory sessionFactory) {
@@ -22,23 +23,42 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
 
     @Override
     public Auto buscarPor(String patente) {
-        final Session session = sessionFactory.getCurrentSession();
-        //session.createSQLQuery("SELECT * FROM ");
+        return obtenerAutoPor(patente, propertyName);
+    }
+
+    @Override
+    public List<Auto> buscarPorModelo(String modelo) {
+        this.propertyName = "modelo";
+        return obtenerListadoDeAutosPor(modelo);
+    }
+
+    @Override
+    public List<Auto> buscarPorMarca(String marca) {
+        this.propertyName = "marca";
+        return obtenerListadoDeAutosPor(marca);
+    }
+
+    private Auto obtenerAutoPor(String patente, String propertyName) {
+        session = getSession();
+        propertyName = "patente";
         return (Auto) session.createCriteria(Auto.class)
-                .add(Restrictions.eq("patente", patente))
+                .add(Restrictions.eq(propertyName, patente))
                 .uniqueResult();
+    }
+
+    private Session getSession() {
+        return sessionFactory.getCurrentSession();
+    }
+
+    private List obtenerListadoDeAutosPor(String valor) {
+        session = getSession();
+        return session.createCriteria(Auto.class)
+                .add(Restrictions.eq(propertyName, valor))
+                .list();
     }
 
     @Override
     public void guardar(Auto enviado) {
 
-    }
-
-    @Override
-    public List<Auto> buscarPorModelo(String modelo) {
-        final Session session = sessionFactory.getCurrentSession();
-        return session.createCriteria(Auto.class)
-                .add(Restrictions.eq("modelo", modelo))
-                .list();
     }
 }

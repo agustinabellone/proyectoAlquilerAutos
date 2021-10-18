@@ -11,4 +11,6 @@ public interface RepositorioEnviarAutoAMantenimiento {
     void guardar(Auto enviado);
 
     List<Auto> buscarPorModelo(String modelo);
+
+    List<Auto> buscarPorMarca(String marca);
 }

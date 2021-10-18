@@ -17,6 +17,8 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     public static final String PATENTE = "ABC123";
     public static final String FIESTA = "Fiesta";
     public static final String FOCUS = "Focus";
+    public static final String FORD = "Ford";
+    public static final String TOYOTA = "Toyota";
 
     @Autowired
     private RepositorioEnviarAutoAMantenimiento repositorioEnviarAutoAMantenimiento;
@@ -27,7 +29,7 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     public void queSePuedaBuscarPorPatente() {
         givenExisteUnAutoConPatente(PATENTE);
         Auto encontrado = whenBuscoUnAutoConPatente(PATENTE);
-        thenEncuentroEl(encontrado, PATENTE);
+        thenEncuentroElAutoPorPatente(encontrado, PATENTE);
     }
 
     private void givenExisteUnAutoConPatente(String patente) {
@@ -40,7 +42,7 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
         return repositorioEnviarAutoAMantenimiento.buscarPor(patente);
     }
 
-    private void thenEncuentroEl(Auto encontrado, String patente) {
+    private void thenEncuentroElAutoPorPatente(Auto encontrado, String patente) {
         assertThat(encontrado).isNotNull();
         assertThat(encontrado.getPatente()).isEqualTo(patente);
     }
@@ -52,7 +54,7 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
         givenExistenAutosConModelo(FIESTA, 3);
         givenExistenAutosConModelo(FOCUS, 2);
         List<Auto> autosEncontrados = whenBuscoAutosConModelo(FOCUS);
-        thenEncuentroLosAutos(autosEncontrados, 2);
+        thenEncuentroLosAutosPorModelo(autosEncontrados, 2);
     }
 
     private void givenExistenAutosConModelo(String modelo, int cantidadDeAutos) {
@@ -67,7 +69,7 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
         return repositorioEnviarAutoAMantenimiento.buscarPorModelo(modelo);
     }
 
-    private void thenEncuentroLosAutos(List<Auto> autosEncontrados, int cantidadDeAutosEncontrados) {
+    private void thenEncuentroLosAutosPorModelo(List<Auto> autosEncontrados, int cantidadDeAutosEncontrados) {
         assertThat(autosEncontrados).hasSize(cantidadDeAutosEncontrados);
         for (Auto auto : autosEncontrados) {
             assertThat(auto.getModelo()).isEqualTo(FOCUS);
@@ -77,5 +79,29 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     @Test
     @Rollback
     @Transactional
-    public void queSePuedaBuscarPorMarca(){}
+    public void queSePuedaBuscarPorMarca() {
+        givenExistenAutosConMarca(FORD, 3);
+        givenExistenAutosConMarca(TOYOTA, 2);
+        List<Auto> autosEncontrados = whenBuscoAutosPorMarca(FORD);
+        thenEncuentroLosAutosPorMarca(autosEncontrados, 3);
+    }
+
+    private void givenExistenAutosConMarca(String marca, int cantidadDeAutos) {
+        for (int i = 0; i < cantidadDeAutos; i++) {
+            Auto buscado = new Auto();
+            buscado.setMarca(marca);
+            session().save(buscado);
+        }
+    }
+
+    private List<Auto> whenBuscoAutosPorMarca(String marca) {
+        return repositorioEnviarAutoAMantenimiento.buscarPorMarca(marca);
+    }
+
+    private void thenEncuentroLosAutosPorMarca(List<Auto> autosEncontrados, int cantidadDeAutosEncontrados) {
+        assertThat(autosEncontrados).hasSize(cantidadDeAutosEncontrados);
+        for (Auto auto : autosEncontrados) {
+            assertThat(auto.getMarca()).isEqualTo(FORD);
+        }
+    }
 }
