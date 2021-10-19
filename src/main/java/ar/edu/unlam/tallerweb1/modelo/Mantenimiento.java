@@ -11,6 +11,9 @@ public class Mantenimiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public Mantenimiento() {
+    }
+
     public Long getId() {
         return this.id;
     }
