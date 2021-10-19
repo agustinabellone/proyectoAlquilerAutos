@@ -1,9 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.repositorio.TablaAlquiler;
+import ar.edu.unlam.tallerweb1.repositorios.TablaAlquiler;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +20,7 @@ public class testControladorAlquiler {
     private static final String fechaSalida = "18/01/21";
 
     DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, fechaInicio, fechaSalida );
+
 
     private ModelAndView mav;
 

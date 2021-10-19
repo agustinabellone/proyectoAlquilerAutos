@@ -3,8 +3,8 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.repositorio.TablaAlquiler;
-import org.springframework.web.servlet.ModelAndView;
+import ar.edu.unlam.tallerweb1.repositorios.TablaAlquiler;
+
 
 public class ServicioAlquilarImpls implements ServicioAlquilar {
 
