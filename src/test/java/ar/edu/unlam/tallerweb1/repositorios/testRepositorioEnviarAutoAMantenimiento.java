@@ -151,13 +151,13 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     }
 
     private void thenEncuentroElAutoPorAnioDeFabricacion(List<Auto> encontrado, int cantidadDeAutosEncontrados) {
-       assertThat(encontrado).hasSize(cantidadDeAutosEncontrados);
+        assertThat(encontrado).hasSize(cantidadDeAutosEncontrados);
     }
 
     @Test
     @Rollback
     @Transactional
-    public void queSePuedaGuardarUnAutoEnMantenimiento(){
+    public void queSePuedaGuardarUnAutoEnMantenimiento() {
         Auto existente = givenExisteUnAuto();
         Mantenimiento creado = givenExisteUnMantenimiento();
         Auto guardado = whenGuardoUnAutoEnMantenimiento(existente);
@@ -181,7 +181,23 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     }
 
     private void thenLoPuedoBuscarPorId(Auto guardado) {
-        assertThat(session().get(Auto.class,guardado.getId())).isNotNull();
+        assertThat(session().get(Auto.class, guardado.getId())).isNotNull();
         assertThat(guardado.getEstado()).isEqualTo("EN MANTENIMIENTO");
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaObtenerAutosEnMantenimiento(){
+        Auto existente = givenExisteUnAuto();
+        givenExisteUnAutoenMantenimiento(existente,3);
+    }
+
+    private void givenExisteUnAutoenMantenimiento(Auto existente, int cantidadDeAutos) {
+        for (int i = 0; i < cantidadDeAutos; i++) {
+            existente.setPatente("ABC"+i);
+            existente.setEstado("EN MANTENIMIENTO");
+            session().save(existente);
+        }
     }
 }

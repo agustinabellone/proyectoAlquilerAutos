@@ -28,7 +28,7 @@ public class TablaAlquiler {
 
     public void agregar(Alquiler alquiler) {
 
-        this.TablaAlquiler.put(alquiler.getAuto_id(), alquiler);
+        //this.TablaAlquiler.put(alquiler.getAuto_id(), alquiler);
     }
 
     public void reset() {
