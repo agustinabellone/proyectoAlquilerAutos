@@ -17,4 +17,6 @@ public interface RepositorioEnviarAutoAMantenimiento {
     List<Auto> buscarPorAnioDeFabricacion(int anioDeFabricacion);
 
     Auto guardarAutoMantenimiento(Auto existente);
+
+    List<Auto> obtenerAutosEnMantenimiento();
 }

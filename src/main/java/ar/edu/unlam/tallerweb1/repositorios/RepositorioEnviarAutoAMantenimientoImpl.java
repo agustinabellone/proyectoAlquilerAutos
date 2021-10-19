@@ -60,6 +60,14 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
         return existente;
     }
 
+    @Override
+    public List<Auto> obtenerAutosEnMantenimiento() {
+        session = getSession();
+        return session.createCriteria(Auto.class).
+                add(Restrictions.eq("estado", "EN MANTENIMIENTO"))
+                .list();
+    }
+
     private Auto obtenerAutoPor(String patente, String propertyName) {
         session = getSession();
         propertyName = "patente";

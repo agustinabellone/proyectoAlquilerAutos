@@ -188,16 +188,30 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     @Test
     @Rollback
     @Transactional
-    public void queSePuedaObtenerAutosEnMantenimiento(){
-        Auto existente = givenExisteUnAuto();
-        givenExisteUnAutoenMantenimiento(existente,3);
+    public void queSePuedaObtenerAutosEnMantenimiento() {
+        givenExisteUnAutoenMantenimiento( 3);
+        List<Auto> autosObtenidos = whenObtengoLosAutosEnMantenimiento();
+        thenObtengoLosAutosEnMantenimiento(autosObtenidos, 3);
     }
 
-    private void givenExisteUnAutoenMantenimiento(Auto existente, int cantidadDeAutos) {
+    private void givenExisteUnAutoenMantenimiento(int cantidadDeAutos) {
         for (int i = 0; i < cantidadDeAutos; i++) {
-            existente.setPatente("ABC"+i);
-            existente.setEstado("EN MANTENIMIENTO");
-            session().save(existente);
+            Auto enMantenimiento = new Auto();
+            enMantenimiento.setPatente("ABC" + i);
+            enMantenimiento.setEstado("EN MANTENIMIENTO");
+            session().save(enMantenimiento);
+        }
+    }
+
+    private List<Auto> whenObtengoLosAutosEnMantenimiento() {
+        return repositorioEnviarAutoAMantenimiento.obtenerAutosEnMantenimiento();
+    }
+
+    private void thenObtengoLosAutosEnMantenimiento(List<Auto> autosObtenidos, int cantidadDeAutoosObtenidos) {
+        assertThat(autosObtenidos).hasSize(3);
+        for (Auto auto : autosObtenidos) {
+            assertThat(auto).isNotNull();
+            assertThat(auto.getEstado()).isEqualTo("EN MANTENIMIENTO");
         }
     }
 }
