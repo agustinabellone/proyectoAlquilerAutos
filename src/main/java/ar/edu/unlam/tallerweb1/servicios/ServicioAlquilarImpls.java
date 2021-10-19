@@ -20,7 +20,7 @@ public class ServicioAlquilarImpls implements ServicioAlquilar {
             throw new AutoYaAlquiladoException();
         }
         Alquiler alquiler = new Alquiler(da);
-        tablaAlquiler.agregar(alquiler);
+        //tablaAlquiler.agregar(alquiler);
         return alquiler;
     }
 }

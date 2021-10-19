@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 public class Auto {
+
     @Id
     private Long id;
     private String marca;

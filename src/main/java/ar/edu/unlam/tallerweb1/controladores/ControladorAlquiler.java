@@ -21,7 +21,7 @@ public class ControladorAlquiler {
         if(tablaAlquiler.existeAlquilerCon(datosAlquiler.getAuto())){
             return new ModelAndView("ir-alquiler-auto"); //VISTA PLACEHOLDER
         }
-        tablaAlquiler.agregar(new Alquiler(datosAlquiler));
+        //tablaAlquiler.agregar(new Alquiler(datosAlquiler));
         return new ModelAndView("/home.jsp"); //VISTA PLACEHOLDER
 
     }

@@ -2,21 +2,16 @@ package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Alquiler {
 
     @Id
-    private Long auto_id;
-    private Long cliente_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String f_ingreso;
     private String f_regreso;
-    private Long id;
-
 
     @ManyToOne
     private Auto auto;
@@ -38,21 +33,14 @@ public class Alquiler {
     }
 
     public Alquiler(DatosAlquiler DA ){
-        this.auto_id=DA.getAuto().getId();
-        this.cliente_id=DA.getCliente().getId();
         this.f_ingreso=DA.getF_Inicio();
         this.f_regreso=DA.getF_Regreso();
         this.activo=true;
 
     }
 
-    public Long getAuto_id() {
-        return auto_id;
-    }
 
-    public Long getCliente_id() {
-        return cliente_id;
-    }
+
 
     public String getF_ingreso() {
         return f_ingreso;
@@ -78,13 +66,7 @@ public class Alquiler {
         return id;
     }
 
-    public void setAuto_id(Long auto_id) {
-        this.auto_id = auto_id;
-    }
 
-    public void setCliente_id(Long cliente_id) {
-        this.cliente_id = cliente_id;
-    }
 
     public boolean isActivo() {
         return activo;

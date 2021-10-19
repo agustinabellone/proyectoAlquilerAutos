@@ -4,7 +4,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("repositorioEnviarAutoAMantenimiento")
 public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnviarAutoAMantenimiento {
 
     @Override

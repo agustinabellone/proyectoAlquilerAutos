@@ -26,10 +26,7 @@ public class TablaAlquiler {
         return this.TablaAlquiler.containsKey(auto.getId());
     }
 
-    public void agregar(Alquiler alquiler) {
 
-        this.TablaAlquiler.put(alquiler.getAuto_id(), alquiler);
-    }
 
     public void reset() {
 
