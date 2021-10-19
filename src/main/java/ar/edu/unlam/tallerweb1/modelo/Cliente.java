@@ -5,6 +5,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Cliente {
+
+    @Id
     private Long id;
 
     public Cliente(Long id) {
@@ -19,7 +21,6 @@ public class Cliente {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }

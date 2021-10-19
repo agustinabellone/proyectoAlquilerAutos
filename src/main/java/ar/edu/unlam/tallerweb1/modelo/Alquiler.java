@@ -38,7 +38,6 @@ public class Alquiler {
     }
 
     public Alquiler(DatosAlquiler DA ){
-
         this.auto_id=DA.getAuto().getId();
         this.cliente_id=DA.getCliente().getId();
         this.f_ingreso=DA.getF_Inicio();
@@ -75,11 +74,9 @@ public class Alquiler {
         this.id = id;
     }
 
-
     public Long getId() {
         return id;
     }
-
 
     public void setAuto_id(Long auto_id) {
         this.auto_id = auto_id;

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Objects;
 
-@Service("ServicioSuscripcion")
+@Service("servicioSuscripcion")
 @Transactional
 public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 

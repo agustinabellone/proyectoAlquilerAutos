@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorSuscripcion {
 
-    @Autowired
     private ServicioSuscripcion servicioSuscripcion;
 
     @Autowired
