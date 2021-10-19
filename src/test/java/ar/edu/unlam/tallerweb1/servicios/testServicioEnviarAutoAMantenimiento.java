@@ -49,15 +49,15 @@ public class testServicioEnviarAutoAMantenimiento {
     }
 
     private void givenUnAutoNoExistenteEnMantiemiento() throws AutoNoExistente {
-        doThrow(AutoNoExistente.class).when(repositorioEnviarAutoAMantenimiento).buscarPor(auto.getPatente());
+        doThrow(AutoNoExistente.class).when(repositorioEnviarAutoAMantenimiento).buscarPorPatente(auto.getPatente());
     }
 
     private void givenUnAutoNoExistente(String patente) {
-        when(repositorioEnviarAutoAMantenimiento.buscarPor(patente)).thenReturn(null);
+        when(repositorioEnviarAutoAMantenimiento.buscarPorPatente(patente)).thenReturn(null);
     }
 
     private void givenUnAutoYaExistente(Auto auto) {
-        when(repositorioEnviarAutoAMantenimiento.buscarPor(auto.getPatente())).thenReturn(new Auto());
+        when(repositorioEnviarAutoAMantenimiento.buscarPorPatente(auto.getPatente())).thenReturn(new Auto());
     }
 
     private Auto whenEnvioAMantenimientoAlAuto(Auto queNecesitaMantenimiento, String FECHA_QUE_SE_ENVIA) throws Exception {
@@ -70,15 +70,15 @@ public class testServicioEnviarAutoAMantenimiento {
 
     private void thenElEnvioEsExitoso(Auto enviado, String fechaQueSeEnvia) {
         assertThat(enviado).isNotNull();
-        verify(repositorioEnviarAutoAMantenimiento,times(1)).guardar(enviado);
+        verify(repositorioEnviarAutoAMantenimiento,times(1)).guardarAutoMantenimiento(enviado);
     }
 
     private void thenElEnvioFalla(Auto existente) {
-        verify(repositorioEnviarAutoAMantenimiento,never()).guardar(existente);
+        verify(repositorioEnviarAutoAMantenimiento,never()).guardarAutoMantenimiento(existente);
     }
 
     private void thenLaObtencionEsExitosa(Auto obtenido) {
         assertThat(obtenido).isNotNull();
-        verify(repositorioEnviarAutoAMantenimiento,times(1)).buscarPor(obtenido.getPatente());
+        verify(repositorioEnviarAutoAMantenimiento,times(1)).buscarPorPatente(obtenido.getPatente());
     }
 }
