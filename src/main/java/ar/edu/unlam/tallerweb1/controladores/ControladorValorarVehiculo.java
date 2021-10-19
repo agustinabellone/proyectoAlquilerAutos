@@ -15,11 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class ControladorValorarVehiculo {
 
 
-    private TablaVehiculos tablaVehiculos;
+    private TablaAutos tablaAutos;
 
     @Autowired
-    public ControladorValorarVehiculo (TablaVehiculos tablaVehiculos){
-        this.tablaVehiculos=tablaVehiculos;
+    public ControladorValorarVehiculo (TablaAutos tablaAutos){
+
+        this.tablaAutos=tablaAutos;
     }
 
 
