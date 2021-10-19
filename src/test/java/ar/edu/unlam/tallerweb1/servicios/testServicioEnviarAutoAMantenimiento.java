@@ -70,11 +70,11 @@ public class testServicioEnviarAutoAMantenimiento {
 
     private void thenElEnvioEsExitoso(Auto enviado, String fechaQueSeEnvia) {
         assertThat(enviado).isNotNull();
-        verify(repositorioEnviarAutoAMantenimiento,times(1)).guardar(enviado);
+        verify(repositorioEnviarAutoAMantenimiento,times(1)).guardarAutoMantenimiento(enviado);
     }
 
     private void thenElEnvioFalla(Auto existente) {
-        verify(repositorioEnviarAutoAMantenimiento,never()).guardar(existente);
+        verify(repositorioEnviarAutoAMantenimiento,never()).guardarAutoMantenimiento(existente);
     }
 
     private void thenLaObtencionEsExitosa(Auto obtenido) {

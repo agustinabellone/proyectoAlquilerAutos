@@ -52,6 +52,14 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
         return obtenerListadoDeAutosPor(anioDeFabricacion);
     }
 
+    @Override
+    public Auto guardarAutoMantenimiento(Auto existente) {
+        session = getSession();
+        existente.setEstado("EN MANTENIMIENTO");
+        session.save(existente);
+        return existente;
+    }
+
     private Auto obtenerAutoPor(String patente, String propertyName) {
         session = getSession();
         propertyName = "patente";
@@ -79,8 +87,4 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
                 list();
     }
 
-    @Override
-    public void guardar(Auto enviado) {
-
-    }
 }

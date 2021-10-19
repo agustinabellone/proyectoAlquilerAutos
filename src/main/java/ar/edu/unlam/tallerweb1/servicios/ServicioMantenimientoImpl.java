@@ -28,7 +28,7 @@ public class ServicioMantenimientoImpl implements ServicioMantenimiento {
         queNecesitaMantenimiento.setPatente("ABC123");
         queNecesitaMantenimiento.setMarca("Ford");
         queNecesitaMantenimiento.setModelo("Fiesta");
-        repositorioEnviarAutoAMantenimiento.guardar(queNecesitaMantenimiento);
+        repositorioEnviarAutoAMantenimiento.guardarAutoMantenimiento(queNecesitaMantenimiento);
         return queNecesitaMantenimiento;
     }
 

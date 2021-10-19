@@ -8,8 +8,6 @@ public interface RepositorioEnviarAutoAMantenimiento {
 
     Auto buscarPorPatente(String patente);
 
-    void guardar(Auto enviado);
-
     List<Auto> buscarPorModelo(String modelo);
 
     List<Auto> buscarPorMarca(String marca);
@@ -17,4 +15,6 @@ public interface RepositorioEnviarAutoAMantenimiento {
     Auto buscarPorId(Long idDelAuto);
 
     List<Auto> buscarPorAnioDeFabricacion(int anioDeFabricacion);
+
+    Auto guardarAutoMantenimiento(Auto existente);
 }

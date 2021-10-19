@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Mantenimiento;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -156,5 +157,31 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     @Test
     @Rollback
     @Transactional
-    public void queSePuedaGuardarUnAutoEnMantenimiento(){}
+    public void queSePuedaGuardarUnAutoEnMantenimiento(){
+        Auto existente = givenExisteUnAuto();
+        Mantenimiento creado = givenExisteUnMantenimiento();
+        Auto guardado = whenGuardoUnAutoEnMantenimiento(existente);
+        thenLoPuedoBuscarPorId(guardado);
+    }
+
+    private Auto givenExisteUnAuto() {
+        Auto auto = new Auto();
+        session().save(auto);
+        return auto;
+    }
+
+    private Mantenimiento givenExisteUnMantenimiento() {
+        Mantenimiento mantenimiento = new Mantenimiento();
+        session().save(mantenimiento);
+        return mantenimiento;
+    }
+
+    private Auto whenGuardoUnAutoEnMantenimiento(Auto existente) {
+        return repositorioEnviarAutoAMantenimiento.guardarAutoMantenimiento(existente);
+    }
+
+    private void thenLoPuedoBuscarPorId(Auto guardado) {
+        assertThat(session().get(Auto.class,guardado.getId())).isNotNull();
+        assertThat(guardado.getEstado()).isEqualTo("EN MANTENIMIENTO");
+    }
 }
