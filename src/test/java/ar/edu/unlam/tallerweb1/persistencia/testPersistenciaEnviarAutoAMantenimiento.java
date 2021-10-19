@@ -55,11 +55,4 @@ public class testPersistenciaEnviarAutoAMantenimiento extends SpringTest {
     private void thenLoPuedoBuscarPorId(Long idDelMantenimiento) {
         assertThat(session().get(Mantenimiento.class, idDelMantenimiento)).isNotNull();
     }
-
-    @Test
-    @Rollback
-    @Transactional
-    public void queSePuedaGuardarUnAutoEnMantenimiento() {
-
-    }
 }

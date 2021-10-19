@@ -152,4 +152,9 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
     private void thenEncuentroElAutoPorAnioDeFabricacion(List<Auto> encontrado, int cantidadDeAutosEncontrados) {
        assertThat(encontrado).hasSize(cantidadDeAutosEncontrados);
     }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaGuardarUnAutoEnMantenimiento(){}
 }
