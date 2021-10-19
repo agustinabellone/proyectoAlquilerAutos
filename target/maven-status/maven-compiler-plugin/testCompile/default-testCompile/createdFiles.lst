@@ -1,4 +1,6 @@
 ar/edu/unlam/tallerweb1/SpringTest.class
+ar/edu/unlam/tallerweb1/persistencia/testPersistenciaEnviarAutoAMantenimiento.class
+ar/edu/unlam/tallerweb1/repositorios/testRepositorioEnviarAutoAMantenimiento.class
 ar/edu/unlam/tallerweb1/repositorios/testRepositorioSuscripcion.class
 ar/edu/unlam/tallerweb1/controladores/testControladorSuscripcion.class
 ar/edu/unlam/tallerweb1/servicios/testServicioEnviarAutoAMantenimiento.class
