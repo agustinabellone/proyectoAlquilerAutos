@@ -17,6 +17,8 @@ public class testPersistenciaEnviarAutoAMantenimiento extends SpringTest {
     @Rollback
     @Transactional
     public void queSePuedaGuardarUnAutoEnMantenimiento() {
-
+        //givenExisteUnAuto();
+        //whenGuardoElAutoEnMantenimiento();
+        //thenPuedoBuscarloPorId();
     }
 }
