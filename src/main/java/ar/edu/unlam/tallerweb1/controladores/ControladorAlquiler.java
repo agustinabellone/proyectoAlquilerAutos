@@ -36,14 +36,14 @@ public class ControladorAlquiler {
 
     @RequestMapping(path = "/alquiler-confirmación", method = RequestMethod.GET)
     public ModelAndView mostrarConfirmacionAlquiler(@RequestParam("id_auto") Long id_auto,
-                                                    @RequestParam("f_entrada_dia") Long f_entrada_dia,
-                                                    @RequestParam("f_entrada_mes") Long f_entrada_mes,
+                                                    @RequestParam("f_ingreso_dia") Long f_ingreso_dia,
+                                                    @RequestParam("f_ingreso_mes") Long f_ingreso_mes,
                                                     @RequestParam("f_salida_dia") Long f_salida_dia,
                                                     @RequestParam("f_salida_mes") Long f_salida_mes) {
         ModelMap modelo = new ModelMap();
         modelo.put("id_auto", id_auto);
-        modelo.put("f_entrada_dia", f_entrada_dia);
-        modelo.put("f_entrada_mes", f_entrada_mes);
+        modelo.put("f_ingreso_dia", f_ingreso_dia);
+        modelo.put("f_ingreso_mes", f_ingreso_mes);
         modelo.put("f_salida_dia", f_salida_dia);
         modelo.put("f_salida_mes", f_salida_mes);
         return new ModelAndView("alquilarAutoConfirmacion", modelo);
