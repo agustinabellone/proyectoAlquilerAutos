@@ -17,7 +17,7 @@ public class Suscripcion {
 
     @Column(nullable = true)
     private Boolean Renovacion;
-
+    //LOCALDATE
     @Column
     private Short DiasRestantes;
 

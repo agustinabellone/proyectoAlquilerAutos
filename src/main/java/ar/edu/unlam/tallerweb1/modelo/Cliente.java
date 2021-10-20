@@ -2,19 +2,21 @@ package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.time.LocalDate;
 
 @Entity
 public class Cliente {
 
     @Id
-    private Long id;
+    private Long id; //DNI
+    private String nombresApellidos;
+    private LocalDate fecha_nacimiento;
+
+    public Cliente(){
+    }
 
     public Cliente(Long id) {
         this.id=id;
-    }
-
-    public Cliente(){
-
     }
 
     public void setId(Long id) {
@@ -24,4 +26,21 @@ public class Cliente {
     public Long getId() {
         return id;
     }
+
+    public String getNombresApellidos() {
+        return nombresApellidos;
+    }
+
+    public void setNombresApellidos(String nombresApellidos) {
+        this.nombresApellidos = nombresApellidos;
+    }
+
+    public LocalDate getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
 }

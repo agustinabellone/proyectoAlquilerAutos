@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 
 
+import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioDevolucion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,10 @@ public class ServicioDevolucionImpl implements ServicioDevolucion{
         this.repositorioDevolucion=repositorioDevolucion;
     }
 
+
     @Override
     public void finalizarAlquiler(Alquiler alquiler) {
-        alquiler.getAuto().setDisponible(true);
+        alquiler.getAuto().setSituacion(Situacion.DISPONIBLE);
     }
 }
 

@@ -1,36 +1,47 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+
 import javax.persistence.*;
+import java.time.LocalDate;
+
 
 @Entity
 public class Auto {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String marca;
     private String modelo;
     private String imagen;
-    private String patente;
-    private Boolean terceros;
-    private Integer añoFabricación;
-    private int kilometros;
-    private boolean disponible;
 
-    public Auto(Long id, String marca, String modelo, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
+    private String patente;
+
+    @Column(nullable = true)
+    @ManyToOne
+    private Tercero tercero; //CAMBIAMOS BOOLEAN POR TERCERO QUE PUEDE SER NULO
+    private LocalDate añoFabricación;
+    private int kilometros;
+
+    private Situacion situacion;
+
+    public Auto () {
+        this.kilometros = 100;
+    }
+
+
+    public Auto(Long id, String marca, String modelo, String imagen, String patente, Tercero tercero, LocalDate añoFabricación, int kilometros, Situacion situacion) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.imagen = imagen;
         this.patente = patente;
-        this.terceros = terceros;
+        this.tercero = tercero;
         this.añoFabricación = añoFabricación;
-        this.disponible = true;
+        this.kilometros = kilometros;
+        this.situacion = situacion;
     }
-
-    public Auto() {
-        this.disponible=true;
-    }
-
 
     public Long getId() {
         return id;
@@ -72,36 +83,38 @@ public class Auto {
         this.patente = patente;
     }
 
-    public Boolean isTerceros() {
-        return terceros;
+    public Tercero getTercero() {
+        return tercero;
     }
 
-    public void setTerceros(Boolean terceros) {
-        this.terceros = terceros;
+    public void setTercero(Tercero tercero) {
+        this.tercero = tercero;
     }
 
-    public Integer getAñoFabricación() {
+    public LocalDate getAñoFabricación() {
         return añoFabricación;
     }
 
-    public void setAñoFabricación(Integer añoFabricación) {
+    public void setAñoFabricación(LocalDate añoFabricación) {
         this.añoFabricación = añoFabricación;
     }
 
-    public void setKm(int kilometrosDefiniddos) {
-    }
-
-    public int getKm() {
-        this.kilometros = 100;
+    public int getKilometros() {
         return kilometros;
     }
 
-
-    public boolean isDisponible() {
-        return disponible;
+    public void setKilometros(int kilometros) {
+        this.kilometros = kilometros;
     }
 
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public Situacion getSituacion() {
+        return situacion;
     }
+
+    public void setSituacion(Situacion estado) {
+        this.situacion = estado;
+    }
+
+
+
 }

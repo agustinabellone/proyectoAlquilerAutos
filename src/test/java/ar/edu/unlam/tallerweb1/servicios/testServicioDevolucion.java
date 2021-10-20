@@ -35,7 +35,7 @@ public class testServicioDevolucion {
     }
 
     private void thenUnAutoEsDevueltoCorrectamente(Alquiler alquiler) {
-        assertThat(alquiler.getAuto().isDisponible()).isTrue();
+        assertThat(alquiler.getAuto().getSituacion().DISPONIBLE;
     }
 
     private void whenSeDevuelveUnAuto(Alquiler alquiler) {
