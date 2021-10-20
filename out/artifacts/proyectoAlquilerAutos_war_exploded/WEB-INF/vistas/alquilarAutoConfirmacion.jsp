@@ -25,8 +25,8 @@
         <div class=" container card col-md-6 my-4" >
             <img src="https://http2.mlstatic.com/D_NQ_NP_897110-MLU43129754655_082020-O.jpg" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Auto:</h5>
-                <p class="card-text">Días:</p>
+                <h5 class="card-title">Auto: ${id_auto}</h5>
+                <p class="card-text">Días: ${f_entrada_dia}/${f_entrada_mes} - ${f_salida_dia}/${f_salida_mes}</p>
                 <div class="col-sm-12 d-flex justify-content-center">
                     <a href="#" class="btn btn-primary mt-5">ALQUILAR</a>
                 </div>

@@ -20,7 +20,7 @@
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center">Fechas disponibles</h1>
+            <h1 class="text-center">Fechas disponibles para el auto ${id_auto}</h1>
         </div>
     </div>
     <div class="container my-5">
@@ -31,7 +31,7 @@
             <div class="card-body">
                 <h5 class="card-title">18/10 - 23/10</h5>
                 <p class="card-text">El alquiler empieza el lunes 18 y termina el viernes 23.</p>
-                <a href="alquiler-confirmación" class="btn btn-primary">Quiero estos días</a>
+                <a href="alquiler-confirmación?id_auto=${id_auto}&f_ingreso_dia=18&f_ingreso_mes=10&f_salida_dia=23&f_salida_mes=10" class="btn btn-primary">Quiero estos días</a>
             </div>
         </div>
     </div>

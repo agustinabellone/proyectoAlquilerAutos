@@ -58,7 +58,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12 d-flex justify-content-center">
-                                                    <a href="elegir-fechas" class="btn btn-primary mt-5">ALQUILAR AUTO</a>
+                                                    <a href="elegir-fechas?id_auto=1" class="btn btn-primary mt-5">ALQUILAR AUTO</a>
                                                 </div>
                                             </div>
                                         </div>
