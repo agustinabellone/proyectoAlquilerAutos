@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioEnviarAutoAMantenimiento;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,13 @@ public class ServicioMantenimientoImpl implements ServicioMantenimiento {
     }
 
     @Override
-    public List<Auto> obtenerAutosEnMantenimiento() {
-        return repositorioEnviarAutoAMantenimiento.obtenerAutosEnMantenimiento();
+    public List<Auto> obtenerAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        List<Auto> autosObtenidos = repositorioEnviarAutoAMantenimiento.obtenerAutosEnMantenimiento();
+        if (autosObtenidos.size() == 0){
+            throw new NoHayAutosEnMantenientoException();
+        }
+        else{
+            return autosObtenidos;
+        }
     }
 }

@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioEnviarAutoAMantenimiento;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class testServicioEnviarAutoAMantenimiento {
         thenLaObtencionEsExitosa(obtenido);
     }
 
-    @Test (expected = AutoNoExistente.class)
+    @Test(expected = AutoNoExistente.class)
     public void queNoSePuedaObtenerUnAutoNoExistenteEnMatenimiento() throws AutoNoExistente {
         givenUnAutoNoExistenteEnMantiemiento();
         Auto noExistente = whenObetengoElAuto(auto);
@@ -48,10 +49,28 @@ public class testServicioEnviarAutoAMantenimiento {
     }
 
     @Test
-    public void queSePuedaObtenerAutosEnMantenimiento(){
+    public void queSePuedaObtenerAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
         givenExistenAutosEnMantenimiento(3);
-        List<Auto> autosObtenidos= whenObtengoLosAutosEnMantenimiento();
-        thenObtengoLosAutos(autosObtenidos,3);
+        List<Auto> autosObtenidos = whenObtengoLosAutosEnMantenimiento();
+        thenObtengoLosAutos(autosObtenidos, 3);
+    }
+
+    @Test (expected = NoHayAutosEnMantenientoException.class)
+    public void queNoSePuedaObtenerAutosQueNoEstenEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        givenNoExistenAutosEnMantenimiento();
+        List<Auto> vacia = whenObtengoLosAutosEnMantenimiento();
+        thenLaObtencionFalla(vacia, 0);
+    }
+
+    private void thenLaObtencionFalla(List<Auto> vacia, int cantidadDeAutosObtenidos) {
+        assertThat(vacia).hasSize(0);
+        for (Auto auto : vacia) {
+            assertThat(auto).isNull();
+        }
+    }
+
+    private void givenNoExistenAutosEnMantenimiento() {
+        doThrow(NoHayAutosEnMantenientoException.class).when(repositorioEnviarAutoAMantenimiento).obtenerAutosEnMantenimiento();
     }
 
     private void givenExistenAutosEnMantenimiento(int cantidadDeAutos) {
@@ -64,13 +83,13 @@ public class testServicioEnviarAutoAMantenimiento {
         when(repositorioEnviarAutoAMantenimiento.obtenerAutosEnMantenimiento()).thenReturn(autosEnMantenimiento);
     }
 
-    private List<Auto> whenObtengoLosAutosEnMantenimiento() {
+    private List<Auto> whenObtengoLosAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
         return servicioEnviarAutoAMantenimiento.obtenerAutosEnMantenimiento();
     }
 
     private void thenObtengoLosAutos(List<Auto> autosObtenidos, int cantidadDeAutosObtenidos) {
         assertThat(autosObtenidos).hasSize(cantidadDeAutosObtenidos);
-        for (Auto auto: autosObtenidos) {
+        for (Auto auto : autosObtenidos) {
             assertThat(auto.getEstado()).isEqualTo("EN MANTENIMIENTO");
         }
     }
@@ -101,15 +120,15 @@ public class testServicioEnviarAutoAMantenimiento {
 
     private void thenElEnvioEsExitoso(Auto enviado, String fechaQueSeEnvia) {
         assertThat(enviado).isNotNull();
-        verify(repositorioEnviarAutoAMantenimiento,times(1)).guardarAutoMantenimiento(enviado);
+        verify(repositorioEnviarAutoAMantenimiento, times(1)).guardarAutoMantenimiento(enviado);
     }
 
     private void thenElEnvioFalla(Auto existente) {
-        verify(repositorioEnviarAutoAMantenimiento,never()).guardarAutoMantenimiento(existente);
+        verify(repositorioEnviarAutoAMantenimiento, never()).guardarAutoMantenimiento(existente);
     }
 
     private void thenLaObtencionEsExitosa(Auto obtenido) {
         assertThat(obtenido).isNotNull();
-        verify(repositorioEnviarAutoAMantenimiento,times(1)).buscarPorPatente(obtenido.getPatente());
+        verify(repositorioEnviarAutoAMantenimiento, times(1)).buscarPorPatente(obtenido.getPatente());
     }
 }
