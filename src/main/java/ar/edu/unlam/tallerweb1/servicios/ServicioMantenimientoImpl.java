@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -42,5 +44,10 @@ public class ServicioMantenimientoImpl implements ServicioMantenimiento {
             throw new AutoNoExistente();
         }
         return new Auto();
+    }
+
+    @Override
+    public List<Auto> obtenerAutosEnMantenimiento() {
+        return repositorioEnviarAutoAMantenimiento.obtenerAutosEnMantenimiento();
     }
 }

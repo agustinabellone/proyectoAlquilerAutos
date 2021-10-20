@@ -6,6 +6,9 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioEnviarAutoAMantenimiento;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -42,6 +45,34 @@ public class testServicioEnviarAutoAMantenimiento {
         givenUnAutoNoExistenteEnMantiemiento();
         Auto noExistente = whenObetengoElAuto(auto);
         thenLaObtencionEsFalla(noExistente);
+    }
+
+    @Test
+    public void queSePuedaObtenerAutosEnMantenimiento(){
+        givenExistenAutosEnMantenimiento(3);
+        List<Auto> autosObtenidos= whenObtengoLosAutosEnMantenimiento();
+        thenObtengoLosAutos(autosObtenidos,3);
+    }
+
+    private void givenExistenAutosEnMantenimiento(int cantidadDeAutos) {
+        List<Auto> autosEnMantenimiento = new ArrayList<Auto>();
+        for (int i = 0; i < cantidadDeAutos; i++) {
+            Auto auto = new Auto();
+            auto.setEstado("EN MANTENIMIENTO");
+            autosEnMantenimiento.add(auto);
+        }
+        when(repositorioEnviarAutoAMantenimiento.obtenerAutosEnMantenimiento()).thenReturn(autosEnMantenimiento);
+    }
+
+    private List<Auto> whenObtengoLosAutosEnMantenimiento() {
+        return servicioEnviarAutoAMantenimiento.obtenerAutosEnMantenimiento();
+    }
+
+    private void thenObtengoLosAutos(List<Auto> autosObtenidos, int cantidadDeAutosObtenidos) {
+        assertThat(autosObtenidos).hasSize(cantidadDeAutosObtenidos);
+        for (Auto auto: autosObtenidos) {
+            assertThat(auto.getEstado()).isEqualTo("EN MANTENIMIENTO");
+        }
     }
 
     private void thenLaObtencionEsFalla(Auto auto) {

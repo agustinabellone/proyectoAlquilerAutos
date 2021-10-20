@@ -4,10 +4,14 @@ import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 
+import java.util.List;
+
 
 public interface ServicioMantenimiento {
 
     Auto enviar(Auto queNecesitaMantenimiento, String fecha_que_se_envia) throws AutoYaExistente;
 
     Auto obtenerPor(String patente) throws AutoNoExistente;
+
+    List<Auto> obtenerAutosEnMantenimiento();
 }
