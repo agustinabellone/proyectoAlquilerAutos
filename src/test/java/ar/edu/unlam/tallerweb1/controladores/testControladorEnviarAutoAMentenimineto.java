@@ -7,9 +7,10 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioMantenimientoImpl;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class testControladorEnviarAutoAMentenimineto {
 
@@ -66,7 +67,7 @@ public class testControladorEnviarAutoAMentenimineto {
     }
 
     private void givenQueExisteUnAutoEnMatenimiento() throws Exception {
-        doThrow(Exception.class).when(servicioMantenimiento).enviar(datosEnviadosPorUsuarioAdministrador.getAuto(),datosEnviadosPorUsuarioAdministrador.getFechaInicial());
+        doThrow(Exception.class).when(servicioMantenimiento).enviar(datosEnviadosPorUsuarioAdministrador.getAuto(), datosEnviadosPorUsuarioAdministrador.getFechaInicial());
     }
 
     private ModelAndView whenEnvioElAutoAMantenimientoCon(DatosEnvioAMantenimiento datos) throws Exception {

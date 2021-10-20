@@ -2,6 +2,7 @@ ar/edu/unlam/tallerweb1/controladores/ControladorEnviarAutoAMantenimiento.class
 ar/edu/unlam/tallerweb1/repositorios/RepositorioSuscripcion.class
 ar/edu/unlam/tallerweb1/repositorios/RepositorioTipoSuscripcion.class
 ar/edu/unlam/tallerweb1/modelo/TipoSuscripcion.class
+ar/edu/unlam/tallerweb1/Exceptions/NoHayAutosEnMantenientoException.class
 ar/edu/unlam/tallerweb1/servicios/ServicioMantenimientoImpl.class
 ar/edu/unlam/tallerweb1/repositorios/TablaAlquiler.class
 ar/edu/unlam/tallerweb1/Exceptions/AutoYaAlquiladoException.class
@@ -24,6 +25,7 @@ ar/edu/unlam/tallerweb1/repositorios/RepositorioSuscripcionImpl.class
 ar/edu/unlam/tallerweb1/Exceptions/SuscripcionYaRenovadaException.class
 ar/edu/unlam/tallerweb1/servicios/ServicioSuscripcionImpl.class
 ar/edu/unlam/tallerweb1/servicios/ServicioMantenimiento.class
+ar/edu/unlam/tallerweb1/modelo/Mantenimiento.class
 ar/edu/unlam/tallerweb1/servicios/ServicioAlquilar.class
 ar/edu/unlam/tallerweb1/Exceptions/AutoNoExistente.class
 ar/edu/unlam/tallerweb1/repositorios/RepositorioEnviarAutoAMantenimiento.class
