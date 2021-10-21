@@ -77,7 +77,7 @@
 
                 </c:forEach>
                 <!-- row  -->
-
+                <h2>${mensaje}</h2>
                 <!-- column  -->
 
                 <!-- column  -->

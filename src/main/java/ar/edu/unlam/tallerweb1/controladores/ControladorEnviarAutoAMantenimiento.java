@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,14 +32,14 @@ public class ControladorEnviarAutoAMantenimiento {
     public ModelAndView irAListaDeAutos() throws NoHayAutosEnMantenientoException {
         try {
             List<Auto> autosObtenidos = servicioMantenimiento.obtenerAutosEnMantenimiento();
+            DatosEnvioAMantenimiento datos = new DatosEnvioAMantenimiento();
+            ModelMap model = new ModelMap();
+            model.put("datosMantenimiento", datos);
             model.put("autosEnMantenimiento",autosObtenidos);
+            return new ModelAndView("lista-de-autos", model);
         } catch (NoHayAutosEnMantenientoException e) {
-            throw new NoHayAutosEnMantenientoException();
-        }
-        DatosEnvioAMantenimiento datos = new DatosEnvioAMantenimiento();
-        ModelMap model = new ModelMap();
-        model.put("datosMantenimiento", datos);
-        return new ModelAndView("lista-de-autos", model);
+            model.put("mensaje","No hay autos desponibles para mantenimiento");
+            return new ModelAndView("lista-de-autos",model);        }
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/mantenimiento")
