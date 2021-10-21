@@ -1,6 +1,9 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Suscripcion {
@@ -18,8 +21,15 @@ public class Suscripcion {
     @Column(nullable = true)
     private Boolean Renovacion;
 
+
     @Column
-    private Short DiasRestantes;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate FechaInicio;
+
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate FechaFin;
+
 
     public Suscripcion(){
 
@@ -29,7 +39,7 @@ public class Suscripcion {
         this.Cliente = cliente;
         this.TipoSuscripcion = tipoSuscripcion;
         this.Renovacion=false;
-        this.DiasRestantes=30;
+        this.FechaFin=null;
     }
 
     public Long getId() {
@@ -64,11 +74,19 @@ public class Suscripcion {
         Renovacion = renovacion;
     }
 
-    public Short getDiasRestantes() {
-        return DiasRestantes;
+    public LocalDate getFechaInicio() {
+        return FechaInicio;
     }
 
-    public void setDiasRestantes(Short diasRestantes) {
-        DiasRestantes = diasRestantes;
+    public void setFechaInicio(LocalDate fechaInicio) {
+        FechaInicio = fechaInicio;
+    }
+
+    public LocalDate getFechaFin() {
+        return FechaFin;
+    }
+
+    public void setFechaFin(LocalDate fechaFin) {
+        FechaFin = fechaFin;
     }
 }

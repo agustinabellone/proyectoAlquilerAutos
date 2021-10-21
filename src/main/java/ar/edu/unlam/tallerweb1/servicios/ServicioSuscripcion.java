@@ -10,9 +10,11 @@ public interface ServicioSuscripcion {
 
     Boolean existeSuscripcionPorCliente(Cliente cliente);
 
-    void renovarSuscripcion(Suscripcion suscripcion);
+    void renovarAutomaticamenteSuscripcion(Long id);
 
     void mejorarNivelSuscripcion(Suscripcion suscripcion, TipoSuscripcion nuevo_tipo);
 
     Suscripcion buscarPorIdCliente(Long id);
+
+    void revisionDeSuscripciones();
 }

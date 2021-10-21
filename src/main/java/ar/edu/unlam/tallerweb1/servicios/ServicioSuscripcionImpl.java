@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Service("ServicioSuscripcion")
@@ -33,6 +35,7 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
             throw new ClienteYaSuscriptoException();
         }
         Suscripcion suscripcion = new Suscripcion(cliente, tipoSuscripcion);
+        suscripcion.setFechaInicio(LocalDate.now());
         repositorioSuscripcion.guardar(suscripcion);
         return suscripcion;
     }
@@ -48,12 +51,15 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     }
 
     @Override
-    public void renovarSuscripcion(Suscripcion suscripcion) {
-        if(suscripcion.getRenovacion() == true){
+    public void renovarAutomaticamenteSuscripcion(Long id) {
+
+        Suscripcion buscada= buscarPorIdCliente(id);
+
+        if(buscada.getRenovacion() == true){
             throw new SuscripcionYaRenovadaException();
         }
-        suscripcion.setRenovacion(true);
-        repositorioSuscripcion.actualizarSuscripcion(suscripcion);
+        buscada.setRenovacion(true);
+        repositorioSuscripcion.actualizarSuscripcion(buscada);
     }
 
     @Override
@@ -69,5 +75,27 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     public Suscripcion buscarPorIdCliente(Long id) {
         Cliente buscado = new Cliente(id);
         return repositorioSuscripcion.buscarPorCliente(buscado);
+    }
+
+    @Override
+    public void revisionDeSuscripciones() {
+        List<Suscripcion> listaDeBajas;
+        listaDeBajas = repositorioSuscripcion.buscarSuscripcionesFueraDeFecha(LocalDate.now());
+        if(!listaDeBajas.isEmpty()){
+            for (Suscripcion suscripcion: listaDeBajas){
+
+                suscripcion.setFechaFin(LocalDate.now());
+                repositorioSuscripcion.actualizarSuscripcion(suscripcion);
+
+                // SI LA RENOVACION ESTA ACTIVA, SE CREA UNA NUEVA SUSCRIPCION
+                if(suscripcion.getRenovacion()){
+                    suscribir(suscripcion.getCliente(),suscripcion.getTipoSuscripcion());
+                    System.out.println("Se crea nueva suscripcion");
+                }
+            }
+            System.out.println("Todas las suscripciones fueron dadas de baja correctamente");
+        }else{
+            System.out.println("No hubo bajas posibles");
+        }
     }
 }

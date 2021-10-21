@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface RepositorioSuscripcion {
@@ -16,5 +17,7 @@ public interface RepositorioSuscripcion {
     Suscripcion buscarPorCliente(Cliente cliente);
 
     void actualizarSuscripcion(Suscripcion suscripcion);
+
+    List<Suscripcion> buscarSuscripcionesFueraDeFecha(LocalDate fechaActual);
 
 }

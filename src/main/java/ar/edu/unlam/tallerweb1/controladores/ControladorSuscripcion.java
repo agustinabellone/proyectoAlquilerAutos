@@ -7,6 +7,8 @@ import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+@EnableScheduling
 @Controller
 public class ControladorSuscripcion {
 
+    @Autowired
     private ServicioSuscripcion servicioSuscripcion;
 
     @Autowired
@@ -48,13 +52,19 @@ public class ControladorSuscripcion {
     @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)
     public ModelAndView renovarSuscripcion(@RequestParam("id") Long id) {
 
-        Suscripcion suscripcion= servicioSuscripcion.buscarPorIdCliente(id);
 
         try{
-            servicioSuscripcion.renovarSuscripcion(suscripcion);
+            servicioSuscripcion.renovarAutomaticamenteSuscripcion(id);
         }catch(SuscripcionYaRenovadaException e){
             return new ModelAndView("perfil"); //EL USUARIO RENUEVA SU SUSCRIPCION DESDE SU PERFIL
         }
         return new ModelAndView("home");
+    }
+
+    //@Scheduled(cron = "0 29 19 ? * *")
+    @Scheduled(fixedRate = 10000)
+    public void controlDeFechaDeSuscripciones(){
+        //System.out.println("Fixed rate task ");
+        servicioSuscripcion.revisionDeSuscripciones();
     }
 }

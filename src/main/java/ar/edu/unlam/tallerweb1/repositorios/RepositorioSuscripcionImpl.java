@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository("RepositorioSuscripcion")
@@ -47,6 +48,7 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
         return (Suscripcion)this.sessionFactory.getCurrentSession()
                 .createCriteria(Suscripcion.class)
                 .add(Restrictions.eq("Cliente", cliente))
+                .add(Restrictions.isNull("FechaFin"))
                 .uniqueResult();
     }
 
@@ -55,5 +57,21 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
         this.sessionFactory.getCurrentSession()
                 .update("Suscripcion", suscripcion);
     }
+
+    @Override
+    public List<Suscripcion> buscarSuscripcionesFueraDeFecha(LocalDate fechaActual) {
+        List <Suscripcion> listaDeBajas;
+
+        listaDeBajas= sessionFactory.getCurrentSession()
+                .createCriteria(Suscripcion.class)
+                .add(Restrictions.isNull("FechaFin"))
+                .add(Restrictions.eq("FechaInicio", fechaActual.minusDays(30L)))
+                .list();
+
+
+        return listaDeBajas;
+    }
+
+
 
 }
