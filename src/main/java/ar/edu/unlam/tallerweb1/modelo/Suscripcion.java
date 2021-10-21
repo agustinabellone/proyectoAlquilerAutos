@@ -13,7 +13,7 @@ public class Suscripcion {
     private Long id;
 
     @OneToOne
-    private Cliente Cliente;
+    private Usuario Usuario;
 
     @OneToOne
     private TipoSuscripcion TipoSuscripcion;
@@ -35,8 +35,8 @@ public class Suscripcion {
 
     }
 
-    public Suscripcion(Cliente cliente, TipoSuscripcion tipoSuscripcion) {
-        this.Cliente = cliente;
+    public Suscripcion(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
+        this.Usuario = usuario;
         this.TipoSuscripcion = tipoSuscripcion;
         this.Renovacion=false;
         this.FechaFin=null;
@@ -48,14 +48,6 @@ public class Suscripcion {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Cliente getCliente() {
-        return Cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        Cliente = cliente;
     }
 
     public TipoSuscripcion getTipoSuscripcion() {
@@ -88,5 +80,13 @@ public class Suscripcion {
 
     public void setFechaFin(LocalDate fechaFin) {
         FechaFin = fechaFin;
+    }
+
+    public Usuario getUsuario() {
+        return Usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        Usuario = usuario;
     }
 }

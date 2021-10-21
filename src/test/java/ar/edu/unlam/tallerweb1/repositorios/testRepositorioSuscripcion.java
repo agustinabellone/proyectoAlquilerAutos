@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import org.junit.Test;
@@ -16,11 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class testRepositorioSuscripcion extends SpringTest {
 
-    private static final Long ID_CLIENTE=123L;
+    private static final Long ID_USUARIO =123L;
     private static final Long ID_TIPO=1L;
-    private static final Cliente CLIENTE=new Cliente(ID_CLIENTE);
-    private static final Cliente CLIENTE2=new Cliente(ID_CLIENTE+1);
-    private static final Cliente CLIENTE3=new Cliente(ID_CLIENTE+2);
+    private static final Usuario USUARIO =new Usuario(ID_USUARIO);
+    private static final Usuario USUARIO_2 =new Usuario(ID_USUARIO +1);
+    private static final Usuario USUARIO_3 =new Usuario(ID_USUARIO +2);
     private static final TipoSuscripcion TIPO_SUSCRIPCION=new TipoSuscripcion(ID_TIPO);
     private static final TipoSuscripcion TIPO_SUSCRIPCION2=new TipoSuscripcion(ID_TIPO+1);
 
@@ -31,13 +31,13 @@ public class testRepositorioSuscripcion extends SpringTest {
     private RepositorioTipoSuscripcion repositorioTipoSuscripcion;
 
     @Autowired
-    private ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente repositorioCliente;
+    private RepositorioUsuario repositorioUsuario;
 
     @Test
     @Transactional
     @Rollback
     public void guardarUnaSuscripcionDeberiaPersistirla(){
-        Suscripcion suscripcion = givenExisteSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
+        Suscripcion suscripcion = givenExisteSuscripcion(USUARIO, TIPO_SUSCRIPCION);
         Long id=whenGuardoLaSuscripcion(suscripcion);
         thenEncuentroLaSuscripcion(id);
     }
@@ -46,15 +46,15 @@ public class testRepositorioSuscripcion extends SpringTest {
     @Transactional
     @Rollback
     public void puedoBuscarSuscripcionPorTipo(){
-        givenExisteUnClientePersistido(CLIENTE);
-        givenExisteUnClientePersistido(CLIENTE2);
-        givenExisteUnClientePersistido(CLIENTE3);
+        givenExisteUnClientePersistido(USUARIO);
+        givenExisteUnClientePersistido(USUARIO_2);
+        givenExisteUnClientePersistido(USUARIO_3);
         givenExisteUnTipoSuscripcionPersistido(TIPO_SUSCRIPCION);
         givenExisteUnTipoSuscripcionPersistido(TIPO_SUSCRIPCION2);
 
-        Suscripcion suscripcion = givenExisteSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
-        Suscripcion suscripcion2 = givenExisteSuscripcion(CLIENTE2, TIPO_SUSCRIPCION);
-        Suscripcion suscripcion3= givenExisteSuscripcion(CLIENTE3, TIPO_SUSCRIPCION2);
+        Suscripcion suscripcion = givenExisteSuscripcion(USUARIO, TIPO_SUSCRIPCION);
+        Suscripcion suscripcion2 = givenExisteSuscripcion(USUARIO_2, TIPO_SUSCRIPCION);
+        Suscripcion suscripcion3= givenExisteSuscripcion(USUARIO_3, TIPO_SUSCRIPCION2);
 
         givenGuardoLaSuscripcion(suscripcion);
         givenGuardoLaSuscripcion(suscripcion2);
@@ -68,22 +68,22 @@ public class testRepositorioSuscripcion extends SpringTest {
     @Transactional
     @Rollback
     public void puedoBuscarPorCliente(){
-        givenExisteUnClientePersistido(CLIENTE);
+        givenExisteUnClientePersistido(USUARIO);
         givenExisteUnTipoSuscripcionPersistido(TIPO_SUSCRIPCION);
 
-        Suscripcion suscripcion = givenExisteSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
+        Suscripcion suscripcion = givenExisteSuscripcion(USUARIO, TIPO_SUSCRIPCION);
         givenGuardoLaSuscripcion(suscripcion);
-        thenEncuentroLaSuscripcionPorCliente(CLIENTE);
+        thenEncuentroLaSuscripcionPorCliente(USUARIO);
     }
 
     @Test
     @Transactional
     @Rollback
     public void puedoActualizarUnaSuscripcion(){
-        givenExisteUnClientePersistido(CLIENTE);
+        givenExisteUnClientePersistido(USUARIO);
         givenExisteUnTipoSuscripcionPersistido(TIPO_SUSCRIPCION);
         givenExisteUnTipoSuscripcionPersistido(TIPO_SUSCRIPCION2);
-        Suscripcion suscripcion = givenExisteSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
+        Suscripcion suscripcion = givenExisteSuscripcion(USUARIO, TIPO_SUSCRIPCION);
         givenGuardoLaSuscripcion(suscripcion);
         TipoSuscripcion nuevo_TipoSuscripcion=TIPO_SUSCRIPCION2;
         whenActualizoLaSuscripcion(suscripcion, nuevo_TipoSuscripcion);
@@ -94,8 +94,8 @@ public class testRepositorioSuscripcion extends SpringTest {
         repositorioTipoSuscripcion.guardar(tipoSuscripcion);
     }
 
-    private void givenExisteUnClientePersistido(Cliente cliente) {
-        repositorioCliente.guardar(cliente);
+    private void givenExisteUnClientePersistido(Usuario usuario) {
+        repositorioUsuario.guardar(usuario);
     }
 
 
@@ -104,9 +104,9 @@ public class testRepositorioSuscripcion extends SpringTest {
         repositorioSuscripcion.actualizarSuscripcion(suscripcion);
     }
 
-    private Suscripcion givenExisteSuscripcion(Cliente cliente, TipoSuscripcion tipoSuscripcion) {
+    private Suscripcion givenExisteSuscripcion(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
         Suscripcion suscripcion = new Suscripcion();
-        suscripcion.setCliente(cliente);
+        suscripcion.setUsuario(usuario);
         suscripcion.setTipoSuscripcion(tipoSuscripcion);
         return suscripcion;
     }
@@ -130,8 +130,8 @@ public class testRepositorioSuscripcion extends SpringTest {
         assertThat(buscada).isNotNull();
     }
 
-    private void thenEncuentroLaSuscripcionPorCliente(Cliente cliente) {
-        Suscripcion buscada = repositorioSuscripcion.buscarPorCliente(cliente);
+    private void thenEncuentroLaSuscripcionPorCliente(Usuario usuario) {
+        Suscripcion buscada = repositorioSuscripcion.buscarPorCliente(usuario);
         assertThat(buscada).isNotNull();
 
     }

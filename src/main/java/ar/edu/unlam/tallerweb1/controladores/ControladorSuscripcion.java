@@ -2,15 +2,13 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaRenovadaException;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,10 +36,10 @@ public class ControladorSuscripcion {
     public ModelAndView suscribirCliente(@RequestParam(value = "id_tipo") Long id_tipo,
                                          @RequestParam(value = "id_cliente")Long id_cliente) {
 
-        Cliente cliente = new Cliente(id_cliente);
+        Usuario usuario = new Usuario(id_cliente);
         TipoSuscripcion tipoSuscripcion = new TipoSuscripcion(id_tipo);
         try{
-            servicioSuscripcion.suscribir(cliente, tipoSuscripcion);
+            servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
         }catch (ClienteYaSuscriptoException e){
             return new ModelAndView("ir-a-suscribir");
         }

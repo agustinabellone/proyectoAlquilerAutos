@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import org.hibernate.SessionFactory;
@@ -44,10 +44,10 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
     }
 
     @Override
-    public Suscripcion buscarPorCliente(Cliente cliente) {
+    public Suscripcion buscarPorCliente(Usuario usuario) {
         return (Suscripcion)this.sessionFactory.getCurrentSession()
                 .createCriteria(Suscripcion.class)
-                .add(Restrictions.eq("Cliente", cliente))
+                .add(Restrictions.eq("Cliente", usuario))
                 .add(Restrictions.isNull("FechaFin"))
                 .uniqueResult();
     }

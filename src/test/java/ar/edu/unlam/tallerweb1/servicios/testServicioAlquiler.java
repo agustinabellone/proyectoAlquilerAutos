@@ -4,19 +4,19 @@ import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
 public class testServicioAlquiler {
 
-    Cliente cliente = new Cliente();
+    Usuario usuario = new Usuario();
     Auto auto = new Auto();
 
     private static final String fechaInicio = "10/01/21";
     private static final String fechaSalida = "18/01/21";
 
-    DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, fechaInicio, fechaSalida );
+    DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, fechaInicio, fechaSalida );
 
     private ServicioAlquilar servicioAlquiler= new ServicioAlquilarImpls();
 

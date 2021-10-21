@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.TablaAlquiler;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class testControladorAlquiler {
 
-    Cliente cliente = new Cliente();
+    Usuario usuario = new Usuario();
     Auto auto = new Auto((long)123, "", "", "", "", null, null);
 
     ControladorAlquiler controladorAlquiler= new ControladorAlquiler();
@@ -19,7 +19,7 @@ public class testControladorAlquiler {
     private static final String fechaInicio = "10/01/21";
     private static final String fechaSalida = "18/01/21";
 
-    DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, fechaInicio, fechaSalida );
+    DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, fechaInicio, fechaSalida );
 
 
     private ModelAndView mav;
