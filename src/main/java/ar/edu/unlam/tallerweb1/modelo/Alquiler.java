@@ -12,7 +12,6 @@ public class Alquiler {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String f_ingreso;
     private String f_regreso;
