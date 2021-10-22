@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
+<<<<<<< HEAD
 Built-By: luz
 Build-Jdk: version 11.0.12
+=======
+Built-By: Agustina
+Build-Jdk: 11.0.10
+>>>>>>> 54ef5beb3aa4ec446b7defa256c7f5f616dbc64f
 

@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+=======
+<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+>>>>>>> 54ef5beb3aa4ec446b7defa256c7f5f616dbc64f
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,6 +23,7 @@
 <header class = "d-flex flex-row-reverse p-3"></header>
 <section>
     <div class="container">
+<<<<<<< HEAD
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center">¡Ingresaste a tu cuenta!</h1>
         </div>
@@ -26,6 +32,10 @@
         </div>
         <div class="col-sm-12 d-flex justify-content-center">
             <a href="lista-viajes?id_cliente=3"  class="btn btn-primary mt-5">Ver mis viajes</a>
+=======
+        <div>
+            <h1>Ingresaste a tu cuenta!</h1>
+>>>>>>> 54ef5beb3aa4ec446b7defa256c7f5f616dbc64f
         </div>
     </div>
 </section>
@@ -46,4 +56,8 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 54ef5beb3aa4ec446b7defa256c7f5f616dbc64f
