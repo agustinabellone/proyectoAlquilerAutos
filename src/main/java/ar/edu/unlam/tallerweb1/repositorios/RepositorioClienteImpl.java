@@ -24,7 +24,7 @@ public class RepositorioClienteImpl implements RepositorioCliente {
     }
 
     @Override
-    public Cliente buscarPor(Long id) {
+    public Cliente buscarPorId(Long id) {
         return sessionFactory.getCurrentSession().get(Cliente.class, id);
     }
 
@@ -36,12 +36,10 @@ public class RepositorioClienteImpl implements RepositorioCliente {
                 .uniqueResult();
     }
 
-
     @Override
     public List<Cliente> buscarTodos() {
         return sessionFactory.getCurrentSession()
                 .createCriteria(Cliente.class)
                 .list();
     }
-
 }

@@ -34,7 +34,7 @@ public class testRepositorioCliente extends SpringTest {
     }
 
     private void thenEncuentroElCliente(Long id) {
-        Cliente cliente = repositorioCliente.buscarPor(id);
+        Cliente cliente = repositorioCliente.BuscarPorId(id);
         assertThat(cliente).isNotNull();
     }
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ar/edu/unlam/tallerweb1/persistencia/testConexionBaseDeDatos.class
 ar/edu/unlam/tallerweb1/SpringTest.class
 ar/edu/unlam/tallerweb1/controladores/testControladorRegistro.class
@@ -7,3 +8,17 @@ ar/edu/unlam/tallerweb1/persistencia/testPersistenciaRegistro.class
 ar/edu/unlam/tallerweb1/controladores/testControladorAlquiler.class
 ar/edu/unlam/tallerweb1/servicios/testServicioRegistro.class
 ar/edu/unlam/tallerweb1/servicios/testServicioAlquiler.class
+=======
+ar/edu/unlam/tallerweb1/SpringTest.class
+ar/edu/unlam/tallerweb1/persistencia/testPersistenciaEnviarAutoAMantenimiento.class
+ar/edu/unlam/tallerweb1/repositorios/testRepositorioEnviarAutoAMantenimiento.class
+ar/edu/unlam/tallerweb1/repositorios/testRepositorioSuscripcion.class
+ar/edu/unlam/tallerweb1/controladores/testControladorSuscripcion.class
+ar/edu/unlam/tallerweb1/servicios/testServicioEnviarAutoAMantenimiento.class
+ar/edu/unlam/tallerweb1/servicios/testServicioAlquiler.class
+ar/edu/unlam/tallerweb1/persistencia/testPersistenciaSuscripcion.class
+ar/edu/unlam/tallerweb1/repositorios/testRepositorioSuscripcion$testRepositorioEnviarAutoAMantenimiento.class
+ar/edu/unlam/tallerweb1/controladores/testControladorAlquiler.class
+ar/edu/unlam/tallerweb1/servicios/testServicioSuscripcion.class
+ar/edu/unlam/tallerweb1/controladores/testControladorEnviarAutoAMentenimineto.class
+>>>>>>> master

@@ -8,9 +8,10 @@ public interface RepositorioCliente {
 
     void guardar(Cliente cliente);
 
-    Cliente buscarPor(Long id);
+    Cliente buscarPorId(Long id);
 
     Cliente buscarPorEmail(String email);
 
     List<Cliente> buscarTodos();
+    
 }
