@@ -14,6 +14,7 @@
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorios/RepositorioSuscripcion.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/modelo/Cliente.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/servicios/ServicioAlquilar.java
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/ControladorAdmin.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/SuscripcionYaRenovadaException.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/servicios/ServicioSuscripcionImpl.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/NivelDeSuscripcionActualMejorOIgualQueElNuevoException.java
