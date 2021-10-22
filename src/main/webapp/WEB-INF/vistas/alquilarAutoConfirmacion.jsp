@@ -26,9 +26,9 @@
             <img src="https://http2.mlstatic.com/D_NQ_NP_897110-MLU43129754655_082020-O.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Auto: ${id_auto}</h5>
-                <p class="card-text">Días: ${f_ingreso_dia}/${f_ingreso_mes} - ${f_salida_dia}/${f_salida_mes}</p>
+                <p class="card-text">Días: ${f_salida_dia}/${f_salida_mes} - ${f_ingreso_dia}/${f_ingreso_mes} </p>
                 <div class="col-sm-12 d-flex justify-content-center">
-                    <a href="#" class="btn btn-primary mt-5">ALQUILAR</a>
+                    <a href="validar-alquiler?id_cliente=1&id_auto=${id_auto}&f_ingreso_dia=18&f_ingreso_mes=10&f_salida_dia=23&f_salida_mes=10" class="btn btn-primary mt-5">ALQUILAR</a>
                 </div>
             </div>
         </div>
