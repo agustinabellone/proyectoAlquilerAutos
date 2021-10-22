@@ -1,7 +1,5 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,10 +17,10 @@ public class Alquiler {
     public Alquiler() {
     }
 
-    public Alquiler(DatosAlquiler DA ){
-        this.f_ingreso=DA.getF_Inicio();
-        this.f_regreso=DA.getF_Regreso();
-    }
+ //   public Alquiler(DatosAlquiler DA ){
+   //     this.f_ingreso=DA.getF_Inicio();
+     //   this.f_regreso=DA.getF_Regreso();
+    //}
 
     public String getF_ingreso() {
         return f_ingreso;

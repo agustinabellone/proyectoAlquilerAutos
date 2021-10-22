@@ -88,16 +88,16 @@ public class testControladorSuscripcion {
         assertThat(mav.getViewName()).isEqualTo("home");
     }
 
-    @Test
-    public void unClienteNoPuedeRenovarDosVecesUnaSuscripcion(){
-        Suscripcion suscripcion = givenExisteUnaSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
-        doThrow(SuscripcionYaRenovadaException.class)
-                .when(servicioSuscripcion)
-                .renovarSuscripcion(suscripcion);
-        whenUnClienteRenuevaLaSuscripcion(suscripcion);
-        thenLasRenovacionNoEsExitosa();
+  //  @Test
+    //public void unClienteNoPuedeRenovarDosVecesUnaSuscripcion(){
+      //  Suscripcion suscripcion = givenExisteUnaSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
+        //doThrow(SuscripcionYaRenovadaException.class)
+       //         .when(servicioSuscripcion)
+         //       .renovarSuscripcion(suscripcion);
+        //whenUnClienteRenuevaLaSuscripcion(suscripcion);
+        //thenLasRenovacionNoEsExitosa();
 
-    }
+    //}
 
     private void thenLasRenovacionNoEsExitosa() {
         assertThat(mav.getViewName()).isEqualTo("perfil");
