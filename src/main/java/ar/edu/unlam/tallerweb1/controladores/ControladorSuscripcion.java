@@ -36,6 +36,7 @@ public class ControladorSuscripcion {
         // ESTO SE CAMBIA CUANDO HAGAMOS EL MANEJO DE SESIONES
         request.getSession().setAttribute("rol", "cliente");
         request.getSession().setAttribute("id_usuario", 200);
+        request.getSession().setAttribute("nombre_usuario", "Ian");
         //////////////////////////////////////////////////////
 
         if(request.getSession().getAttribute("rol").equals("cliente")){
@@ -54,11 +55,11 @@ public class ControladorSuscripcion {
     }
 
     @RequestMapping(path = "/suscribirse", method = RequestMethod.GET)
-    public ModelAndView suscribirCliente(@RequestParam(value = "id_tipo") Long id_tipo,
-                                         @RequestParam(value = "id_cliente")Long id_cliente) {
+    public ModelAndView suscribirUsuario(@RequestParam(value = "id_tipo") Long id_tipo,
+                                         @RequestParam(value = "id_usuario")Long id_usuario) {
 
         //ACA ES NECESARIO BUSCAR EL USUARIO Y EL TIPO EN LA BD
-        Usuario usuario = new Usuario(id_cliente);
+        Usuario usuario = new Usuario(id_usuario);
         TipoSuscripcion tipoSuscripcion = new TipoSuscripcion(id_tipo);
         try{
             servicioSuscripcion.suscribir(usuario, tipoSuscripcion);

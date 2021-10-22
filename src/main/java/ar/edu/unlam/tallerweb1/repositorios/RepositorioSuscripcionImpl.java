@@ -44,10 +44,10 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
     }
 
     @Override
-    public Suscripcion buscarPorCliente(Usuario usuario) {
+    public Suscripcion buscarPorUsuario(Usuario usuario) {
         return (Suscripcion)this.sessionFactory.getCurrentSession()
                 .createCriteria(Suscripcion.class)
-                .add(Restrictions.eq("Cliente", usuario))
+                .add(Restrictions.eq("Usuario", usuario))
                 .add(Restrictions.isNull("FechaFin"))
                 .uniqueResult();
     }

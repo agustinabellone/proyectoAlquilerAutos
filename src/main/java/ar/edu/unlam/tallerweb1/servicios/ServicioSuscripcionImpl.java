@@ -31,7 +31,7 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     @Override
     public Suscripcion suscribir(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
 
-        if(existeSuscripcionPorCliente(usuario)){
+        if(existeSuscripcionPorUsuario(usuario)){
             throw new ClienteYaSuscriptoException();
         }
         Suscripcion suscripcion = new Suscripcion(usuario, tipoSuscripcion);
@@ -41,8 +41,8 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     }
 
     @Override
-    public Boolean existeSuscripcionPorCliente(Usuario usuario) {
-        Suscripcion buscado = repositorioSuscripcion.buscarPorCliente(usuario);
+    public Boolean existeSuscripcionPorUsuario(Usuario usuario) {
+        Suscripcion buscado = repositorioSuscripcion.buscarPorUsuario(usuario);
 
         if (Objects.isNull(buscado)){
             return false;
@@ -53,7 +53,7 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     @Override
     public void renovarAutomaticamenteSuscripcion(Long id) {
 
-        Suscripcion buscada= buscarPorIdCliente(id);
+        Suscripcion buscada= buscarPorIdUsuario(id);
 
         if(buscada.getRenovacion() == true){
             throw new SuscripcionYaRenovadaException();
@@ -72,9 +72,9 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     }
 
     @Override
-    public Suscripcion buscarPorIdCliente(Long id) {
+    public Suscripcion buscarPorIdUsuario(Long id) {
         Usuario buscado = new Usuario(id);
-        return repositorioSuscripcion.buscarPorCliente(buscado);
+        return repositorioSuscripcion.buscarPorUsuario(buscado);
     }
 
     @Override

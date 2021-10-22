@@ -8,13 +8,13 @@ public interface ServicioSuscripcion {
 
     Suscripcion suscribir(Usuario usuario, TipoSuscripcion tipoSuscripcion);
 
-    Boolean existeSuscripcionPorCliente(Usuario usuario);
+    Boolean existeSuscripcionPorUsuario(Usuario usuario);
 
     void renovarAutomaticamenteSuscripcion(Long id);
 
     void mejorarNivelSuscripcion(Suscripcion suscripcion, TipoSuscripcion nuevo_tipo);
 
-    Suscripcion buscarPorIdCliente(Long id);
+    Suscripcion buscarPorIdUsuario(Long id);
 
     void revisionDeSuscripciones();
 }

@@ -53,7 +53,7 @@ public class testServicioSuscripcion {
         Suscripcion suscripcion = giveExisteUnaSuscripcion();
         Usuario usuario = suscripcion.getUsuario();
         TipoSuscripcion tipoSuscripcion = suscripcion.getTipoSuscripcion();
-        when(repositorioSuscripcion.buscarPorCliente(usuario)).thenReturn(new Suscripcion());
+        when(repositorioSuscripcion.buscarPorUsuario(usuario)).thenReturn(new Suscripcion());
         Suscripcion nueva_suscripcion = whenUnClienteSeSuscribe(usuario, tipoSuscripcion);
         thenLaSuscripcionFalla(nueva_suscripcion);
     }

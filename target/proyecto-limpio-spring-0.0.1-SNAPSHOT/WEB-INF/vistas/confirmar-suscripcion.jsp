@@ -32,10 +32,19 @@
 <section>
     <div class="pricing6 py-5 bg-light">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 text-center">
-                    <h3 class="mb-3">Es esta su suscripcion?</h3>
-                    <h6 class="subtitle font-weight-normal"><c:out value="${id_tipo}"/></h6>
+
+            <div class="card text-center">
+                <div class="card-header">
+
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Porfavor <c:out value="${nombre_usuario}"/>, confirme su suscripcion</h5>
+                    <p class="card-text">Suscribirse al plan numero -<c:out value="${id_tipo}"/>- ?</p>
+                    <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id_usuario}" class="btn btn-primary">Confirmar</a>
+                    <a href="ir-a-suscribir" class="btn btn-primary">Volver</a>
+                </div>
+                <div class="card-footer text-muted">
+
                 </div>
             </div>
 

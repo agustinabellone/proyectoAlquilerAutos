@@ -14,7 +14,7 @@ public interface RepositorioSuscripcion {
 
     List<Suscripcion> buscarPorTipo(TipoSuscripcion tipoSuscripcion);
 
-    Suscripcion buscarPorCliente(Usuario usuario);
+    Suscripcion buscarPorUsuario(Usuario usuario);
 
     void actualizarSuscripcion(Suscripcion suscripcion);
 

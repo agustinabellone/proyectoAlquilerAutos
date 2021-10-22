@@ -131,7 +131,7 @@ public class testRepositorioSuscripcion extends SpringTest {
     }
 
     private void thenEncuentroLaSuscripcionPorCliente(Usuario usuario) {
-        Suscripcion buscada = repositorioSuscripcion.buscarPorCliente(usuario);
+        Suscripcion buscada = repositorioSuscripcion.buscarPorUsuario(usuario);
         assertThat(buscada).isNotNull();
 
     }

@@ -38,7 +38,7 @@ public class testControladorSuscripcion {
     private void whenUnClienteSeSuscribe(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
 
 
-        mav =  controladorSuscripcion.suscribirCliente(usuario.getId(), tipoSuscripcion.getId());
+        mav =  controladorSuscripcion.suscribirUsuario(usuario.getId(), tipoSuscripcion.getId());
 
     }
 
