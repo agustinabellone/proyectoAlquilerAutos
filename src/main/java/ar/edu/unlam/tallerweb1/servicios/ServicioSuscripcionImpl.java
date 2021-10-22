@@ -89,7 +89,7 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 
                 // SI LA RENOVACION ESTA ACTIVA, SE CREA UNA NUEVA SUSCRIPCION
                 if(suscripcion.getRenovacion()){
-                    suscribir(suscripcion.getCliente(),suscripcion.getTipoSuscripcion());
+                    suscribir(suscripcion.getUsuario(),suscripcion.getTipoSuscripcion());
                     System.out.println("Se crea nueva suscripcion");
                 }
             }

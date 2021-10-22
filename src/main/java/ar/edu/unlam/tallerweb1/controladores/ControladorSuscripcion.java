@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 @EnableScheduling
 @Controller
@@ -28,14 +31,33 @@ public class ControladorSuscripcion {
 
 
     @RequestMapping(path = "/ir-a-suscribir", method = RequestMethod.GET)
-    private ModelAndView mostrarFormularioSuscripcion(){
-        return new ModelAndView("ir-a-suscribir");
+    private ModelAndView mostrarFormularioSuscripcion(HttpServletRequest request){
+
+        // ESTO SE CAMBIA CUANDO HAGAMOS EL MANEJO DE SESIONES
+        request.getSession().setAttribute("rol", "cliente");
+        request.getSession().setAttribute("id_usuario", 200);
+        //////////////////////////////////////////////////////
+
+        if(request.getSession().getAttribute("rol").equals("cliente")){
+            return new ModelAndView("ir-a-suscribir");
+        }
+        return new ModelAndView("home");
+    }
+
+    @RequestMapping(path = "/confirmar-suscripcion", method = RequestMethod.GET)
+    private ModelAndView confirmarSuscripcion(HttpServletRequest request,
+                                               @RequestParam (value="id_tipo") Long id_tipo ){
+        ModelMap model= new ModelMap();
+        model.put("id_tipo", id_tipo);
+        model.put("id_usuario", request.getSession().getAttribute("id_usuario"));
+        return new ModelAndView("confirmar-suscripcion", model);
     }
 
     @RequestMapping(path = "/suscribirse", method = RequestMethod.GET)
     public ModelAndView suscribirCliente(@RequestParam(value = "id_tipo") Long id_tipo,
                                          @RequestParam(value = "id_cliente")Long id_cliente) {
 
+        //ACA ES NECESARIO BUSCAR EL USUARIO Y EL TIPO EN LA BD
         Usuario usuario = new Usuario(id_cliente);
         TipoSuscripcion tipoSuscripcion = new TipoSuscripcion(id_tipo);
         try{
@@ -60,7 +82,7 @@ public class ControladorSuscripcion {
     }
 
     //@Scheduled(cron = "0 29 19 ? * *")
-    @Scheduled(fixedRate = 10000)
+    //@Scheduled(fixedRate = 10000)
     public void controlDeFechaDeSuscripciones(){
         //System.out.println("Fixed rate task ");
         servicioSuscripcion.revisionDeSuscripciones();
