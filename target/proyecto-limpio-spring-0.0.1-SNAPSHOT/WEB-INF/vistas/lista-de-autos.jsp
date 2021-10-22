@@ -57,6 +57,7 @@
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${autos.modelo}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${autos.km}</span>
+
                                                     </li>
                                                 </ul>
                                             </div>
