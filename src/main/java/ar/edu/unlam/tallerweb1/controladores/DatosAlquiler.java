@@ -27,6 +27,14 @@ public class DatosAlquiler {
         return cliente;
     }
 
+    public Long idCliente(){
+        return cliente.getId();
+    }
+
+    public Long idAuto(){
+        return auto.getId();
+    }
+
     public String getF_Inicio() {
         return this.f_ingreso;
     }

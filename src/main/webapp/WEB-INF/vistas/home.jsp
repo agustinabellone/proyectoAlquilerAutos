@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,8 +19,8 @@
 <body>
 <header class = "d-flex flex-row-reverse p-3">
     <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
-    <button type="button" class="btn btn-primary">Iniciar sesion</button>
-    <button type="button" class="btn btn-default">Crear cuenta</button>
+        <a href="login" class="btn btn-primary">Iniciar sesión</a>
+        <a href="registro" class="btn btn-default">Crear cuenta</a>
     </div>
 </header>
 <section>
@@ -34,7 +35,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
-                    <h3 class="mb-3">Alquila un auto a un precio accesible</h3>
+                    <h3 class="mb-3">Alquilá un auto a un precio accesible</h3>
                     <h6 class="subtitle font-weight-normal">Contamos con 2 planes diferentes</h6>
                 </div>
             </div>
@@ -45,14 +46,14 @@
                     <div class="card card-shadow border-0 mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center">
-                                <h5 class="font-weight-medium mb-0">Plan basico</h5>
+                                <h5 class="font-weight-medium mb-0">Plan básico</h5>
                                 <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Popular</span></div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-5 text-center">
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">2.600</span>
-                                        <h6 class="font-weight-light">1 MES</h6>
+                                        <h6 class="font-weight-light">MES</h6>
                                         <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" href="#">ELEGIR PLAN</a>
                                     </div>
                                 </div>
@@ -80,7 +81,7 @@
                                 <div class="col-lg-5 text-center">
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">24.000</span>
-                                        <h6 class="font-weight-light">12 Meses</h6>
+                                        <h6 class="font-weight-light">AÑO</h6>
                                         <a class="btn btn-info-gradiant border-0 font-14 text-white p-3 btn-block mt-3" href="#">ELEGIR PLAN</a>
                                     </div>
                                 </div>

@@ -3,35 +3,30 @@ package ar.edu.unlam.tallerweb1.modelo;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
+@Entity
 public class Alquiler {
 
-    private Long auto_id;
-    private Long cliente_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private Long id;
     private String f_ingreso;
     private String f_regreso;
-    private Long id;
+    private Long id_cliente;
+    private Long id_auto;
 
     public Alquiler() {
     }
 
     public Alquiler(DatosAlquiler DA ){
-
-        this.auto_id=DA.getAuto().getId();
-        this.cliente_id=DA.getCliente().getId();
         this.f_ingreso=DA.getF_Inicio();
         this.f_regreso=DA.getF_Regreso();
-
-    }
-
-    public Long getAuto_id() {
-        return auto_id;
-    }
-
-    public Long getCliente_id() {
-        return cliente_id;
+        this.id_cliente=DA.idCliente();
+        this.id_auto=DA.idAuto();
     }
 
     public String getF_ingreso() {
@@ -54,8 +49,15 @@ public class Alquiler {
         this.id = id;
     }
 
-    @Id
+
     public Long getId() {
         return id;
+    }
+
+    public Long getId_cliente(){
+        return id_cliente;
+    }
+    public Long getId_auto(){
+        return id_auto;
     }
 }
