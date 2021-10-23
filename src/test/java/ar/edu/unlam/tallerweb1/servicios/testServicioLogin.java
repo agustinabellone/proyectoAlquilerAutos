@@ -2,8 +2,8 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.controladores.DatosLogin;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.doThrow;
@@ -11,8 +11,8 @@ import static org.mockito.Mockito.*;
 
 public class testServicioLogin {
 
-    private RepositorioCliente repositorioCliente = mock(RepositorioCliente.class);
-    private ServicioLogin servicioLogin = new ServicioLoginImpl(repositorioCliente);
+    private RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    private ServicioLogin servicioLogin = new ServicioLoginImpl(repositorioUsuario);
 
     public static final String EMAIL = "agus@gmail.com";
     public static final String CLAVE = "12345678";
@@ -28,7 +28,7 @@ public class testServicioLogin {
     }
 
     private void givenUsuarioExiste() {
-        when(repositorioCliente.buscarPorEmail(EMAIL)).thenReturn(new Cliente());
+        when(repositorioUsuario.buscarPorEmail(EMAIL)).thenReturn(new Usuario());
     }
 
     private boolean whenElClienteIngresa(DatosLogin datosLogin) {
@@ -43,7 +43,7 @@ public class testServicioLogin {
     public void siElClienteNoExisteElIngresoFalla(){
         givenUsuarioNoExiste();
         DatosLogin datosLogin = new DatosLogin(EMAIL_INCORRECTO, CLAVE);
-        doThrow(ClienteNoExisteException.class).when(repositorioCliente).buscarPorEmail(EMAIL_INCORRECTO);
+        doThrow(ClienteNoExisteException.class).when(repositorioUsuario).buscarPorEmail(EMAIL_INCORRECTO);
         boolean ingreso = whenElClienteIngresa(datosLogin);
         thenElIngresoFalla(ingreso);
     }

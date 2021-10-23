@@ -1,9 +1,13 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository("RepositorioCliente")
 public class RepositorioUsuarioImpl implements RepositorioUsuario {
@@ -24,5 +28,20 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     public Usuario guardar(Usuario usuario) {
         this.sessionFactory.getCurrentSession().save(usuario);
         return usuario;
+    }
+
+    @Override
+    public Usuario buscarPorEmail(String email) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (Usuario) session.createCriteria(Usuario.class)
+                .add(Restrictions.eq("email", email))
+                .uniqueResult();
+    }
+
+    @Override
+    public List<Usuario> buscarTodos() {
+        return sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
+                .list();
     }
 }

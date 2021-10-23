@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.persistencia;
 import ar.edu.unlam.tallerweb1.SpringTest;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import javax.transaction.Transactional;
@@ -11,24 +11,24 @@ public class testPersistenciaRegistro extends SpringTest {
     @Test
     @Transactional
     @Rollback
-    public void puedoGuardarUnCliente(){
-        Cliente cliente = givenExisteUnCliente();
-        Long id = whenGuardoElCliente(cliente);
+    public void puedoGuardarUnUsuario(){
+        Usuario usuario = givenExisteUnUsuario();
+        Long id = whenGuardoElUsuario(usuario);
         thenLoPuedoBuscarPorId(id);
     }
 
-    private Cliente givenExisteUnCliente() {
-        return new Cliente();
+    private Usuario givenExisteUnUsuario() {
+        return new Usuario();
     }
 
-    private Long whenGuardoElCliente(Cliente cliente) {
-        session().save(cliente);
-        return cliente.getId();
+    private Long whenGuardoElUsuario(Usuario usuario) {
+        session().save(usuario);
+        return usuario.getId();
     }
 
     private void thenLoPuedoBuscarPorId(Long id) {
-        Cliente clienteBuscado = session().get(Cliente.class, id);
-        assertThat(clienteBuscado).isNotNull();
+        Usuario usuarioBuscado = session().get(Usuario.class, id);
+        assertThat(usuarioBuscado).isNotNull();
     }
 
 
@@ -38,34 +38,34 @@ public class testPersistenciaRegistro extends SpringTest {
     @Test
     @Transactional
     @Rollback
-    public void puedoModificarUnDatoDelCliente(){
-        Cliente cliente = givenExisteUnCliente("agus@gmail.com");
-        Long id = givenPersistoUnCliente(cliente);
+    public void puedoModificarUnDatoDelUsuario(){
+        Usuario usuario = givenExisteUnUsuario("agus@gmail.com");
+        Long id = givenPersistoUnUsuario(usuario);
         String nuevoEmail = "agustina@gmail.com";
-        whenModificoUnDatoDelCliente(cliente, nuevoEmail);
-        thenElClienteModificoUnDato(id, nuevoEmail);
+        whenModificoUnDatoDelUsuario(usuario, nuevoEmail);
+        thenElUsuarioModificoUnDato(id, nuevoEmail);
 
     }
-    private Cliente givenExisteUnCliente(String email) {
-        Cliente cliente = new Cliente();
-        cliente.setEmail(email);
-        return cliente;
+    private Usuario givenExisteUnUsuario(String email) {
+        Usuario usuario = new Usuario();
+        usuario.setEmail(email);
+        return usuario;
     }
 
 
-    private Long givenPersistoUnCliente(Cliente cliente) {
-        session().save(cliente);
-        return cliente.getId();
+    private Long givenPersistoUnUsuario(Usuario usuario) {
+        session().save(usuario);
+        return usuario.getId();
     }
 
-    private void whenModificoUnDatoDelCliente(Cliente cliente, String nuevoEmail) {
-        cliente.setEmail(nuevoEmail);
-        session().update(cliente);
+    private void whenModificoUnDatoDelUsuario(Usuario usuario, String nuevoEmail) {
+        usuario.setEmail(nuevoEmail);
+        session().update(usuario);
     }
 
-    private void thenElClienteModificoUnDato(Long id, String nuevoEmail) {
-        Cliente clienteBuscado = session().get(Cliente.class, id);
-        assertThat(clienteBuscado.getEmail()).isEqualTo(nuevoEmail);
+    private void thenElUsuarioModificoUnDato(Long id, String nuevoEmail) {
+        Usuario usuarioBuscado = session().get(Usuario.class, id);
+        assertThat(usuarioBuscado.getEmail()).isEqualTo(nuevoEmail);
     }
 
 }
