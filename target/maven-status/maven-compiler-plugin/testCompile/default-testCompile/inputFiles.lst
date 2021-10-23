@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/SpringTest.java
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/controladores/testControladorSuscripcion.java
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/controladores/testControladorAlquiler.java
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/servicios/testServicioAlquiler.java
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/persistencia/testConexionBaseDeDatos.java
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/repositorio/testRepositorioCliente.java
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/servicios/testServicioRegistro.java
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/persistencia/testPersistenciaRegistro.java
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/controladores/testControladorRegistro.java
+=======
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/repositorios/testRepositorioEnviarAutoAMantenimiento.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/SpringTest.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/persistencia/testPersistenciaEnviarAutoAMantenimiento.java
@@ -9,3 +20,4 @@
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/servicios/testServicioEnviarAutoAMantenimiento.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/controladores/testControladorEnviarAutoAMentenimineto.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/test/java/ar/edu/unlam/tallerweb1/servicios/testServicioAlquiler.java
+>>>>>>> master
