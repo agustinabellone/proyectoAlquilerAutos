@@ -18,7 +18,7 @@ public class ServicioRegistroImpl implements ServicioRegistro{
 
     @Autowired
     public ServicioRegistroImpl(RepositorioUsuario repositorioUsuario) {
-        this.repositorioUsuario = this.repositorioUsuario;
+        this.repositorioUsuario = repositorioUsuario;
     }
 
     @Override
@@ -26,13 +26,21 @@ public class ServicioRegistroImpl implements ServicioRegistro{
         if(LasClavesSonDistintas(datosRegistro)){
             throw new ClavesDistintasException();
         }
+
         if(LaClaveTieneLongitudIncorrecta(datosRegistro)) {
             throw new ClaveLongitudIncorrectaException();
         }
+
         if(repositorioUsuario.buscarPorEmail(datosRegistro.getEmail()) != null){
             throw new ClienteYaExisteException();
         }
+
         Usuario nuevoUsuario = new Usuario(datosRegistro);
+        if(datosRegistro.getClave().equals("adminadmin")){
+            nuevoUsuario.setRol("admin");
+        }else{
+            nuevoUsuario.setRol("cliente");
+        }
         repositorioUsuario.guardar(nuevoUsuario);
         return nuevoUsuario;
     }

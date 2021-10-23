@@ -1,8 +1,10 @@
 package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -17,11 +19,14 @@ public class testControladorLogin {
 
     private ServicioLogin servicioLogin;
     private ControladorLogin controladorLogin;
+    private ServicioUsuario servicioUsuario;
+    private MockHttpServletRequest request = new MockHttpServletRequest();
 
     @Before
     public void init(){
         servicioLogin = mock(ServicioLogin.class);
-        controladorLogin = new ControladorLogin(servicioLogin);
+        servicioUsuario = mock(ServicioUsuario.class);
+        controladorLogin = new ControladorLogin(servicioLogin, servicioUsuario);
     }
 
     @Test
@@ -35,7 +40,7 @@ public class testControladorLogin {
     private void givenUsuarioExiste() {}
 
     private void whenElClienteIngresa(DatosLogin datosLogin) {
-        mav = controladorLogin.ingresar(datosLogin);
+        mav = controladorLogin.ingresar(datosLogin, request);
     }
 
     private void thenElIngresoEsExitoso() {

@@ -34,8 +34,6 @@ public class ControladorSuscripcion {
     private ModelAndView mostrarFormularioSuscripcion(HttpServletRequest request){
 
         // ESTO SE CAMBIA CUANDO HAGAMOS EL MANEJO DE SESIONES
-        request.getSession().setAttribute("rol", "cliente");
-        request.getSession().setAttribute("id_usuario", 200);
         request.getSession().setAttribute("nombre_usuario", "Ian");
         //////////////////////////////////////////////////////
 
@@ -50,7 +48,7 @@ public class ControladorSuscripcion {
                                                @RequestParam (value="id_tipo") Long id_tipo ){
         ModelMap model= new ModelMap();
         model.put("id_tipo", id_tipo);
-        model.put("id_usuario", request.getSession().getAttribute("id_usuario"));
+        model.put("id_usuario", request.getSession().getAttribute("id"));
         return new ModelAndView("confirmar-suscripcion", model);
     }
 
@@ -67,7 +65,7 @@ public class ControladorSuscripcion {
             return new ModelAndView("ir-a-suscribir");
         }
 
-        return new ModelAndView("home");
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)

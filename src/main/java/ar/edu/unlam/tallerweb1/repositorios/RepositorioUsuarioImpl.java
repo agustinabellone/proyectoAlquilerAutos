@@ -32,7 +32,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
     @Override
     public Usuario buscarPorEmail(String email) {
-        final Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         return (Usuario) session.createCriteria(Usuario.class)
                 .add(Restrictions.eq("email", email))
                 .uniqueResult();
