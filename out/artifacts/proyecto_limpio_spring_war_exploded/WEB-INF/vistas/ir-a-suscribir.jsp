@@ -134,7 +134,7 @@
                 <div class="form-group">
                     <label for="idCliente">Id del Cliente</label>
                     <input type="text" class="form-text" name="id" id="idCliente" aria-describedby="emailHelp" placeholder="Ingrese Id">
-                    <small id="idHelp" class="form-text text-muted">Ingresa el Id del cliente ya suscripto</small>
+                    <small id="idHelp" class="form-text text-muted">Ingresa el Id del usuario ya suscripto</small>
                 </div>
                 <button type="submit" class="btn btn-primary ">Renovar</button>
             </form>

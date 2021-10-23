@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import org.hibernate.SessionFactory;
@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository("RepositorioSuscripcion")
@@ -43,10 +44,11 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
     }
 
     @Override
-    public Suscripcion buscarPorCliente(Cliente cliente) {
+    public Suscripcion buscarPorUsuario(Usuario usuario) {
         return (Suscripcion)this.sessionFactory.getCurrentSession()
                 .createCriteria(Suscripcion.class)
-                .add(Restrictions.eq("Cliente", cliente))
+                .add(Restrictions.eq("Usuario", usuario))
+                .add(Restrictions.isNull("FechaFin"))
                 .uniqueResult();
     }
 
@@ -55,5 +57,21 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
         this.sessionFactory.getCurrentSession()
                 .update("Suscripcion", suscripcion);
     }
+
+    @Override
+    public List<Suscripcion> buscarSuscripcionesFueraDeFecha(LocalDate fechaActual) {
+        List <Suscripcion> listaDeBajas;
+
+        listaDeBajas= sessionFactory.getCurrentSession()
+                .createCriteria(Suscripcion.class)
+                .add(Restrictions.isNull("FechaFin"))
+                .add(Restrictions.eq("FechaInicio", fechaActual.minusDays(30L)))
+                .list();
+
+
+        return listaDeBajas;
+    }
+
+
 
 }

@@ -1,7 +1,9 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,15 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class ControladorLogin {
 
     private ServicioLogin servicioLogin;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin) {
+    public ControladorLogin(ServicioLogin servicioLogin, ServicioUsuario servicioUsuario) {
         this.servicioLogin = servicioLogin;
+        this.servicioUsuario = servicioUsuario;
     }
 
 
@@ -33,25 +39,55 @@ public class ControladorLogin {
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
-    public ModelAndView mostrarFormularioDeLogin() {
+    public ModelAndView mostrarFormularioDeLogin(HttpServletRequest request) {
+        
         ModelMap modelo = new ModelMap();
         modelo.put("datosLogin", new DatosLogin());
         return new ModelAndView("login", modelo);
     }
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
-    public ModelAndView ingresar(@ModelAttribute("datosLogin") DatosLogin datosLogin) {
+    public ModelAndView ingresar(@ModelAttribute("datosLogin") DatosLogin datosLogin,
+                                 HttpServletRequest request) {
         ModelMap modelo = new ModelMap();
+
         try {
             servicioLogin.ingresar(datosLogin);
         }
         catch (ClienteNoExisteException e) {
             return registroFallido(modelo, "El usuario no existe");
         }
+
+        iniciarSesion(servicioUsuario.buscarPorEmail(datosLogin.getEmail()), request);
+
         return registroExitoso();
     }
 
+    private void iniciarSesion(Usuario buscado, HttpServletRequest request) {
+
+        // EL SWITCH ES UTIL SI LOS 3 ROLES TIENEN DISTINTOS DATOS QUE GUARDAR, POR EL MOMENTO NO LOS TIENEN
+        switch (buscado.getRol()){
+            case "cliente":
+                request.getSession().setAttribute("rol", "cliente");
+                request.getSession().setAttribute("id", buscado.getId());
+                request.getSession().setAttribute("email", buscado.getEmail());
+                break;
+            case "admin":
+                request.getSession().setAttribute("rol", "admin");
+                request.getSession().setAttribute("id", buscado.getId());
+                break;
+            case "encargado":
+                request.getSession().setAttribute("rol", "encargado");
+                request.getSession().setAttribute("id", buscado.getId());
+                break;
+            default:
+                break;
+        }
+
+    }
+
     private ModelAndView registroExitoso() {
+
         return new ModelAndView("redirect:/main");
     }
 

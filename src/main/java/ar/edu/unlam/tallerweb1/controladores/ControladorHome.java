@@ -7,8 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControladorHome {
-    @RequestMapping(path = "/home", method = RequestMethod.GET)
+
+
+   /* @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome() {
         return new ModelAndView("home");
-    }
+    }*/
 }
