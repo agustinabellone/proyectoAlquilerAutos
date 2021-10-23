@@ -40,7 +40,7 @@ public class ControladorSuscripcion {
         if(request.getSession().getAttribute("rol").equals("cliente")){
             return new ModelAndView("ir-a-suscribir");
         }
-        return new ModelAndView("home");
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(path = "/confirmar-suscripcion", method = RequestMethod.GET)
@@ -77,11 +77,11 @@ public class ControladorSuscripcion {
         }catch(SuscripcionYaRenovadaException e){
             return new ModelAndView("perfil"); //EL USUARIO RENUEVA SU SUSCRIPCION DESDE SU PERFIL
         }
-        return new ModelAndView("home");
+        return new ModelAndView("redirect:/home");
     }
 
-    //@Scheduled(cron = "0 29 19 ? * *")
     //@Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 29 19 ? * *")
     public void controlDeFechaDeSuscripciones(){
         //System.out.println("Fixed rate task ");
         servicioSuscripcion.revisionDeSuscripciones();
