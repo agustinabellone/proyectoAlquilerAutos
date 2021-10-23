@@ -11,16 +11,16 @@ public class DatosAlquiler {
     private Auto auto;
     private Cliente cliente;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate f_ingreso;
+    private LocalDate f_salida;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate f_regreso;
+    private LocalDate f_ingreso;
 
-    public DatosAlquiler(Cliente cliente, Auto auto, LocalDate fechaInicio, LocalDate fechaRegreso) {
+    public DatosAlquiler(Cliente cliente, Auto auto, LocalDate fechaSalida, LocalDate fechaIngreso) {
 
         this.auto=auto;
         this.cliente=cliente;
-        this.f_ingreso=fechaInicio;
-        this.f_regreso=fechaRegreso;
+        this.f_salida=fechaSalida;
+        this.f_ingreso=fechaIngreso;
 
     }
 
@@ -28,15 +28,32 @@ public class DatosAlquiler {
         return auto;
     }
 
+    public void setAuto(Auto auto) {
+        this.auto = auto;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
 
-    public LocalDate getF_Inicio() {
-        return this.f_ingreso;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public LocalDate getF_Regreso() {
-        return this.f_regreso;
+    public LocalDate getF_salida() {
+        return f_salida;
     }
+
+    public void setF_salida(LocalDate f_salida) {
+        this.f_salida = f_salida;
+    }
+
+    public LocalDate getF_ingreso() {
+        return f_ingreso;
+    }
+
+    public void setF_ingreso(LocalDate f_ingreso) {
+        this.f_ingreso = f_ingreso;
+    }
+
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+
 
 @Controller
 public class ControladorAlquiler {
@@ -35,17 +37,12 @@ public class ControladorAlquiler {
     }
 
     @RequestMapping(path = "/alquiler-confirmación", method = RequestMethod.GET)
-    public ModelAndView mostrarConfirmacionAlquiler(@RequestParam("id_auto") Long id_auto,
-                                                    @RequestParam("f_ingreso_dia") Long f_ingreso_dia,
-                                                    @RequestParam("f_ingreso_mes") Long f_ingreso_mes,
-                                                    @RequestParam("f_salida_dia") Long f_salida_dia,
-                                                    @RequestParam("f_salida_mes") Long f_salida_mes) {
+    public ModelAndView mostrarConfirmacionAlquiler(@RequestParam("salida") LocalDate salida,
+                                                    @RequestParam("ingreso") LocalDate ingreso) {
         ModelMap modelo = new ModelMap();
-        modelo.put("id_auto", id_auto);
-        modelo.put("f_ingreso_dia", f_ingreso_dia);
-        modelo.put("f_ingreso_mes", f_ingreso_mes);
-        modelo.put("f_salida_dia", f_salida_dia);
-        modelo.put("f_salida_mes", f_salida_mes);
+        modelo.put("salida", salida);
+        modelo.put("ingreso", ingreso);
+
         return new ModelAndView("alquilarAutoConfirmacion", modelo);
     }
 

@@ -34,8 +34,8 @@ public class Alquiler {
     public Alquiler(DatosAlquiler datosAlquiler ){
         this.auto = datosAlquiler.getAuto();
         this.cliente = datosAlquiler.getCliente();
-        this.f_ingreso = datosAlquiler.getF_Inicio();
-        this.f_regreso = datosAlquiler.getF_Regreso();
+        this.f_ingreso = datosAlquiler.getF_ingreso();
+        this.f_regreso = datosAlquiler.getF_salida();
     }
 
     public Long getId() {

@@ -20,41 +20,29 @@
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center">Alquilar auto ${id_auto}</h1>
+            <h1 class="text-center">Elegir fechas para el auto ${id_auto}</h1>
         </div>
     </div>
-    <div class="container my-5">
-        <div class="d-flex flex-row-reverse bd-highlight mb-2">
-            <span class="badge badge-success font-weight-normal p-2">5 días</span>
-        </div>
-        <div class="card col text-center">
-            <div class="card-body">
-                <h5 class="card-title">18/10 - 23/10</h5>
-                <p class="card-text">El alquiler empieza el lunes 18 y termina el viernes 23.</p>
-                <a href="alquiler-confirmación?id_auto=${id_auto}&f_salida_dia=18&f_salida_mes=10&f_ingreso_dia=23&f_ingreso_mes=10" class="btn btn-primary">Quiero estos días</a>
-            </div>
-        </div>
-    </div>
-
+<br>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-around">
-            <form>
-                <div>
-                    <h3>Salida del auto:</h3>
-                    <input id="salida" type="date">
+            <form action="alquiler-confirmacion" method="get">
+                    <div>
+                        <h3>Salida del auto:</h3>
+                        <input value="${salida}"  name="salida" type="date">
+                    </div>
+                <br>
+                    <div>
+                        <h3>Ingreso del auto:</h3>
+                        <input value="${ingreso}"  name="ingreso" type="date">
+                    </div>
+                <br>
+                <div class="col-sm-12 d-flex justify-content-around">
+                    <button class="btn btn-lg btn-primary btn-block" Type="Submit"/>Confirmar días</button>
                 </div>
-                <div>
-                    <h3>Ingreso del auto:</h3>
-                    <input id="ingreso" type="date">
-                </div>
+            </form>
         </div>
-            <div class="col-sm-12 d-flex justify-content-around">
-                <a href="#" class="btn btn-primary">Confirmar días</a>
-            </div>
-        </form>
     </div>
-
-
 
 
 </section>
