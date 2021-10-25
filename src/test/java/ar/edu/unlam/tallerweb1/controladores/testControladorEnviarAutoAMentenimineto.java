@@ -61,7 +61,7 @@ public class testControladorEnviarAutoAMentenimineto {
     }
 
     private Auto givenQueExisteUnAutoCon(int kilometrosDefiniddos) {
-        AUTO.setKm(100);
+        AUTO.setKilometros(100);
         return AUTO;
     }
 
@@ -89,7 +89,7 @@ public class testControladorEnviarAutoAMentenimineto {
     private void thenElAutoConKilometrosDefinidosEsExitoso(Auto conKmDefinidos, String mensaje, String viewName) {
         assertThat(modelAndView.getViewName()).isEqualTo(viewName);
         assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
-        assertThat(modelAndView.getModel().get("km-del-auto")).isEqualTo(conKmDefinidos.getKm());
+        assertThat(modelAndView.getModel().get("km-del-auto")).isEqualTo(conKmDefinidos.getKilometros());
     }
 
     private static final String FECHA_INICIAL = "3/10/21";

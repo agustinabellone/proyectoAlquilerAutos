@@ -2,19 +2,16 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
+import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-<<<<<<< HEAD
-@Repository("repositorioEnviarAutoAMantenimiento")
-=======
 import java.util.List;
 
-@Repository
->>>>>>> master
+@Repository("repositorioEnviarAutoAMantenimiento")
 public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnviarAutoAMantenimiento {
 
     private SessionFactory sessionFactory;
@@ -60,7 +57,7 @@ public class RepositorioEnviarAutoAMantenimientoImpl implements RepositorioEnvia
     @Override
     public Auto guardarAutoMantenimiento(Auto existente) {
         session = getSession();
-        existente.setEstado();
+        existente.setSituacion(Situacion.EN_MANTENIMIENTO);
         session.save(existente);
         return existente;
     }

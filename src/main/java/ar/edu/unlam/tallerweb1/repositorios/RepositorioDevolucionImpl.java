@@ -1,15 +1,11 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import org.hibernate.Session;
+import ar.edu.unlam.tallerweb1.modelo.Estado;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository("repositorioDevolucion")
 public class RepositorioDevolucionImpl implements RepositorioDevolucion{
@@ -21,19 +17,28 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
         this.sessionFactory = sessionFactory;
     }
 
+
     @Override
-    public Auto finalizarAlquiler(Alquiler alquiler) {
-        //sessionFactory.getCurrentSession().update("Alquiler", alquiler);
-        return null;
+    public Alquiler obtenerAlquilerActivoDeCliente(Long clienteID) {
+        return (Alquiler) sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
+                .add(Restrictions.eq("cliente", clienteID))
+                .add(Restrictions.eq("estado", Estado.ACTIVO)).uniqueResult();
     }
 
     @Override
-    public void guardar(Auto auto) {
-      sessionFactory.getCurrentSession().save(auto);
+    public Alquiler obtenerAlquilerPorId(Long alquilerID) {
+        return sessionFactory.getCurrentSession().get(Alquiler.class, alquilerID);
     }
 
     @Override
-    public List<Auto> buscarPorSuEstadoDisponible(boolean verdadero) {
-        return sessionFactory.getCurrentSession().createCriteria(Auto.class).add(Restrictions.eq("disponible", verdadero)).list();
+    public void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler) {
+        sessionFactory.getCurrentSession().update(alquiler); //A PROBAR, PUEDE SALIR MAL
     }
+
+    @Override
+    public void finalizarAlquilerCliente(Alquiler alquiler) {
+        sessionFactory.getCurrentSession().update(alquiler); //A PROBAR, PUEDE SALIR MAL
+    }
+
+
 }

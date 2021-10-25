@@ -15,13 +15,13 @@ public class testRepositorioDevolucion extends SpringTest {
 
     @Autowired
     private RepositorioDevolucion repositorioDevolucion;
-
+/*
 
     @Test
     @Transactional
     @Rollback
     public void puedoEncontrarUnAutoPorSuEstadoDisponible() {
-        Auto a1 = givenExisteUnAuto();
+     /*   Auto a1 = givenExisteUnAuto();
         Auto a2 = givenExisteUnAuto();
         Auto a3 = givenExisteUnAuto();
         givenGuardoUnAuto(a1);
@@ -38,7 +38,7 @@ public class testRepositorioDevolucion extends SpringTest {
         return auto;
     }
 
-    private void thenObtengoLosAutosConSuEstadoDisponible(List<Auto> listaAuto, Integer cantidadEsperada) {
+   /* private void thenObtengoLosAutosConSuEstadoDisponible(List<Auto> listaAuto, Integer cantidadEsperada) {
         assertThat(listaAuto).hasSize(cantidadEsperada);
     }
 
@@ -49,6 +49,6 @@ public class testRepositorioDevolucion extends SpringTest {
     private List<Auto> whenBuscoPorSuEstadoDisponible(boolean verdadero) {
         return repositorioDevolucion.buscarPorSuEstadoDisponible(verdadero);
     }
-
+*/
 
 }

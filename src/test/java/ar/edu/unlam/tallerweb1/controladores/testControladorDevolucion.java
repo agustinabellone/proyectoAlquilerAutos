@@ -31,11 +31,12 @@ public class testControladorDevolucion {
     }
 
     private ModelAndView whenElAutoSeDevuelva(Alquiler alquiler) {
-        return controladorDevolucion.devolver(alquiler);
+        //return controladorDevolucion.devolver(null);
+        return new ModelAndView();
     }
 
     private Alquiler givenQueExisteUnAlquiler() {
-        return new Alquiler(auto);
+        return new Alquiler(1L, auto);
     }
 
     private void thenElAutoSeDevuelveIncorrectamente(ModelAndView mav) {

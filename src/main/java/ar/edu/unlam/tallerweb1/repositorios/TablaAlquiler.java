@@ -27,12 +27,6 @@ public class TablaAlquiler {
     }
 
 
-<<<<<<< HEAD
-=======
-        //this.TablaAlquiler.put(alquiler.getAuto_id(), alquiler);
-    }
->>>>>>> master
-
     public void reset() {
 
         this.TablaAlquiler.clear();

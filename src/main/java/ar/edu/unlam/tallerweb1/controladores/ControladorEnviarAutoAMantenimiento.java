@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Marca;
+import ar.edu.unlam.tallerweb1.modelo.Modelo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMantenimiento;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +67,7 @@ public class ControladorEnviarAutoAMantenimiento {
         model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
         model.put("marca", datosEnvioAMantenimiento.getAuto().getMarca());
         model.put("modelo", datosEnvioAMantenimiento.getAuto().getModelo());
-        model.put("km-del-auto", datosEnvioAMantenimiento.getAuto().getKm());
+        model.put("km-del-auto", datosEnvioAMantenimiento.getAuto().getKilometros());
         model.put("fecha",datosEnvioAMantenimiento.getFechaInicial());
         viewName = "mantenimiento";
     }
@@ -84,9 +86,11 @@ public class ControladorEnviarAutoAMantenimiento {
 
     private Auto creoUnAuto() {
         Auto auto = new Auto();
-        auto.setMarca("Ford");
-        auto.setModelo("Fiesta");
-        auto.setKm(100);
+        Marca marca = new Marca(1, "Ford");
+        Modelo modelo = new Modelo(1, "Fiesta", marca);
+        auto.setMarca(marca);
+        auto.setModelo(modelo);
+        auto.setKilometros(100);
         return auto;
     }
 

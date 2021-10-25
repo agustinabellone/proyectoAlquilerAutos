@@ -3,22 +3,25 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
 public class DatosAlquiler {
 
+    @OneToOne
     private Cliente cliente;
+    @ManyToOne
     private Auto auto;
-    private LocalDateTime f_ingreso;
-    private LocalDateTime f_regreso;
+    private String ingresoF;
+    private String egresoF;
 
-    public DatosAlquiler(Cliente cliente, Auto auto, LocalDateTime fechaInicio, LocalDateTime fechaRegreso) {
+    public DatosAlquiler(Cliente cliente, Auto auto, String fechaInicio, String fechaRegreso) {
         this.cliente=cliente;
         this.auto=auto;
-        this.f_ingreso=fechaInicio;
-        this.f_regreso=fechaRegreso;
+        this.ingresoF=fechaRegreso;
+        this.egresoF=fechaInicio;
     }
-
 
     public Cliente getCliente() {
         return cliente;
@@ -36,21 +39,23 @@ public class DatosAlquiler {
         this.auto = auto;
     }
 
-    public LocalDateTime getF_ingreso() {
-        return f_ingreso;
+    public String getIngresoF() {
+        return ingresoF;
     }
 
-    public void setF_ingreso(LocalDateTime f_ingreso) {
-        this.f_ingreso = f_ingreso;
+    public void setIngresoF(String ingresoF) {
+        this.ingresoF = ingresoF;
     }
 
-    public LocalDateTime getF_regreso() {
-        return f_regreso;
+    public String getEgresoF() {
+        return egresoF;
     }
 
-    public void setF_regreso(LocalDateTime f_regreso) {
-        this.f_regreso = f_regreso;
+    public void setEgresoF(String egresoF) {
+        this.egresoF = egresoF;
     }
+
+
 
 
 }

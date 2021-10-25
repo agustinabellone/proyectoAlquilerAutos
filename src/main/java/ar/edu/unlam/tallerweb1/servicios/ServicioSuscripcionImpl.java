@@ -16,8 +16,32 @@ import java.util.Objects;
 @Service("servicioSuscripcion")
 @Transactional
 public class ServicioSuscripcionImpl implements ServicioSuscripcion{
+    @Override
+    public Suscripcion suscribir(Cliente cliente, TipoSuscripcion tipoSuscripcion) {
+        return null;
+    }
 
+    @Override
+    public Boolean existeSuscripcionPorCliente(Cliente cliente) {
+        return null;
+    }
 
+    @Override
+    public void renovarSuscripcion(Suscripcion suscripcion) {
+
+    }
+
+    @Override
+    public void mejorarNivelSuscripcion(Suscripcion suscripcion, TipoSuscripcion nuevo_tipo) {
+
+    }
+
+    @Override
+    public Suscripcion buscarPorIdCliente(Long id) {
+        return null;
+    }
+
+/*
     private RepositorioSuscripcion repositorioSuscripcion;
 
     @Autowired
@@ -49,10 +73,10 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
 
     @Override
     public void renovarSuscripcion(Suscripcion suscripcion) {
-        if(suscripcion.getRenovacion() == true){
+        //if(suscripcion.getRenovacion() == true){
             throw new SuscripcionYaRenovadaException();
         }
-        suscripcion.setRenovacion(true);
+        //suscripcion.setRenovacion(true);
         repositorioSuscripcion.actualizarSuscripcion(suscripcion);
     }
 
@@ -69,5 +93,10 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     public Suscripcion buscarPorIdCliente(Long id) {
         Cliente buscado = new Cliente(id);
         return repositorioSuscripcion.buscarPorCliente(buscado);
+
     }
+    */
+
 }
+
+

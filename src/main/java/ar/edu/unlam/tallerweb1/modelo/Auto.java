@@ -11,18 +11,19 @@ public class Auto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String marca;
-    private String modelo;
-    private String imagen;
-
-    private String patente;
-
-    @Column(nullable = true)
+    @ManyToOne
+    private Marca marca;
+    @ManyToOne
+    private Modelo modelo;
+    @JoinColumn(nullable = true)
     @ManyToOne
     private Tercero tercero; //CAMBIAMOS BOOLEAN POR TERCERO QUE PUEDE SER NULO
+    @ManyToOne
+    private Garage garage;
     private LocalDate añoFabricación;
     private int kilometros;
+    private String imagen;
+    private String patente;
 
     private Situacion situacion;
 
@@ -30,8 +31,7 @@ public class Auto {
         this.kilometros = 100;
     }
 
-
-    public Auto(Long id, String marca, String modelo, String imagen, String patente, Tercero tercero, LocalDate añoFabricación, int kilometros, Situacion situacion) {
+    public Auto(Long id, Marca marca, Modelo modelo, String imagen, String patente, Tercero tercero, LocalDate añoFabricación, int kilometros, Situacion situacion) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
@@ -51,21 +51,7 @@ public class Auto {
         this.id = id;
     }
 
-    public String getMarca() {
-        return marca;
-    }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
 
     public String getImagen() {
         return imagen;
@@ -97,6 +83,22 @@ public class Auto {
 
     public void setAñoFabricación(LocalDate añoFabricación) {
         this.añoFabricación = añoFabricación;
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+
+    public Modelo getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
     }
 
     public int getKilometros() {

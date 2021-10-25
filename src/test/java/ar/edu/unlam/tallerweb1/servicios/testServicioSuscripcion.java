@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class testServicioSuscripcion {
-
+/*
     private RepositorioSuscripcion repositorioSuscripcion = mock(RepositorioSuscripcion.class);
     private ServicioSuscripcion servicioSuscripcion= new ServicioSuscripcionImpl(repositorioSuscripcion);
     private static final Long ID_CLIENTE=123L;
@@ -101,4 +101,6 @@ public class testServicioSuscripcion {
         assertThat(suscripcion).isNotNull();
         verify(repositorioSuscripcion).guardar(suscripcion);
     }
+    S
+ */
 }

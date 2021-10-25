@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Entity
@@ -11,6 +12,8 @@ public class Cliente {
     private Long id; //DNI
     private String nombresApellidos;
     private LocalDate fecha_nacimiento;
+    @ManyToOne
+    private Suscripcion suscripcion;
 
     public Cliente(){
     }
@@ -43,4 +46,11 @@ public class Cliente {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
+    public Suscripcion getSuscripcion() {
+        return suscripcion;
+    }
+
+    public void setSuscripcion(Suscripcion suscripcion) {
+        this.suscripcion = suscripcion;
+    }
 }

@@ -27,8 +27,7 @@
             <a href="mis-alquileres" class="btn btn-primary mt-5">Mis Alquileres</a>
         </div>
         <div>
-            INFO DE ALQUILER
-            <a href="finalizarAlquiler">FINALIZAR EL ALQUILER</a>
+            <a href="finalizar-alquiler">FINALIZAR ALQUILER</a>
         </div>
     </div>
 </section>

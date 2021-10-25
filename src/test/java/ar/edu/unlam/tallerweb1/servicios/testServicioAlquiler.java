@@ -6,6 +6,10 @@ import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import org.junit.Test;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class testServicioAlquiler {
@@ -13,14 +17,12 @@ public class testServicioAlquiler {
     Cliente cliente = new Cliente();
     Auto auto = new Auto();
 
-    private static final String fechaInicio = "10/01/21";
-    private static final String fechaSalida = "18/01/21";
+    private static final String fechaInicio = "201020211403";
+    private static final String fechaSalida = "211020211705";
 
-    DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, fechaInicio, fechaSalida );
+    DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, fechaInicio, fechaSalida);
 
     private ServicioAlquilar servicioAlquiler= new ServicioAlquilarImpls();
-
-
 
     @Test
     public void queSeCreeCorrectamenteUnAlquiler(){

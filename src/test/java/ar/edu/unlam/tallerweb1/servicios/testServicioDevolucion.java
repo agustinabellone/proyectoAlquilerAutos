@@ -15,14 +15,14 @@ public class testServicioDevolucion {
     @Test
     public void testQueSeDevuelveCorrectamenteUnAutoAlFinalizarAlquiler() {
         Alquiler alquiler = givenExisteUnAlquiler();
-        whenSeDevuelveUnAuto(alquiler);
+        //whenSeDevuelveUnAuto(alquiler);
         thenUnAutoEsDevueltoCorrectamente(alquiler);
     }
 
     @Test (expected = NullPointerException.class)
     public void testQueSeDevuelveIncorrectamenteUnAutoAlFinalizarAlquilerInexistente() {
         Alquiler alquiler = givenNoExisteUnAlquiler();
-        whenSeDevuelveUnAuto(alquiler);
+        //whenSeDevuelveUnAuto(alquiler);
         thenUnAutoEsDevueltoIncorrectamente(alquiler);
     }
 
@@ -35,15 +35,15 @@ public class testServicioDevolucion {
     }
 
     private void thenUnAutoEsDevueltoCorrectamente(Alquiler alquiler) {
-        assertThat(alquiler.getAuto().getSituacion().DISPONIBLE;
+        assertThat(alquiler.getAuto().getSituacion().DISPONIBLE);
     }
 
-    private void whenSeDevuelveUnAuto(Alquiler alquiler) {
+    /*private void whenSeDevuelveUnAuto(Alquiler alquiler) {
         servicioDevolucion.finalizarAlquiler(alquiler);
-    }
+    }*/
 
     private Alquiler givenExisteUnAlquiler() {
-        return new Alquiler(auto);
+        return new Alquiler(1L,auto);
     }
 
 
