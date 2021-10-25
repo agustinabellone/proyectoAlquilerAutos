@@ -13,6 +13,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class testControladorAdmin {
+
     private static final String ADMIN = "ADMIN";
     private static final String INVITADO = "INVITADO";
     private HttpServletRequest request = mock(HttpServletRequest.class);
@@ -27,21 +28,6 @@ public class testControladorAdmin {
         thenAccedeAlPanelPrincipal(this.modelAndView);
     }
 
-    private HttpServletRequest givenUnUsuarioConRol(String rolDelUsuario) {
-        when(request.getSession()).thenReturn(httpSession);
-        when(request.getSession().getAttribute(anyString())).thenReturn(rolDelUsuario);
-        return request;
-    }
-
-    private void whenAccedeAlPanelPrincipal(HttpServletRequest request) {
-        this.modelAndView = controlador.irAlPanelPrincipal(request);
-    }
-
-    private void thenAccedeAlPanelPrincipal(ModelAndView modelAndView) {
-        assertThat(modelAndView.getViewName()).isEqualTo("panel-principal");
-        assertThat(request.getSession().getAttribute("rol")).isEqualTo(ADMIN);
-    }
-
     @Test
     public void queUnUsuarioSinRolDeAdministradorNoPuedoAccederAlPanelPrincipal() {
         HttpServletRequest usuarioInvitado = givenUnUsuarioConRol(INVITADO);
@@ -49,20 +35,63 @@ public class testControladorAdmin {
         thenNoAccedeAlPanelPrincipal(this.modelAndView);
     }
 
-    private void thenNoAccedeAlPanelPrincipal(ModelAndView modelAndView) {
-        assertThat(modelAndView.getViewName()).isEqualTo("home");
-        assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
-    }
-
     @Test
-    public void queUnUsuarioAdministradorPuedaAccederALaListaDeAutos() throws NoHayAutosEnMantenientoException {
+    public void queUnUsuarioAdministradorPuedaAccederALaListaDeAutos() {
         HttpServletRequest usuarioAdminitrador = givenUnUsuarioConRol(ADMIN);
         whenAccedeALaListaDeAutos(usuarioAdminitrador);
         thenAccedeALaListaDeAutos(this.modelAndView);
     }
 
-    private void whenAccedeALaListaDeAutos(HttpServletRequest request) throws NoHayAutosEnMantenientoException {
+    @Test
+    public void queUnUsuarioSinRolDeAdministradorNoPuedaAccederAListaDeAutos() {
+        HttpServletRequest request = givenUnUsuarioConRol(INVITADO);
+        whenAccedeALaListaDeAutos(request);
+        thenNoAccedeALaListaDeAutos(this.modelAndView);
+    }
+
+    @Test
+    public void queUnUsuarioAdministradorPuedaAccederARegistrarUnAuto() {
+        HttpServletRequest request = givenUnUsuarioConRol(ADMIN);
+        whenAccedeACrearUnAuto(request);
+        thenAccedeAlRegistroCorrectamente(this.modelAndView);
+    }
+
+    @Test
+    public void queUnUsuarioSinRolDeAdministradorNoPuedaAccederARegistrarUnAuto() {
+        HttpServletRequest request = givenUnUsuarioConRol(INVITADO);
+        whenAccedeACrearUnAuto(request);
+        thenNoAccedeaRegistrarUnAuto(this.modelAndView);
+    }
+
+    //given
+    private HttpServletRequest givenUnUsuarioConRol(String rolDelUsuario) {
+        when(request.getSession()).thenReturn(httpSession);
+        when(request.getSession().getAttribute(anyString())).thenReturn(rolDelUsuario);
+        return request;
+    }
+
+    //when
+    private void whenAccedeALaListaDeAutos(HttpServletRequest request) {
         this.modelAndView = controlador.irALaListaDeAutos(request);
+    }
+
+    private void whenAccedeAlPanelPrincipal(HttpServletRequest request) {
+        this.modelAndView = controlador.irAlPanelPrincipal(request);
+    }
+
+    private void whenAccedeACrearUnAuto(HttpServletRequest request) {
+        this.modelAndView = controlador.irARegistrarUnNuevoAuto(request);
+    }
+
+    //then
+    private void thenNoAccedeAlPanelPrincipal(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("home");
+        assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
+    }
+
+    private void thenAccedeAlPanelPrincipal(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("panel-principal");
+        assertThat(request.getSession().getAttribute("rol")).isEqualTo(ADMIN);
     }
 
     private void thenAccedeALaListaDeAutos(ModelAndView modelAndView) {
@@ -70,27 +99,9 @@ public class testControladorAdmin {
         assertThat(request.getSession().getAttribute("rol")).isEqualTo(ADMIN);
     }
 
-    @Test
-    public void queUnUsuarioSinRolDeAdministradorNoPuedaAccederAListaDeAutos() throws NoHayAutosEnMantenientoException {
-        HttpServletRequest request = givenUnUsuarioConRol(INVITADO);
-        whenAccedeALaListaDeAutos(request);
-        thenNoAccedeALaListaDeAutos(this.modelAndView);
-    }
-
     private void thenNoAccedeALaListaDeAutos(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("home");
         assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
-    }
-
-    @Test
-    public void queUnUsuarioAdministradorPuedaAccederARegistrarUnAuto(){
-        HttpServletRequest request = givenUnUsuarioConRol(ADMIN);
-        whenAccedeACrearUnAuto(request);
-        thenAccedeAlRegistroCorrectamente(this.modelAndView);
-    }
-
-    private void whenAccedeACrearUnAuto(HttpServletRequest request) {
-        this.modelAndView = controlador.irARegistrarUnNuevoAuto(request);
     }
 
     private void thenAccedeAlRegistroCorrectamente(ModelAndView modelAndView) {
@@ -98,16 +109,8 @@ public class testControladorAdmin {
         assertThat(request.getSession().getAttribute("rol")).isEqualTo(ADMIN);
     }
 
-    @Test
-    public void queUnUsuarioSinRolDeAdministradorNoPuedaAccederARegistrarUnAuto(){
-        HttpServletRequest request = givenUnUsuarioConRol(INVITADO);
-        whenAccedeACrearUnAuto(request);
-        thenNoAccedeaRegistrarUnAuto(this.modelAndView);
-    }
-
     private void thenNoAccedeaRegistrarUnAuto(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("home");
         assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
     }
-
 }
