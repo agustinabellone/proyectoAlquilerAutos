@@ -2,7 +2,7 @@ package ar.edu.unlam.tallerweb1.persistencia;
 
 
 import ar.edu.unlam.tallerweb1.SpringTest;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import org.junit.Test;
@@ -13,9 +13,9 @@ import javax.transaction.Transactional;
 
 public class testPersistenciaSuscripcion extends SpringTest {
 
-    private static final Long ID_CLIENTE=123L;
+    private static final Long ID_USUARIO =123L;
     private static final Long ID_TIPO=1L;
-    private static final Cliente CLIENTE=new Cliente(ID_CLIENTE);
+    private static final Usuario USUARIO =new Usuario(ID_USUARIO);
     private static final TipoSuscripcion TIPO_SUSCRIPCION=new TipoSuscripcion(ID_TIPO);
     private static final TipoSuscripcion TIPO_SUSCRIPCION2=new TipoSuscripcion(ID_TIPO+1);
 
@@ -23,7 +23,7 @@ public class testPersistenciaSuscripcion extends SpringTest {
     @Transactional
     @Rollback
     public void puedoGuardarUnaSuscripcion(){
-        Suscripcion suscripcion = givenExisteSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
+        Suscripcion suscripcion = givenExisteSuscripcion(USUARIO, TIPO_SUSCRIPCION);
         Long id=whenGuardoLaSuscripcion(suscripcion);
         thenLaPuedoBuscarPorId(id);
     }
@@ -32,7 +32,7 @@ public class testPersistenciaSuscripcion extends SpringTest {
     @Transactional
     @Rollback
     public void puedoModificarUnaSuscripcion(){
-        Suscripcion suscripcion = givenExisteSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
+        Suscripcion suscripcion = givenExisteSuscripcion(USUARIO, TIPO_SUSCRIPCION);
         Long id = givenPersistoLaSuscripcion(suscripcion);
         whenModificoLaSuscripcion(suscripcion, TIPO_SUSCRIPCION2);
         thenLaElTipoDeSuscripcionCambio(id, TIPO_SUSCRIPCION2);
@@ -53,9 +53,9 @@ public class testPersistenciaSuscripcion extends SpringTest {
         assertThat(buscada.getTipoSuscripcion()).isEqualTo(nuevo_TipoSuscripcion);
     }
 
-    private Suscripcion givenExisteSuscripcion(Cliente cliente, TipoSuscripcion tipoSuscripcion) {
+    private Suscripcion givenExisteSuscripcion(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
         Suscripcion suscripcion = new Suscripcion();
-        suscripcion.setCliente(cliente);
+        suscripcion.setUsuario(usuario);
         suscripcion.setTipoSuscripcion(tipoSuscripcion);
         return suscripcion;
     }

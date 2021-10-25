@@ -1,19 +1,19 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public class DatosAlquiler {
 
     private Auto auto;
-    private Cliente cliente;
+    private Usuario usuario;
     private String f_ingreso;
     private String f_regreso;
 
-    public DatosAlquiler(Cliente cliente, Auto auto, String fechaInicio, String fechaRegreso) {
+    public DatosAlquiler(Usuario usuario, Auto auto, String fechaInicio, String fechaRegreso) {
 
         this.auto=auto;
-        this.cliente=cliente;
+        this.usuario = usuario;
         this.f_ingreso=fechaInicio;
         this.f_regreso=fechaRegreso;
 
@@ -23,8 +23,8 @@ public class DatosAlquiler {
         return auto;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getCliente() {
+        return usuario;
     }
 
     public String getF_Inicio() {
