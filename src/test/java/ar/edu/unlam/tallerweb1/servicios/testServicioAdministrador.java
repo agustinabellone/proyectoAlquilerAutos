@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosConEsaMarca;
 import ar.edu.unlam.tallerweb1.Exceptions.NohayAutosException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioDeAutos;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ar.edu.unlam.tallerweb1.repositorios.testRepositorioEnviarAutoAMantenimiento.FORD;
+import static ar.edu.unlam.tallerweb1.repositorios.testRepositorioEnviarAutoAMantenimiento.TOYOTA;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -16,29 +18,41 @@ public class testServicioAdministrador {
 
     private RepositorioDeAutos reposotorio = mock(RepositorioDeAutos.class);
     private ServicioAdministrador servicio = new ServicioAdministradorImpl(reposotorio);
-
+    private List<Auto> autosObtenidos = new ArrayList<Auto>();
     @Test
     public void queSePuedaObtenerUnaListaDeAutosCorrectamente() throws NohayAutosException {
         givenExisteUnaListaDeAutos();
-        List<Auto> autosObtenidos = whenObtengoLaListaDeAutos();
+        autosObtenidos = whenObtengoLaListaDeAutos();
         thenSeObtieneCorrectamente(autosObtenidos, 3);
     }
 
     @Test(expected = NohayAutosException.class)
     public void queSeObtengaUnaListaVaciaDeAutos() throws NohayAutosException {
         givenNoExisteUnaListaDeAutos();
-        List<Auto> autosObtenidos = whenObtengoLaListaDeAutos();
+        autosObtenidos = whenObtengoLaListaDeAutos();
         thenSeObtieneUnaListaVacia(autosObtenidos);
     }
 
     @Test
     public void queSePuedaObtenerUnaListaDeAutosSegunSuMarca() {
         givenExisteUnaListaDeAutosDe(FORD, 4);
-        List<Auto> autosObtenidos = whenObtengoAutosSegunLaMarca(FORD);
+        autosObtenidos = whenObtengoAutosSegunLaMarca(FORD);
         thenSeObtieneCorrectamente(autosObtenidos, 4);
         thenSeObtienelaListaConLaMarcaCorrecta(autosObtenidos, FORD);
     }
 
+    @Test (expected = NoHayAutosConEsaMarca.class)
+    public void queSeObtengaUnaListaVaciaDeAutosConUnaMarcaInexistenteYLanzeUnaException(){
+        givenNoExistenAutosConLaMarca(TOYOTA);
+        autosObtenidos = whenObtengoAutosSegunLaMarca(TOYOTA);
+        thenSeObtieneUnaListaVacia(autosObtenidos);
+    }
+
+    private void givenNoExistenAutosConLaMarca(String marca) {
+        doThrow(NoHayAutosConEsaMarca.class).when(reposotorio).obtenerListaDeAutosPorMarca(anyString());
+    }
+
+    //given
     private void givenExisteUnaListaDeAutosDe(String marca, int cantidadDeAutos) {
         List<Auto> autos = new ArrayList<Auto>();
         for (int i = 0; i < cantidadDeAutos; i++) {
@@ -61,6 +75,7 @@ public class testServicioAdministrador {
         when(reposotorio.obtenerTodosLosAutos()).thenReturn(autos);
     }
 
+    //when
     private List<Auto> whenObtengoLaListaDeAutos() throws NohayAutosException {
         return servicio.obtenerTodosLoAutos();
     }
@@ -69,6 +84,7 @@ public class testServicioAdministrador {
         return reposotorio.obtenerListaDeAutosPorMarca(marca);
     }
 
+    //then
     private void thenSeObtieneCorrectamente(List<Auto> autosObtenidos, int cantidadDeAutosEsperados) {
         assertThat(autosObtenidos).hasSize(cantidadDeAutosEsperados);
     }
