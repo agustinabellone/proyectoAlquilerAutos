@@ -21,17 +21,18 @@ public class testControladorAdmin {
 
     @Test
     public void queUnUsuarioAdministradorPuedaIngresarAlPanelPrincipal() {
-        givenUnUsuarioConRol(ADMIN);
-        whenAccedeAlPanelPrincipal(ADMIN);
+        HttpServletRequest usuarioAdministrador = givenUnUsuarioConRol(ADMIN);
+        whenAccedeAlPanelPrincipal(usuarioAdministrador);
         thenAccedeAlPanelPrincipal(this.modelAndView);
     }
 
-    private void givenUnUsuarioConRol(String rol) {
-    }
-
-    private void whenAccedeAlPanelPrincipal(String rolDelUsuario) {
+    private HttpServletRequest givenUnUsuarioConRol(String rolDelUsuario) {
         when(request.getSession()).thenReturn(httpSession);
         when(request.getSession().getAttribute(anyString())).thenReturn(rolDelUsuario);
+        return request;
+    }
+
+    private void whenAccedeAlPanelPrincipal(HttpServletRequest request) {
         this.modelAndView = controlador.irAlPanelPrincipal(request);
     }
 
@@ -42,8 +43,8 @@ public class testControladorAdmin {
 
     @Test
     public void queUnUsuarioSinRolDeAdministradorNoPuedoAccederAlPanelPrincipal() {
-        givenUnUsuarioConRol(INVITADO);
-        whenAccedeAlPanelPrincipal(INVITADO);
+        HttpServletRequest usuarioInvitado = givenUnUsuarioConRol(INVITADO);
+        whenAccedeAlPanelPrincipal(usuarioInvitado);
         thenNoAccedeAlPanelPrincipal(this.modelAndView);
     }
 
