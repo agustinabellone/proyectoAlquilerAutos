@@ -27,17 +27,6 @@ public class ControladorLogin {
         this.servicioUsuario = servicioUsuario;
     }
 
-
-    @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView mostrarHome() {
-        return new ModelAndView("home");
-    }
-
-    @RequestMapping(path = "/main", method = RequestMethod.GET)
-    public ModelAndView mostrarMain() {
-        return new ModelAndView("main");
-    }
-
     @RequestMapping(path = "/login", method = RequestMethod.GET)
     public ModelAndView mostrarFormularioDeLogin(HttpServletRequest request) {
 
@@ -63,6 +52,18 @@ public class ControladorLogin {
         return registroExitoso();
     }
 
+    @RequestMapping(path = "/logout")
+    public ModelAndView cerrarSesion(HttpServletRequest request) {
+
+        if (request.getSession().getAttribute("id")!=null){
+            request.getSession().setAttribute("id",null);
+            request.getSession().setAttribute("rol",null);
+        }
+
+        return new ModelAndView("redirect:/home");
+
+    }
+
     private void iniciarSesion(Usuario buscado, HttpServletRequest request) {
 
         // EL SWITCH ES UTIL SI LOS 3 ROLES TIENEN DISTINTOS DATOS QUE GUARDAR, POR EL MOMENTO NO LOS TIENEN
@@ -70,7 +71,6 @@ public class ControladorLogin {
             case "cliente":
                 request.getSession().setAttribute("rol", "cliente");
                 request.getSession().setAttribute("id", buscado.getId());
-                request.getSession().setAttribute("email", buscado.getEmail());
                 break;
             case "admin":
                 request.getSession().setAttribute("rol", "admin");
