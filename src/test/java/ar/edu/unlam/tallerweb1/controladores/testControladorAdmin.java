@@ -104,6 +104,7 @@ public class testControladorAdmin {
     private void thenNoAccedeALaListaDeAutos(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("home");
         assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
+        assertThat(modelAndView.getModel().get("mensaje")).isEqualTo("No tienes los permisos necesarios para acceder a esta pagina.");
     }
 
     private void thenAccedeAlRegistroCorrectamente(ModelAndView modelAndView) {
@@ -114,5 +115,6 @@ public class testControladorAdmin {
     private void thenNoAccedeaRegistrarUnAuto(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("home");
         assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
+        assertThat(modelAndView.getModel().get("mensaje")).isEqualTo("No tienes los permisos necesarios para acceder a esta pagina.");
     }
 }
