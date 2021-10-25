@@ -26,21 +26,21 @@ public class ServicioRegistroImpl implements ServicioRegistro{
         if(LasClavesSonDistintas(datosRegistro)){
             throw new ClavesDistintasException();
         }
-
         if(LaClaveTieneLongitudIncorrecta(datosRegistro)) {
             throw new ClaveLongitudIncorrectaException();
         }
-
         if(repositorioUsuario.buscarPorEmail(datosRegistro.getEmail()) != null){
             throw new ClienteYaExisteException();
         }
-
         Usuario nuevoUsuario = new Usuario(datosRegistro);
+
+        // SI LA CLAVE DEL USUARIO ES "adminadmin", SE LE OTORGA EL ROL DE ADMINISTRADOR
         if(datosRegistro.getClave().equals("adminadmin")){
             nuevoUsuario.setRol("admin");
         }else{
             nuevoUsuario.setRol("cliente");
         }
+
         repositorioUsuario.guardar(nuevoUsuario);
         return nuevoUsuario;
     }

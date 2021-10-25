@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("RepositorioCliente")
+@Repository("RepositorioUsuario")
 public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
     private SessionFactory sessionFactory;
@@ -32,8 +32,8 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
     @Override
     public Usuario buscarPorEmail(String email) {
-        Session session = sessionFactory.getCurrentSession();
-        return (Usuario) session.createCriteria(Usuario.class)
+        return (Usuario) sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
                 .add(Restrictions.eq("email", email))
                 .uniqueResult();
     }

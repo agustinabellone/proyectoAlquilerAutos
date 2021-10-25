@@ -5,7 +5,6 @@ import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
-import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,12 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class ControladorRegistro {
 
     private ServicioRegistro servicioRegistro;
-    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorRegistro(ServicioRegistro servicioRegistro, ServicioUsuario servicioUsuario) {
+    public ControladorRegistro(ServicioRegistro servicioRegistro) {
         this.servicioRegistro = servicioRegistro;
-        this.servicioUsuario = servicioUsuario;
     }
 
     @RequestMapping(path = "/registro", method = RequestMethod.GET)
@@ -49,6 +46,7 @@ public class ControladorRegistro {
         } catch (ClienteYaExisteException e){
             return registroFallido(modelo, "El usuario ya se encuentra registrado");
         }
+
         return registroExitoso();
     }
 

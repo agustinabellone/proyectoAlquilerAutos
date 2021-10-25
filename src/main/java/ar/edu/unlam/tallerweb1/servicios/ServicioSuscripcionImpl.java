@@ -90,12 +90,12 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
                 // SI LA RENOVACION ESTA ACTIVA, SE CREA UNA NUEVA SUSCRIPCION
                 if(suscripcion.getRenovacion()){
                     suscribir(suscripcion.getUsuario(),suscripcion.getTipoSuscripcion());
-                    //System.out.println("Se crea nueva suscripcion");
+                    System.out.println("Se crea nueva suscripcion");
                 }
             }
-            //System.out.println("Todas las suscripciones fueron dadas de baja correctamente");
+            System.out.println("Todas las suscripciones fueron dadas de baja correctamente");
         }else{
-            //System.out.println("No hubo bajas posibles");
+            System.out.println("No hubo bajas posibles");
         }
     }
 }

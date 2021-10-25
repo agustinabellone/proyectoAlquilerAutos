@@ -4,8 +4,10 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -18,9 +20,9 @@ public class testControladorLogin {
     private ModelAndView mav;
 
     private ServicioLogin servicioLogin;
-    private ControladorLogin controladorLogin;
     private ServicioUsuario servicioUsuario;
-    private MockHttpServletRequest request = new MockHttpServletRequest();
+    private ControladorLogin controladorLogin;
+    private HttpServletRequest request = mock(HttpServletRequest.class);
 
     @Before
     public void init(){

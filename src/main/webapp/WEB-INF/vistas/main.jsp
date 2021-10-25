@@ -16,13 +16,7 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<header class = "d-flex flex-row-reverse p-3">
-    <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
-        <a href="login" type="button" class="btn btn-primary">Iniciar sesion</a>
-        <a href="registro" type="button" class="btn btn-warning">Crear cuenta</a>
-        <a href="ir-a-suscribir" type="button" class="btn btn-danger">Suscribirse a un plan</a>
-    </div>
-</header>
+<header class = "d-flex flex-row-reverse p-3"></header>
 <section>
     <div class="container">
         <div>
