@@ -10,8 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class testControladorAdmin {
     private static final String ADMIN = "ADMIN";
@@ -82,4 +81,33 @@ public class testControladorAdmin {
         assertThat(modelAndView.getViewName()).isEqualTo("home");
         assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
     }
+
+    @Test
+    public void queUnUsuarioAdministradorPuedaAccederARegistrarUnAuto(){
+        HttpServletRequest request = givenUnUsuarioConRol(ADMIN);
+        whenAccedeACrearUnAuto(request);
+        thenAccedeAlRegistroCorrectamente(this.modelAndView);
+    }
+
+    private void whenAccedeACrearUnAuto(HttpServletRequest request) {
+        this.modelAndView = controlador.irARegistrarUnNuevoAuto(request);
+    }
+
+    private void thenAccedeAlRegistroCorrectamente(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("registrar-auto");
+        assertThat(request.getSession().getAttribute("rol")).isEqualTo(ADMIN);
+    }
+
+    @Test
+    public void queUnUsuarioSinRolDeAdministradorNoPuedaAccederARegistrarUnAuto(){
+        HttpServletRequest request = givenUnUsuarioConRol(INVITADO);
+        whenAccedeACrearUnAuto(request);
+        thenNoAccedeaRegistrarUnAuto(this.modelAndView);
+    }
+
+    private void thenNoAccedeaRegistrarUnAuto(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("home");
+        assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
+    }
+
 }

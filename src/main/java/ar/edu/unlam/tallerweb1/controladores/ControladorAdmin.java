@@ -14,21 +14,22 @@ public class ControladorAdmin {
 
     @RequestMapping(method = RequestMethod.GET, path = "/administrador")
     public ModelAndView irAlPanelPrincipal(HttpServletRequest request) {
-        if (elUsuarioEsAdministrador(request)) {
-            viewName = "panel-principal";
-        } else {
-            viewName = "home";
-        }
+        if (elUsuarioEsAdministrador(request)) viewName = "panel-principal";
+        else viewName = "home";
         return new ModelAndView(viewName);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-lista-de-autos")
-    public ModelAndView irALaListaDeAutos(HttpServletRequest usuarioAdminitrador) {
-        if (elUsuarioEsAdministrador(usuarioAdminitrador)) {
-            viewName = "lista-de-autos";
-        } else {
-            viewName = "home";
-        }
+    public ModelAndView irALaListaDeAutos(HttpServletRequest request) {
+        if (elUsuarioEsAdministrador(request)) viewName = "lista-de-autos";
+        else viewName = "home";
+        return new ModelAndView(viewName);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/ir-a-registrar-auto")
+    public ModelAndView irARegistrarUnNuevoAuto(HttpServletRequest request) {
+        if (elUsuarioEsAdministrador(request)) viewName = "registrar-auto";
+        else viewName = "home";
         return new ModelAndView(viewName);
     }
 
