@@ -68,6 +68,18 @@ public class testControladorAdmin {
 
     private void thenAccedeALaListaDeAutos(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("lista-de-autos");
+        assertThat(request.getSession().getAttribute("rol")).isEqualTo(ADMIN);
     }
 
+    @Test
+    public void queUnUsuarioSinRolDeAdministradorNoPuedaAccederAListaDeAutos() throws NoHayAutosEnMantenientoException {
+        HttpServletRequest request = givenUnUsuarioConRol(INVITADO);
+        whenAccedeALaListaDeAutos(request);
+        thenNoAccedeALaListaDeAutos(this.modelAndView);
+    }
+
+    private void thenNoAccedeALaListaDeAutos(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("home");
+        assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
+    }
 }
