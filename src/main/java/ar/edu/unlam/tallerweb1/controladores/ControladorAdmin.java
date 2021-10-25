@@ -12,18 +12,20 @@ import org.springframework.web.servlet.ModelAndView;
 public class ControladorAdmin {
 
     private String viewName;
-    private ModelMap model = new ModelMap();
+    private String mensaje;
+    private ModelMap modelMap = new ModelMap();
 
     @RequestMapping(method = RequestMethod.GET, path = "/administrador")
     public ModelAndView irAlPanelPrincipal(HttpServletRequest request) {
         if (elUsuarioEsAdministrador(request)) {
             viewName = "panel-principal";
-            model.put("mensaje-de-bienvenida","Bienvenido!!!");
+            mensaje = "Bienvenido!!!";
         } else {
             viewName = "home";
-            model.put("mensaje-de-error","No tienes los permisos necesarios para acceder a esta pagina.");
+            mensaje = "No tienes los permisos necesarios para acceder a esta pagina.";
         }
-        return new ModelAndView(viewName,model);
+        modelMap.put("mensaje", this.mensaje);
+        return new ModelAndView(viewName, modelMap);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-lista-de-autos")

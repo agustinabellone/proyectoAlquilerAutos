@@ -87,13 +87,13 @@ public class testControladorAdmin {
     private void thenAccedeAlPanelPrincipal(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("panel-principal");
         assertThat(request.getSession().getAttribute("rol")).isEqualTo(ADMIN);
-        assertThat(modelAndView.getModel().get("mensaje-de-bienvenida")).isEqualTo("Bienvenido!!!");
+        assertThat(modelAndView.getModel().get("mensaje")).isEqualTo("Bienvenido!!!");
     }
 
     private void thenNoAccedeAlPanelPrincipal(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("home");
         assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
-        assertThat(modelAndView.getModel().get("mensaje-de-error")).isEqualTo("No tienes los permisos necesarios para acceder a esta pagina.");
+        assertThat(modelAndView.getModel().get("mensaje")).isEqualTo("No tienes los permisos necesarios para acceder a esta pagina.");
     }
 
     private void thenAccedeALaListaDeAutos(ModelAndView modelAndView) {
