@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 
 public class testControladorAdmin {
 
-    private static final String ADMIN = "ADMIN";
+    private static final String ADMIN = "admin";
     private static final String INVITADO = "INVITADO";
     private HttpServletRequest request = mock(HttpServletRequest.class);
     private HttpSession httpSession = mock(HttpSession.class);

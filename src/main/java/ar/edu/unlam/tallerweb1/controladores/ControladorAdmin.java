@@ -33,7 +33,8 @@ public class ControladorAdmin {
 
     @RequestMapping(method = RequestMethod.GET, path = "/administrador")
     public ModelAndView irAlPanelPrincipal(HttpServletRequest request) {
-        if (elUsuarioEsAdministrador(request)) {
+        request.getSession().setAttribute("rol","admin");
+        if (elUsuarioEsAdministrador(request) && elAtributoRolNoEsNulo(request)) {
             viewName = "panel-principal";
             mensaje = claseDeMensajes.getMensajeBienvenida();
         } else {
@@ -46,7 +47,7 @@ public class ControladorAdmin {
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-lista-de-autos")
     public ModelAndView irALaListaDeAutos(HttpServletRequest request) {
-        if (elUsuarioEsAdministrador(request)) {
+        if (elUsuarioEsAdministrador(request) && elAtributoRolNoEsNulo(request)) {
             viewName = "lista-de-autos";
             obtenerListaDeAutosSinoLanzarUnaException();
         } else {
@@ -59,7 +60,7 @@ public class ControladorAdmin {
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-registrar-auto")
     public ModelAndView irARegistrarUnNuevoAuto(HttpServletRequest request) {
-        if (elUsuarioEsAdministrador(request)) {
+        if (elUsuarioEsAdministrador(request) && elAtributoRolNoEsNulo(request)) {
             viewName = "registrar-auto";
         } else {
             viewName = "home";
@@ -70,7 +71,7 @@ public class ControladorAdmin {
     }
 
     private boolean elUsuarioEsAdministrador(HttpServletRequest request) {
-        return request.getSession().getAttribute("rol").equals("ADMIN");
+        return request.getSession().getAttribute("rol").equals("admin");
     }
 
     private void obtenerListaDeAutosSinoLanzarUnaException() {
@@ -80,5 +81,9 @@ public class ControladorAdmin {
         } catch (NohayAutosException e) {
             mensaje = claseDeMensajes.getMensajeDeErrorSinAutos();
         }
+    }
+
+    private boolean elAtributoRolNoEsNulo(HttpServletRequest request) {
+        return request.getSession().getAttribute("rol") != null;
     }
 }
