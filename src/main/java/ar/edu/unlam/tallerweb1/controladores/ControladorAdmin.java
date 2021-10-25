@@ -10,20 +10,29 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorAdmin {
 
-	@RequestMapping(method = RequestMethod.GET, path = "/administrador")
-	public ModelAndView irAlPanelPrincipal(HttpServletRequest request) {
-		if (request.getSession().getAttribute("rol").equals("ADMIN")) {
-			return new ModelAndView("panel-principal");
-		}
-		return new ModelAndView("home");
-	}
+    private String viewName;
 
-	@RequestMapping(method = RequestMethod.GET, path = "/ir-a-lista-de-autos")
-	public ModelAndView irALaListaDeAutos(HttpServletRequest usuarioAdminitrador) {
-		if (usuarioAdminitrador.getSession().getAttribute("rol").equals("ADMIN")) {
-			return new ModelAndView("lista-de-autos");
-		} else {
-			return new ModelAndView("home");
-		}
-	}
+    @RequestMapping(method = RequestMethod.GET, path = "/administrador")
+    public ModelAndView irAlPanelPrincipal(HttpServletRequest request) {
+        if (elUsuarioEsAdministrador(request)) {
+            viewName = "panel-principal";
+        } else {
+            viewName = "home";
+        }
+        return new ModelAndView(viewName);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/ir-a-lista-de-autos")
+    public ModelAndView irALaListaDeAutos(HttpServletRequest usuarioAdminitrador) {
+        if (elUsuarioEsAdministrador(usuarioAdminitrador)) {
+            viewName = "lista-de-autos";
+        } else {
+            viewName = "home";
+        }
+        return new ModelAndView(viewName);
+    }
+
+    private boolean elUsuarioEsAdministrador(HttpServletRequest request) {
+        return request.getSession().getAttribute("rol").equals("ADMIN");
+    }
 }
