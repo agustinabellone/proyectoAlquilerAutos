@@ -19,6 +19,7 @@ public class testServicioAdministrador {
     private RepositorioDeAutos reposotorio = mock(RepositorioDeAutos.class);
     private ServicioAdministrador servicio = new ServicioAdministradorImpl(reposotorio);
     private List<Auto> autosObtenidos = new ArrayList<Auto>();
+
     @Test
     public void queSePuedaObtenerUnaListaDeAutosCorrectamente() throws NohayAutosException {
         givenExisteUnaListaDeAutos();
@@ -41,8 +42,8 @@ public class testServicioAdministrador {
         thenSeObtienelaListaConLaMarcaCorrecta(autosObtenidos, FORD);
     }
 
-    @Test (expected = NoHayAutosConEsaMarca.class)
-    public void queSeObtengaUnaListaVaciaDeAutosConUnaMarcaInexistenteYLanzeUnaException(){
+    @Test(expected = NoHayAutosConEsaMarca.class)
+    public void queSeObtengaUnaListaVaciaDeAutosConUnaMarcaInexistenteYLanzeUnaException() {
         givenNoExistenAutosConLaMarca(TOYOTA);
         autosObtenidos = whenObtengoAutosSegunLaMarca(TOYOTA);
         thenSeObtieneUnaListaVacia(autosObtenidos);
@@ -54,13 +55,12 @@ public class testServicioAdministrador {
 
     //given
     private void givenExisteUnaListaDeAutosDe(String marca, int cantidadDeAutos) {
-        List<Auto> autos = new ArrayList<Auto>();
         for (int i = 0; i < cantidadDeAutos; i++) {
             Auto auto = new Auto();
             auto.setMarca(marca);
-            autos.add(auto);
+            autosObtenidos.add(auto);
         }
-        when(reposotorio.obtenerListaDeAutosPorMarca(anyString())).thenReturn(autos);
+        when(reposotorio.obtenerListaDeAutosPorMarca(anyString())).thenReturn(autosObtenidos);
     }
 
     private void givenNoExisteUnaListaDeAutos() {
@@ -68,11 +68,10 @@ public class testServicioAdministrador {
     }
 
     private void givenExisteUnaListaDeAutos() {
-        List<Auto> autos = new ArrayList<Auto>();
         for (int i = 0; i < 3; i++) {
-            autos.add(new Auto());
+            autosObtenidos.add(new Auto());
         }
-        when(reposotorio.obtenerTodosLosAutos()).thenReturn(autos);
+        when(reposotorio.obtenerTodosLosAutos()).thenReturn(autosObtenidos);
     }
 
     //when
