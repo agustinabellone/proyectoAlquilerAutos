@@ -2,11 +2,17 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import javax.servlet.http.HttpServletRequest;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NohayAutosException;
+import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAdministrador;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class ControladorAdmin {
@@ -15,6 +21,15 @@ public class ControladorAdmin {
     private String mensaje;
     private ModelMap modelMap = new ModelMap();
     private Mensaje claseDeMensajes = new Mensaje();
+    private ServicioAdministrador servicio;
+
+    @Autowired
+    public ControladorAdmin(ServicioAdministrador servicio) {
+        this.servicio = servicio;
+    }
+
+    public ControladorAdmin() {
+    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/administrador")
     public ModelAndView irAlPanelPrincipal(HttpServletRequest request) {
@@ -33,6 +48,12 @@ public class ControladorAdmin {
     public ModelAndView irALaListaDeAutos(HttpServletRequest request) {
         if (elUsuarioEsAdministrador(request)) {
             viewName = "lista-de-autos";
+            try {
+                List<Auto> autosObtenidos = servicio.obtenerTodosLoAutos();
+                modelMap.put("lista-de-autos", autosObtenidos);
+            } catch (NohayAutosException e) {
+                mensaje = claseDeMensajes.getMensajeDeErrorSinAutos();
+            }
         } else {
             viewName = "home";
             mensaje = claseDeMensajes.getMensajedeErrorSinPermisos();

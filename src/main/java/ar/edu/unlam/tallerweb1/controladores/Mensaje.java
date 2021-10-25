@@ -9,4 +9,8 @@ public class Mensaje {
     public String getMensajedeErrorSinPermisos() {
         return "No tienes los permisos necesarios para acceder a esta pagina.";
     }
+
+    public String getMensajeDeErrorSinAutos() {
+        return "No hay autos disponibles";
+    }
 }
