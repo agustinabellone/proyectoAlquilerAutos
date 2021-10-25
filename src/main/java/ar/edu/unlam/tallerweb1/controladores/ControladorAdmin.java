@@ -48,7 +48,7 @@ public class ControladorAdmin {
     public ModelAndView irALaListaDeAutos(HttpServletRequest request) {
         if (elUsuarioEsAdministrador(request)) {
             viewName = "lista-de-autos";
-            obtenerListaDeAutos();
+            obtenerListaDeAutosSinoLanzarUnaException();
         } else {
             viewName = "home";
             mensaje = claseDeMensajes.getMensajedeErrorSinPermisos();
@@ -73,7 +73,7 @@ public class ControladorAdmin {
         return request.getSession().getAttribute("rol").equals("ADMIN");
     }
 
-    private void obtenerListaDeAutos() {
+    private void obtenerListaDeAutosSinoLanzarUnaException() {
         try {
             List<Auto> autosObtenidos = servicio.obtenerTodosLoAutos();
             modelMap.put("lista-de-autos", autosObtenidos);
