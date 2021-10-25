@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -26,19 +27,19 @@
 <br>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-around">
-            <form action="alquiler-confirmacion" method="get">
+            <form action="confirmacion" method="post">
                     <div>
                         <h3>Salida del auto:</h3>
-                        <input value="${salida}"  name="salida" type="date">
+                        <input name="salida" type="date">
                     </div>
                 <br>
                     <div>
                         <h3>Ingreso del auto:</h3>
-                        <input value="${ingreso}"  name="ingreso" type="date">
+                        <input name="ingreso" type="date">
                     </div>
                 <br>
                 <div class="col-sm-12 d-flex justify-content-around">
-                    <button class="btn btn-lg btn-primary btn-block" Type="Submit"/>Confirmar días</button>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit"/>Confirmar días</button>
                 </div>
             </form>
         </div>
