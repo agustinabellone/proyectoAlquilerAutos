@@ -28,7 +28,11 @@ public class ControladorEnviarAutoAMantenimiento {
         this.servicioMantenimiento = servicioMantenimiento;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/ir-lista-de-autos")
+    public ControladorEnviarAutoAMantenimiento() {
+	
+    }
+
+	@RequestMapping(method = RequestMethod.GET, path = "/ir-lista-de-autos")
     public ModelAndView irAListaDeAutos() throws NoHayAutosEnMantenientoException {
         try {
             List<Auto> autosObtenidos = servicioMantenimiento.obtenerAutosEnMantenimiento();

@@ -3,6 +3,8 @@ package ar.edu.unlam.tallerweb1.controladores;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -52,4 +54,20 @@ public class testControladorAdmin {
         assertThat(modelAndView.getViewName()).isEqualTo("home");
         assertThat(request.getSession().getAttribute("rol")).isEqualTo(INVITADO);
     }
+
+    @Test
+    public void queUnUsuarioAdministradorPuedaAccederALaListaDeAutos() throws NoHayAutosEnMantenientoException {
+        HttpServletRequest usuarioAdminitrador = givenUnUsuarioConRol(ADMIN);
+        whenAccedeALaListaDeAutos(usuarioAdminitrador);
+        thenAccedeALaListaDeAutos(this.modelAndView);
+    }
+
+    private void whenAccedeALaListaDeAutos(HttpServletRequest request) throws NoHayAutosEnMantenientoException {
+        this.modelAndView = controlador.irALaListaDeAutos(request);
+    }
+
+    private void thenAccedeALaListaDeAutos(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("lista-de-autos");
+    }
+
 }
