@@ -11,4 +11,9 @@ public class RepositorioDeAutosImpl implements RepositorioDeAutos {
     public List<Auto> obtenerTodosLosAutos() {
         return null;
     }
+
+    @Override
+    public List<Auto> obtenerListaDeAutosPorMarca(String marca) {
+        return null;
+    }
 }

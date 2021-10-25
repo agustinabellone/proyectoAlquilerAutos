@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RepositorioDeAutos {
     List<Auto> obtenerTodosLosAutos();
+
+    List<Auto> obtenerListaDeAutosPorMarca(String marca);
 }
