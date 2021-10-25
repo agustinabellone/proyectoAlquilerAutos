@@ -34,5 +34,12 @@ public class ServicioValoracionImpls implements ServicioValoracion {
         Auto auto = repositorioValoracion.obtenerAutoPorId(autoID);
         return auto;
     }
+
+    @Override
+    public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto) {
+        repositorioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto);
+    }
+
+
 }
 

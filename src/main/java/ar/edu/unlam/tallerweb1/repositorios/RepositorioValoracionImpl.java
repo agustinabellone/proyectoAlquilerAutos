@@ -4,6 +4,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
+import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,14 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
     public Auto obtenerAutoPorId(Long autoID) {
         return this.sessionFactory.getCurrentSession().get(Auto.class, autoID);
     }
+
+    @Override
+    public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto) {
+       ValoracionAuto valoracionAuto =new ValoracionAuto(cantidadEstrellas,comentarioAuto,auto);
+       this.sessionFactory.getCurrentSession()
+               .save(valoracionAuto);
+    }
+
 
 
 

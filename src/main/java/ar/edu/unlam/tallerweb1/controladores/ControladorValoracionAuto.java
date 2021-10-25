@@ -4,6 +4,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioValoracion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class ControladorValoracionAuto {
     }
 
     @RequestMapping(path = "/main", method = RequestMethod.GET)
-    public ModelAndView prueba(HttpServletRequest request){
+    public ModelAndView prueba(){
         ModelMap modelo=new ModelMap();
         return new ModelAndView("main");
     }
@@ -50,6 +51,18 @@ public class ControladorValoracionAuto {
         Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
         modelo.put("auto",auto);
         return new ModelAndView("valorar-auto",modelo);
+    }
+
+    @RequestMapping(path = "guardar-valoracion-Auto", method = RequestMethod.POST)
+    public ModelAndView guardarValoracionAuto(@RequestParam(value = "estrellasValoracion") int cantidadEstrellas,
+                                              @RequestParam(value = "comentario") String comentarioAuto,
+                                              @RequestParam(value ="autoID") Long autoID)
+                                              {
+        ModelMap modelo=new ModelMap();
+        Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
+        servicioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto);
+        return  new ModelAndView("main");
+
     }
 
 

@@ -1,9 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 
 @Entity
 public class Auto {
@@ -19,6 +17,9 @@ public class Auto {
     private Integer añoFabricación;
     private int kilometros;
     private String estado;
+
+
+
 
     public Auto(Long id, String marca, String modelo, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
         this.id = id;
@@ -105,4 +106,5 @@ public class Auto {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
 }

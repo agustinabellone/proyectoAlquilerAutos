@@ -1,10 +1,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,6 +16,7 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
@@ -24,19 +27,27 @@
             <h1 class="text-center">Auto <c:>${auto.modelo} </c:> </h1>
         </div>
         <div class="col-lg-6 align-self-center">
-            <form:form class="estrellas" action="validar-registro" method="POST">
-                <form:input  path="estrellaUno" type="radio"  id="uno" value="1" class="star"/>
-                <label for="uno">★</label>
-                <form:input path="estrellaDos" type="radio" id="dos" value="2" class="star" />
-                <label for="dos">★</label>
-                <form:input path="estrellaTres" type="radio" id="tres" value="3" class="star" />
-                <label for="tres">★</label>
-                <form:input path="estrellaCuatro" type="radio"  id="cuatro" value="4" class="star" />
-                <label for="cuatro">★</label>
-                <form:input path="estrellaCinco" type="radio"  id="cinco" value="5" class="star" />
-                <label for="cinco">★</label>
-            </form:form>
+            <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}" method="post">
+            <input type="radio" id="uno" name="estrellasValoracion" value="1">
+            <label for="uno"><i class="glyphicon glyphicon-star"></i></label>
+            <input type="radio" id="dos" name="estrellasValoracion" value="2">
+            <label for="dos"><i class="glyphicon glyphicon-star"></i></label>
+            <input type="radio" id="tres" name="estrellasValoracion" value="3">
+            <label for="tres"><i class="glyphicon glyphicon-star"></i></label>
+            <input type="radio" id="cuatro" name="estrellasValoracion" value="4">
+            <label for="cuatro"><i class="glyphicon glyphicon-star"></i></label>
+            <input type="radio" id="cinco" name="estrellasValoracion" value="5">
+            <label for="cinco"><i class="glyphicon glyphicon-star"></i></label>
+            <br><br>
+            <p><textarea name="comentario" rows="5" cols="50" placeholder="Deje su comentario: "></textarea></p>
+            <br><br>
+            <div class="form-group m-0">
+                <button class="btn btn-lg btn-primary btn-block" Type="Submit" />Cargar</button>
+            </div>
+            <br><br>
+            </form>
         </div>
+
 
 
 
@@ -63,7 +74,7 @@
     input[type="radio"]:checked ~ label {
         color: orange;
     }
-    .estrellas{
+    form{
         direction: rtl;
         unicode-bidi: bidi-override;
     }
