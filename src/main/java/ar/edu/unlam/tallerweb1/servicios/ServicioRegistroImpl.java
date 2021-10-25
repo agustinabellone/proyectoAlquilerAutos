@@ -4,8 +4,8 @@ import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -14,27 +14,35 @@ import javax.transaction.Transactional;
 @Transactional
 public class ServicioRegistroImpl implements ServicioRegistro{
 
-    private RepositorioCliente repositorioCliente;
+    private RepositorioUsuario repositorioUsuario;
 
     @Autowired
-    public ServicioRegistroImpl(RepositorioCliente repositorioCliente) {
-        this.repositorioCliente = repositorioCliente;
+    public ServicioRegistroImpl(RepositorioUsuario repositorioUsuario) {
+        this.repositorioUsuario = repositorioUsuario;
     }
 
     @Override
-    public Cliente registrar(DatosRegistro datosRegistro) {
+    public Usuario registrar(DatosRegistro datosRegistro) {
         if(LasClavesSonDistintas(datosRegistro)){
             throw new ClavesDistintasException();
         }
         if(LaClaveTieneLongitudIncorrecta(datosRegistro)) {
             throw new ClaveLongitudIncorrectaException();
         }
-        if(repositorioCliente.buscarPorEmail(datosRegistro.getEmail()) != null){
+        if(repositorioUsuario.buscarPorEmail(datosRegistro.getEmail()) != null){
             throw new ClienteYaExisteException();
         }
-        Cliente nuevoCliente = new Cliente(datosRegistro);
-        repositorioCliente.guardar(nuevoCliente);
-        return nuevoCliente;
+        Usuario nuevoUsuario = new Usuario(datosRegistro);
+
+        // SI LA CLAVE DEL USUARIO ES "adminadmin", SE LE OTORGA EL ROL DE ADMINISTRADOR
+        if(datosRegistro.getClave().equals("adminadmin")){
+            nuevoUsuario.setRol("admin");
+        }else{
+            nuevoUsuario.setRol("cliente");
+        }
+
+        repositorioUsuario.guardar(nuevoUsuario);
+        return nuevoUsuario;
     }
 
     private boolean LasClavesSonDistintas(DatosRegistro datosRegistro) {

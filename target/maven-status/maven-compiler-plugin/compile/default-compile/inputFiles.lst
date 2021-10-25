@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/DatosAlquiler.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/servicios/ServicioRegistro.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/ControladorAlquiler.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/AutoYaAlquiladoException.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorio/TablaCliente.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorio/TablaAlquiler.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/ClienteYaExisteException.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/DatosRegistro.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/DatosLogin.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/ControladorLogin.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/modelo/TipoSuscripcion.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/modelo/Cliente.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorio/TablaSuscripcion.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/servicios/ServicioAlquilar.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/ClaveLongitudIncorrectaException.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/ControladorRegistro.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/modelo/Suscripcion.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorio/RepositorioCliente.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/servicios/ServicioAlquilarImpls.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/modelo/Alquiler.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorio/RepositorioClienteImpl.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/DatosSuscripcion.java
-/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/ClavesDistintasException.java
-=======
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorios/TablaAlquiler.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/DatosAlquiler.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/ControladorEnviarAutoAMantenimiento.java
@@ -55,6 +30,5 @@
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/AutoYaExistente.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/AutoNoExistente.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/servicios/ServicioMantenimiento.java
->>>>>>> master
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/ControladorSuscripcion.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/modelo/Auto.java
