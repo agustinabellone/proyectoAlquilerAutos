@@ -21,25 +21,26 @@ public class testControladorAlquiler {
     private ControladorAlquiler controladorAlquiler = new ControladorAlquiler(servicioAlquiler);
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private static final LocalDate fechaInicio = LocalDate.of(2021, 1, 15);
+    private static final LocalDate salida = LocalDate.of(2021, 1, 15);
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private static final LocalDate fechaSalida = LocalDate.of(2021, 1, 18);
+    private static final LocalDate ingreso = LocalDate.of(2021, 1, 18);
 
-    DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, fechaInicio, fechaSalida );
+    DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, salida, ingreso);
 
     private ModelAndView mav;
 
     @Test
     public void queSePuedaAlquilarUnAuto(){
         givenExisteUnAutoYUnCliente();
-        whenUnClienteAlquilaUnAuto(datosAlquiler);
+        whenUnClienteAlquilaUnAuto(cliente, auto, salida, ingreso);
         thenElAlquilerEsExitoso();
     }
 
     private void givenExisteUnAutoYUnCliente() {}
 
-    private void whenUnClienteAlquilaUnAuto(DatosAlquiler datosAlquiler) {
-        mav =  controladorAlquiler.alquilarAuto(datosAlquiler);
+    private void whenUnClienteAlquilaUnAuto(Cliente cliente, Auto auto, LocalDate salida, LocalDate ingreso) {
+
+        mav =  controladorAlquiler.alquilarAuto(cliente.getId(), auto.getId(), salida, ingreso);
     }
 
     private void thenElAlquilerEsExitoso() {
@@ -51,17 +52,17 @@ public class testControladorAlquiler {
 
     @Test
     public void noPuedeHaberDosAlquileresIguales(){
-        givenExisteUnAlquiler(datosAlquiler);
+        givenExisteUnAlquiler(cliente, auto, salida, ingreso);
         doThrow(AutoYaAlquiladoException.class)
                 .when(servicioAlquiler)
                 .AlquilarAuto(datosAlquiler);
-        whenUnClienteAlquilaUnAuto(datosAlquiler);
+        whenUnClienteAlquilaUnAuto(cliente, auto, salida, ingreso);
         thenElAlquilerFalla();
 
     }
 
-    private void givenExisteUnAlquiler(DatosAlquiler datosAlquiler) {
-        controladorAlquiler.alquilarAuto(datosAlquiler);
+    private void givenExisteUnAlquiler(Cliente cliente, Auto auto, LocalDate salida, LocalDate ingreso) {
+        controladorAlquiler.alquilarAuto(cliente.getId(), auto.getId(), salida, ingreso);
     }
 
     private void thenElAlquilerFalla() {

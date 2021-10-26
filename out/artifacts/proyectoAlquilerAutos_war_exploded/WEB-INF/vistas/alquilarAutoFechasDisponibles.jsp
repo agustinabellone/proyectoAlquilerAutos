@@ -27,7 +27,7 @@
 <br>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-around">
-            <form action="confirmacion" method="post">
+            <form action="confirmacion?id_auto=${id_auto}" method="post">
                     <div>
                         <h3>Salida del auto:</h3>
                         <input name="salida" type="date">
