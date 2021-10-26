@@ -14,6 +14,8 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+
+
     <title>Admin-Suscripcion</title>
 </head>
 <body>
@@ -21,7 +23,34 @@
 <section>
     <div class="container">
         <div>
-            <h1>Ingresaste a tu cuenta!</h1>
+            <h1 class="text-danger"><strong>-Esta vista no se usa por el momento-</strong></h1>
+            <h1>Modifique las suscripciones</h1>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div>
+        <div class="card text-center w-75 m-5 mx-auto">
+            <div class="card-body">
+                <h5 class="card-title">Crea un nuevo nivel de suscripcion</h5>
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                </form>
+                <a href="#" class="btn btn-primary">Button</a>
+            </div>
+        </div>
+
+        <div class="card text-center w-75 m-5  mx-auto">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Button</a>
+            </div>
         </div>
     </div>
 </section>
