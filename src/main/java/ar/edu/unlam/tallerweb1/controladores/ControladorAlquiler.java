@@ -27,10 +27,10 @@ public class ControladorAlquiler {
     }
 
     @RequestMapping(path = "/alquilar-auto", method = RequestMethod.GET)
-    public ModelAndView mostrarAlquilerAuto() {
+    public ModelAndView mostrarListaDeAutos() {
         ModelMap modelo = new ModelMap();
         List<Auto> autosDisponibles = servicioAlquiler.obtenerAutosDisponibles();
-        modelo.put("autosDisponibles",autosDisponibles);
+        modelo.put("autosDisponibles", autosDisponibles);
         return new ModelAndView("alquilarAuto", modelo);
     }
 
