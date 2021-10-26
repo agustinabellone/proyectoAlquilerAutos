@@ -66,8 +66,8 @@ public class ControladorAlquiler {
         ModelMap modelo = new ModelMap();
 
         Auto auto = servicioAlquiler.obtenerAutoPorId(id_auto);
-        
-        Long id_usuario = (Long) request.getSession().getAttribute("id_usuario");
+
+        Long id_usuario = (Long) request.getSession().getAttribute("id");
 
         Usuario usuario = servicioAlquiler.obtenerUsuarioPorId(id_usuario);
 
