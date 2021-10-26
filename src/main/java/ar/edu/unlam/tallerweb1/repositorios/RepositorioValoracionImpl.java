@@ -45,7 +45,13 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
     }
 
 
-
+    @Override
+    public List<ValoracionAuto> obtenerValoracionesAuto(Auto auto){
+        return this.sessionFactory.getCurrentSession()
+                .createCriteria(ValoracionAuto.class)
+                .add(Restrictions.eq("auto",auto))
+                .list();
+    }
 
 }
 

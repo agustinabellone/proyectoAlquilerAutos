@@ -43,7 +43,22 @@ public class ControladorValoracionAuto {
         List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(id);
         modelo.put("viajesObtenidos",viajesObtenidos);
         return new ModelAndView("lista-de-viajes", modelo);
+
+
+    /*    if(elUsuarioEsCliente(request)){
+            List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(id);
+            modelo.put("viajesObtenidos",viajesObtenidos);
+        }else{
+            return new ModelAndView("home");
+        }
+
+        return new ModelAndView("lista-de-viajes", modelo);*/
     }
+
+    private boolean elUsuarioEsCliente(HttpServletRequest request) {
+        return request.getSession().getAttribute("rol").equals("");
+    }
+
 
     @RequestMapping(path = "valorar-auto" , method = RequestMethod.GET)
     public ModelAndView valorarAuto(@RequestParam(value = "id_auto")Long autoID){
@@ -62,7 +77,6 @@ public class ControladorValoracionAuto {
         Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
         servicioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto);
         return  new ModelAndView("main");
-
     }
 
 

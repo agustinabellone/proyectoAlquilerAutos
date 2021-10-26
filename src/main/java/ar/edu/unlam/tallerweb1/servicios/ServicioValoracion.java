@@ -14,5 +14,6 @@ public interface ServicioValoracion {
 
     void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto);
 
+    Long obtenerValoracionAuto(Auto auto);
 }
 

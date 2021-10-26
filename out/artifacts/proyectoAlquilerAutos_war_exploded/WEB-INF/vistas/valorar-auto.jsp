@@ -22,38 +22,64 @@
 <body>
 <header class = "d-flex flex-row-reverse p-3"></header>
 <section>
-    <div class="container">
-        <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center">Auto <c:>${auto.modelo} </c:> </h1>
+    <div class="container text-center">
+        <div>
+            <h1 class="display-4 p-4"></h1>
         </div>
-        <div class="col-lg-6 align-self-center">
-            <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}" method="post">
-            <input type="radio" id="uno" name="estrellasValoracion" value="1">
-            <label for="uno"><i class="glyphicon glyphicon-star"></i></label>
-            <input type="radio" id="dos" name="estrellasValoracion" value="2">
-            <label for="dos"><i class="glyphicon glyphicon-star"></i></label>
-            <input type="radio" id="tres" name="estrellasValoracion" value="3">
-            <label for="tres"><i class="glyphicon glyphicon-star"></i></label>
-            <input type="radio" id="cuatro" name="estrellasValoracion" value="4">
-            <label for="cuatro"><i class="glyphicon glyphicon-star"></i></label>
-            <input type="radio" id="cinco" name="estrellasValoracion" value="5">
-            <label for="cinco"><i class="glyphicon glyphicon-star"></i></label>
-            <br><br>
-            <p><textarea name="comentario" rows="5" cols="50" placeholder="Deje su comentario: "></textarea></p>
-            <br><br>
-            <div class="form-group m-0">
-                <button class="btn btn-lg btn-primary btn-block" Type="Submit" />Cargar</button>
-            </div>
-            <br><br>
-            </form>
-        </div>
-
-
-
-
-
     </div>
 </section>
+<section>
+    <div class="pricing6 py-5 bg-light">
+    <div class="container">
+        <div class="col center-block">
+            <div class="col-md-12">
+                <div class="card card-shadow border-0 mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <h5 class="font-weight-medium mb-0"><c:>${auto.modelo} </c:></h5>
+                            <h6><c:>${valoracion} </c:></h6>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="col-lg-12">
+                            <div class="row mt-3">
+                                <div class="col-lg-6 align-self-center">
+                                    <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}" method="post">
+                                        <input type="radio" id="uno" name="estrellasValoracion" value="5">
+                                        <label for="uno"><i class="glyphicon glyphicon-star"></i></label>
+                                        <input type="radio" id="dos" name="estrellasValoracion" value="4">
+                                        <label for="dos"><i class="glyphicon glyphicon-star"></i></label>
+                                        <input type="radio" id="tres" name="estrellasValoracion" value="3">
+                                        <label for="tres"><i class="glyphicon glyphicon-star"></i></label>
+                                        <input type="radio" id="cuatro" name="estrellasValoracion" value="2">
+                                        <label for="cuatro"><i class="glyphicon glyphicon-star"></i></label>
+                                        <input type="radio" id="cinco" name="estrellasValoracion" value="1">
+                                        <label for="cinco"><i class="glyphicon glyphicon-star"></i></label>
+                                        <br><br>
+                                        <p><textarea class="form-control" name="comentario" rows="5" placeholder="Deje su comentario: "></textarea></p>
+                                        <br><br>
+                                        <div class="form-group m-0">
+                                            <button class="btn btn-lg btn-primary btn-block" Type="Submit" />Cargar</button>
+                                        </div>
+                                        <br><br>
+                                    </form>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="container">
+                                        <img src="https://www.automobilemag.com/uploads/sites/11/2014/02/2015-Ford-Focus-hatchback-front-view2.jpg?fit=around%7C875:492"
+                                             alt="" style="width: 100%; height: auto;">
+                                    </div>
+                                </div>
+                                <button class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" Type="Submit" />Cargar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </section>
 
 </body>
 
@@ -62,6 +88,7 @@
 <style type="text/css">
     input{
         display: none;
+
     }
     label {
         font-size: 20px;
@@ -77,6 +104,9 @@
     form{
         direction: rtl;
         unicode-bidi: bidi-override;
+    }
+    textarea{
+        direction: ltr;
     }
 </style>
 

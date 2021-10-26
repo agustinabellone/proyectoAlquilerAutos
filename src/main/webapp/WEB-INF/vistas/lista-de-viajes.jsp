@@ -21,7 +21,7 @@
 <section>
     <div class="container text-center">
         <div>
-            <h1 class="display-4 p-4">Lista de viajes</h1>
+            <h1 class="display-4 p-4">Lista de alquileres</h1>
         </div>
     </div>
 </section>
