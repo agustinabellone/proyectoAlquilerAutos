@@ -23,9 +23,9 @@
             <h1 class="text-center">Confirmación</h1>
         </div>
         <div class=" container card col-md-6 my-4" >
-            <img src="https://http2.mlstatic.com/D_NQ_NP_897110-MLU43129754655_082020-O.jpg" class="card-img-top" alt="...">
+            <img src="${imagen_auto}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Auto: ${id_auto}  </h5>
+                <h5 class="card-title">Auto: ${modelo_auto}  </h5>
                 <p class="card-text">Salida del auto: ${salida} / Ingreso del auto: ${ingreso} </p>
                 <div class="col-sm-12 d-flex justify-content-center">
                     <a href="validar-alquiler?id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}" class="btn btn-primary mt-5">ALQUILAR</a>
