@@ -9,8 +9,5 @@
         <module name="proyecto-limpio-spring" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="proyectoAlquilerAutos" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>
