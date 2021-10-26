@@ -14,6 +14,10 @@ public class Usuario {
     @Column
     private String rol;
 
+
+    @Column
+    private String nombre;
+
     @Column
     private String email;
 
@@ -35,6 +39,7 @@ public class Usuario {
     public Usuario(DatosRegistro datosRegistro) {
         this.email = datosRegistro.getEmail();
         this.clave = datosRegistro.getClave();
+        this.nombre = datosRegistro.getNombre();
     }
 
     public Usuario(Long id){
@@ -72,5 +77,13 @@ public class Usuario {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

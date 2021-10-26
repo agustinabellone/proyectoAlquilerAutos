@@ -16,15 +16,28 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
+<<<<<<< HEAD
 <header class = "d-flex flex-row-reverse p-3"></header>
 <section>
     <div class="container">
 
+=======
+<header class = "d-flex flex-row-reverse p-3">
+    <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
+        <a href="login" type="button" class="btn btn-primary">Iniciar sesion</a>
+        <a href="registro" type="button" class="btn btn-warning">Crear cuenta</a>
+        <a href="ir-a-suscribir" type="button" class="btn btn-danger">Suscribirse a un plan</a>
+    </div>
+</header>
+<section>
+    <div class="container">
+>>>>>>> master
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center">¡Ingresaste a tu cuenta!</h1>
         </div>
         <div class="col-sm-12 d-flex justify-content-center">
             <a href="alquilar-auto" class="btn btn-primary mt-5">Alquilar auto</a>
+<<<<<<< HEAD
             <a href="mis-alquileres" class="btn btn-primary mt-5">Mis Alquileres</a>
         </div>
         <div>
@@ -35,6 +48,12 @@
     </div>
     </div>
 </section>
+=======
+        </div>
+    </div>
+</section>
+
+>>>>>>> master
 </body>
 
 <!-- Optional JavaScript -->

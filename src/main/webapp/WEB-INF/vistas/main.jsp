@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,21 +17,30 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<header class = "d-flex flex-row-reverse p-3"></header>
+<jsp:include page="header.jsp" />
 <section>
     <div class="container">
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center">¡Ingresaste a tu cuenta!</h1>
         </div>
         <div class="col-sm-12 d-flex justify-content-center">
             <a href="alquilar-auto" class="btn btn-primary mt-5">Alquilar auto</a>
+<<<<<<< HEAD
             <a href="mis-alquileres" class="btn btn-primary mt-5">Mis Alquileres</a>
         </div>
         <div>
             <a href="finalizar-alquiler">FINALIZAR ALQUILER</a>
+=======
+        </div>
+    </div>
+    <div class="container">
+>>>>>>> master
         <div>
-            <h1>Ingresaste a tu cuenta!</h1>
+            <h1>Bienvenido <c:out value="${nombre}"/></h1>
         </div>
     </div>
     </div>

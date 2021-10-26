@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,11 +17,16 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<header class = "d-flex flex-row-reverse p-3"></header>
+<jsp:include page="header.jsp" />
 <section>
     <div class="container">
         <div>
             <h1>Ingresaste a tu cuenta!</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div>
+            <h1>Bienvenido <c:out value="${nombre}"/></h1>
         </div>
     </div>
 </section>

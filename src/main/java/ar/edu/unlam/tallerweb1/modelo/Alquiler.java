@@ -1,16 +1,25 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
+<<<<<<< HEAD
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+=======
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
+>>>>>>> master
 
 @Entity
 public class Alquiler {
 
+<<<<<<< HEAD
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -68,6 +77,36 @@ public class Alquiler {
     }
 
 
+=======
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Long id;
+
+
+    @OneToOne
+    private Auto auto;
+
+    @OneToOne
+    private Usuario usuario;
+
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate f_ingreso;
+
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate f_regreso;
+
+    public Alquiler() {}
+
+    public Alquiler(DatosAlquiler datosAlquiler ){
+        this.auto = datosAlquiler.getAuto();
+        this.usuario = datosAlquiler.getUsuario();
+        this.f_ingreso = datosAlquiler.getF_ingreso();
+        this.f_regreso = datosAlquiler.getF_salida();
+    }
+
+>>>>>>> master
     public Long getId() {
         return id;
     }
@@ -76,6 +115,7 @@ public class Alquiler {
         this.id = id;
     }
 
+<<<<<<< HEAD
 
     public LocalDateTime getF_ingreso() {
         return f_ingreso;
@@ -85,6 +125,24 @@ public class Alquiler {
         this.f_ingreso = f_ingreso;
     }
 
+=======
+    public LocalDate getF_ingreso() {
+        return f_ingreso;
+    }
+
+    public void setF_ingreso(LocalDate f_ingreso) {
+        this.f_ingreso = f_ingreso;
+    }
+
+    public LocalDate getF_regreso() {
+        return f_regreso;
+    }
+
+    public void setF_regreso(LocalDate f_regreso) {
+        this.f_regreso = f_regreso;
+    }
+
+>>>>>>> master
     public Auto getAuto() {
         return auto;
     }
@@ -93,6 +151,7 @@ public class Alquiler {
         this.auto = auto;
     }
 
+<<<<<<< HEAD
     public Usuario getUsuario() {
         return usuario;
     }
@@ -198,3 +257,13 @@ public class Alquiler {
         this.adicionalInfraccionesOtro = adicionalInfraccionesOtro;
     }
 }
+=======
+    public Usuario getCliente() {
+        return usuario;
+    }
+
+    public void setCliente(Usuario cliente) {
+        this.usuario = usuario;
+    }
+}
+>>>>>>> master
