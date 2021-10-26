@@ -4,6 +4,7 @@ public class DatosRegistro {
     private String email;
     private String clave;
     private String repiteClave;
+    private String nombre;
 
     public DatosRegistro(){}
 
@@ -11,6 +12,12 @@ public class DatosRegistro {
         this.email = email;
         this.clave = clave;
         this.repiteClave = repiteClave;
+    }
+    public DatosRegistro(String email, String clave, String repiteClave, String nombre) {
+        this.email = email;
+        this.clave = clave;
+        this.repiteClave = repiteClave;
+        this.nombre=nombre;
     }
 
     public String getEmail() {
@@ -35,5 +42,13 @@ public class DatosRegistro {
 
     public void setRepiteClave(String repiteClave) {
         this.repiteClave = repiteClave;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

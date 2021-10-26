@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,13 +18,7 @@
   <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<header class = "d-flex flex-row-reverse p-3">
-  <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
-    <a href="login" type="button" class="btn btn-primary">Iniciar sesion</a>
-    <a href="registro" type="button" class="btn btn-warning">Crear cuenta</a>
-    <a href="ir-a-suscribir" type="button" class="btn btn-danger">Suscribirse a un plan</a>
-  </div>
-</header>
+<jsp:include page="header.jsp" />
 <section class="h-100 ">
   <div class="container h-100">
     <div class="row justify-content-center h-100">
@@ -32,6 +27,12 @@
           <div class="card-body">
             <h4 class="card-title">Crear cuenta</h4>
             <form:form action="validar-registro" method="POST" modelAttribute="datosRegistro">
+
+              <div class="form-group">
+                <label>Nombre de usuario</label>
+                <form:input path="nombre" type="text" class="form-control" name="nombre"  />
+              </div>
+
               <div class="form-group">
                 <label>Email</label>
                 <form:input path="email" type="email" class="form-control" name="email"  />
