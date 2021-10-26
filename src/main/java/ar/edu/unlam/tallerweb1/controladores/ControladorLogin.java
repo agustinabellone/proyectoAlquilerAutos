@@ -89,6 +89,7 @@ public class ControladorLogin {
 
         request.getSession().setAttribute("rol", buscado.getRol());
         request.getSession().setAttribute("id", buscado.getId());
+        request.getSession().setAttribute("nombre", buscado.getNombre());
 
     }
 

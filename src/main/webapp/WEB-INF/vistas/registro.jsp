@@ -27,6 +27,12 @@
           <div class="card-body">
             <h4 class="card-title">Crear cuenta</h4>
             <form:form action="validar-registro" method="POST" modelAttribute="datosRegistro">
+
+              <div class="form-group">
+                <label>Nombre de usuario</label>
+                <form:input path="nombre" type="text" class="form-control" name="nombre"  />
+              </div>
+
               <div class="form-group">
                 <label>Email</label>
                 <form:input path="email" type="email" class="form-control" name="email"  />

@@ -24,6 +24,11 @@
             <h1>Ingresaste a tu cuenta!</h1>
         </div>
     </div>
+    <div class="container">
+        <div>
+            <h1>Bienvenido <c:out value="${nombre}"/></h1>
+        </div>
+    </div>
 </section>
 
 </body>
