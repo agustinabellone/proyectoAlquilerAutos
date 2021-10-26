@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,16 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
                 .createCriteria(Auto.class)
                 .add(Restrictions.eq("estado", "disponible"))
                 .list();
+    }
+
+    @Override
+    public Auto obtenerAutoPorId(Long id_auto) {
+        return sessionFactory.getCurrentSession().get(Auto.class, id_auto);
+    }
+
+    @Override
+    public Usuario obtenerUsuarioPorId(Long id_usuario) {
+        return sessionFactory.getCurrentSession().get(Usuario.class, id_usuario);
     }
 
 }

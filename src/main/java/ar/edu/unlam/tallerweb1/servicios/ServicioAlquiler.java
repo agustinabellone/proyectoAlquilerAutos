@@ -13,4 +13,7 @@ public interface ServicioAlquiler {
 
     List<Auto> obtenerAutosDisponibles();
 
+    Auto obtenerAutoPorId(Long id_auto);
+
+    Usuario obtenerUsuarioPorId(Long id_usuario);
 }

@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -38,6 +37,18 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     public List<Auto> obtenerAutosDisponibles() {
         List<Auto> autosDisponibles = repositorioAlquiler.obtenerAutosDisponibles();
         return autosDisponibles;
+    }
+
+    @Override
+    public Auto obtenerAutoPorId(Long id_auto) {
+        Auto auto = repositorioAlquiler.obtenerAutoPorId(id_auto);
+        return auto;
+    }
+
+    @Override
+    public Usuario obtenerUsuarioPorId(Long id_usuario) {
+        Usuario usuario = repositorioAlquiler.obtenerUsuarioPorId(id_usuario);
+        return usuario;
     }
 
 }

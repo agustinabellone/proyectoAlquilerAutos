@@ -4,7 +4,6 @@ import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
-import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,8 +23,6 @@ import java.util.List;
 public class ControladorAlquiler {
 
     private ServicioAlquiler servicioAlquiler;
-    private ServicioUsuario servicioUsuario;
-    private ServicioAuto servicioAuto;
 
     @Autowired
     public ControladorAlquiler(ServicioAlquiler servicioAlquiler) {
@@ -68,16 +65,12 @@ public class ControladorAlquiler {
 
         ModelMap modelo = new ModelMap();
 
-        //Busco el auto
-        Auto auto = servicioAuto.obtenerAutoPorId(id_auto);
-
-        //Obtengo el usuario
+        Auto auto = servicioAlquiler.obtenerAutoPorId(id_auto);
+        
         Long id_usuario = (Long) request.getSession().getAttribute("id_usuario");
 
-        //Busco el usuario
-        Usuario usuario = servicioUsuario.buscarPorId(id_usuario);
+        Usuario usuario = servicioAlquiler.obtenerUsuarioPorId(id_usuario);
 
-        //Envio todos los datos obtenidos
         DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, salida, ingreso);
 
         try {
