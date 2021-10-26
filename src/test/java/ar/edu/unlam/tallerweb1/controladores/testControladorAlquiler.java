@@ -14,7 +14,7 @@ import static org.mockito.Mockito.mock;
 
 public class testControladorAlquiler {
 
-    Usuario usuario = new Usuario();
+    /*Usuario usuario = new Usuario();
     Auto auto = new Auto((long)123, "", "", null, "","", null, null);
 
     private ServicioAlquiler servicioAlquiler = mock(ServicioAlquiler.class);
@@ -68,5 +68,7 @@ public class testControladorAlquiler {
     private void thenElAlquilerFalla() {
         assertThat(mav.getViewName()).isEqualTo("alquilarAutoConfirmacion");
     }
+
+     */
 
 }

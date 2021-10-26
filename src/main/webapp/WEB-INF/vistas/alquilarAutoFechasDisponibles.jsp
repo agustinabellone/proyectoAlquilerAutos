@@ -21,7 +21,7 @@
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center">Elegir fechas para el auto ${id_auto}</h1>
+            <h1 class="text-center">Elegir fechas</h1>
         </div>
     </div>
 <br>

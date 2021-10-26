@@ -28,7 +28,7 @@
                 <h5 class="card-title">Auto: ${id_auto}  </h5>
                 <p class="card-text">Salida del auto: ${salida} / Ingreso del auto: ${ingreso} </p>
                 <div class="col-sm-12 d-flex justify-content-center">
-                    <a href="validar-alquiler?id_cliente=1&id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}" class="btn btn-primary mt-5">ALQUILAR</a>
+                    <a href="validar-alquiler?id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}" class="btn btn-primary mt-5">ALQUILAR</a>
                 </div>
             </div>
         </div>

@@ -4,6 +4,8 @@ import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +24,8 @@ import java.util.List;
 public class ControladorAlquiler {
 
     private ServicioAlquiler servicioAlquiler;
+    private ServicioUsuario servicioUsuario;
+    private ServicioAuto servicioAuto;
 
     @Autowired
     public ControladorAlquiler(ServicioAlquiler servicioAlquiler) {
@@ -55,19 +61,23 @@ public class ControladorAlquiler {
     }
 
     @RequestMapping(path = "/validar-alquiler", method = RequestMethod.GET)
-    public ModelAndView alquilarAuto(@RequestParam("id_cliente") Long id_cliente,
+    public ModelAndView alquilarAuto(HttpServletRequest request,
                                      @RequestParam("id_auto") Long id_auto,
                                      @RequestParam("salida") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate salida,
                                      @RequestParam("ingreso") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate ingreso){
 
         ModelMap modelo = new ModelMap();
 
-        Auto auto = new Auto();
-        auto.setId(id_auto);
+        //Busco el auto
+        Auto auto = servicioAuto.obtenerAutoPorId(id_auto);
 
-        Usuario usuario = new Usuario();
-        usuario.setId(id_cliente);
+        //Obtengo el usuario
+        Long id_usuario = (Long) request.getSession().getAttribute("id_usuario");
 
+        //Busco el usuario
+        Usuario usuario = servicioUsuario.buscarPorId(id_usuario);
+
+        //Envio todos los datos obtenidos
         DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, salida, ingreso);
 
         try {
