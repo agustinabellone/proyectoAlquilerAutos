@@ -25,14 +25,13 @@
         <section>
             <div class="pricing6 py-5 bg-light my-4">
                 <div class="container col-md-9">
-                    <!-- row  -->
                     <div class="col">
-                        <!-- column  -->
+                        <c:forEach items="${autosDisponibles}" var="auto">
                         <div class="col-md-12 ">
                             <div class="card card-shadow border-0 mb-4">
                                 <div class="card-body p-4">
                                     <div class="d-flex align-items-center">
-                                        <h5 class="font-weight-medium mb-0">Ford Focus</h5>
+                                        <h5 class="font-weight-medium mb-0">${auto.marca}</h5>
                                         <div class="ml-auto"><span class="badge badge-success font-weight-normal p-2">Más alquilado</span>
                                         </div>
                                     </div>
@@ -41,19 +40,19 @@
                                             <div class="row mt-3">
                                                 <div class="col-lg-6 align-self-center">
                                                     <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Patente: AAA111</span>
+                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Patente: ${auto.patente}</span>
                                                         </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Marca: Ford</span>
+                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Marca: ${auto.marca}</span>
                                                         </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Modelo: Focus</span>
+                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Modelo: ${auto.modelo}</span>
                                                         </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Kilometraje Total: 150km</span>
+                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Kilometraje Total: ${auto.km} km</span>
                                                         </li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="container">
-                                                        <img src="https://http2.mlstatic.com/D_NQ_NP_897110-MLU43129754655_082020-O.jpg"
+                                                        <img src= "${auto.imagen}"
                                                              alt="" style="width: 100%; height: auto;">
                                                     </div>
                                                 </div>
@@ -66,81 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- column  -->
-                        <!-- column  -->
-                        <div class="col-md-12">
-                            <div class="card card-shadow border-0 mb-4">
-                                <div class="card-body p-4">
-                                    <div class="d-flex align-items-center">
-                                        <h5 class="font-weight-medium mb-0">Chevrolet Onix</h5>
-                                    </div>
-                                    <div class="col">
-                                        <div class="col-lg-12">
-                                            <div class="row mt-3">
-                                                <div class="col-lg-6 align-self-center">
-                                                    <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Patente: BBB111</span>
-                                                        </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Marca: Chevrolet</span>
-                                                        </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Modelo: Onix</span>
-                                                        </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Kilometraje Total: 150km</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="container">
-                                                        <img src="https://3.bp.blogspot.com/-2S9cuFUrN7I/XKfwZuAAATI/AAAAAAAAdEc/TbKdrRbdwXkTCNy3-deFvJdESVCkA5VngCLcBGAs/s1600/Ficha-Tecnica-Chevrolet-Onix-2019.jpg"
-                                                             alt="" style="width: 100%; height: auto;">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12 d-flex justify-content-center">
-                                                    <a href="#" class="btn btn-primary mt-5">ALQUILAR AUTO</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="card card-shadow border-0 mb-4">
-                                <div class="card-body p-4">
-                                    <div class="d-flex align-items-center">
-                                        <h5 class="font-weight-medium mb-0">Volkswagen Gol Trend</h5>
-                                    </div>
-                                    <div class="col">
-                                        <div class="col-lg-12">
-                                            <div class="row mt-3">
-                                                <div class="col-lg-6 align-self-center">
-                                                    <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Patente: CCC111</span>
-                                                        </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Marca: Volkswagen</span>
-                                                        </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Modelo: Gol Trend</span>
-                                                        </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Kilometraje Total: 150km</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="container">
-                                                        <img src="https://acroadtrip.blob.core.windows.net/catalogo-imagenes/xl/RT_V_bde57fdcf34b4e75be144e7400b4c97a.jpg"
-                                                             alt="" style="width: 100%; height: auto;">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12 d-flex justify-content-center">
-                                                    <a href="#" class="btn btn-primary mt-5">ALQUILAR AUTO</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- column  -->
+                        </c:forEach>
                     </div>
                 </div>
             </div>

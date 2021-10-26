@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Controller
@@ -27,7 +28,10 @@ public class ControladorAlquiler {
 
     @RequestMapping(path = "/alquilar-auto", method = RequestMethod.GET)
     public ModelAndView mostrarAlquilerAuto() {
-        return new ModelAndView("alquilarAuto");
+        ModelMap modelo = new ModelMap();
+        List<Auto> autosDisponibles = servicioAlquiler.obtenerAutosDisponibles();
+        modelo.put("autosDisponibles",autosDisponibles);
+        return new ModelAndView("alquilarAuto", modelo);
     }
 
 
