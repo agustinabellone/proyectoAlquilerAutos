@@ -51,8 +51,6 @@ public class Auto {
         this.id = id;
     }
 
-
-
     public String getImagen() {
         return imagen;
     }

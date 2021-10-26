@@ -20,6 +20,9 @@ public class Usuario {
     @Column
     private String clave;
 
+    @OneToOne
+    private Suscripcion suscripcion;
+
 
     public Usuario(String rol) {
         this.rol = rol;

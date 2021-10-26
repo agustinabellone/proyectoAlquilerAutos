@@ -52,7 +52,7 @@ public class ControladorDevolucion {
     @RequestMapping("finalizar-alquiler")
     public ModelAndView irFinalizarAlquiler(HttpServletRequest request) {
         ModelMap model = new ModelMap();
-        request.getSession().setAttribute("id", usuario.getId());
+       // request.getSession().setAttribute("id", usuario.getId());
         Long id1 = (Long) request.getSession().getAttribute("id");
         //Usuario usuario = servicioUsuario.buscarPorId(id1);
         Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerActivoDeCliente(id1);

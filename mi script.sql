@@ -1,12 +1,5 @@
-USE alquiler;
+use alquiler;
 
-insert into usuario (email,rol) values('eze@eze.com','cliente');
-
-INSERT INTO auto VALUES (1, null, null, 100, null, null, null, null, null, null);
--- el id te dije mas de una vez no lo pongas lo hace automatico;
-INSERT INTO alquiler VALUES (1, null, null, null, 0, null, null , null, 1, null, null, null, null, 1); 
-
-
-SELECT * FROM auto;
-
-select * from alquiler;
+INSERT INTO usuario (id, clave, email, rol, suscripcion_id) VALUES (1, 'clave', 'mail@mail', 'cliente', null);
+INSERT INTO auto (id, patente, kilometros) VALUES (1, 'AA111BB', 1000);
+INSERT INTO alquiler (id, auto_id, usuario_id) VALUES (1, 1, 1);

@@ -19,6 +19,7 @@
 <header class = "d-flex flex-row-reverse p-3"></header>
 <section>
     <div class="container">
+
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center">¡Ingresaste a tu cuenta!</h1>
         </div>
@@ -27,15 +28,14 @@
             <a href="mis-alquileres" class="btn btn-primary mt-5">Mis Alquileres</a>
         </div>
         <div>
-            INFO DE ALQUILER
-            <a href="finalizarAlquiler">FINALIZAR EL ALQUILER</a>
+            <a href="finalizar-alquiler">FINALIZAR ALQUILER</a>
+        <div>
+            <h1>Ingresaste a tu cuenta!</h1>
         </div>
     </div>
+    </div>
 </section>
-
 </body>
-
-
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
