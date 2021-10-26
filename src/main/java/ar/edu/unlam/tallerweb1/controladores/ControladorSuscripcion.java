@@ -82,8 +82,20 @@ public class ControladorSuscripcion {
         return new ModelAndView("home");
     }
 
-    //@Scheduled(cron = "0 29 19 ? * *")
+    @RequestMapping(path = "/admin-suscripcion", method = RequestMethod.GET)
+    private ModelAndView vistaAdminSuscripcion(HttpServletRequest request){
+
+
+        if(null != request.getSession().getAttribute("rol")){
+            if(request.getSession().getAttribute("rol").equals("admin")){
+                return new ModelAndView("admin-suscripcion");
+            }
+        }
+        return new ModelAndView("redirect:/home");
+    }
+
     //@Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 29 19 ? * *")
     public void controlDeFechaDeSuscripciones(){
         //System.out.println("Fixed rate task ");
         servicioSuscripcion.revisionDeSuscripciones();
