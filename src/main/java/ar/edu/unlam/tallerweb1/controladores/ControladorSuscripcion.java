@@ -37,8 +37,10 @@ public class ControladorSuscripcion {
         request.getSession().setAttribute("nombre_usuario", "Ian");
         //////////////////////////////////////////////////////
 
-        if(request.getSession().getAttribute("rol").equals("cliente")){
-            return new ModelAndView("ir-a-suscribir");
+        if(null != request.getSession().getAttribute("rol")){
+            if(request.getSession().getAttribute("rol").equals("cliente")){
+                return new ModelAndView("ir-a-suscribir");
+            }
         }
         return new ModelAndView("redirect:/home");
     }
@@ -48,7 +50,7 @@ public class ControladorSuscripcion {
                                                @RequestParam (value="id_tipo") Long id_tipo ){
         ModelMap model= new ModelMap();
         model.put("id_tipo", id_tipo);
-        model.put("id_usuario", request.getSession().getAttribute("id"));
+        model.put("id_usuario", request.getSession().getAttribute("id_usuario"));
         return new ModelAndView("confirmar-suscripcion", model);
     }
 
@@ -65,7 +67,7 @@ public class ControladorSuscripcion {
             return new ModelAndView("ir-a-suscribir");
         }
 
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("home");
     }
 
     @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)
@@ -77,11 +79,11 @@ public class ControladorSuscripcion {
         }catch(SuscripcionYaRenovadaException e){
             return new ModelAndView("perfil"); //EL USUARIO RENUEVA SU SUSCRIPCION DESDE SU PERFIL
         }
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("home");
     }
 
+    //@Scheduled(cron = "0 29 19 ? * *")
     //@Scheduled(fixedRate = 10000)
-    @Scheduled(cron = "0 29 19 ? * *")
     public void controlDeFechaDeSuscripciones(){
         //System.out.println("Fixed rate task ");
         servicioSuscripcion.revisionDeSuscripciones();

@@ -15,7 +15,7 @@ import static org.mockito.Mockito.mock;
 public class testControladorAlquiler {
 
     Usuario usuario = new Usuario();
-    Auto auto = new Auto((long)123, "", "", "", "", null, null);
+    Auto auto = new Auto((long)123, "", "", null, "","", null, null);
 
     private ServicioAlquiler servicioAlquiler = mock(ServicioAlquiler.class);
     private ControladorAlquiler controladorAlquiler = new ControladorAlquiler(servicioAlquiler);

@@ -39,7 +39,7 @@ public class testRepositorioAlquiler extends SpringTest {
         DatosRegistro datosRegistro = new DatosRegistro("agus@gmail.com", "12345678", "12345678");
         Usuario usuario = givenExisteUnCliente(datosRegistro);
 
-        Auto auto = new Auto((long)123, "", "", "", "", null, null);
+        Auto auto = new Auto((long)123, "", "",null,  "", "", null, null);
         givenExisteUnAuto(auto);
 
         DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, fechaInicio, fechaSalida);

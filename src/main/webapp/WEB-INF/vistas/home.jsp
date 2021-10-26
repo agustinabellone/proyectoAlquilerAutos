@@ -36,8 +36,68 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
                     <h3 class="mb-3">Alquila un auto a un precio accesible</h3>
-                    <a href="ir-a-suscribir" type="button" class="btn btn-primary">SUSCRIBIRSE A UN PLAN</a>
+                    <h6 class="subtitle font-weight-normal">Contamos con 2 planes diferentes</h6>
                 </div>
+            </div>
+            <!-- row  -->
+            <div class="row mt-4">
+                <!-- column  -->
+                <div class="col-md-6">
+                    <div class="card card-shadow border-0 mb-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center">
+                                <h5 class="font-weight-medium mb-0">Plan basico</h5>
+                                <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Popular</span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5 text-center">
+                                    <div class="price-box my-3">
+                                        <sup>$</sup><span class="text-dark display-5">2.600</span>
+                                        <h6 class="font-weight-light">1 MES</h6>
+                                        <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" href="#">ELEGIR PLAN</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 align-self-center">
+                                    <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- column  -->
+                <!-- column  -->
+                <div class="col-md-6">
+                    <div class="card card-shadow border-0 mb-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center">
+                                <h5 class="font-medium m-b-0">Plan Premium</h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5 text-center">
+                                    <div class="price-box my-3">
+                                        <sup>$</sup><span class="text-dark display-5">24.000</span>
+                                        <h6 class="font-weight-light">12 Meses</h6>
+                                        <a class="btn btn-info-gradiant border-0 font-14 text-white p-3 btn-block mt-3" href="#">ELEGIR PLAN</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 align-self-center">
+                                    <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- column  -->
             </div>
         </div>
     </div>

@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 public class testServicioAlquiler {
 
     Usuario usuario = new Usuario();
-    Auto auto = new Auto((long)123, "", "", "", "", null, null);
+    Auto auto = new Auto((long)123, "", "",null,  "", "", null, null);
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private static final LocalDate fechaInicio = LocalDate.of(2021, 1, 15);

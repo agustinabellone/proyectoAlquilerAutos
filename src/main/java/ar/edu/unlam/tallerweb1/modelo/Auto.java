@@ -18,12 +18,13 @@ public class Auto {
     private int kilometros;
     private String estado;
 
-    public Auto(Long id, String marca, String modelo, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
+    public Auto(Long id, String marca, String modelo, Integer kilometros, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.imagen = imagen;
         this.patente = patente;
+        this.kilometros = kilometros;
         this.terceros = terceros;
         this.añoFabricación = añoFabricación;
     }
