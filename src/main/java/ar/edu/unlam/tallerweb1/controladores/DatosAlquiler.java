@@ -1,11 +1,16 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+<<<<<<< HEAD
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+=======
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+>>>>>>> 8c3b25bc877e8f470b1ef06ad3d1dfdd09f50adb
 
 public class DatosAlquiler {
 
     private Auto auto;
+<<<<<<< HEAD
     private Cliente cliente;
     private String f_ingreso;
     private String f_regreso;
@@ -14,6 +19,16 @@ public class DatosAlquiler {
 
         this.auto=auto;
         this.cliente=cliente;
+=======
+    private Usuario usuario;
+    private String f_ingreso;
+    private String f_regreso;
+
+    public DatosAlquiler(Usuario usuario, Auto auto, String fechaInicio, String fechaRegreso) {
+
+        this.auto=auto;
+        this.usuario = usuario;
+>>>>>>> 8c3b25bc877e8f470b1ef06ad3d1dfdd09f50adb
         this.f_ingreso=fechaInicio;
         this.f_regreso=fechaRegreso;
 
@@ -23,6 +38,7 @@ public class DatosAlquiler {
         return auto;
     }
 
+<<<<<<< HEAD
     public Cliente getCliente() {
         return cliente;
     }
@@ -33,6 +49,10 @@ public class DatosAlquiler {
 
     public Long idAuto(){
         return auto.getId();
+=======
+    public Usuario getCliente() {
+        return usuario;
+>>>>>>> 8c3b25bc877e8f470b1ef06ad3d1dfdd09f50adb
     }
 
     public String getF_Inicio() {
