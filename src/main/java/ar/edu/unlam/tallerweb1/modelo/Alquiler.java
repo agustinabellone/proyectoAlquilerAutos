@@ -19,7 +19,7 @@ public class Alquiler {
     private Auto auto;
 
     @OneToOne
-    private Cliente cliente;
+    private Usuario usuario;
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -33,7 +33,7 @@ public class Alquiler {
 
     public Alquiler(DatosAlquiler datosAlquiler ){
         this.auto = datosAlquiler.getAuto();
-        this.cliente = datosAlquiler.getCliente();
+        this.usuario = datosAlquiler.getUsuario();
         this.f_ingreso = datosAlquiler.getF_ingreso();
         this.f_regreso = datosAlquiler.getF_salida();
     }
@@ -70,11 +70,11 @@ public class Alquiler {
         this.auto = auto;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getCliente() {
+        return usuario;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCliente(Usuario cliente) {
+        this.usuario = usuario;
     }
 }

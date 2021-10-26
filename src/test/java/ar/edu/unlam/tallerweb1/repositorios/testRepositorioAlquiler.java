@@ -5,7 +5,7 @@ import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,7 +27,7 @@ public class testRepositorioAlquiler extends SpringTest {
     private RepositorioAlquiler repositorioAlquiler;
 
     @Autowired
-    private RepositorioCliente repositorioCliente;
+    private RepositorioUsuario repositorioUsuario;
 
     @Autowired
     private RepositorioAuto repositorioAuto;
@@ -37,12 +37,12 @@ public class testRepositorioAlquiler extends SpringTest {
     @Rollback
     public void guardarUnAlquilerDeberiaPersistirlo(){
         DatosRegistro datosRegistro = new DatosRegistro("agus@gmail.com", "12345678", "12345678");
-        Cliente cliente = givenExisteUnCliente(datosRegistro);
+        Usuario usuario = givenExisteUnCliente(datosRegistro);
 
         Auto auto = new Auto((long)123, "", "", "", "", null, null);
         givenExisteUnAuto(auto);
 
-        DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, fechaInicio, fechaSalida);
+        DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, fechaInicio, fechaSalida);
         Alquiler alquiler = givenExisteUnAlquiler(datosAlquiler);
         Long id = whenGuardoUnAlquiler(alquiler);
         thenEncuentroElAlquiler(id);
@@ -52,10 +52,10 @@ public class testRepositorioAlquiler extends SpringTest {
         repositorioAuto.guardar(auto);
     }
 
-    private Cliente givenExisteUnCliente(DatosRegistro datosRegistro) {
-        Cliente cliente = new Cliente(datosRegistro);
-        repositorioCliente.guardar(cliente);
-        return cliente;
+    private Usuario givenExisteUnCliente(DatosRegistro datosRegistro) {
+        Usuario usuario = new Usuario(datosRegistro);
+        repositorioUsuario.guardar(usuario);
+        return usuario;
     }
 
     private Alquiler givenExisteUnAlquiler(DatosAlquiler datosAlquiler) {

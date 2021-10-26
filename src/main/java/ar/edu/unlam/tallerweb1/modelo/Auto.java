@@ -2,31 +2,21 @@ package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.*;
 
-@Entity
 
+@Entity
 public class Auto {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
     private String marca;
-
-    @Column
     private String modelo;
-
-    @Column
     private String imagen;
-
-    @Column
     private String patente;
-
-    @Column
     private Boolean terceros;
-
-    @Column
     private Integer añoFabricación;
+    private int kilometros;
+    private String estado;
 
     public Auto(Long id, String marca, String modelo, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
         this.id = id;
@@ -80,7 +70,7 @@ public class Auto {
         this.patente = patente;
     }
 
-    public Boolean isTerceros() {
+    public Boolean getTerceros() {
         return terceros;
     }
 
@@ -94,6 +84,22 @@ public class Auto {
 
     public void setAñoFabricación(Integer añoFabricación) {
         this.añoFabricación = añoFabricación;
+    }
+
+    public int getKm() {
+        return kilometros;
+    }
+
+    public void setKm(int kilometros) {
+        this.kilometros = kilometros;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
 }

@@ -2,20 +2,17 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.time.LocalDate;
-import java.util.Date;
 
 
 @Controller
@@ -64,10 +61,10 @@ public class ControladorAlquiler {
         Auto auto = new Auto();
         auto.setId(id_auto);
 
-        Cliente  cliente = new Cliente();
-        cliente.setId(id_cliente);
+        Usuario usuario = new Usuario();
+        usuario.setId(id_cliente);
 
-        DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, salida, ingreso);
+        DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, salida, ingreso);
 
         try {
             servicioAlquiler.AlquilarAuto(datosAlquiler);

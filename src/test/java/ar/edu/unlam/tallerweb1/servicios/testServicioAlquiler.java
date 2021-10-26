@@ -1,10 +1,9 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
 import org.junit.Test;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,7 +16,7 @@ import static org.mockito.Mockito.mock;
 
 public class testServicioAlquiler {
 
-    Cliente cliente = new Cliente();
+    Usuario usuario = new Usuario();
     Auto auto = new Auto((long)123, "", "", "", "", null, null);
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -25,7 +24,7 @@ public class testServicioAlquiler {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private static final LocalDate fechaSalida = LocalDate.of(2021, 1, 18);
 
-    DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, fechaInicio, fechaSalida);
+    DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, fechaInicio, fechaSalida);
 
     private RepositorioAlquiler repositorioAlquiler = mock(RepositorioAlquiler.class);
     private ServicioAlquiler servicioAlquiler = new ServicioAlquilerImpl(repositorioAlquiler);
