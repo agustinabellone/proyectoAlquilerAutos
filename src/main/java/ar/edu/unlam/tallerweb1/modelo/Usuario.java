@@ -1,9 +1,8 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
+
+import javax.persistence.*;
 
 @Entity
 public class Usuario {
@@ -11,7 +10,16 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
     private String rol;
+
+    @Column
+    private String email;
+
+    @Column
+    private String clave;
+
 
     public Usuario(String rol) {
         this.rol = rol;
@@ -19,6 +27,15 @@ public class Usuario {
 
     public Usuario() {
 
+    }
+
+    public Usuario(DatosRegistro datosRegistro) {
+        this.email = datosRegistro.getEmail();
+        this.clave = datosRegistro.getClave();
+    }
+
+    public Usuario(Long id){
+        this.id=id;
     }
 
     public String getRol() {
@@ -36,5 +53,21 @@ public class Usuario {
 
     public Long getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 }

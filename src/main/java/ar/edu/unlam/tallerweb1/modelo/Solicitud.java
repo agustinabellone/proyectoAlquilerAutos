@@ -3,7 +3,6 @@ package ar.edu.unlam.tallerweb1.modelo;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Solicitud {
@@ -11,14 +10,14 @@ public class Solicitud {
     @Id
     private Long id;
     @ManyToOne
-    private Cliente cliente;
+    private Usuario usuario;
     @ManyToOne
     private Encargado encargado;
 
 
-    public Solicitud(Long id, Cliente cliente, Encargado encargado) {
+    public Solicitud(Long id, Usuario usuario, Encargado encargado) {
         this.id = id;
-        this.cliente = cliente;
+        this.usuario = usuario;
         this.encargado = encargado;
     }
 
@@ -34,12 +33,12 @@ public class Solicitud {
         this.id = id;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setUsuario(Usuario cliente) {
+        this.usuario = usuario;
     }
 
     public Encargado getEncargado() {

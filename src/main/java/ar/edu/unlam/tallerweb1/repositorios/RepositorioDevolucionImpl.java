@@ -20,9 +20,9 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
 
     @Override
     public Alquiler obtenerAlquilerActivoDeCliente(Long clienteID) {
+
         return (Alquiler) sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
-                .add(Restrictions.eq("cliente", clienteID))
-                .add(Restrictions.eq("estado", Estado.ACTIVO)).uniqueResult();
+                .add(Restrictions.eq("usuario", clienteID)).uniqueResult();
     }
 
     @Override

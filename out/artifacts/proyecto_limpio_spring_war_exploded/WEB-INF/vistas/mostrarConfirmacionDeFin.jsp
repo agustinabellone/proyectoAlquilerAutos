@@ -8,16 +8,15 @@
     <title>Document</title>
 </head>
 <body>
-        <h1><c:>${alquiler.f_ingreso}</c:></h1>
-        <h1><c:>${alquiler.f_egreso}</c:></h1>
-        <h1><c:>${auto.marca}</c:></h1>
-        <h1><c:>${auto.modelo}</c:></h1>
+<h1>${alquiler}</h1>
+
 
         Usted esta entregando el auto en:
-        <h1><c:>${alquiler.garageLlegadaEst}</c:></h1>
-        <a href='/modificar-garage-llegada?alquilerID=${alquiler.id}'>En caso de no ser asi debe <br>
+        <!--<h1><c:>{alquiler.garageLlegadaEst}</c:></h1>
+        <a href='/modificar-garage-llegada?alquilerID={alquiler.id}'>En caso de no ser asi debe <br>
         </br>MODIFICAR GARAGE DE LLEGADA</a>
         <b>Recordar que se cobrara una tarifa por la modificacion</b>
+        -->
 
         <a href="/confirmacion-fin-alquiler">CONFIRMAR FINALIZACION DE ALQUILER</a>
 </body>

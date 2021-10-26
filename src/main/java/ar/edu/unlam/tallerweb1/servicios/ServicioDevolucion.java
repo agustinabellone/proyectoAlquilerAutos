@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface ServicioDevolucion {
 
@@ -11,5 +12,6 @@ public interface ServicioDevolucion {
     void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler);
 
     void finalizarAlquilerCliente(Alquiler alquiler);
+
 }
 

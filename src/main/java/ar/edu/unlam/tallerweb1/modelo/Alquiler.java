@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 @Entity
 public class Alquiler {
 
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -23,7 +23,7 @@ public class Alquiler {
     @ManyToOne
     private Auto auto;
     @ManyToOne
-    private Cliente cliente;
+    private Usuario usuario;
     @ManyToOne
     private Garage garagePartida;
     @ManyToOne
@@ -39,29 +39,26 @@ public class Alquiler {
     private String ingresoF;
     private String egresoF;
 
-
-
-
     public Alquiler() {
-        this.estado=Estado.ACTIVO;
+        this.estado = Estado.ACTIVO;
     }
 
     public Alquiler(Long id, Auto auto) {
-        this.id=id;
-        this.auto=auto;
-        this.estado=Estado.ACTIVO;
+        this.id = id;
+        this.auto = auto;
+        this.estado = Estado.ACTIVO;
     }
 
-    public Alquiler(Auto auto, Cliente cliente) {
-        this.auto=auto;
-        this.cliente=cliente;
-        this.estado=Estado.ACTIVO;
+    public Alquiler(Auto auto, Usuario usuario) {
+        this.auto = auto;
+        this.usuario = usuario;
+        this.estado = Estado.ACTIVO;
     }
 
-    public Alquiler(DatosAlquiler DA ){
-        this.f_ingreso=obtenerTipoFecha(DA.getIngresoF());
-        this.f_egreso=obtenerTipoFecha(DA.getEgresoF());
-        this.estado=Estado.ACTIVO;
+    public Alquiler(DatosAlquiler DA) {
+        // this.f_ingreso=obtenerTipoFecha(DA.getIngresoF());
+        //this.f_egreso=obtenerTipoFecha(DA.getEgresoF());
+        this.estado = Estado.ACTIVO;
     }
 
     private LocalDateTime obtenerTipoFecha(String fecha) {
@@ -80,7 +77,6 @@ public class Alquiler {
     }
 
 
-
     public LocalDateTime getF_ingreso() {
         return f_ingreso;
     }
@@ -97,12 +93,12 @@ public class Alquiler {
         this.auto = auto;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setUsuario(Usuario cliente) {
+        this.usuario = cliente;
     }
 
     public Estado getEstado() {
@@ -144,7 +140,7 @@ public class Alquiler {
     }
 
     public void setEncargado(Encargado encargado) {
-       // this.encargado.getGarage().equals(gara) DUDA
+        // this.encargado.getGarage().equals(gara) DUDA
     }
 
     public Garage getGaragePartida() {
@@ -175,17 +171,23 @@ public class Alquiler {
         return adicionalCambioLugarFecha;
     }
 
-    public void setAdicionalCambioLugarFecha() {
-        String descripcion = this.cliente.getSuscripcion().getTipoSuscripcion().getDescripcion();
-
-        switch(descripcion) {
-            case "standard":
-                this.adicionalCambioLugarFecha+=500f;
-            case "premium":
-                this.adicionalCambioLugarFecha+=400f;
-            case "golden":
-                this.adicionalCambioLugarFecha+=0f; //CAMBIAR POR EXCEPTION
+    public void setAdicionalCambioLugarFecha(Usuario usuario) {
+        Suscripcion suscripcion = new Suscripcion();
+        if (usuario.getRol().equalsIgnoreCase("cliente")) {
+            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
+                String descripcion = suscripcion.getTipoSuscripcion().getDescripcion();
+                switch (descripcion) {
+                    case "standard":
+                        this.adicionalCambioLugarFecha += 500f;
+                    case "premium":
+                        this.adicionalCambioLugarFecha += 400f;
+                    case "golden":
+                        this.adicionalCambioLugarFecha += 0f; //CAMBIAR POR EXCEPTION
+                }
+            }
         }
+
+
     }
 
     public Float getAdicionalInfraccionesOtro() {

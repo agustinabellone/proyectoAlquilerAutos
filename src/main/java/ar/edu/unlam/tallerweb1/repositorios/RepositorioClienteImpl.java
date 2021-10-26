@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository("RepositorioCliente")
-public class RepositorioClienteImpl implements RepositorioCliente {
+public class RepositorioClienteImpl implements ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente {
 
     private SessionFactory sessionFactory;
 

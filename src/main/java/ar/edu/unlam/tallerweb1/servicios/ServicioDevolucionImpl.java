@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Solicitud;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioDevolucion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class ServicioDevolucionImpl implements ServicioDevolucion{
 
     @Override
     public void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler) {
-        alquiler.setAdicionalCambioLugarFecha();
+        alquiler.setAdicionalCambioLugarFecha(alquiler.getUsuario());
         repositorioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
     }
 
@@ -48,5 +49,6 @@ public class ServicioDevolucionImpl implements ServicioDevolucion{
         solicitud.setEncargado(alquiler.getEncargado()); //METODO DUDOSO
         alquiler.getEncargado().enviarConfirmacion(alquiler);
     }
+
 }
 
