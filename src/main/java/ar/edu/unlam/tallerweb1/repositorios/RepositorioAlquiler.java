@@ -7,8 +7,6 @@ public interface RepositorioAlquiler {
 
     void guardar(Alquiler alquiler);
 
-    Auto buscarAutoPorId(Long id);
-
     Alquiler buscarAlquilerPorId(Long id);
 
 }

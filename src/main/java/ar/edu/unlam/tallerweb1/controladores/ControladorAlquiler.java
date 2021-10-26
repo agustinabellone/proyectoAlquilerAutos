@@ -69,12 +69,12 @@ public class ControladorAlquiler {
 
         DatosAlquiler datosAlquiler = new DatosAlquiler(cliente, auto, salida, ingreso);
 
-      /*  try {
+        try {
             servicioAlquiler.AlquilarAuto(datosAlquiler);
         }
         catch (AutoYaAlquiladoException e) {
             return alquilerFallido(modelo, "El auto ya fue alquilado.");
-        }*/
+        }
 
         return alquilerExitoso(modelo, "Alquiler realizado exitosamente");
 

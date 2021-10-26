@@ -22,11 +22,6 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     }
 
     @Override
-    public Auto buscarAutoPorId(Long id) {
-        return sessionFactory.getCurrentSession().get(Auto.class, id);
-    }
-
-    @Override
     public Alquiler buscarAlquilerPorId(Long id) {
         return sessionFactory.getCurrentSession().get(Alquiler.class, id);
     }

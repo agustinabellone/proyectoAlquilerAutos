@@ -22,9 +22,9 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     @Override
     public Alquiler AlquilarAuto(DatosAlquiler datosAlquiler) {
 
-        if(repositorioAlquiler.buscarAutoPorId(datosAlquiler.getAuto().getId()) != null){
+        /*if(repositorioAlquiler.buscarAutoPorId(datosAlquiler.getAuto().getId()) != null){
             throw new AutoYaAlquiladoException();
-        }
+        }*/
         Alquiler alquiler = new Alquiler(datosAlquiler);
         repositorioAlquiler.guardar(alquiler);
 

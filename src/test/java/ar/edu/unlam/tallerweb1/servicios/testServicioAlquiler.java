@@ -38,16 +38,22 @@ public class testServicioAlquiler {
         thenElAlquilerEsExitoso(alquiler);
     }
 
-    @Test(expected = AutoYaAlquiladoException.class)
+    private void givenExisteUnAutoYUnCliente() {}
+
+    private Alquiler whenUnClienteAlquilaUnAuto(DatosAlquiler DA) {
+        return servicioAlquiler.AlquilarAuto(DA);
+    }
+
+    private void thenElAlquilerEsExitoso(Alquiler a) {
+        assertThat(a).isNotNull();
+    }
+
+    /*@Test(expected = AutoYaAlquiladoException.class)
     public void queNoSePuedaAlquilarDosVecesElMismoAuto(){
         givenExisteUnAlquiler(datosAlquiler);
         doThrow(AutoYaAlquiladoException.class).when(repositorioAlquiler).buscarAutoPorId(auto.getId());
         Alquiler alquiler= whenUnClienteAlquilaUnAutoYaAlquilado(datosAlquiler);
         thenElAlquilerFalla(alquiler);
-    }
-
-    private void givenExisteUnAlquiler(DatosAlquiler DA) {
-        servicioAlquiler.AlquilarAuto(DA);
     }
 
     private Alquiler whenUnClienteAlquilaUnAutoYaAlquilado(DatosAlquiler DA) {
@@ -58,14 +64,6 @@ public class testServicioAlquiler {
         assertThat(alquiler).isNull();
     }
 
-    private void givenExisteUnAutoYUnCliente() {}
-
-    private Alquiler whenUnClienteAlquilaUnAuto(DatosAlquiler DA) {
-        return servicioAlquiler.AlquilarAuto(DA);
-    }
-
-    private void thenElAlquilerEsExitoso(Alquiler a) {
-        assertThat(a).isNotNull();
-    }
+    */
 
 }
