@@ -16,17 +16,25 @@ public class Alquiler {
     private Long id;
     private String f_ingreso;
     private String f_regreso;
-    private Long id_cliente;
+    private Long id_usuario;
     private Long id_auto;
 
     public Alquiler() {
     }
 
     public Alquiler(DatosAlquiler DA ){
-        this.f_ingreso=DA.getF_Inicio();
-        this.f_regreso=DA.getF_Regreso();
-        this.id_cliente=DA.idCliente();
-        this.id_auto=DA.idAuto();
+        this.f_ingreso=DA.getF_ingreso();
+        this.f_regreso=DA.getF_regreso();
+        this.id_usuario=DA.getUsuario().getId();
+        this.id_auto=DA.getAuto().getId();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getF_ingreso() {
@@ -45,19 +53,19 @@ public class Alquiler {
         this.f_regreso = f_regreso;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId_usuario() {
+        return id_usuario;
     }
 
-
-    public Long getId() {
-        return id;
+    public void setId_usuario(Long id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
-    public Long getId_cliente(){
-        return id_cliente;
-    }
-    public Long getId_auto(){
+    public Long getId_auto() {
         return id_auto;
+    }
+
+    public void setId_auto(Long id_auto) {
+        this.id_auto = id_auto;
     }
 }

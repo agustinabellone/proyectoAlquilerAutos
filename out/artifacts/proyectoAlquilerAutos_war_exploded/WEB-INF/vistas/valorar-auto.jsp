@@ -37,7 +37,6 @@
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center">
                             <h5 class="font-weight-medium mb-0"><c:>${auto.modelo} </c:></h5>
-                            <h6><c:>${valoracion} </c:></h6>
                         </div>
                     </div>
                     <div class="col">

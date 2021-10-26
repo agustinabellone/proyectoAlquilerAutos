@@ -44,7 +44,6 @@ public class ControladorValoracionAuto {
         modelo.put("viajesObtenidos",viajesObtenidos);
         return new ModelAndView("lista-de-viajes", modelo);
 
-
     /*    if(elUsuarioEsCliente(request)){
             List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(id);
             modelo.put("viajesObtenidos",viajesObtenidos);

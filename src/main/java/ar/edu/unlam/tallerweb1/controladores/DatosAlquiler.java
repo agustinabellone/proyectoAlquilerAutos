@@ -1,19 +1,21 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+
 
 public class DatosAlquiler {
 
     private Auto auto;
-    private Cliente cliente;
+    private Usuario usuario;
     private String f_ingreso;
     private String f_regreso;
 
-    public DatosAlquiler(Cliente cliente, Auto auto, String fechaInicio, String fechaRegreso) {
 
+    public DatosAlquiler(Usuario usuario, Auto auto, String fechaInicio, String fechaRegreso) {
         this.auto=auto;
-        this.cliente=cliente;
+        this.usuario = usuario;
         this.f_ingreso=fechaInicio;
         this.f_regreso=fechaRegreso;
 
@@ -23,23 +25,31 @@ public class DatosAlquiler {
         return auto;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public void setAuto(Auto auto) {
+        this.auto = auto;
     }
 
-    public Long idCliente(){
-        return cliente.getId();
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public Long idAuto(){
-        return auto.getId();
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public String getF_Inicio() {
-        return this.f_ingreso;
+    public String getF_ingreso() {
+        return f_ingreso;
     }
 
-    public String getF_Regreso() {
-        return this.f_regreso;
+    public void setF_ingreso(String f_ingreso) {
+        this.f_ingreso = f_ingreso;
+    }
+
+    public String getF_regreso() {
+        return f_regreso;
+    }
+
+    public void setF_regreso(String f_regreso) {
+        this.f_regreso = f_regreso;
     }
 }

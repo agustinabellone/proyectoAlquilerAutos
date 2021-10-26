@@ -1,7 +1,8 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -11,31 +12,31 @@ import static org.assertj.core.api.Assertions.*;
 public class testRepositorioCliente extends SpringTest {
 
     @Autowired
-    private RepositorioCliente repositorioCliente;
+    private RepositorioUsuario repositorioUsuario;
 
     @Test
     @Transactional
     @Rollback
     public void guardarUnClienteDeberiaPersistirlo(){
-        Cliente cliente = givenExisteUnCliente("agus@gmail.com");
-        Long id = whenGuardoUnCliente(cliente);
+        Usuario usuario = givenExisteUnCliente("agus@gmail.com");
+        Long id = whenGuardoUnCliente(usuario);
         thenEncuentroElCliente(id);
     }
 
-    private Cliente givenExisteUnCliente(String email) {
-        Cliente cliente = new Cliente();
-        cliente.setEmail(email);
-        return cliente;
+    private Usuario givenExisteUnCliente(String email) {
+        Usuario usuario = new Usuario();
+        usuario.setEmail(email);
+        return usuario;
     }
 
-    private Long whenGuardoUnCliente(Cliente cliente) {
-        repositorioCliente.guardar(cliente);
+    private Long whenGuardoUnCliente(Usuario cliente) {
+        repositorioUsuario.guardar(cliente);
         return cliente.getId();
     }
 
     private void thenEncuentroElCliente(Long id) {
-        Cliente cliente = repositorioCliente.buscarPorId(id);
-        assertThat(cliente).isNotNull();
+        Usuario usuario = repositorioUsuario.buscarPorId(id);
+        assertThat(usuario).isNotNull();
     }
 
 

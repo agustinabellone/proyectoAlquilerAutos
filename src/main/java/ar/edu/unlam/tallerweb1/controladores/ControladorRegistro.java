@@ -46,6 +46,7 @@ public class ControladorRegistro {
         } catch (ClienteYaExisteException e){
             return registroFallido(modelo, "El usuario ya se encuentra registrado");
         }
+
         return registroExitoso();
     }
 

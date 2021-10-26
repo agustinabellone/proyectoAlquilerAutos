@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaRenovadaException;
-import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
@@ -13,10 +13,10 @@ import static org.mockito.Mockito.*;
 
 public class testControladorSuscripcion {
 
-    private static final Long ID_CLIENTE=123L;
+    private static final Long ID_USUARIO =123L;
     private static final Long ID_TIPO=1L;
 
-    private Cliente CLIENTE = new Cliente(ID_CLIENTE) ;
+    private Usuario Usuario = new Usuario(ID_USUARIO) ;
     private TipoSuscripcion TIPO_SUSCRIPCION = new TipoSuscripcion(ID_TIPO, "") ;
 
     private ServicioSuscripcion servicioSuscripcion = mock(ServicioSuscripcion.class);
@@ -28,17 +28,17 @@ public class testControladorSuscripcion {
     @Test
     public void queUnClienteSePuedaSuscribirExitosamente(){
         givenExisteUnClienteyUnTipoSuscripcion();
-        whenUnClienteSeSuscribe(CLIENTE, TIPO_SUSCRIPCION);
+        whenUnClienteSeSuscribe(Usuario, TIPO_SUSCRIPCION);
         thenLaSuscripcionEsExitosa();
     }
 
     private void givenExisteUnClienteyUnTipoSuscripcion() {
     }
 
-    private void whenUnClienteSeSuscribe(Cliente cliente, TipoSuscripcion tipoSuscripcion) {
+    private void whenUnClienteSeSuscribe(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
 
 
-        mav =  controladorSuscripcion.suscribirCliente(cliente.getId(), tipoSuscripcion.getId());
+        mav =  controladorSuscripcion.suscribirUsuario(usuario.getId(), tipoSuscripcion.getId());
 
     }
 
@@ -49,22 +49,22 @@ public class testControladorSuscripcion {
 
     ///////////////////////////////////////////
 
-    // NECESITO EL REPOSITORIO DE CLIENTE Y TIPO SUSCRIPCION
+    // NECESITO EL REPOSITORIO DE Usuario Y TIPO SUSCRIPCION
 /*
     @Test
     public void unClienteNoPuedeSuscribirseDosVeces(){
-        givenExisteUnaSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
+        givenExisteUnaSuscripcion(Usuario, TIPO_SUSCRIPCION);
         doThrow(ClienteYaSuscriptoException.class)
                 .when(servicioSuscripcion)
-                .suscribir(CLIENTE, TIPO_SUSCRIPCION);
-        whenUnClienteSeSuscribe(CLIENTE, TIPO_SUSCRIPCION);
+                .suscribir(Usuario, TIPO_SUSCRIPCION);
+        whenUnClienteSeSuscribe(Usuario, TIPO_SUSCRIPCION);
         thenLaSuscripcionFalla();
 
     }
 */
-    private Suscripcion givenExisteUnaSuscripcion(Cliente cliente, TipoSuscripcion tipoSuscripcion) {
+    private Suscripcion givenExisteUnaSuscripcion(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
 
-        return new Suscripcion(cliente, tipoSuscripcion);
+        return new Suscripcion(usuario, tipoSuscripcion);
     }
 
     private void thenLaSuscripcionFalla() {
@@ -74,14 +74,14 @@ public class testControladorSuscripcion {
 
     @Test
     public void unClienteRenuevaLaSuscripcionExitosamente(){
-        Suscripcion suscripcion = givenExisteUnaSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
+        Suscripcion suscripcion = givenExisteUnaSuscripcion(Usuario, TIPO_SUSCRIPCION);
         whenUnClienteRenuevaLaSuscripcion(suscripcion);
         thenLasRenovacionEsExitosa();
 
     }
 
     private void whenUnClienteRenuevaLaSuscripcion(Suscripcion suscripcion) {
-        mav = controladorSuscripcion.renovarSuscripcion(suscripcion.getCliente().getId());
+        mav = controladorSuscripcion.renovarSuscripcion(suscripcion.getUsuario().getId());
     }
 
     private void thenLasRenovacionEsExitosa() {
@@ -90,10 +90,10 @@ public class testControladorSuscripcion {
 /*
     @Test
     public void unClienteNoPuedeRenovarDosVecesUnaSuscripcion(){
-        Suscripcion suscripcion = givenExisteUnaSuscripcion(CLIENTE, TIPO_SUSCRIPCION);
+        Suscripcion suscripcion = givenExisteUnaSuscripcion(Usuario, TIPO_SUSCRIPCION);
         doThrow(SuscripcionYaRenovadaException.class)
                 .when(servicioSuscripcion)
-                .renovarSuscripcion(suscripcion);
+                .renovarAutomaticamenteSuscripcion(suscripcion.getId());
         whenUnClienteRenuevaLaSuscripcion(suscripcion);
         thenLasRenovacionNoEsExitosa();
 

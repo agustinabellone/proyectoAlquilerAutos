@@ -28,7 +28,7 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
     public List<Alquiler> obtenerAlquileresHechos(Long clienteID) {
         return this.sessionFactory.getCurrentSession()
                 .createCriteria(Alquiler.class)
-                .add(Restrictions.eq("id_cliente",clienteID))
+                .add(Restrictions.eq("id_usuario",clienteID))
                 .list();
     }
 

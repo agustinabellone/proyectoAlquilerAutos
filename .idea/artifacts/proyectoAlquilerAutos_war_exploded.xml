@@ -40,7 +40,6 @@
           <element id="library" level="project" name="Maven: org.jvnet.staxex:stax-ex:1.8" />
           <element id="library" level="project" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" />
           <element id="library" level="project" name="Maven: org.hsqldb:hsqldb:2.3.2" />
-          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.16" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
           <element id="library" level="project" name="Maven: org.javassist:javassist:3.19.0-GA" />
@@ -54,6 +53,7 @@
           <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-core:2.2.11" />
           <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.11" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
+          <element id="library" level="project" name="mysql.connector.java" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="proyectoAlquilerAutos/web/Web" />
