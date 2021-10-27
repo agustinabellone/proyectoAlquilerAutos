@@ -1,3 +1,6 @@
-
 .DS_Store
 src/main/resources/hibernateContext.xml
+out
+.travis.yml
+.idea
+target
