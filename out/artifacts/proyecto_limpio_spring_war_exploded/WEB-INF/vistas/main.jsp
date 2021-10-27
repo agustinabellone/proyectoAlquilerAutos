@@ -40,13 +40,6 @@
     </div>
     </div>
 </section>
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> master
 </body>
 
 <!-- Optional JavaScript -->

@@ -8,15 +8,14 @@
     <title>Document</title>
 </head>
 <body>
-<h1>${alquiler}</h1>
+<h1>${cliente.nombre} CONFIRMA LOS DATOS PARA DAR FIN AL ALQUILER EN CURSO</h1>
 
+        <h5>Inició: ${alquiler.f_egreso.toString()}</h5>
+        <h5>Desde: ${garagePartida.direccion}</h5>
 
-        Usted esta entregando el auto en:
-        <!--<h1><c:>{alquiler.garageLlegadaEst}</c:></h1>
-        <a href='/modificar-garage-llegada?alquilerID={alquiler.id}'>En caso de no ser asi debe <br>
-        </br>MODIFICAR GARAGE DE LLEGADA</a>
+        <h5>Entrega el vehiculo en: ${garageLlegadaEst.direccion}</h5>
+        <p>En caso de no ser asi debe <a href='modificar-garage-llegada?alquilerID=${alquiler.id}'>MODIFICAR GARAGE DE LLEGADA</a></p>
         <b>Recordar que se cobrara una tarifa por la modificacion</b>
-        -->
 
         <a href="/confirmacion-fin-alquiler">CONFIRMAR FINALIZACION DE ALQUILER</a>
 </body>

@@ -19,7 +19,7 @@ nuevo
             </c:forEach>
         </select>
     </label>
-    <input type="hidden" id="alquilerID" name="alquilerID" value="${alquiler}">
+    <input type="hidden" id="alquilerID" name="alquilerID" value="${alquiler.id}">
     <button class="btn btn-lg btn-primary btn-block" Type="Submit">Confirmar</button>
 </form:form>
 

@@ -3,9 +3,11 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
+import java.util.List;
+
 public interface ServicioDevolucion {
 
-    Alquiler obtenerAlquilerActivoDeCliente(Usuario usuario);
+    List<Alquiler> obtenerAlquilerActivoDeCliente(Usuario usuario);
 
     Alquiler obtenerAlquilerPorID(Long alquilerID);
 

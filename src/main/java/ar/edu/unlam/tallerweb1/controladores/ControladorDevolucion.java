@@ -53,9 +53,15 @@ public class ControladorDevolucion {
         ModelMap model = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
-        Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerActivoDeCliente(usuario);
+        //Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerActivoDeCliente(usuario);
+        Garage garagePartida = servicioGarage.obtenerGaragePorID(alquilerActivo.getGaragePartida().getId());
+        Garage garageLlegadaEst = servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegadaEst().getId());
         Auto auto = alquilerActivo.getAuto();
+
         if (clienteID != null) {
+            model.put("garagePartida", garagePartida);
+            model.put("garageLlegadaEst", garageLlegadaEst);
+            model.put("cliente", usuario);
             model.put("alquiler", alquilerActivo);
             model.put("auto", auto);
             return new ModelAndView("mostrarConfirmacionDeFin", model);
@@ -75,20 +81,20 @@ public class ControladorDevolucion {
     }
 
     @RequestMapping("/seleccionNuevoGarageSeleccionado")
-    public ModelAndView procesarSeleccionNuevoGarageLlegada(@RequestParam(value = "nuevoGarage") Long garageID, @RequestParam(value = "alquiler") Alquiler alquiler, HttpServletRequest request) {
+    public ModelAndView procesarSeleccionNuevoGarageLlegada(@RequestParam(value = "nuevoGarage") Long garageID, @RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
+        Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
         Garage garage = servicioGarage.obtenerGaragePorID(garageID);
         alquiler.setGarageLlegada(garage);
-        irFinalizarAlquiler(request); //PARA QUE ACTUALIZE DATOS, esta bien en esta clase ya que manejo vistas de controlador
         servicioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
+        irFinalizarAlquiler(request); //PARA QUE ACTUALIZE DATOS, esta bien en esta clase ya que manejo vistas de controlador
         return new ModelAndView("mostrarConfirmacionDeFin");
     }
 
     @RequestMapping("/confirmacion-fin-alquiler")
-    public ModelAndView procesarConfirmacionFinDeAlquiler(HttpServletRequest request) {
+    public ModelAndView procesarConfirmacionFinDeAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
         Long clienteID = (Long) request.getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
-        Alquiler alquiler = servicioDevolucion.obtenerAlquilerActivoDeCliente(usuario); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
-        //FINALIZAR ALQUILER METODO EN EL SERV/REPO O EN EL MODELO
+        Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
         servicioDevolucion.finalizarAlquilerCliente(alquiler);
         return new ModelAndView("mostrarConfirmacionDeFin");
     }

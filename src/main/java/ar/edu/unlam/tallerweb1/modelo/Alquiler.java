@@ -1,17 +1,19 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 
 
 @Entity
@@ -182,11 +184,12 @@ public class Alquiler {
     }
 
 
-    public void setAdicionalCambioLugarFecha(Usuario usuario) {
-        Suscripcion suscripcion = new Suscripcion();
+    public void setAdicionalCambioLugarFecha(Alquiler alquiler, Suscripcion suscripcion) {
+        Usuario usuario = suscripcion.getUsuario();
         if (usuario.getRol().equalsIgnoreCase("cliente")) {
             if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
                 String descripcion = suscripcion.getTipoSuscripcion().getDescripcion();
+                if (this.garageLlegadaEst != this.garageLlegada)
                 switch (descripcion) {
                     case "standard":
                         this.adicionalCambioLugarFecha += 500f;
@@ -197,10 +200,10 @@ public class Alquiler {
                 }
             }
         }
-
-
     }
 
 
 }
+
+
 
