@@ -21,6 +21,7 @@ public class testControladorEnviarAutoAMentenimineto {
 
         thenElEnvioEsExitoso(this.modelAnView);
     }
+
     private Auto givenExisteUnAuto() {
         return new Auto();
     }
@@ -39,4 +40,6 @@ public class testControladorEnviarAutoAMentenimineto {
         assertThat(modelAnView.getViewName()).isEqualTo("lista-de-autos");
         assertThat(modelAnView.getModel().get("mensaje")).isEqualTo("Se envio un auto correctamente a mantenimiento");
     }
+
+
 }
