@@ -83,4 +83,19 @@ public class testControladorEnviarAutoAMentenimineto {
         when(servicio.enviarAutoMantenimiento(auto)).thenReturn(false);
         return auto;
     }
+
+    @Test
+    public void queNoSePuedaEnviarUnAutoAMantenimientoPorqueYaExisteEnMantenimiento() {
+        //given
+        Auto aEnviar = givenExisteUnAutoEnMantenimiento();
+        HttpServletRequest usuarioConRolAdmin = givenExisteUnUsuarioConRol(ADMIN);
+        //when
+        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolAdmin, aEnviar);
+        thenElEnvioFalla(this.modelAnView);
+    }
+
+    private Auto givenExisteUnAutoEnMantenimiento() {
+        when(servicio.enviarAutoMantenimiento(auto)).thenReturn(false);
+        return auto;
+    }
 }

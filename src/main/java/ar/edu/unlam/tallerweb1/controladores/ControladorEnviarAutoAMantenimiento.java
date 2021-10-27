@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ControladorEnviarAutoAMantenimiento {
 
-    ModelMap modelMap = new ModelMap();
     private ServicioDeAuto servicioDeAuto;
 
     @Autowired
@@ -30,12 +29,17 @@ public class ControladorEnviarAutoAMantenimiento {
 
     @RequestMapping(method = RequestMethod.GET, path = "/enviar-a-mantenimiento")
     public ModelAndView enviarAutoAMantenimiento(HttpServletRequest request, Long idDelAuto) {
+        ModelMap modelMap = new ModelMap();
         if (elRolEstaSeteado(request) && elRolEsAdministrador(request)) {
-            Auto buscado = servicioDeAuto.buscarAutoPorId(idDelAuto);
-            if (buscado != null) {
-                servicioDeAuto.enviarAutoMantenimiento(buscado);
-                modelMap.put("mensaje", "Se envio un auto correctamente a mantenimiento");
-                return new ModelAndView("lista-de-autos", modelMap);
+            Auto auto = servicioDeAuto.buscarAutoPorId(idDelAuto);
+            if (auto != null) {
+                if (servicioDeAuto.enviarAutoMantenimiento(auto)) {
+                    modelMap.put("mensaje", "Se envio un auto correctamente a mantenimiento");
+                    return new ModelAndView("lista-de-autos", modelMap);
+                } else {
+                    modelMap.put("mensaje", "No tienes permisos para realizar esta accion");
+                    return new ModelAndView("home", modelMap);
+                }
             } else {
                 modelMap.put("mensaje", "No tienes permisos para realizar esta accion");
                 return new ModelAndView("home", modelMap);
