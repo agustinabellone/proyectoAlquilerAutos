@@ -30,7 +30,7 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView mostrarHome() {
-        return new ModelAndView("/home.jsp");
+        return new ModelAndView("home");
     }
 
     @RequestMapping(path = "/main", method = RequestMethod.GET)

@@ -4,7 +4,6 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Modelo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
-import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -40,12 +39,10 @@ public class ControladorAlquiler {
 
     @RequestMapping(path = "/elegir-fechas", method = RequestMethod.GET)
     public ModelAndView mostrarFechasAlquiler(@RequestParam("id_auto") Long id_auto,
-                                              @RequestParam("imagen_auto") String imagen_auto,
-                                              @RequestParam("modelo_auto") Modelo modelo_auto) {
+                                              @RequestParam("imagen_auto") String imagen_auto) {
         ModelMap modelo = new ModelMap();
         modelo.put("id_auto", id_auto);
         modelo.put("imagen_auto", imagen_auto);
-        modelo.put("modelo_auto", modelo_auto);
         return new ModelAndView("alquilarAutoFechasDisponibles", modelo);
     }
 
@@ -53,14 +50,16 @@ public class ControladorAlquiler {
     public ModelAndView mostrarConfirmacionAlquiler(@RequestParam("salida") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate salida,
                                                     @RequestParam("ingreso") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate ingreso,
                                                     @RequestParam("id_auto") Long id_auto,
-                                                    @RequestParam("imagen_auto") String imagen_auto,
-                                                    @RequestParam("modelo_auto") String modelo_auto) {
+                                                    @RequestParam("imagen_auto") String imagen_auto) {
+
+        Auto auto = servicioAlquiler.obtenerAutoPorId(id_auto);
         ModelMap modelo = new ModelMap();
         modelo.put("salida", salida);
         modelo.put("ingreso", ingreso);
         modelo.put("id_auto", id_auto);
+        modelo.put("modelo_auto", auto.getModelo().getDescripcion());
+        modelo.put("marca_auto", auto.getMarca().getDescripcion());
         modelo.put("imagen_auto", imagen_auto);
-        modelo.put("modelo_auto", modelo_auto);
 
         return new ModelAndView("alquilarAutoConfirmacion", modelo);
     }

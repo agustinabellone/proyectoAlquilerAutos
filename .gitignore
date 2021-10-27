@@ -1,13 +1,10 @@
-# Default ignored files
 /shelf/
 /workspace.xml
 src/main/resources/hibernateContext.xml
 .idea
-<<<<<<< HEAD
 out
 target
 .travis.yml
-=======
-target
 
->>>>>>> master
+
+
