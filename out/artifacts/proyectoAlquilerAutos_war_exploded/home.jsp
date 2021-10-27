@@ -16,12 +16,16 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
+<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/home.jsp
 <header class = "d-flex flex-row-reverse p-3">
     <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
     <button type="button" class="btn btn-primary">Iniciar sesion</button>
     <button type="button" class="btn btn-default">Crear cuenta</button>
     </div>
 </header>
+=======
+<jsp:include page="WEB-INF/vistas/header.jsp" />
+>>>>>>> master:out/artifacts/proyecto_limpio_spring_war_exploded/home.jsp
 <section>
     <div class="container">
         <div>

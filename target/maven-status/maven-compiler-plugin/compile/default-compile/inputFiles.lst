@@ -13,11 +13,13 @@ C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\j
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\servicios\ServicioDevolucionImpl.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\modelo\Plan.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\Exceptions\NivelDeSuscripcionActualMejorOIgualQueElNuevoException.java
+C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\repositorios\RepositorioValoracionImpl.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\controladores\DatosEnvioAMantenimiento.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\repositorios\RepositorioDevolucionImpl.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\Exceptions\ClienteYaSuscriptoException.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\repositorios\RepositorioEnviarAutoAMantenimientoImpl.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\controladores\DatosAlquiler.java
+C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\repositorios\RepositorioValoracion.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\servicios\ServicioUsuarioImpl.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\controladores\ControladorUsuario.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\repositorios\RepositorioTipoSuscripcionImpl.java
@@ -29,9 +31,12 @@ C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\j
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\repositorios\RepositorioAlquiler.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\modelo\Usuario.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\servicios\ServicioAlquilerImpl.java
+C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\servicios\ServicioValoracionImpls.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\servicios\ServicioRegistro.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\controladores\ControladorAlquiler.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\servicios\ServicioLogin.java
+C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\controladores\ControladorValoracionAuto.java
+C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\servicios\ServicioValoracion.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\modelo\Encargado.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\repositorios\RepositorioAutoImpl.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\repositorios\RepositorioDevolucion.java
@@ -60,6 +65,7 @@ C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\j
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\servicios\ServicioRegistroImpl.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\servicios\ServicioAlquiler.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\modelo\Tercero.java
+C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\modelo\ValoracionAuto.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\servicios\ServicioGarageImpl.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\Exceptions\AutoYaExistente.java
 C:\Users\Lu\OneDrive\Documentos\proyecto taller\proyectoAlquilerAutos\src\main\java\ar\edu\unlam\tallerweb1\controladores\ControladorEnviarAutoAMantenimiento.java

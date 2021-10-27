@@ -1,3 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Class-Path: 
+=======
+Created-By: IntelliJ IDEA
+Built-By: luz
+Build-Jdk: version 11.0.12
+>>>>>>> master
 

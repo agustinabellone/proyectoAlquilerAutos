@@ -1,11 +1,17 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 
 
 @Entity
@@ -14,7 +20,6 @@ public class Alquiler {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-
     private LocalDateTime f_egreso;
     private LocalDateTime f_ingreso;
     private Float adicionalCambioLugarFecha;
@@ -43,6 +48,7 @@ public class Alquiler {
         this.estado = Estado.ACTIVO;
     }
 
+
     public Alquiler(Long id, Auto auto) {
         this.id = id;
         this.auto = auto;
@@ -53,6 +59,7 @@ public class Alquiler {
         this.auto = auto;
         this.usuario = usuario;
         this.estado = Estado.ACTIVO;
+
     }
 
     public Alquiler(DatosAlquiler DA) {
@@ -88,6 +95,18 @@ public class Alquiler {
 
     public Float getAdicionalCambioLugarFecha() {
         return adicionalCambioLugarFecha;
+    }
+
+    public void setAdicionalCambioLugarFecha(Float adicionalCambioLugarFecha) {
+        this.adicionalCambioLugarFecha = adicionalCambioLugarFecha;
+    }
+
+    public Float getAdicionalInfraccionesOtro() {
+        return adicionalInfraccionesOtro;
+    }
+
+    public void setAdicionalInfraccionesOtro(Float adicionalInfraccionesOtro) {
+        this.adicionalInfraccionesOtro = adicionalInfraccionesOtro;
     }
 
     public Auto getAuto() {
@@ -162,12 +181,6 @@ public class Alquiler {
         this.egresoF = egresoF;
     }
 
-    private LocalDateTime obtenerTipoFecha(String fecha) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(fecha, formatter);
-        return dateTime;
-    }
-
 
     public void setAdicionalCambioLugarFecha(Usuario usuario) {
         Suscripcion suscripcion = new Suscripcion();
@@ -188,12 +201,6 @@ public class Alquiler {
 
     }
 
-    public Float getAdicionalInfraccionesOtro() {
-        return adicionalInfraccionesOtro;
-    }
 
-    public void setAdicionalInfraccionesOtro(Float adicionalInfraccionesOtro) {
-        this.adicionalInfraccionesOtro = adicionalInfraccionesOtro;
-    }
 }
 

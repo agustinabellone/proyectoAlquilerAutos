@@ -1,3 +1,4 @@
+ar\edu\unlam\tallerweb1\controladores\ControladorValoracionAuto.class
 ar\edu\unlam\tallerweb1\modelo\Mantenimiento.class
 ar\edu\unlam\tallerweb1\Exceptions\AutoYaExistente.class
 ar\edu\unlam\tallerweb1\servicios\ServicioAlquilerImpl.class
@@ -27,6 +28,7 @@ ar\edu\unlam\tallerweb1\modelo\Usuario.class
 ar\edu\unlam\tallerweb1\servicios\ServicioLoginImpl.class
 ar\edu\unlam\tallerweb1\repositorios\RepositorioTipoSuscripcionImpl.class
 ar\edu\unlam\tallerweb1\servicios\ServicioDevolucionImpl.class
+ar\edu\unlam\tallerweb1\servicios\ServicioValoracionImpls.class
 ar\edu\unlam\tallerweb1\controladores\ControladorDevolucion.class
 ar\edu\unlam\tallerweb1\modelo\TipoSuscripcion.class
 ar\edu\unlam\tallerweb1\servicios\ServicioAlquilar.class
@@ -40,6 +42,9 @@ ar\edu\unlam\tallerweb1\Exceptions\AutoYaAlquiladoException.class
 ar\edu\unlam\tallerweb1\servicios\ServicioUsuario.class
 ar\edu\unlam\tallerweb1\modelo\Situacion.class
 ar\edu\unlam\tallerweb1\Exceptions\NivelDeSuscripcionActualMejorOIgualQueElNuevoException.class
+ar\edu\unlam\tallerweb1\repositorios\RepositorioValoracionImpl.class
+ar\edu\unlam\tallerweb1\modelo\ValoracionAuto.class
+ar\edu\unlam\tallerweb1\servicios\ServicioValoracion.class
 ar\edu\unlam\tallerweb1\Exceptions\ClienteYaExisteException.class
 ar\edu\unlam\tallerweb1\modelo\Marca.class
 ar\edu\unlam\tallerweb1\servicios\ServicioEncargadoImpl.class
@@ -56,6 +61,7 @@ ar\edu\unlam\tallerweb1\controladores\ControladorEnviarAutoAMantenimiento.class
 ar\edu\unlam\tallerweb1\repositorios\RepositorioAutoImpl.class
 ar\edu\unlam\tallerweb1\servicios\ServicioEncargado.class
 ar\edu\unlam\tallerweb1\Exceptions\PasswordIncorrectaException.class
+ar\edu\unlam\tallerweb1\repositorios\RepositorioValoracion.class
 ar\edu\unlam\tallerweb1\repositorios\RepositorioEnviarAutoAMantenimiento.class
 ar\edu\unlam\tallerweb1\servicios\ServicioSuscripcion.class
 ar\edu\unlam\tallerweb1\controladores\ControladorUsuario.class

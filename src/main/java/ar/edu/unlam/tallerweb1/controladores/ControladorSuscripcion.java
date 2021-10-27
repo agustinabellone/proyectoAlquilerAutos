@@ -43,7 +43,7 @@ public class ControladorSuscripcion {
                 return new ModelAndView("ir-a-suscribir");
             }
         }
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("/home.jsp");
     }
 
     @RequestMapping(path = "/confirmar-suscripcion", method = RequestMethod.GET)
@@ -92,7 +92,7 @@ public class ControladorSuscripcion {
                 return new ModelAndView("admin-suscripcion");
             }
         }
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("/home.jsp");
     }
 
     //@Scheduled(fixedRate = 10000)

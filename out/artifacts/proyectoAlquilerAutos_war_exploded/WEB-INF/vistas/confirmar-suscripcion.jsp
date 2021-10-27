@@ -35,7 +35,15 @@
                 <div class="card-body">
                     <h5 class="card-title">Porfavor <c:out value="${nombre}"/>, confirme su suscripcion</h5>
                     <p class="card-text">Suscribirse al plan numero -<c:out value="${id_tipo}"/>- ?</p>
+<<<<<<< HEAD
                     <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id}" class="btn btn-primary">Confirmar</a>
+=======
+<<<<<<< HEAD
+                    <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id}" class="btn btn-primary">Confirmar</a>
+=======
+                    <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id_usuario}" class="btn btn-primary">Confirmar</a>
+>>>>>>> master
+>>>>>>> master
                     <a href="ir-a-suscribir" class="btn btn-primary">Volver</a>
                 </div>
                 <div class="card-footer text-muted">

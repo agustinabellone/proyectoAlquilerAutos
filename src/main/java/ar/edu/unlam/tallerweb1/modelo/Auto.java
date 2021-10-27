@@ -32,6 +32,7 @@ public class Auto {
     }
 
     public Auto(Long id, Marca marca, Modelo modelo, String imagen, String patente, Tercero tercero, LocalDate añoFabricación, int kilometros, Situacion situacion) {
+
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
