@@ -33,6 +33,7 @@ public class testControladorEnviarAutoAMentenimineto {
 
     private Auto givenExisteUnAuto() {
         when(servicio.buscarAutoPorId(anyLong())).thenReturn(auto);
+        when(servicio.enviarAutoMantenimiento(auto)).thenReturn(true);
         return auto;
     }
 
@@ -48,6 +49,9 @@ public class testControladorEnviarAutoAMentenimineto {
 
     private void thenElEnvioEsExitoso(ModelAndView modelAnView) {
         verify(servicio, times(1)).buscarAutoPorId(anyLong());
+        verify(servicio, times(1)).enviarAutoMantenimiento(anyObject());
+        assertThat(servicio.buscarAutoPorId(auto.getId())).isNotNull();
+        assertThat(servicio.enviarAutoMantenimiento(auto)).isTrue();
         assertThat(request.getSession().getAttribute("rol")).isEqualTo("admin");
         assertThat(modelAnView.getViewName()).isEqualTo("lista-de-autos");
         assertThat(modelAnView.getModel().get("mensaje")).isEqualTo("Se envio un auto correctamente a mantenimiento");
@@ -55,14 +59,28 @@ public class testControladorEnviarAutoAMentenimineto {
 
     @Test
     public void queUnUsuarioSinRolDeAdministradorNoPuedaEnviarUnAutoAMantenimiento() {
-        givenExisteUnAuto();
+        Auto aEnviar = givenExisteUnAuto();
         HttpServletRequest usuarioConRolInvitado = givenExisteUnUsuarioConRol(INVITADO);
-        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolInvitado, auto);
+        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolInvitado, aEnviar);
         thenElEnvioFalla(this.modelAnView);
     }
 
     private void thenElEnvioFalla(ModelAndView modelAnView) {
         assertThat(modelAnView.getViewName()).isEqualTo("home");
         assertThat(modelAnView.getModel().get("mensaje")).isEqualTo("No tienes permisos para realizar esta accion");
+    }
+
+    @Test
+    public void queNoSePuedaEnviarUnAutoAMantenimientoPorQueNoExisteElAuto() {
+        Auto aEnviar = givenNoExisteUnAuto();
+        HttpServletRequest usuarioConRolAdmin = givenExisteUnUsuarioConRol(ADMIN);
+        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolAdmin, aEnviar);
+        thenElEnvioFalla(this.modelAnView);
+    }
+
+    private Auto givenNoExisteUnAuto() {
+        when(servicio.buscarAutoPorId(auto.getId())).thenReturn(null);
+        when(servicio.enviarAutoMantenimiento(auto)).thenReturn(false);
+        return auto;
     }
 }

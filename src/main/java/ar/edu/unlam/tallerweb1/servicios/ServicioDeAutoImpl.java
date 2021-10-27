@@ -14,4 +14,9 @@ public class ServicioDeAutoImpl implements ServicioDeAuto{
     public Auto buscarAutoPorId(Long idDelAuto) {
         return null;
     }
+
+    @Override
+    public Boolean enviarAutoMantenimiento(Auto aEnviar) {
+        return true;
+    }
 }
