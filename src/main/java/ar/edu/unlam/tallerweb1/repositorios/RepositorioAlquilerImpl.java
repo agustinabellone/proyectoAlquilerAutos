@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -34,7 +35,7 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     public List<Auto> obtenerAutosDisponibles() {
         return this.sessionFactory.getCurrentSession()
                 .createCriteria(Auto.class)
-                .add(Restrictions.eq("estado", "disponible"))
+                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
                 .list();
     }
 
