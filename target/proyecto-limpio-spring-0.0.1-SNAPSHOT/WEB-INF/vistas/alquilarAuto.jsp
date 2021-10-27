@@ -57,7 +57,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12 d-flex justify-content-center">
-                                                    <a href="elegir-fechas?id_auto=${auto.id}&imagen_auto=${auto.imagen}&modelo_auto=${auto.modelo}" class="btn btn-primary mt-5">ALQUILAR AUTO</a>
+                                                    <a href="elegir-fechas?id_auto=${auto.id}&imagen_auto=${auto.imagen}" class="btn btn-primary mt-5">ALQUILAR AUTO</a>
                                                 </div>
                                             </div>
                                         </div>

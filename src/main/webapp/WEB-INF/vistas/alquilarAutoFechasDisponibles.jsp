@@ -27,7 +27,7 @@
 <br>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-around">
-            <form action="confirmacion?id_auto=${id_auto}&imagen_auto=${imagen_auto}&modelo_auto=${modelo_auto}" method="post">
+            <form action="confirmacion?id_auto=${id_auto}&imagen_auto=${imagen_auto}" method="post">
                    <div class="container col-sm-12 d-flex justify-content-around">
                         <div class="col-sm-5 d-flex flex-column justify-content-center">
                             <p>Fecha que planeo retirar el auto:</p>

@@ -25,7 +25,7 @@
         <div class=" container card col-md-6 my-4" >
             <img src="${imagen_auto}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">${modelo_auto}  </h5>
+                <h5 class="card-title">${marca_auto} ${modelo_auto}  </h5>
                 <p class="card-text">Retiro el auto: ${salida}</p>
                 <p class="card-text">Devuelvo el auto: ${ingreso}</p>
                 <div class="col-sm-12 d-flex justify-content-center">
