@@ -46,6 +46,10 @@
     <div class="d-flex justify-content-center">
         <a href="finalizar-alquiler"  class="btn btn-primary mt-3">Finalizar alquiler</a>
     </div>
+    <c:if test="${not empty mensaje}">
+        <caption><p class="text-center text-danger">${mensaje}</p></caption>
+        <br>
+    </c:if>
 </section>
 
 </body>

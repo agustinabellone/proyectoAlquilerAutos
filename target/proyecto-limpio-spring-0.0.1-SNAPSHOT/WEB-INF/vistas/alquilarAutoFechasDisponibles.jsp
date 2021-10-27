@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,7 +18,7 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<header class = "d-flex flex-row-reverse p-3"></header>
+<jsp:include page="header.jsp" />
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
