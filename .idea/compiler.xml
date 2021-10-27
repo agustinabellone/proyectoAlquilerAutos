@@ -10,5 +10,9 @@
         <module name="proyectoAlquilerAutos" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="proyectoAlquilerAutos" target="11" />
+      <module name="proyectoAlquilerAutos1" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

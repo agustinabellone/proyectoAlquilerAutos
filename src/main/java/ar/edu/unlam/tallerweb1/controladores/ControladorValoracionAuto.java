@@ -4,7 +4,6 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioValoracion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +37,7 @@ public class ControladorValoracionAuto {
             List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(clienteID);
             modelo.put("viajesObtenidos",viajesObtenidos);
         }else{
-            return new ModelAndView("home");
+            return new ModelAndView("/home.jsp");
         }
 
         return new ModelAndView("lista-de-viajes", modelo);

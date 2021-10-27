@@ -1,3 +1,4 @@
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,12 +16,7 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<header class = "d-flex flex-row-reverse p-3">
-    <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
-        <button type="button" class="btn btn-primary">Iniciar sesion</button>
-        <button type="button" class="btn btn-default">Crear cuenta</button>
-    </div>
-</header>
+<jsp:include page="header.jsp" />
 <section>
     <div class="container">
         <div>
@@ -52,7 +48,7 @@
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">2.600</span>
                                         <h6 class="font-weight-light">1 MES</h6>
-                                        <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" href="suscribirse?id_tipo=2&id_cliente=300">SUSCRIBIRME</a>
+                                        <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" href="confirmar-suscripcion?id_tipo=1">SUSCRIBIRME</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-7 align-self-center">
@@ -80,7 +76,7 @@
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">24.000</span>
                                         <h6 class="font-weight-light">12 Meses</h6>
-                                        <a class="btn btn-info-gradiant border-0 font-14 text-white p-3 btn-block mt-3" href="suscribirse?id_tipo=3&id_cliente=400">SUSCRIBIRME</a>
+                                        <a class="btn btn-info-gradiant border-0 font-14 text-white p-3 btn-block mt-3" href="confirmar-suscripcion?id_tipo=2">SUSCRIBIRME</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-7 align-self-center">
@@ -112,7 +108,7 @@
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">2.600</span>
                                         <h6 class="font-weight-light">1 MES</h6>
-                                        <a class="btn btn-info-gradiant font-18 border-0 text-white p-3 btn-block mt-3" href="suscribirse?id_tipo=1&id_cliente=200">SUSCRIBIRME</a>
+                                        <a class="btn btn-info-gradiant font-18 border-0 text-white p-3 btn-block mt-3" href="confirmar-suscripcion?id_tipo=3">SUSCRIBIRME</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-7 align-self-center">

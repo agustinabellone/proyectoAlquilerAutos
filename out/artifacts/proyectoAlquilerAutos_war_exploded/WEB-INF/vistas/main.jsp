@@ -3,6 +3,10 @@
 =======
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
+<<<<<<< HEAD
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+=======
+>>>>>>> master
 >>>>>>> master
 <!DOCTYPE html>
 <html lang="es">
@@ -21,6 +25,9 @@
 </head>
 <body>
 <<<<<<< HEAD
+<jsp:include page="header.jsp" />
+=======
+<<<<<<< HEAD
 <header class = "d-flex flex-row-reverse p-3"></header>
 <section>
     <div class="container">
@@ -34,14 +41,31 @@
         <a href="ir-a-suscribir" type="button" class="btn btn-danger">Suscribirse a un plan</a>
     </div>
 </header>
+>>>>>>> master
 <section>
     <div class="container">
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center">¡Ingresaste a tu cuenta!</h1>
 >>>>>>> master
         </div>
         <div class="col-sm-12 d-flex justify-content-center">
             <a href="alquilar-auto" class="btn btn-primary mt-5">Alquilar auto</a>
+<<<<<<< HEAD
+            <a href="mis-alquileres" class="btn btn-primary mt-5">Mis Alquileres</a>
+        </div>
+        <div>
+            <a href="finalizar-alquiler">FINALIZAR ALQUILER</a>
+=======
+        </div>
+    </div>
+    <div class="container">
+>>>>>>> master
+        <div>
+            <h1>Bienvenido <c:out value="${nombre}"/></h1>
         </div>
 <<<<<<< HEAD
         <div class="col-sm-12 d-flex justify-content-center">
@@ -55,8 +79,12 @@
 
 =======
     </div>
+    </div>
 </section>
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 >>>>>>> master
 </body>
 

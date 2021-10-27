@@ -47,5 +47,4 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     public Usuario obtenerUsuarioPorId(Long id_usuario) {
         return sessionFactory.getCurrentSession().get(Usuario.class, id_usuario);
     }
-
 }

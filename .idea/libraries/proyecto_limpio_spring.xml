@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="proyecto-limpio-spring">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/proyecto_limpio_spring_jar/proyecto-limpio-spring.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

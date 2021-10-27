@@ -9,7 +9,6 @@ public class TipoSuscripcion {
 
     @Id
     private Long id;
-
     @Column
     private String descripcion;
 

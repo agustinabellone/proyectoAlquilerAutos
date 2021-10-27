@@ -3,6 +3,8 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Marca;
+import ar.edu.unlam.tallerweb1.modelo.Modelo;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioEnviarAutoAMantenimiento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class ServicioMantenimientoImpl implements ServicioMantenimiento {
 
     private RepositorioEnviarAutoAMantenimiento repositorioEnviarAutoAMantenimiento;
+    Marca marca = new Marca(1, "Ford");
+    Modelo modelo = new Modelo(1, "Fiesta", marca);
 
     @Autowired
     public ServicioMantenimientoImpl(RepositorioEnviarAutoAMantenimiento repositorioEnviarAutoAMantenimientoImpl) {
@@ -26,8 +30,8 @@ public class ServicioMantenimientoImpl implements ServicioMantenimiento {
             throw new AutoYaExistente();
         }
         queNecesitaMantenimiento.setPatente("ABC123");
-        queNecesitaMantenimiento.setMarca("Ford");
-        queNecesitaMantenimiento.setModelo("Fiesta");
+        queNecesitaMantenimiento.setMarca(marca);
+        queNecesitaMantenimiento.setModelo(modelo);
         repositorioEnviarAutoAMantenimiento.guardarAutoMantenimiento(queNecesitaMantenimiento);
         return queNecesitaMantenimiento;
     }
