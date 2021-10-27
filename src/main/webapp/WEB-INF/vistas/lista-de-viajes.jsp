@@ -46,7 +46,7 @@
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${viaje.f_ingreso}</span>
                                                     </li>
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${viaje.f_regreso}</span>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${viaje.f_egreso}</span>
 
                                                 </ul>
                                             </div>

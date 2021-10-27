@@ -29,24 +29,16 @@
         </div>
         <div class="col-sm-12 d-flex justify-content-center">
             <a href="alquilar-auto" class="btn btn-primary mt-5">Alquilar auto</a>
-            <a href="mis-alquileres" class="btn btn-primary mt-5">Mis Alquileres</a>
+            <a href="lista-viajes" class="btn btn-primary mt-5">Mis Alquileres</a>
         </div>
         <div>
             <a href="finalizar-alquiler">FINALIZAR ALQUILER</a>
         </div>
-        <div class="col-sm-12 d-flex justify-content-center">
-            <a href="lista-viajes"  class="btn btn-primary mt-5">Ver mis viajes</a>
-        </div>
+
     </div>
     </div>
 </section>
-<<<<<<< HEAD
-=======
 
-
-
-
->>>>>>> master
 </body>
 
 <!-- Optional JavaScript -->
