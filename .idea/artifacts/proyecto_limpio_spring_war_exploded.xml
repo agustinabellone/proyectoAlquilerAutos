@@ -1,6 +1,14 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="proyecto-limpio-spring:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/proyecto_limpio_spring_war_exploded</output-path>
+    <output-path>$PROJECT_DIR$/target/proyecto-limpio-spring-0.0.1-SNAPSHOT</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>proyecto-limpio-spring</module>
+        <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
+      </options>
+    </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -23,6 +31,7 @@
           <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.5.4" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.5.4" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.4.2.Final" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" />
           <element id="library" level="project" name="Maven: javax.persistence:javax.persistence-api:2.2" />
@@ -55,6 +64,9 @@
           <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.11" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
         </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/proyecto-limpio-spring-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="proyecto-limpio-spring/web/Web" />
     </root>
