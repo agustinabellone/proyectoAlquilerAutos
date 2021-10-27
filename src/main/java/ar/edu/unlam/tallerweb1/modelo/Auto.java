@@ -18,6 +18,7 @@ public class Auto {
     private int kilometros;
     private String estado;
 
+
     public Auto(Long id, String marca, String modelo, Integer kilometros, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
         this.id = id;
         this.marca = marca;

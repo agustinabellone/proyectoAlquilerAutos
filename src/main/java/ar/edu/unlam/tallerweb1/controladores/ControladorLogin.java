@@ -28,6 +28,17 @@ public class ControladorLogin {
         this.servicioUsuario = servicioUsuario;
     }
 
+    @RequestMapping(path = "/home", method = RequestMethod.GET)
+    public ModelAndView mostrarHome() {
+        return new ModelAndView("/home.jsp");
+    }
+
+    @RequestMapping(path = "/main", method = RequestMethod.GET)
+    public ModelAndView mostrarMain() {
+        return new ModelAndView("main");
+    }
+
+
     @RequestMapping(path = "/login", method = RequestMethod.GET)
     public ModelAndView mostrarFormularioDeLogin(HttpServletRequest request) {
 
@@ -63,14 +74,14 @@ public class ControladorLogin {
             request.getSession().setAttribute("rol",null);
         }
 
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("/home.jsp");
 
     }
 
     private void iniciarSesion(Usuario buscado, HttpServletRequest request) {
 
         // EL SWITCH ES UTIL SI LOS 4 ROLES TIENEN DISTINTOS DATOS QUE GUARDAR, POR EL MOMENTO NO LOS TIENEN
-       /* switch (buscado.getRol()){
+        switch (buscado.getRol()){
             case "cliente":
                 request.getSession().setAttribute("rol", "cliente");
                 request.getSession().setAttribute("id", buscado.getId());
@@ -85,11 +96,11 @@ public class ControladorLogin {
                 break;
             default:
                 break;
-        } */
+        }
 
-        request.getSession().setAttribute("rol", buscado.getRol());
+       /* request.getSession().setAttribute("rol", buscado.getRol());
         request.getSession().setAttribute("id", buscado.getId());
-        request.getSession().setAttribute("nombre", buscado.getNombre());
+        request.getSession().setAttribute("nombre", buscado.getNombre());*/
 
     }
 

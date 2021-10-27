@@ -42,7 +42,7 @@ public class ControladorSuscripcion {
                 return new ModelAndView("ir-a-suscribir");
             }
         }
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("/home.jsp");
     }
 
     @RequestMapping(path = "/confirmar-suscripcion", method = RequestMethod.GET)
@@ -67,7 +67,7 @@ public class ControladorSuscripcion {
             return new ModelAndView("ir-a-suscribir");
         }
 
-        return new ModelAndView("home");
+        return new ModelAndView("/home.jsp");
     }
 
     @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)
@@ -79,7 +79,7 @@ public class ControladorSuscripcion {
         }catch(SuscripcionYaRenovadaException e){
             return new ModelAndView("perfil"); //EL USUARIO RENUEVA SU SUSCRIPCION DESDE SU PERFIL
         }
-        return new ModelAndView("home");
+        return new ModelAndView("/home.jsp");
     }
 
     @RequestMapping(path = "/admin-suscripcion", method = RequestMethod.GET)
@@ -91,7 +91,7 @@ public class ControladorSuscripcion {
                 return new ModelAndView("admin-suscripcion");
             }
         }
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("/home.jsp");
     }
 
     //@Scheduled(fixedRate = 10000)

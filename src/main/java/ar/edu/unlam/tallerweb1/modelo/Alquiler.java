@@ -1,10 +1,18 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
+
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+
 
 
 @Entity
@@ -29,6 +37,8 @@ public class Alquiler {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate f_regreso;
 
+
+
     public Alquiler() {}
 
     public Alquiler(DatosAlquiler datosAlquiler ){
@@ -36,6 +46,7 @@ public class Alquiler {
         this.usuario = datosAlquiler.getUsuario();
         this.f_ingreso = datosAlquiler.getF_ingreso();
         this.f_regreso = datosAlquiler.getF_salida();
+
     }
 
     public Long getId() {
@@ -44,6 +55,22 @@ public class Alquiler {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Auto getAuto() {
+        return auto;
+    }
+
+    public void setAuto(Auto auto) {
+        this.auto = auto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public LocalDate getF_ingreso() {
@@ -60,21 +87,5 @@ public class Alquiler {
 
     public void setF_regreso(LocalDate f_regreso) {
         this.f_regreso = f_regreso;
-    }
-
-    public Auto getAuto() {
-        return auto;
-    }
-
-    public void setAuto(Auto auto) {
-        this.auto = auto;
-    }
-
-    public Usuario getCliente() {
-        return usuario;
-    }
-
-    public void setCliente(Usuario cliente) {
-        this.usuario = usuario;
     }
 }

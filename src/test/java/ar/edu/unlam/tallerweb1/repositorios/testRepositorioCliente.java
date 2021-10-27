@@ -1,6 +1,7 @@
-package ar.edu.unlam.tallerweb1.repositorios;
+/*package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,15 @@ public class testRepositorioCliente extends SpringTest {
         return usuario;
     }
 
+<<<<<<< HEAD
+    private Long whenGuardoUnCliente(Usuario cliente) {
+        repositorioUsuario.guardar(cliente);
+        return cliente.getId();
+=======
     private Long whenGuardoUnCliente(Usuario usuario) {
         repositorioUsuario.guardar(usuario);
         return usuario.getId();
+>>>>>>> master
     }
 
     private void thenEncuentroElCliente(Long id) {
@@ -39,4 +46,4 @@ public class testRepositorioCliente extends SpringTest {
     }
 
 
-}
+}*/

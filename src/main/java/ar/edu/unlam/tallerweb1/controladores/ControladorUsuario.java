@@ -4,7 +4,6 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +31,6 @@ public class ControladorUsuario {
         if(request.getSession().getAttribute("rol").equals("cliente")){
             return new ModelAndView("perfil");
         }
-        return new ModelAndView("home");
+        return new ModelAndView("/home.jsp");
     }
 }

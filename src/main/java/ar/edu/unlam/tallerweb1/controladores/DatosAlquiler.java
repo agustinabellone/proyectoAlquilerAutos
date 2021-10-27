@@ -1,9 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+
+
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+
 
 public class DatosAlquiler {
 
@@ -13,6 +16,7 @@ public class DatosAlquiler {
     private LocalDate f_salida;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate f_ingreso;
+
 
     public DatosAlquiler(Usuario usuario, Auto auto, LocalDate fechaSalida, LocalDate fechaIngreso) {
         this.auto = auto;
@@ -52,5 +56,4 @@ public class DatosAlquiler {
     public void setF_ingreso(LocalDate f_ingreso) {
         this.f_ingreso = f_ingreso;
     }
-
 }

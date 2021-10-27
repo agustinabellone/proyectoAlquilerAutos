@@ -87,7 +87,7 @@ public class testControladorSuscripcion {
     private void thenLasRenovacionEsExitosa() {
         assertThat(mav.getViewName()).isEqualTo("home");
     }
-
+/*
     @Test
     public void unClienteNoPuedeRenovarDosVecesUnaSuscripcion(){
         Suscripcion suscripcion = givenExisteUnaSuscripcion(Usuario, TIPO_SUSCRIPCION);
@@ -97,7 +97,7 @@ public class testControladorSuscripcion {
         whenUnClienteRenuevaLaSuscripcion(suscripcion);
         thenLasRenovacionNoEsExitosa();
 
-    }
+    }*/
 
     private void thenLasRenovacionNoEsExitosa() {
         assertThat(mav.getViewName()).isEqualTo("perfil");
