@@ -23,6 +23,7 @@
 
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center m-5">¡Ingresaste a tu cuenta!</h1>
+            <h1 class="text-center m-5">¡Bienvenid@ <c:out value="${nombre}"/>!</h1>
         </div>
 
         <div class="d-flex justify-content-around">
