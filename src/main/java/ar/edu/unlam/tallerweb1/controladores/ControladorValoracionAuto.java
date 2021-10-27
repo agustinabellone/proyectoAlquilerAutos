@@ -37,7 +37,7 @@ public class ControladorValoracionAuto {
             List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(clienteID);
             modelo.put("viajesObtenidos",viajesObtenidos);
         }else{
-            return new ModelAndView("/home.jsp");
+            return new ModelAndView("home");
         }
 
         return new ModelAndView("lista-de-viajes", modelo);

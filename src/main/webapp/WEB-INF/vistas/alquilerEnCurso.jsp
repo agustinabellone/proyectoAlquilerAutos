@@ -10,6 +10,7 @@
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 </head>
 <body>
+<jsp:include page="header.jsp" />
 <div>
     <form:form action="finalizarAlquiler">
             <button class="btn btn-lg btn-primary btn-block" Type="Submit"/>DEVOLVER</button>

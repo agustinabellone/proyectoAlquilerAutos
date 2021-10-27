@@ -22,15 +22,9 @@ public class ControladorUsuario {
     @RequestMapping(path = "/ir-a-perfil")
     private ModelAndView mostrarPerfil(HttpServletRequest request){
 
-        // ESTO SE CAMBIA CUANDO HAGAMOS EL MANEJO DE SESIONES
-        request.getSession().setAttribute("rol", "cliente");
-        request.getSession().setAttribute("id_usuario", 200);
-        request.getSession().setAttribute("nombre_usuario", "Ian");
-        //////////////////////////////////////////////////////
-
         if(request.getSession().getAttribute("rol").equals("cliente")){
             return new ModelAndView("perfil");
         }
-        return new ModelAndView("/home.jsp");
+        return new ModelAndView("home");
     }
 }
