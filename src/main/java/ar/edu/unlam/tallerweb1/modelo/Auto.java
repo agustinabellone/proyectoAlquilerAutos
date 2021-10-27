@@ -3,8 +3,6 @@ package ar.edu.unlam.tallerweb1.modelo;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
-
 @Entity
 public class Auto {
 
@@ -27,7 +25,7 @@ public class Auto {
 
     private Situacion situacion;
 
-    public Auto () {
+    public Auto() {
         this.km = 100;
     }
 
@@ -68,7 +66,7 @@ public class Auto {
         this.patente = patente;
     }
 
-   public Tercero getTercero() {
+    public Tercero getTercero() {
         return tercero;
 
     }

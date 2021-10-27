@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,23 +16,24 @@ public class testControladorEnviarAutoAMentenimineto {
 
     private static final String ADMIN = "admin";
     private static final String INVITADO = "invitado";
-    private ControladorEnviarAutoAMantenimiento controlador = new ControladorEnviarAutoAMantenimiento();
+    private ServicioDeAuto servicio = mock(ServicioDeAuto.class);
+    private ControladorEnviarAutoAMantenimiento controlador = new ControladorEnviarAutoAMantenimiento(servicio);
     private ModelAndView modelAnView = new ModelAndView();
     private HttpServletRequest request = mock(HttpServletRequest.class);
     private HttpSession session = mock(HttpSession.class);
+    private Auto auto = new Auto();
 
     @Test
     public void queUnUsuarioAdministradorPuedaEnviarUnAutoAMantenimiento() {
         Auto aEnviar = givenExisteUnAuto();
         HttpServletRequest usuarioConRolAdmin = givenExisteUnUsuarioConRol(ADMIN);
-
         whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolAdmin, aEnviar);
-
         thenElEnvioEsExitoso(this.modelAnView);
     }
 
     private Auto givenExisteUnAuto() {
-        return new Auto();
+        when(servicio.buscarAutoPorId(anyLong())).thenReturn(auto);
+        return auto;
     }
 
     private HttpServletRequest givenExisteUnUsuarioConRol(String rol) {
@@ -42,10 +43,11 @@ public class testControladorEnviarAutoAMentenimineto {
     }
 
     private void whenElUsuarioAdministradorEnviaElAutoAMantenimiento(HttpServletRequest request, Auto aEnviar) {
-        this.modelAnView = controlador.enviarAutoAMantenimiento(request, aEnviar);
+        this.modelAnView = controlador.enviarAutoAMantenimiento(request, aEnviar.getId());
     }
 
     private void thenElEnvioEsExitoso(ModelAndView modelAnView) {
+        verify(servicio, times(1)).buscarAutoPorId(anyLong());
         assertThat(request.getSession().getAttribute("rol")).isEqualTo("admin");
         assertThat(modelAnView.getViewName()).isEqualTo("lista-de-autos");
         assertThat(modelAnView.getModel().get("mensaje")).isEqualTo("Se envio un auto correctamente a mantenimiento");
@@ -53,9 +55,9 @@ public class testControladorEnviarAutoAMentenimineto {
 
     @Test
     public void queUnUsuarioSinRolDeAdministradorNoPuedaEnviarUnAutoAMantenimiento() {
-        Auto aEnviar = givenExisteUnAuto();
+        givenExisteUnAuto();
         HttpServletRequest usuarioConRolInvitado = givenExisteUnUsuarioConRol(INVITADO);
-        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolInvitado, aEnviar);
+        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolInvitado, auto);
         thenElEnvioFalla(this.modelAnView);
     }
 
