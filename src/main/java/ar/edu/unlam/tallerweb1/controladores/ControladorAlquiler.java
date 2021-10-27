@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Modelo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class ControladorAlquiler {
     @RequestMapping(path = "/elegir-fechas", method = RequestMethod.GET)
     public ModelAndView mostrarFechasAlquiler(@RequestParam("id_auto") Long id_auto,
                                               @RequestParam("imagen_auto") String imagen_auto,
-                                              @RequestParam("modelo_auto") String modelo_auto) {
+                                              @RequestParam("modelo_auto") Modelo modelo_auto) {
         ModelMap modelo = new ModelMap();
         modelo.put("id_auto", id_auto);
         modelo.put("imagen_auto", imagen_auto);

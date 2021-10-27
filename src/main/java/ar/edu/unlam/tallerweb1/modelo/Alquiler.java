@@ -44,6 +44,7 @@ public class Alquiler {
     private String ingresoF;
     private String egresoF;
 
+
     public Alquiler() {
         this.estado = Estado.ACTIVO;
     }
