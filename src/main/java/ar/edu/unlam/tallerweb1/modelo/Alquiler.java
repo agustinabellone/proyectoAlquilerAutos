@@ -41,6 +41,15 @@ public class Alquiler {
     private String ingresoF;
     private String egresoF;
 
+    public Alquiler(Long id,LocalDateTime f_ingreso,LocalDateTime f_regreso,Auto auto,Usuario usuario){
+        this.id=id;
+        this.f_ingreso=f_ingreso;
+        this.f_egreso=f_regreso;
+        this.auto=auto;
+        this.usuario=usuario;
+    }
+
+
     public Alquiler() {
         this.estado = Estado.ACTIVO;
     }

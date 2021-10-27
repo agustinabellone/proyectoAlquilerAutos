@@ -33,7 +33,7 @@
                             <div class="card card-shadow border-0 mb-4">
                                 <div class="card-body p-4">
                                     <div class="d-flex align-items-center">
-                                        <h5 class="font-weight-medium mb-0">${auto.marca}</h5>
+                                        <h5 class="font-weight-medium mb-0">${auto.marca.descripcion}</h5>
                                         <div class="ml-auto"><span class="badge badge-success font-weight-normal p-2">Más alquilado</span>
                                         </div>
                                     </div>
@@ -44,9 +44,9 @@
                                                     <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
                                                         <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Patente: ${auto.patente}</span>
                                                         </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Marca: ${auto.marca}</span>
+                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Marca: ${auto.marca.descripcion}</span>
                                                         </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Modelo: ${auto.modelo}</span>
+                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Modelo: ${auto.modelo.descripcion}</span>
                                                         </li>
                                                         <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Kilometraje Total: ${auto.km} km</span>
                                                         </li>
