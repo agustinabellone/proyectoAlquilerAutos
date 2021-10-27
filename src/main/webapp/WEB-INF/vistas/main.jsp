@@ -40,10 +40,10 @@
                 </div>
             </div>
         </div>
-        <div>
-            <a href="finalizar-alquiler">FINALIZAR ALQUILER</a>
-        </div>
     </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <a href="finalizar-alquiler"  class="btn btn-primary mt-3">Finalizar alquiler</a>
     </div>
 </section>
 
