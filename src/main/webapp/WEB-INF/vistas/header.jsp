@@ -52,9 +52,9 @@
         </c:otherwise>
 
       </c:choose>
+      <a href="home" type="button" class="btn btn-info">Inicio</a>
     </c:if>
     <div class="d-flex justify-content-around align-items-center col-lg-3">
-      <!--<a href="home" type="button" class="btn btn-light">Inicio</a>-->
       <c:if test = "${id == null}">
         <a href="registro" type="button" class="btn btn-outline-primary">Crear cuenta</a>
         <a href="login" type="button" class="btn btn-primary">Iniciar sesion</a>

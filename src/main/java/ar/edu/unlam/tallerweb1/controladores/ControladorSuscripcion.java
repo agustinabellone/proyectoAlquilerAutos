@@ -34,10 +34,6 @@ public class ControladorSuscripcion {
     @RequestMapping(path = "/ir-a-suscribir", method = RequestMethod.GET)
     private ModelAndView mostrarFormularioSuscripcion(HttpServletRequest request){
 
-        // ESTO SE CAMBIA CUANDO HAGAMOS EL MANEJO DE SESIONES
-        request.getSession().setAttribute("nombre_usuario", "Ian");
-        //////////////////////////////////////////////////////
-
         if(null != request.getSession().getAttribute("rol")){
             if(request.getSession().getAttribute("rol").equals("cliente")){
                 return new ModelAndView("ir-a-suscribir");
@@ -51,7 +47,7 @@ public class ControladorSuscripcion {
                                                @RequestParam (value="id_tipo") Long id_tipo ){
         ModelMap model= new ModelMap();
         model.put("id_tipo", id_tipo);
-        model.put("id_usuario", request.getSession().getAttribute("id_usuario"));
+        model.put("id_usuario", request.getSession().getAttribute("id"));
         return new ModelAndView("confirmar-suscripcion", model);
     }
 
@@ -67,7 +63,7 @@ public class ControladorSuscripcion {
             servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
         }catch (ClienteYaSuscriptoException e){
             model.put("error", "Usted ya se encuentra suscripto a un plan");
-            return new ModelAndView("redirect:/ir-a-suscribir");
+            return new ModelAndView("confirmar-suscripcion", model);
         }
 
         return new ModelAndView("main");
