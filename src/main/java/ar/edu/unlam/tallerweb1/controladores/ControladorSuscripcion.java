@@ -43,7 +43,7 @@ public class ControladorSuscripcion {
                 return new ModelAndView("ir-a-suscribir");
             }
         }
-        return new ModelAndView("/home.jsp");
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(path = "/confirmar-suscripcion", method = RequestMethod.GET)
@@ -59,16 +59,18 @@ public class ControladorSuscripcion {
     public ModelAndView suscribirUsuario(@RequestParam(value = "id_tipo") Long id_tipo,
                                          @RequestParam(value = "id_usuario")Long id_usuario) {
 
+        ModelMap model= new ModelMap();
         //ACA ES NECESARIO BUSCAR EL USUARIO Y EL TIPO EN LA BD
         Usuario usuario = new Usuario(id_usuario);
         TipoSuscripcion tipoSuscripcion = new TipoSuscripcion(id_tipo);
         try{
             servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
         }catch (ClienteYaSuscriptoException e){
-            return new ModelAndView("ir-a-suscribir");
+            model.put("error", "Usted ya se encuentra suscripto a un plan");
+            return new ModelAndView("redirect:/ir-a-suscribir");
         }
 
-        return new ModelAndView("/home.jsp");
+        return new ModelAndView("main");
     }
 
     @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)
@@ -78,9 +80,9 @@ public class ControladorSuscripcion {
         try{
             servicioSuscripcion.renovarAutomaticamenteSuscripcion(id);
         }catch(SuscripcionYaRenovadaException e){
-            return new ModelAndView("perfil"); //EL USUARIO RENUEVA SU SUSCRIPCION DESDE SU PERFIL
+            return new ModelAndView("redirect:/perfil"); //EL USUARIO RENUEVA SU SUSCRIPCION DESDE SU PERFIL
         }
-        return new ModelAndView("/home.jsp");
+        return new ModelAndView("main");
     }
 
     @RequestMapping(path = "/admin-suscripcion", method = RequestMethod.GET)
@@ -92,7 +94,7 @@ public class ControladorSuscripcion {
                 return new ModelAndView("admin-suscripcion");
             }
         }
-        return new ModelAndView("/home.jsp");
+        return new ModelAndView("redirect:/home");
     }
 
     //@Scheduled(fixedRate = 10000)
