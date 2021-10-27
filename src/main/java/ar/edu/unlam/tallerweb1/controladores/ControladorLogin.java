@@ -62,7 +62,7 @@ public class ControladorLogin {
 
         iniciarSesion(servicioUsuario.buscarPorEmail(datosLogin.getEmail()), request);
 
-        return registroExitoso();
+        return registroExitoso(request);
     }
 
     @RequestMapping(path = "/logout")
@@ -104,8 +104,10 @@ public class ControladorLogin {
 
     }
 
-    private ModelAndView registroExitoso() {
-
+    private ModelAndView registroExitoso(HttpServletRequest request) {
+        if (request.getSession().getAttribute("rol") == "admin"){
+            return new ModelAndView("redirect:/administrador");
+        }
         return new ModelAndView("redirect:/main");
     }
 
