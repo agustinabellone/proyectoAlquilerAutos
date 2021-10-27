@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="web" name="Web">
@@ -97,21 +96,5 @@
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="spring-core-4.2.6.RELEASE" level="project" />
-=======
-<module version="4">
-  <component name="FacetManager">
-    <facet type="Spring" name="Spring">
-      <configuration>
-        <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/classes/applicationContext.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/applicationContext.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/hibernateContext.xml</file>
-          <file>file://$MODULE_DIR$/out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/classes/hibernateContext.xml</file>
-          <file>file://$MODULE_DIR$/out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/classes/spring-servlet.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/spring-servlet.xml</file>
-        </fileset>
-      </configuration>
-    </facet>
->>>>>>> 0eb1562e09a9f5e19c0ad13bac483d4e2e1eff37
   </component>
 </module>

@@ -1,11 +1,10 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import javax.persistence.ElementCollection;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 public class Encargado {
@@ -19,9 +18,8 @@ public class Encargado {
     private Garage garage;
 
 
-
     public Encargado(Long id, String nombres, Garage garage) {
-        this.id=id;
+        this.id = id;
         this.nombres = nombres;
         this.garage = garage;
     }
