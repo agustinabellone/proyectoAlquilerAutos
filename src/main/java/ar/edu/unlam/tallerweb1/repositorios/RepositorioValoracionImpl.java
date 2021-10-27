@@ -1,10 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +23,21 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
 
     @Override
     public List<Alquiler> obtenerAlquileresHechos(Long clienteID) {
+        Usuario usuario=obtenerClientePorId(clienteID);
         return this.sessionFactory.getCurrentSession()
                 .createCriteria(Alquiler.class)
-                .add(Restrictions.eq("id_usuario",clienteID))
+                .add(Restrictions.eq("usuario",usuario))
                 .list();
     }
 
     @Override
     public Auto obtenerAutoPorId(Long autoID) {
         return this.sessionFactory.getCurrentSession().get(Auto.class, autoID);
+    }
+
+    @Override
+    public Usuario obtenerClientePorId(Long autoID) {
+        return this.sessionFactory.getCurrentSession().get(Usuario.class, autoID);
     }
 
     @Override

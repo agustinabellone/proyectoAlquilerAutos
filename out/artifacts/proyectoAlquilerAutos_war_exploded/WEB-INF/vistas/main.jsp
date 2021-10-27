@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+=======
+<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+>>>>>>> master
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,15 +20,30 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
+<<<<<<< HEAD
 <header class = "d-flex flex-row-reverse p-3"></header>
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center">Â¡Ingresaste a tu cuenta!</h1>
+=======
+<header class = "d-flex flex-row-reverse p-3">
+    <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
+        <a href="login" type="button" class="btn btn-primary">Iniciar sesion</a>
+        <a href="registro" type="button" class="btn btn-warning">Crear cuenta</a>
+        <a href="ir-a-suscribir" type="button" class="btn btn-danger">Suscribirse a un plan</a>
+    </div>
+</header>
+<section>
+    <div class="container">
+        <div class="col-sm-12 d-flex justify-content-center">
+            <h1 class="text-center">¡Ingresaste a tu cuenta!</h1>
+>>>>>>> master
         </div>
         <div class="col-sm-12 d-flex justify-content-center">
             <a href="alquilar-auto" class="btn btn-primary mt-5">Alquilar auto</a>
         </div>
+<<<<<<< HEAD
         <div class="col-sm-12 d-flex justify-content-center">
             <a href="lista-viajes"  class="btn btn-primary mt-5">Ver mis viajes</a>
         </div>
@@ -33,6 +53,11 @@
 
 
 
+=======
+    </div>
+</section>
+
+>>>>>>> master
 </body>
 
 <!-- Optional JavaScript -->
@@ -49,4 +74,8 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> master

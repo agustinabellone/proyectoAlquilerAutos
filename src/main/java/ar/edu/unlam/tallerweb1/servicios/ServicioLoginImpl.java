@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
+import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
 import ar.edu.unlam.tallerweb1.controladores.DatosLogin;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class ServicioLoginImpl implements ServicioLogin {
     public boolean ingresar(DatosLogin datosLogin) {
         if(repositorioUsuario.buscarPorEmail(datosLogin.getEmail()) == null){
             throw new ClienteNoExisteException();
+        }else if(!repositorioUsuario.buscarPorEmail(datosLogin.getEmail()).getClave().equals(datosLogin.getClave())){
+            throw new PasswordIncorrectaException();
         }
         return true;
     }

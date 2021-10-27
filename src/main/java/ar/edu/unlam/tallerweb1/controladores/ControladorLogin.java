@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
+import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
@@ -27,7 +28,6 @@ public class ControladorLogin {
         this.servicioUsuario = servicioUsuario;
     }
 
-
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView mostrarHome() {
         return new ModelAndView("home");
@@ -37,6 +37,7 @@ public class ControladorLogin {
     public ModelAndView mostrarMain() {
         return new ModelAndView("main");
     }*/
+
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
     public ModelAndView mostrarFormularioDeLogin(HttpServletRequest request) {
@@ -56,6 +57,8 @@ public class ControladorLogin {
         }
         catch (ClienteNoExisteException e) {
             return registroFallido(modelo, "El usuario no existe");
+        }catch (PasswordIncorrectaException e) {
+            return registroFallido(modelo, "Datos incorrectos");
         }
 
         iniciarSesion(servicioUsuario.buscarPorEmail(datosLogin.getEmail()), request);
@@ -63,14 +66,25 @@ public class ControladorLogin {
         return registroExitoso();
     }
 
+    @RequestMapping(path = "/logout")
+    public ModelAndView cerrarSesion(HttpServletRequest request) {
+
+        if (request.getSession().getAttribute("id")!=null){
+            request.getSession().setAttribute("id",null);
+            request.getSession().setAttribute("rol",null);
+        }
+
+        return new ModelAndView("redirect:/home");
+
+    }
+
     private void iniciarSesion(Usuario buscado, HttpServletRequest request) {
 
-        // EL SWITCH ES UTIL SI LOS 3 ROLES TIENEN DISTINTOS DATOS QUE GUARDAR, POR EL MOMENTO NO LOS TIENEN
+        // EL SWITCH ES UTIL SI LOS 4 ROLES TIENEN DISTINTOS DATOS QUE GUARDAR, POR EL MOMENTO NO LOS TIENEN
         switch (buscado.getRol()){
             case "cliente":
                 request.getSession().setAttribute("rol", "cliente");
                 request.getSession().setAttribute("id", buscado.getId());
-                request.getSession().setAttribute("email", buscado.getEmail());
                 break;
             case "admin":
                 request.getSession().setAttribute("rol", "admin");
@@ -83,6 +97,10 @@ public class ControladorLogin {
             default:
                 break;
         }
+
+       /* request.getSession().setAttribute("rol", buscado.getRol());
+        request.getSession().setAttribute("id", buscado.getId());
+        request.getSession().setAttribute("nombre", buscado.getNombre());*/
 
     }
 

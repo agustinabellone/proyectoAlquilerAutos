@@ -39,23 +39,22 @@ public class ControladorValoracionAuto {
     public ModelAndView irListaViajes(HttpServletRequest request){
         Long clienteID = (Long) request.getSession().getAttribute("id");//me trae de la session
         ModelMap modelo=new ModelMap();
-        Long id=3L;
-        List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(id);
+      /*  List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(clienteID);
         modelo.put("viajesObtenidos",viajesObtenidos);
-        return new ModelAndView("lista-de-viajes", modelo);
+        return new ModelAndView("lista-de-viajes", modelo);*/
 
-    /*    if(elUsuarioEsCliente(request)){
-            List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(id);
+        if(elUsuarioEsCliente(request)){
+            List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(clienteID);
             modelo.put("viajesObtenidos",viajesObtenidos);
         }else{
             return new ModelAndView("home");
         }
 
-        return new ModelAndView("lista-de-viajes", modelo);*/
+        return new ModelAndView("lista-de-viajes", modelo);
     }
 
     private boolean elUsuarioEsCliente(HttpServletRequest request) {
-        return request.getSession().getAttribute("rol").equals("");
+        return request.getSession().getAttribute("rol").equals("cliente");
     }
 
 

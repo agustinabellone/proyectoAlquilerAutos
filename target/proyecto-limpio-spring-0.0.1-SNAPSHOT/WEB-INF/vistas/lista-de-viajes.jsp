@@ -42,7 +42,7 @@
                                         <div class="row mt-3">
                                             <div class="col-lg-6 align-self-center">
                                                 <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span> ${viaje.id_auto}</span>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span> ${viaje.auto.id}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${viaje.f_ingreso}</span>
                                                     </li>
@@ -57,7 +57,7 @@
                                                 </div>
                                             </div>
                                             <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3"
-                                               href="valorar-auto?id_auto=${viaje.id_auto}">VALORAR VEHICULO</a>
+                                               href="valorar-auto?id_auto=${viaje.auto.id}">VALORAR VEHICULO</a>
                                         </div>
                                     </div>
                                 </div>
