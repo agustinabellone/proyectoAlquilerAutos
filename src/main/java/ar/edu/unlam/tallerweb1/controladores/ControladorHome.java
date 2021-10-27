@@ -8,8 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorHome {
 
-<<<<<<< HEAD
-=======
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome() {
         return new ModelAndView("home");
@@ -19,5 +17,5 @@ public class ControladorHome {
     public ModelAndView mostrarMain() {
         return new ModelAndView("main");
     }
->>>>>>> master
+
 }

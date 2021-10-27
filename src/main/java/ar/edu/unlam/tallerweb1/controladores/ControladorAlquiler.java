@@ -1,19 +1,4 @@
 package ar.edu.unlam.tallerweb1.controladores;
-
-<<<<<<< HEAD
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-@Controller
-public class ControladorAlquiler {
-
-=======
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -115,5 +100,4 @@ public class ControladorAlquiler {
         modelo.put("mensaje", mensaje);
         return new ModelAndView("alquilarAutoConfirmacion", modelo);
     }
->>>>>>> master
 }

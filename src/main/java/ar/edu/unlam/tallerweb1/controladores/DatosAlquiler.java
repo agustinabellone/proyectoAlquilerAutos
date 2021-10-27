@@ -5,14 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
-<<<<<<< HEAD
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import java.time.LocalDateTime;
-
-public class DatosAlquiler {
-
-=======
 public class DatosAlquiler {
 
     private Auto auto;
@@ -61,5 +53,4 @@ public class DatosAlquiler {
         this.f_ingreso = f_ingreso;
     }
 
->>>>>>> master
 }

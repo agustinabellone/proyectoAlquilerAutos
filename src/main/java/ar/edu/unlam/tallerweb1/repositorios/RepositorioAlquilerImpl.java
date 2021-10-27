@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-package ar.edu.unlam.tallerweb1.repositorio;
-
-
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-@Repository("repositorioAlquiler")
-public class RepositorioAlquilerImpl {
-
-
-
-=======
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
@@ -63,6 +47,4 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     public Usuario obtenerUsuarioPorId(Long id_usuario) {
         return sessionFactory.getCurrentSession().get(Usuario.class, id_usuario);
     }
->>>>>>> master
-
 }

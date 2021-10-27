@@ -20,25 +20,19 @@
 <jsp:include page="header.jsp" />
 <section>
     <div class="container">
-<<<<<<< HEAD
 
-=======
->>>>>>> master
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center">¡Ingresaste a tu cuenta!</h1>
         </div>
         <div class="col-sm-12 d-flex justify-content-center">
             <a href="alquilar-auto" class="btn btn-primary mt-5">Alquilar auto</a>
-<<<<<<< HEAD
             <a href="mis-alquileres" class="btn btn-primary mt-5">Mis Alquileres</a>
         </div>
         <div>
             <a href="finalizar-alquiler">FINALIZAR ALQUILER</a>
-=======
         </div>
     </div>
     <div class="container">
->>>>>>> master
         <div>
             <h1>Bienvenido <c:out value="${nombre}"/></h1>
         </div>

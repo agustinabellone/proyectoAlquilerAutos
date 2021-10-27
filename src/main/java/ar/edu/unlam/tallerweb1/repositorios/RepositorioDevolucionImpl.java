@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Estado;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,11 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
 
 
     @Override
-    public Alquiler obtenerAlquilerActivoDeCliente(Long clienteID) {
+    public Alquiler obtenerAlquilerActivoDeCliente(Usuario usuario) {
 
         return (Alquiler) sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
-                .add(Restrictions.eq("usuario", clienteID)).uniqueResult();
+                .add(Restrictions.eq("usuario", usuario))
+                .add(Restrictions.eq("estado", Estado.ACTIVO)).uniqueResult();
     }
 
     @Override

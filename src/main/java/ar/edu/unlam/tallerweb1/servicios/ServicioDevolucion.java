@@ -5,7 +5,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface ServicioDevolucion {
 
-    Alquiler obtenerAlquilerActivoDeCliente(Long clienteID);
+    Alquiler obtenerAlquilerActivoDeCliente(Usuario usuario);
 
     Alquiler obtenerAlquilerPorID(Long alquilerID);
 

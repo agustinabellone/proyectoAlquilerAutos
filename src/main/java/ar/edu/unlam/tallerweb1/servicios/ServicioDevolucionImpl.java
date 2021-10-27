@@ -27,8 +27,8 @@ public class ServicioDevolucionImpl implements ServicioDevolucion{
 
 
     @Override
-    public Alquiler obtenerAlquilerActivoDeCliente(Long clienteID) {
-        Alquiler alquiler = repositorioDevolucion.obtenerAlquilerActivoDeCliente(clienteID);
+    public Alquiler obtenerAlquilerActivoDeCliente(Usuario usuario) {
+       Alquiler alquiler = repositorioDevolucion.obtenerAlquilerActivoDeCliente(usuario);
         return alquiler;
     }
 

@@ -70,7 +70,7 @@ public class ControladorLogin {
     private void iniciarSesion(Usuario buscado, HttpServletRequest request) {
 
         // EL SWITCH ES UTIL SI LOS 4 ROLES TIENEN DISTINTOS DATOS QUE GUARDAR, POR EL MOMENTO NO LOS TIENEN
-       /* switch (buscado.getRol()){
+       switch (buscado.getRol()){
             case "cliente":
                 request.getSession().setAttribute("rol", "cliente");
                 request.getSession().setAttribute("id", buscado.getId());
@@ -85,7 +85,7 @@ public class ControladorLogin {
                 break;
             default:
                 break;
-        } */
+        }
 
         request.getSession().setAttribute("rol", buscado.getRol());
         request.getSession().setAttribute("id", buscado.getId());

@@ -1,26 +1,17 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
-<<<<<<< HEAD
-
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-=======
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-
->>>>>>> master
 
 @Entity
 public class Alquiler {
 
-<<<<<<< HEAD
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -32,7 +23,7 @@ public class Alquiler {
     @ManyToOne
     private Auto auto;
     @ManyToOne
-    private Usuario usuario;
+    public Usuario usuario;
     @ManyToOne
     private Garage garagePartida;
     @ManyToOne
@@ -70,43 +61,7 @@ public class Alquiler {
         this.estado = Estado.ACTIVO;
     }
 
-    private LocalDateTime obtenerTipoFecha(String fecha) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(fecha, formatter);
-        return dateTime;
-    }
 
-
-=======
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long id;
-
-
-    @OneToOne
-    private Auto auto;
-
-    @OneToOne
-    private Usuario usuario;
-
-    @Column
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate f_ingreso;
-
-    @Column
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate f_regreso;
-
-    public Alquiler() {}
-
-    public Alquiler(DatosAlquiler datosAlquiler ){
-        this.auto = datosAlquiler.getAuto();
-        this.usuario = datosAlquiler.getUsuario();
-        this.f_ingreso = datosAlquiler.getF_ingreso();
-        this.f_regreso = datosAlquiler.getF_salida();
-    }
-
->>>>>>> master
     public Long getId() {
         return id;
     }
@@ -115,7 +70,13 @@ public class Alquiler {
         this.id = id;
     }
 
-<<<<<<< HEAD
+    public LocalDateTime getF_egreso() {
+        return f_egreso;
+    }
+
+    public void setF_egreso(LocalDateTime f_egreso) {
+        this.f_egreso = f_egreso;
+    }
 
     public LocalDateTime getF_ingreso() {
         return f_ingreso;
@@ -125,24 +86,10 @@ public class Alquiler {
         this.f_ingreso = f_ingreso;
     }
 
-=======
-    public LocalDate getF_ingreso() {
-        return f_ingreso;
+    public Float getAdicionalCambioLugarFecha() {
+        return adicionalCambioLugarFecha;
     }
 
-    public void setF_ingreso(LocalDate f_ingreso) {
-        this.f_ingreso = f_ingreso;
-    }
-
-    public LocalDate getF_regreso() {
-        return f_regreso;
-    }
-
-    public void setF_regreso(LocalDate f_regreso) {
-        this.f_regreso = f_regreso;
-    }
-
->>>>>>> master
     public Auto getAuto() {
         return auto;
     }
@@ -151,13 +98,44 @@ public class Alquiler {
         this.auto = auto;
     }
 
-<<<<<<< HEAD
     public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario cliente) {
-        this.usuario = cliente;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Garage getGaragePartida() {
+        return garagePartida;
+    }
+
+    public void setGaragePartida(Garage garagePartida) {
+        this.garagePartida = garagePartida;
+    }
+
+    public Garage getGarageLlegadaEst() {
+        return garageLlegadaEst;
+    }
+
+    public void setGarageLlegadaEst(Garage garageLlegadaEst) {
+        this.garageLlegadaEst = garageLlegadaEst;
+    }
+
+    public Garage getGarageLlegada() {
+        return garageLlegada;
+    }
+
+    public void setGarageLlegada(Garage garageLlegada) {
+        this.garageLlegada = garageLlegada;
+    }
+
+    public Encargado getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(Encargado encargado) {
+        this.encargado = encargado;
     }
 
     public Estado getEstado() {
@@ -166,15 +144,6 @@ public class Alquiler {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
-    }
-
-
-    public LocalDateTime getF_egreso() {
-        return f_egreso;
-    }
-
-    public void setF_egreso(LocalDateTime f_egreso) {
-        this.f_egreso = f_egreso;
     }
 
     public String getIngresoF() {
@@ -193,42 +162,12 @@ public class Alquiler {
         this.egresoF = egresoF;
     }
 
-
-    public Encargado getEncargado() {
-        return encargado;
+    private LocalDateTime obtenerTipoFecha(String fecha) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(fecha, formatter);
+        return dateTime;
     }
 
-    public void setEncargado(Encargado encargado) {
-        // this.encargado.getGarage().equals(gara) DUDA
-    }
-
-    public Garage getGaragePartida() {
-        return garagePartida;
-    }
-
-    public void setGaragePartida(Garage garageInicio) {
-        this.garagePartida = garageInicio;
-    }
-
-    public Garage getGarageLlegadaEst() {
-        return garageLlegadaEst;
-    }
-
-    public void setGarageLlegadaEst(Garage garageFinEst) {
-        this.garageLlegadaEst = garageFinEst;
-    }
-
-    public Garage getGarageLlegada() {
-        return garageLlegada;
-    }
-
-    public void setGarageLlegada(Garage garageFin) {
-        this.garageLlegada = garageFin;
-    }
-
-    public Float getAdicionalCambioLugarFecha() {
-        return adicionalCambioLugarFecha;
-    }
 
     public void setAdicionalCambioLugarFecha(Usuario usuario) {
         Suscripcion suscripcion = new Suscripcion();
@@ -257,13 +196,4 @@ public class Alquiler {
         this.adicionalInfraccionesOtro = adicionalInfraccionesOtro;
     }
 }
-=======
-    public Usuario getCliente() {
-        return usuario;
-    }
 
-    public void setCliente(Usuario cliente) {
-        this.usuario = usuario;
-    }
-}
->>>>>>> master

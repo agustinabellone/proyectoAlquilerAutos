@@ -67,7 +67,7 @@ public class ControladorEnviarAutoAMantenimiento {
         model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
         model.put("marca", datosEnvioAMantenimiento.getAuto().getMarca());
         model.put("modelo", datosEnvioAMantenimiento.getAuto().getModelo());
-        model.put("km-del-auto", datosEnvioAMantenimiento.getAuto().getKilometros());
+        model.put("km-del-auto", datosEnvioAMantenimiento.getAuto().getKm());
         model.put("fecha",datosEnvioAMantenimiento.getFechaInicial());
         viewName = "mantenimiento";
     }
@@ -90,7 +90,7 @@ public class ControladorEnviarAutoAMantenimiento {
         Modelo modelo = new Modelo(1, "Fiesta", marca);
         auto.setMarca(marca);
         auto.setModelo(modelo);
-        auto.setKilometros(100);
+        auto.setKm(100);
         return auto;
     }
 

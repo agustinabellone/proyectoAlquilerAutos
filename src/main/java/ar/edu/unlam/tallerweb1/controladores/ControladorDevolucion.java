@@ -41,7 +41,6 @@ public class ControladorDevolucion {
     @RequestMapping("/alMain")
     public ModelAndView irAMain(HttpServletRequest request) {
         Usuario usuario = new Usuario();
-        request.getSession().setAttribute("id", usuario.getId());
         Auto auto = new Auto();
         Alquiler alquiler = new Alquiler(1L, auto);
         ModelMap modelo = new ModelMap();
@@ -52,12 +51,11 @@ public class ControladorDevolucion {
     @RequestMapping("finalizar-alquiler")
     public ModelAndView irFinalizarAlquiler(HttpServletRequest request) {
         ModelMap model = new ModelMap();
-       // request.getSession().setAttribute("id", usuario.getId());
-        Long id1 = (Long) request.getSession().getAttribute("id");
-        //Usuario usuario = servicioUsuario.buscarPorId(id1);
-        Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerActivoDeCliente(id1);
+        Long clienteID = (Long) request.getSession().getAttribute("id");
+        Usuario usuario = servicioUsuario.buscarPorId(clienteID);
+        Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerActivoDeCliente(usuario);
         Auto auto = alquilerActivo.getAuto();
-        if (id1 != null) {
+        if (clienteID != null) {
             model.put("alquiler", alquilerActivo);
             model.put("auto", auto);
             return new ModelAndView("mostrarConfirmacionDeFin", model);
@@ -87,8 +85,9 @@ public class ControladorDevolucion {
 
     @RequestMapping("/confirmacion-fin-alquiler")
     public ModelAndView procesarConfirmacionFinDeAlquiler(HttpServletRequest request) {
-        Long clienteID = (Long) request.getSession().getAttribute("id");
-        Alquiler alquiler = servicioDevolucion.obtenerAlquilerActivoDeCliente(clienteID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
+        Long clienteID = (Long) request.getAttribute("id");
+        Usuario usuario = servicioUsuario.buscarPorId(clienteID);
+        Alquiler alquiler = servicioDevolucion.obtenerAlquilerActivoDeCliente(usuario); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
         //FINALIZAR ALQUILER METODO EN EL SERV/REPO O EN EL MODELO
         servicioDevolucion.finalizarAlquilerCliente(alquiler);
         return new ModelAndView("mostrarConfirmacionDeFin");

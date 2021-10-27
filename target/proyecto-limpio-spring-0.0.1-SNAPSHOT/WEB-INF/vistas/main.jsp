@@ -20,8 +20,16 @@
 <jsp:include page="header.jsp" />
 <section>
     <div class="container">
+
+        <div class="col-sm-12 d-flex justify-content-center">
+            <h1 class="text-center">¡Ingresaste a tu cuenta!</h1>
+        </div>
+        <div class="col-sm-12 d-flex justify-content-center">
+            <a href="alquilar-auto" class="btn btn-primary mt-5">Alquilar auto</a>
+            <a href="mis-alquileres" class="btn btn-primary mt-5">Mis Alquileres</a>
+        </div>
         <div>
-            <h1>Ingresaste a tu cuenta!</h1>
+            <a href="finalizar-alquiler">FINALIZAR ALQUILER</a>
         </div>
     </div>
     <div class="container">
@@ -29,8 +37,8 @@
             <h1>Bienvenido <c:out value="${nombre}"/></h1>
         </div>
     </div>
+    </div>
 </section>
-
 </body>
 
 <!-- Optional JavaScript -->
