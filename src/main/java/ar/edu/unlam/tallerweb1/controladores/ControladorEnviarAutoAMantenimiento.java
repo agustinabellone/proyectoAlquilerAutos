@@ -11,7 +11,12 @@ public class ControladorEnviarAutoAMantenimiento {
 
     public ModelAndView enviarAutoAMantenimiento(Usuario conRolAdmin, Auto aEnviar) {
         ModelMap modelMap = new ModelMap();
-        modelMap.put("mensaje","Se envio un auto correctamente a mantenimiento");
-        return new ModelAndView("lista-de-autos",modelMap);
+        if (conRolAdmin.getRol() == "admin") {
+            modelMap.put("mensaje", "Se envio un auto correctamente a mantenimiento");
+            return new ModelAndView("lista-de-autos", modelMap);
+        }else{
+            modelMap.put("mensaje", "No tienes permisos para realizar esta accion");
+            return new ModelAndView("home", modelMap);
+        }
     }
 }

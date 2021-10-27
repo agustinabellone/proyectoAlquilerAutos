@@ -9,6 +9,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class testControladorEnviarAutoAMentenimineto {
     private static final String ADMIN = "admin";
+    private static final String INVITADO = "invitado";
     private ControladorEnviarAutoAMantenimiento controlador = new ControladorEnviarAutoAMantenimiento();
     private ModelAndView modelAnView = new ModelAndView();
 
@@ -41,5 +42,16 @@ public class testControladorEnviarAutoAMentenimineto {
         assertThat(modelAnView.getModel().get("mensaje")).isEqualTo("Se envio un auto correctamente a mantenimiento");
     }
 
+    @Test
+    public void queUnUsuarioSinRolDeAdministradorNoPuedaEnviarUnAutoAMantenimiento(){
+        Auto aEnviar = givenExisteUnAuto();
+        Usuario conRol = givenExisteUnUsuarioConRol(INVITADO);
+        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(conRol,aEnviar);
+        thenElEnvioFalla(this.modelAnView);
+    }
 
+    private void thenElEnvioFalla(ModelAndView modelAnView) {
+        assertThat(modelAnView.getViewName()).isEqualTo("home");
+        assertThat(modelAnView.getModel().get("mensaje")).isEqualTo("No tienes permisos para realizar esta accion");
+    }
 }
