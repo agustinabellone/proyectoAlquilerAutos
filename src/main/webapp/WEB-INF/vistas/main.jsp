@@ -24,13 +24,23 @@
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center">¡Ingresaste a tu cuenta!</h1>
+            <h1 class="text-center m-5">¡Ingresaste a tu cuenta!</h1>
         </div>
-        <div class="col-sm-12 d-flex justify-content-center">
-            <a href="alquilar-auto" class="btn btn-primary mt-5">Alquilar auto</a>
-        </div>
-        <div class="col-sm-12 d-flex justify-content-center">
-            <a href="lista-viajes"  class="btn btn-primary mt-5">Ver mis viajes</a>
+
+        <div class="d-flex justify-content-around">
+            <div class="card col-sm-3">
+                <img class="card-img-top mt-3" src="https://img.freepik.com/vector-gratis/ilustracion-coche-alquiler-joven-feliz_179970-626.jpg?size=626&ext=jpg" alt="Card image">
+                <div class="d-flex justify-content-center">
+                    <a href="alquilar-auto" class="btn btn-primary mt-3 mb-3">Alquilar auto</a>
+                </div>
+            </div>
+
+            <div class="card col-sm-3">
+                <img class="card-img-top mt-3" src="https://cdni.iconscout.com/illustration/free/thumb/task-list-2080780-1753768.png" alt="Card image">
+                <div class="d-flex justify-content-center">
+                    <a href="lista-viajes"  class="btn btn-primary mt-3">Ver mis viajes</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>

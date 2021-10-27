@@ -4,7 +4,6 @@ import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
-import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -55,6 +54,7 @@ public class ControladorAlquiler {
                                                     @RequestParam("id_auto") Long id_auto,
                                                     @RequestParam("imagen_auto") String imagen_auto,
                                                     @RequestParam("modelo_auto") String modelo_auto) {
+
         ModelMap modelo = new ModelMap();
         modelo.put("salida", salida);
         modelo.put("ingreso", ingreso);
