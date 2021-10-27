@@ -125,7 +125,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center">
+        <!--<div class="d-flex justify-content-center">
             <form action=renovar-suscripcion method="post">
                 <div class="form-group">
                     <label for="idCliente">Id del Cliente</label>
@@ -134,7 +134,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary ">Renovar</button>
             </form>
-        </div>
+        </div> -->
     </div>
 </section>
 

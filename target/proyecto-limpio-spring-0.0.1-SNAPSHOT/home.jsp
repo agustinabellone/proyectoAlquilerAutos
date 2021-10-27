@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,22 +15,7 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD:out/artifacts/proyecto_limpio_spring_war_exploded/home.jsp
->>>>>>> master
-<header class = "d-flex flex-row-reverse p-3">
-    <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
-    <button type="button" class="btn btn-primary">Iniciar sesion</button>
-    <button type="button" class="btn btn-default">Crear cuenta</button>
-    </div>
-</header>
-<<<<<<< HEAD
-=======
-=======
-<jsp:include page="WEB-INF/vistas/header.jsp" />
->>>>>>> master:src/main/webapp/home.jsp
->>>>>>> master
+<jsp:include page="WEB-INF/vistas/header.jsp"/>
 <section>
     <div class="container">
         <div>
@@ -56,22 +40,28 @@
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center">
                                 <h5 class="font-weight-medium mb-0">Plan basico</h5>
-                                <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Popular</span></div>
+                                <div class="ml-auto"><span
+                                        class="badge badge-danger font-weight-normal p-2">Popular</span></div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-5 text-center">
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">2.600</span>
                                         <h6 class="font-weight-light">1 MES</h6>
-                                        <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" href="#">ELEGIR PLAN</a>
+                                        <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3"
+                                           href="#">ELEGIR PLAN</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-7 align-self-center">
                                     <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -91,15 +81,20 @@
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">24.000</span>
                                         <h6 class="font-weight-light">12 Meses</h6>
-                                        <a class="btn btn-info-gradiant border-0 font-14 text-white p-3 btn-block mt-3" href="#">ELEGIR PLAN</a>
+                                        <a class="btn btn-info-gradiant border-0 font-14 text-white p-3 btn-block mt-3"
+                                           href="#">ELEGIR PLAN</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-7 align-self-center">
                                     <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -113,7 +108,6 @@
 </section>
 
 </body>
-
 
 
 <!-- Optional JavaScript -->

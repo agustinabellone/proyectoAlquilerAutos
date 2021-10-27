@@ -10,8 +10,6 @@ public interface RepositorioAlquiler {
 
     void guardar(Alquiler alquiler);
 
-    Alquiler buscarAlquilerPorId(Long id);
-
     List<Auto> obtenerAutosDisponibles();
 
     Auto obtenerAutoPorId(Long id_auto);

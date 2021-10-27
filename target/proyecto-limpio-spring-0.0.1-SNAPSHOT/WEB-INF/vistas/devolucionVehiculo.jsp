@@ -1,3 +1,4 @@
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
     <title>Document</title>
 </head>
 <body>
+<jsp:include page="header.jsp" />
 
 </body>
 </html>

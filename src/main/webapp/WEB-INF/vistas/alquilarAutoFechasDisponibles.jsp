@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,7 +18,7 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<header class = "d-flex flex-row-reverse p-3"></header>
+<jsp:include page="header.jsp" />
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
@@ -27,16 +28,17 @@
 <br>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-around">
-            <form action="confirmacion?id_auto=${id_auto}&imagen_auto=${imagen_auto}&modelo_auto=${modelo_auto}" method="post">
-                    <div>
-                        <h3>Salida del auto:</h3>
-                        <input name="salida" type="date">
-                    </div>
-                <br>
-                    <div>
-                        <h3>Ingreso del auto:</h3>
-                        <input name="ingreso" type="date">
-                    </div>
+            <form action="confirmacion?id_auto=${id_auto}&imagen_auto=${imagen_auto}" method="post">
+                   <div class="container col-sm-12 d-flex justify-content-around">
+                        <div class="col-sm-5 d-flex flex-column justify-content-center">
+                            <p>Fecha que planeo retirar el auto:</p>
+                            <input name="salida" id="salida" type="date" required>
+                        </div>
+                        <div class="col-sm-5 d-flex flex-column justify-content-center">
+                            <p>Fecha que planeo devolverlo:</p>
+                            <input name="ingreso" id="ingreso" type="date" required>
+                        </div>
+                   </div>
                 <br>
                 <div class="col-sm-12 d-flex justify-content-around">
                     <button class="btn btn-lg btn-primary btn-block" type="submit"/>Confirmar días</button>
@@ -48,4 +50,8 @@
 
 </section>
 </body>
+<script type="text/javascript">
+    document.getElementById('salida').setAttribute('min', new Date().toISOString().split('T')[0])
+    document.getElementById('ingreso').setAttribute('min', new Date().toISOString().split('T')[0])
+</script>
 </html>

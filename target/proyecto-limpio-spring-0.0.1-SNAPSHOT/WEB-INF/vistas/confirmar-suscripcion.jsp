@@ -34,7 +34,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Porfavor <c:out value="${nombre}"/>, confirme su suscripcion</h5>
-                    <p class="card-text">Suscribirse al plan numero -<c:out value="${id_tipo}"/>- ?</p>
+                    <p class="card-text">Suscribirse al plan numero <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>
                     <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id}" class="btn btn-primary">Confirmar</a>
                     <a href="ir-a-suscribir" class="btn btn-primary">Volver</a>
                 </div>

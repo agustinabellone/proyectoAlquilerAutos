@@ -24,16 +24,5 @@
     <mvc:resources mapping="/css/**" location="/css/" />
     <mvc:resources mapping="/js/**" location="/js/" />
     <mvc:resources mapping="/fonts/**" location="/fonts/" />
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/classes/spring-servlet.xml
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/classes/spring-servlet.xml
-<<<<<<< HEAD
 
-=======
->>>>>>> master
-=======
-
->>>>>>> FuncionalidadEnviarAutoAMantenimiento:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/classes/spring-servlet.xml
-=======
-
->>>>>>> 91b24630844263721ba4953744c492f216992f98:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/classes/spring-servlet.xml
 </beans>

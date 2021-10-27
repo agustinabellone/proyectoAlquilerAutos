@@ -11,7 +11,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/alquiler?serverTimezone=UTC" />
 		<property name="username" value="root" />
-		<property name="password" value="2845" />
+		<property name="password" value="1234" />
 	</bean>
 
 	<!--Configuracion de la factory encargada de generar las sesiones con la base de datos, la misma -->
@@ -28,18 +28,8 @@
 				<!--Hay que cambiarlo si se cambia de motor de base de datos-->
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
 				<!--Cambiar a true si se quiere ver por consola el codigo sql generado por hibernate-->
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/classes/hibernateContext.xml
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.format_sql">true</prop>
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/classes/hibernateContext.xml
-=======
-=======
 				<prop key="hibernate.show_sql">false</prop>
->>>>>>> FuncionalidadEnviarAutoAMantenimiento:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/classes/hibernateContext.xml
 				<prop key="hibernate.format_sql">false</prop>
->>>>>>> master
-=======
->>>>>>> 91b24630844263721ba4953744c492f216992f98:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/classes/hibernateContext.xml
 				<!--Para indicar si hibernate genera el modelo de datos al startup-->
 				<!--create: lo crea siempre-->
 				<!--update: aplica cambios realizados-->
