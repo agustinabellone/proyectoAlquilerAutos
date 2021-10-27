@@ -1,5 +1,3 @@
 Manifest-Version: 1.0
-Created-By: IntelliJ IDEA
-Built-By: familiawagner
-Build-Jdk: version 14.0.1
+Class-Path: 
 

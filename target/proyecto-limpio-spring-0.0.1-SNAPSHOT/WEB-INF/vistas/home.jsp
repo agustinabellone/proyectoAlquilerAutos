@@ -1,18 +1,4 @@
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-=======
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-<<<<<<< HEAD
 
-=======
-<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
->>>>>>> 54ef5beb3aa4ec446b7defa256c7f5f616dbc64f
-=======
-
->>>>>>> 8c3b25bc877e8f470b1ef06ad3d1dfdd09f50adb:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
->>>>>>> master:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -32,24 +18,9 @@
 <body>
 <header class = "d-flex flex-row-reverse p-3">
     <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-        <a href="login" class="btn btn-primary">Iniciar sesión</a>
-        <a href="registro" class="btn btn-default">Crear cuenta</a>
-=======
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-<<<<<<< HEAD
-    <button type="button" class="btn btn-primary">Iniciar sesion</button>
-    <button type="button" class="btn btn-default">Crear cuenta</button>
-=======
-        <a href="login" class="btn btn-primary">Iniciar sesión</a>
-        <a href="registro" class="btn btn-default">Crear cuenta</a>
->>>>>>> 54ef5beb3aa4ec446b7defa256c7f5f616dbc64f
-=======
         <a href="login" type="button" class="btn btn-primary">Iniciar sesion</a>
         <a href="registro" type="button" class="btn btn-warning">Crear cuenta</a>
         <a href="ir-a-suscribir" type="button" class="btn btn-danger">Suscribirse a un plan</a>
->>>>>>> 8c3b25bc877e8f470b1ef06ad3d1dfdd09f50adb:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
->>>>>>> master:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
     </div>
 </header>
 <section>
@@ -64,19 +35,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-                    <h3 class="mb-3">Alquilá un auto a un precio accesible</h3>
-=======
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-<<<<<<< HEAD
                     <h3 class="mb-3">Alquila un auto a un precio accesible</h3>
-=======
-                    <h3 class="mb-3">Alquilá un auto a un precio accesible</h3>
->>>>>>> 54ef5beb3aa4ec446b7defa256c7f5f616dbc64f
-=======
-                    <h3 class="mb-3">Alquila un auto a un precio accesible</h3>
->>>>>>> 8c3b25bc877e8f470b1ef06ad3d1dfdd09f50adb:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
->>>>>>> master:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
                     <h6 class="subtitle font-weight-normal">Contamos con 2 planes diferentes</h6>
                 </div>
             </div>
@@ -87,38 +46,14 @@
                     <div class="card card-shadow border-0 mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center">
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-                                <h5 class="font-weight-medium mb-0">Plan básico</h5>
-=======
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-<<<<<<< HEAD
                                 <h5 class="font-weight-medium mb-0">Plan basico</h5>
-=======
-                                <h5 class="font-weight-medium mb-0">Plan básico</h5>
->>>>>>> 54ef5beb3aa4ec446b7defa256c7f5f616dbc64f
-=======
-                                <h5 class="font-weight-medium mb-0">Plan basico</h5>
->>>>>>> 8c3b25bc877e8f470b1ef06ad3d1dfdd09f50adb:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
->>>>>>> master:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
                                 <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Popular</span></div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-5 text-center">
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">2.600</span>
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-                                        <h6 class="font-weight-light">MES</h6>
-=======
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-<<<<<<< HEAD
                                         <h6 class="font-weight-light">1 MES</h6>
-=======
-                                        <h6 class="font-weight-light">MES</h6>
->>>>>>> 54ef5beb3aa4ec446b7defa256c7f5f616dbc64f
-=======
-                                        <h6 class="font-weight-light">1 MES</h6>
->>>>>>> 8c3b25bc877e8f470b1ef06ad3d1dfdd09f50adb:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
->>>>>>> master:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
                                         <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" href="#">ELEGIR PLAN</a>
                                     </div>
                                 </div>
@@ -146,19 +81,7 @@
                                 <div class="col-lg-5 text-center">
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">24.000</span>
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-                                        <h6 class="font-weight-light">AÑO</h6>
-=======
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/vistas/home.jsp
-<<<<<<< HEAD
                                         <h6 class="font-weight-light">12 Meses</h6>
-=======
-                                        <h6 class="font-weight-light">AÑO</h6>
->>>>>>> 54ef5beb3aa4ec446b7defa256c7f5f616dbc64f
-=======
-                                        <h6 class="font-weight-light">12 Meses</h6>
->>>>>>> 8c3b25bc877e8f470b1ef06ad3d1dfdd09f50adb:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
->>>>>>> master:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/home.jsp
                                         <a class="btn btn-info-gradiant border-0 font-14 text-white p-3 btn-block mt-3" href="#">ELEGIR PLAN</a>
                                     </div>
                                 </div>
