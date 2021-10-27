@@ -1,7 +1,5 @@
 .DS_Store
 src/main/resources/hibernateContext.xml
-<<<<<<< HEAD
-
-=======
 .idea
->>>>>>> master
+target
+
