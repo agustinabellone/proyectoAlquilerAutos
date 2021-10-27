@@ -28,20 +28,11 @@ public class ControladorValoracionAuto {
         this.servicioValoracion=servicioValoracion;
     }
 
-    @RequestMapping(path = "/main", method = RequestMethod.GET)
-    public ModelAndView prueba(){
-        ModelMap modelo=new ModelMap();
-        return new ModelAndView("main");
-    }
-
 
     @RequestMapping(path = "/lista-viajes", method = RequestMethod.GET)
     public ModelAndView irListaViajes(HttpServletRequest request){
         Long clienteID = (Long) request.getSession().getAttribute("id");//me trae de la session
         ModelMap modelo=new ModelMap();
-      /*  List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(clienteID);
-        modelo.put("viajesObtenidos",viajesObtenidos);
-        return new ModelAndView("lista-de-viajes", modelo);*/
 
         if(elUsuarioEsCliente(request)){
             List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(clienteID);

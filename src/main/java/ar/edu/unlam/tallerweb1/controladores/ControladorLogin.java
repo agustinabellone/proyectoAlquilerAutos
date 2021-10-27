@@ -33,10 +33,10 @@ public class ControladorLogin {
         return new ModelAndView("home");
     }
 
-   /* @RequestMapping(path = "/main", method = RequestMethod.GET)
+    @RequestMapping(path = "/main", method = RequestMethod.GET)
     public ModelAndView mostrarMain() {
         return new ModelAndView("main");
-    }*/
+    }
 
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)

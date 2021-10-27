@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioValoracion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,13 @@ import java.util.List;
 public class ServicioValoracionImpls implements ServicioValoracion {
 
     private RepositorioValoracion repositorioValoracion;
+    private RepositorioAuto repositorioAuto;
 
 
     @Autowired
-    public ServicioValoracionImpls(RepositorioValoracion repositorioValoracion) {
+    public ServicioValoracionImpls(RepositorioValoracion repositorioValoracion, RepositorioAuto repositorioAuto) {
         this.repositorioValoracion = repositorioValoracion;
+        this.repositorioAuto=repositorioAuto;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class ServicioValoracionImpls implements ServicioValoracion {
 
     @Override
     public Auto obtenerAutoPorId(Long autoID) {
-        Auto auto = repositorioValoracion.obtenerAutoPorId(autoID);
+        Auto auto = repositorioAuto.buscarPor(autoID);
         return auto;
     }
 
