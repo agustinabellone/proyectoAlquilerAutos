@@ -41,8 +41,8 @@ public class Alquiler {
     private Encargado encargado;
     private Estado estado; //ACTIVO O FINALIZADO
 
-    private String ingresoF;
-    private String egresoF;
+ //   private String ingresoF;
+  //  private String egresoF;
 
     public Alquiler(Long id,LocalDateTime f_ingreso,LocalDateTime f_regreso,Auto auto,Usuario usuario){
         this.id=id;
@@ -174,7 +174,7 @@ public class Alquiler {
         this.estado = estado;
     }
 
-    public String getIngresoF() {
+   /* public String getIngresoF() {
         return ingresoF;
     }
 
@@ -189,7 +189,7 @@ public class Alquiler {
     public void setEgresoF(String egresoF) {
         this.egresoF = egresoF;
     }
-
+*/
 
     public void setAdicionalCambioLugarFecha(Usuario usuario) {
         Suscripcion suscripcion = new Suscripcion();
