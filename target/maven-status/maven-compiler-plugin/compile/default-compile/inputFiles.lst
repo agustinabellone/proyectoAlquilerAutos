@@ -47,6 +47,7 @@
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/modelo/Encargado.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/DatosAlquiler.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorios/RepositorioEnviarAutoAMantenimientoImpl.java
+/home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/NoHayAutosEnMantenientoException.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorios/RepositorioSuscripcionImpl.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/AutoYaAlquiladoException.java
 /home/ezequiel/IDEA-Proyects/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/servicios/ServicioEncargadoImpl.java

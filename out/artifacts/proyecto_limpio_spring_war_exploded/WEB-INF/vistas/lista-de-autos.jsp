@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ezequiel
@@ -34,46 +35,52 @@
 <section>
     <div class="pricing6 py-5 bg-light">
         <div class="container">
-            <!-- row  -->
             <div class="col center-block">
-                <!-- column  -->
-                <div class="col-md-12">
-                    <div class="card card-shadow border-0 mb-4">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center">
-                                <h5 class="font-weight-medium mb-0">Auto: (Iria Patente o algo)</h5>
-                                <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Mas alquilado</span>
+                <c:forEach items="${autosEnMantenimiento}" var="autos">
+                    <div class="col-md-12">
+                        <div class="card card-shadow border-0 mb-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="font-weight-medium mb-0">Auto: (Iria Patente o algo)</h5>
+                                    <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Mas alquilado</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="col-lg-12">
-                                    <div class="row mt-3">
-                                        <div class="col-lg-6 align-self-center">
-                                            <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Patente: AAA111</span>
-                                                </li>
-                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Marca: Ford</span>
-                                                </li>
-                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Modelo: Focus</span>
-                                                </li>
-                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Kilomtraje Total: 150km</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="container">
-                                                <img src="https://www.automobilemag.com/uploads/sites/11/2014/02/2015-Ford-Focus-hatchback-front-view2.jpg?fit=around%7C875:492"
-                                                     alt="" style="width: 100%; height: auto;">
+                                <div class="col">
+                                    <div class="col-lg-12">
+                                        <div class="row mt-3">
+                                            <div class="col-lg-6 align-self-center">
+                                                <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${autos.patente}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${autos.marca}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${autos.modelo}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${autos.km}</span>
+
+                                                    </li>
+                                                </ul>
                                             </div>
+                                            <div class="col-lg-6">
+                                                <div class="container">
+                                                    <img src="https://www.automobilemag.com/uploads/sites/11/2014/02/2015-Ford-Focus-hatchback-front-view2.jpg?fit=around%7C875:492"
+                                                         alt="" style="width: 100%; height: auto;">
+                                                </div>
+                                            </div>
+                                            <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3"
+                                               href="#">ENVIAR A MANTENIMIENTO</a>
                                         </div>
-                                        <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3"
-                                           href="#">ENVIAR A MANTENIMIENTO</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                </c:forEach>
+                <!-- row  -->
+                <h2>${mensaje}</h2>
+                <!-- column  -->
+
                 <!-- column  -->
                 <!-- column  -->
                 <div class="col-md-12">

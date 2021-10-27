@@ -50,10 +50,14 @@
 				<!--Hay que cambiarlo si se cambia de motor de base de datos-->
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
 				<!--Cambiar a true si se quiere ver por consola el codigo sql generado por hibernate-->
+<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/WEB-INF/classes/hibernateContext.xml
 				<prop key="hibernate.show_sql">true</prop>
 <<<<<<< HEAD
 				<prop key="hibernate.format_sql">true</prop>
 =======
+=======
+				<prop key="hibernate.show_sql">false</prop>
+>>>>>>> FuncionalidadEnviarAutoAMantenimiento:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/classes/hibernateContext.xml
 				<prop key="hibernate.format_sql">false</prop>
 >>>>>>> master
 				<!--Para indicar si hibernate genera el modelo de datos al startup-->

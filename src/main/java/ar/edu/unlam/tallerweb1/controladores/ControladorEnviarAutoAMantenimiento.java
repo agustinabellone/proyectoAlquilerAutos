@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Marca;
 import ar.edu.unlam.tallerweb1.modelo.Modelo;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -27,11 +31,17 @@ public class ControladorEnviarAutoAMantenimiento {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-lista-de-autos")
-    public ModelAndView irAListaDeAutos() {
-        DatosEnvioAMantenimiento datos = new DatosEnvioAMantenimiento();
-        ModelMap model = new ModelMap();
-        model.put("datosMantenimiento", datos);
-        return new ModelAndView("lista-de-autos", model);
+    public ModelAndView irAListaDeAutos() throws NoHayAutosEnMantenientoException {
+        try {
+            List<Auto> autosObtenidos = servicioMantenimiento.obtenerAutosEnMantenimiento();
+            DatosEnvioAMantenimiento datos = new DatosEnvioAMantenimiento();
+            ModelMap model = new ModelMap();
+            model.put("datosMantenimiento", datos);
+            model.put("autosEnMantenimiento",autosObtenidos);
+            return new ModelAndView("lista-de-autos", model);
+        } catch (NoHayAutosEnMantenientoException e) {
+            model.put("mensaje","No hay autos desponibles para mantenimiento");
+            return new ModelAndView("lista-de-autos",model);        }
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/mantenimiento")

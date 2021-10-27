@@ -2,6 +2,7 @@ ar/edu/unlam/tallerweb1/controladores/ControladorEnviarAutoAMantenimiento.class
 ar/edu/unlam/tallerweb1/controladores/ControladorRegistro.class
 ar/edu/unlam/tallerweb1/repositorios/RepositorioValoracion.class
 ar/edu/unlam/tallerweb1/servicios/ServicioValoracion.class
+ar/edu/unlam/tallerweb1/Exceptions/NoHayAutosEnMantenientoException.class
 ar/edu/unlam/tallerweb1/Exceptions/AutoYaAlquiladoException.class
 ar/edu/unlam/tallerweb1/Exceptions/ClienteYaSuscriptoException.class
 ar/edu/unlam/tallerweb1/servicios/ServicioEncargado.class

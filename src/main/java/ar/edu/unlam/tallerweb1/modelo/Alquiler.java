@@ -1,12 +1,12 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
