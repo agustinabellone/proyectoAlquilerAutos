@@ -15,7 +15,11 @@ public interface RepositorioValoracion {
 
     Usuario obtenerClientePorId(Long autoID);
 
-    void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto);
+    void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto, Alquiler alquiler);
+
+    Alquiler obtenerAlquilerPorId(Long id);
+
+    ValoracionAuto obtenerValoracionALquilerAuto(Auto auto, Alquiler alquiler);
 
     List<ValoracionAuto> obtenerValoracionesAuto(Auto auto);
 }

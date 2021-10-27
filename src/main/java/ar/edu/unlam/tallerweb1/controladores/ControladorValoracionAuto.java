@@ -1,11 +1,13 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoAlquilerYaValorado;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioValoracion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.EvaluationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +39,7 @@ public class ControladorValoracionAuto {
             List<Alquiler> viajesObtenidos = servicioValoracion.obtenerAlquileresHechos(clienteID);
             modelo.put("viajesObtenidos",viajesObtenidos);
         }else{
-            return new ModelAndView("/home.jsp");
+            return new ModelAndView("home");
         }
 
         return new ModelAndView("lista-de-viajes", modelo);
@@ -49,22 +51,37 @@ public class ControladorValoracionAuto {
 
 
     @RequestMapping(path = "valorar-auto" , method = RequestMethod.GET)
-    public ModelAndView valorarAuto(@RequestParam(value = "id_auto")Long autoID){
+    public ModelAndView valorarAuto(@RequestParam(value = "id_auto")Long autoID,
+                                    @RequestParam(value = "id_alquiler") Long alquilerID){
         ModelMap modelo=new ModelMap();
         Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
         modelo.put("auto",auto);
+        modelo.put("alquilerID",alquilerID);
         return new ModelAndView("valorar-auto",modelo);
     }
 
     @RequestMapping(path = "guardar-valoracion-Auto", method = RequestMethod.POST)
     public ModelAndView guardarValoracionAuto(@RequestParam(value = "estrellasValoracion") int cantidadEstrellas,
                                               @RequestParam(value = "comentario") String comentarioAuto,
-                                              @RequestParam(value ="autoID") Long autoID)
+                                              @RequestParam(value ="autoID") Long autoID,
+                                              @RequestParam(value = "alquilerID") Long alquilerID)
                                               {
         ModelMap modelo=new ModelMap();
         Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
-        servicioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto);
-        return  new ModelAndView("main");
+        Long valoracionAuto=servicioValoracion.obtenerValoracionAuto(auto);
+        modelo.put("auto", auto);
+        modelo.put("valoracionAuto", valoracionAuto);
+
+        try{
+            servicioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto,alquilerID);
+        }catch (AutoAlquilerYaValorado e){
+            modelo.put("mensaje", "El auto ya fue valorado");
+            return new ModelAndView("main", modelo);
+        }
+        modelo.put("mensaje", "Auto valorado exitosamente");
+        return new ModelAndView("main", modelo);
+
+
     }
 
 
