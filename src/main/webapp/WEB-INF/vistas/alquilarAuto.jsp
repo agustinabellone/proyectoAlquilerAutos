@@ -33,7 +33,7 @@
                             <div class="card card-shadow border-0 mb-4">
                                 <div class="card-body p-4">
                                     <div class="d-flex align-items-center">
-                                        <h5 class="font-weight-bold">${auto.marca}</h5>
+                                        <h5 class="font-weight-bold">${auto.marca.descripcion}</h5>
                                     </div>
                                     <div class="col">
                                         <div class="col-lg-12">
@@ -42,9 +42,9 @@
                                                     <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
                                                         <li class="py-2"><i class="icon-check text-info mr-2"></i>Patente: <span class="font-weight-bold">${auto.patente}</span>
                                                         </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>Marca:<span class="font-weight-bold"> ${auto.marca}</span>
+                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>Marca:<span class="font-weight-bold"> ${auto.marca.descripcion}</span>
                                                         </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>Modelo: <span class="font-weight-bold"> ${auto.modelo}</span>
+                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>Modelo: <span class="font-weight-bold"> ${auto.modelo.descripcion}</span>
                                                         </li>
                                                         <li class="py-2"><i class="icon-check text-info mr-2"></i>Kilometros: <span class="font-weight-bold"> ${auto.km} km</span>
                                                         </li>

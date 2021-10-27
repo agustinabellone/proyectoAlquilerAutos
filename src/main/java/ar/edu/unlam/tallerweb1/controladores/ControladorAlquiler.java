@@ -31,6 +31,9 @@ public class ControladorAlquiler {
     public ModelAndView mostrarListaDeAutos() {
         ModelMap modelo = new ModelMap();
         List<Auto> autosDisponibles = servicioAlquiler.obtenerAutosDisponibles();
+        if(autosDisponibles == null) {
+            return new ModelAndView("main");
+        }
         modelo.put("autosDisponibles", autosDisponibles);
         return new ModelAndView("alquilarAuto", modelo);
     }
