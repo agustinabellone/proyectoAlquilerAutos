@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+
 
 
 @Entity
@@ -9,28 +11,38 @@ public class Auto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String marca;
-    private String modelo;
+    @ManyToOne
+    private Marca marca;
+    @ManyToOne
+    private Modelo modelo;
+    @JoinColumn(nullable = true)
+    @ManyToOne
+    private Tercero tercero; //CAMBIAMOS BOOLEAN POR TERCERO QUE PUEDE SER NULO
+    @ManyToOne
+    private Garage garage;
+    private LocalDate añoFabricación;
+    private int km;
     private String imagen;
     private String patente;
-    private Boolean terceros;
-    private Integer añoFabricación;
-    private int kilometros;
-    private String estado;
 
+    private Situacion situacion;
 
-    public Auto(Long id, String marca, String modelo, Integer kilometros, String imagen, String patente, Boolean terceros, Integer añoFabricación) {
+    public Auto () {
+        this.km = 100;
+    }
+
+    public Auto(Long id, Marca marca, Modelo modelo, String imagen, String patente, Tercero tercero, LocalDate añoFabricación, int kilometros, Situacion situacion) {
+
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;
         this.imagen = imagen;
         this.patente = patente;
-        this.kilometros = kilometros;
-        this.terceros = terceros;
+        this.tercero = tercero;
         this.añoFabricación = añoFabricación;
+        this.km = kilometros;
+        this.situacion = situacion;
     }
-
-    public Auto() {}
 
     public Long getId() {
         return id;
@@ -38,22 +50,6 @@ public class Auto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
     }
 
     public String getImagen() {
@@ -72,36 +68,54 @@ public class Auto {
         this.patente = patente;
     }
 
-    public Boolean getTerceros() {
-        return terceros;
+   public Tercero getTercero() {
+        return tercero;
+
     }
 
-    public void setTerceros(Boolean terceros) {
-        this.terceros = terceros;
+    public void setTercero(Tercero tercero) {
+        this.tercero = tercero;
     }
 
-    public Integer getAñoFabricación() {
+    public LocalDate getAñoFabricación() {
         return añoFabricación;
     }
 
-    public void setAñoFabricación(Integer añoFabricación) {
+    public void setAñoFabricación(LocalDate añoFabricación) {
         this.añoFabricación = añoFabricación;
     }
 
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+
+    public Modelo getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
+    }
+
     public int getKm() {
-        return kilometros;
+        return km;
     }
 
     public void setKm(int kilometros) {
-        this.kilometros = kilometros;
+        this.km = kilometros;
     }
 
-    public String getEstado() {
-        return estado;
+    public Situacion getSituacion() {
+        return situacion;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+
+    public void setSituacion(Situacion estado) {
+        this.situacion = estado;
     }
 
 }

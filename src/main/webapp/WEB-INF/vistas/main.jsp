@@ -1,7 +1,4 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <!DOCTYPE html>
@@ -23,6 +20,7 @@
 <jsp:include page="header.jsp" />
 <section>
     <div class="container">
+
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center m-5">¡Ingresaste a tu cuenta!</h1>
         </div>
@@ -43,9 +41,8 @@
             </div>
         </div>
     </div>
+    </div>
 </section>
-
-
 
 
 </body>

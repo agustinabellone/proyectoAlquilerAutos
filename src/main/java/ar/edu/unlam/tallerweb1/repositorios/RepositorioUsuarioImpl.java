@@ -44,4 +44,6 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .createCriteria(Usuario.class)
                 .list();
     }
+
+
 }
