@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -47,6 +48,11 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 
     @Override
     public Auto guardarEnMantenimiento(Auto buscado) {
+        return null;
+    }
+
+    @Override
+    public Auto buscarAutoEnMantenimientoPorIdYPorSituacion(Long id, Situacion situacion) {
         return null;
     }
 }

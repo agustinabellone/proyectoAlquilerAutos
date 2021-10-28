@@ -14,45 +14,80 @@ public class testServicioEnviarAutoAMantenimiento {
 
     private RepositorioAuto repositorioAuto = mock(RepositorioAuto.class);
     private ServicioDeAuto servicioDeAuto = new ServicioDeAutoImpl(repositorioAuto);
-    private Auto auto = new Auto();
 
     @Test
-    public void queSePuedaEnviarUnAutoAMantenimiento() throws AutoNoExistente, AutoYaExistente {
-        Auto aEnviar = givenExisteUnAuto();
-        Auto enviado = whenSeEnviaAMantenimiento(aEnviar);
-        thenElEnvioEsExitoso(enviado);
+    public void queSePuedaBuscarUnAutoExistentePorId() throws AutoNoExistente {
+        Auto existente = givenExisteUnAuto();
+        Auto buscado = whenBuscoElAuto(existente);
+        thenLoEncuentro(buscado);
     }
 
-    private Auto givenExisteUnAuto() {
-        when(repositorioAuto.buscarPor(auto.getId())).thenReturn(auto);
+    @Test (expected = AutoNoExistente.class)
+    public void queNoSePuedaBuscarUnAutoQueNoExiste() throws AutoNoExistente {
+        Auto noExistente = givenNoExisteUnAuto();
+        Auto buscado = whenBuscoElAuto(noExistente);
+        thenNoLoEncuentra(buscado);
+    }
+
+    @Test
+    public void queSePuedaEnviarUnAutoAMantenimientoCorrectamente() throws AutoYaExistente {
+        Auto queNecesitaMantenimiento = givenExisteUnAuto();
+        Auto guardadoEnMantenimiento = whenLoEnvioAMantenimiento(queNecesitaMantenimiento);
+        thenElAutoesEnviadoCorrectamente(guardadoEnMantenimiento);
+    }
+
+    @Test (expected = AutoYaExistente.class)
+    public void queNoSePuedaEnviarUnAutoDosVecesAMantenimiento() throws AutoYaExistente {
+        Auto enMantenimiento = givenExisteUnAutoEnMantenimiento();
+        Auto noGuardado = whenLoEnvioAMantenimiento(enMantenimiento);
+        thenElAutoNoSeEnvia(noGuardado);
+    }
+
+    private void thenElAutoNoSeEnvia(Auto noGuardado) {
+        assertThat(noGuardado).isNull();
+        assertThat(noGuardado.getSituacion()).isEqualTo(Situacion.DISPONIBLE);
+    }
+
+    private Auto givenExisteUnAutoEnMantenimiento() {
+        Auto auto = new Auto();
+        when(repositorioAuto.guardarEnMantenimiento(auto)).thenThrow(AutoYaExistente.class);
         return auto;
     }
 
-    private Auto whenSeEnviaAMantenimiento(Auto aEnviar) throws AutoNoExistente, AutoYaExistente {
-        when(repositorioAuto.guardarEnMantenimiento(anyObject())).thenReturn(new Auto());
-        return servicioDeAuto.enviarAutoMantenimiento(aEnviar);
+
+    private Auto givenNoExisteUnAuto() throws AutoNoExistente {
+        Auto auto = new Auto();
+        when(repositorioAuto.buscarPor(auto.getId())).thenThrow(AutoNoExistente.class);
+        return auto;
     }
 
-    private void thenElEnvioEsExitoso(Auto enviado) {
-        assertThat(enviado).isNotNull();
-        assertThat(enviado.getSituacion()).isEqualTo(Situacion.EN_MANTENIMIENTO);
-        verify(repositorioAuto,times(1)).buscarPor(anyLong());
-        verify(repositorioAuto,times(1)).guardarEnMantenimiento(anyObject());
+    private Auto givenExisteUnAuto() {
+        Auto auto = new Auto();
+        when(repositorioAuto.buscarPor(auto.getId())).thenReturn(auto);
+        when(repositorioAuto.buscarAutoEnMantenimientoPorIdYPorSituacion(anyLong(), anyObject())).thenReturn(null);
+        return auto;
     }
 
-    @Test
-    public void queSePuedaObtenerUnAutoPorSuId() throws AutoNoExistente {
-        Auto aBuscar = givenExisteUnAuto();
-        Auto encontrado = whenLoBusco(aBuscar);
-        thenLoEncuentro(encontrado);
+    private Auto whenBuscoElAuto(Auto existente) throws AutoNoExistente {
+        return servicioDeAuto.buscarAutoPorId(existente.getId());
     }
 
-    private Auto whenLoBusco(Auto aBuscar) throws AutoNoExistente {
-        return servicioDeAuto.buscarAutoPorId(aBuscar.getId());
+    private Auto whenLoEnvioAMantenimiento(Auto queNecesitaMantenimiento) throws AutoYaExistente {
+
+        return servicioDeAuto.enviarAutoMantenimiento(queNecesitaMantenimiento);
     }
 
-    private void thenLoEncuentro(Auto encontrado) {
-        assertThat(encontrado).isNotNull();
-        verify(repositorioAuto,times(1)).buscarPor(anyLong());
+    private void thenLoEncuentro(Auto buscado) {
+        assertThat(buscado).isNotNull();
+    }
+
+    private void thenNoLoEncuentra(Auto buscado) {
+        assertThat(buscado).isNull();
+    }
+
+    private void thenElAutoesEnviadoCorrectamente(Auto guardadoEnMantenimiento) {
+        assertThat(guardadoEnMantenimiento).isNotNull();
+        assertThat(guardadoEnMantenimiento.getSituacion()).isEqualTo(Situacion.EN_MANTENIMIENTO);
+        verify(repositorioAuto,times(1)).guardarEnMantenimiento(guardadoEnMantenimiento);
     }
 }
