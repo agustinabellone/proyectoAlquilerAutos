@@ -1,13 +1,4 @@
-/shelf/
-/workspace.xml
 src/main/resources/hibernateContext.xml
-<<<<<<< HEAD
-src\main\resources\hibernateContext.xml
 .idea
-
-=======
-.idea
-out
 target
-.travis.yml
->>>>>>> master
+

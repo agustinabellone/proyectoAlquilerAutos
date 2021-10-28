@@ -15,14 +15,18 @@ public class ValoracionAuto {
     @Column
     private String comentarios;
 
+    @OneToOne
+    private Alquiler alquiler;
+
     @ManyToOne
     private Auto auto;
 
 
-    public ValoracionAuto(int valoracion,String comentarios, Auto auto){
+    public ValoracionAuto(int valoracion,String comentarios, Auto auto,Alquiler alquiler){
         this.valoracion=valoracion;
         this.comentarios=comentarios;
         this.auto=auto;
+        this.alquiler=alquiler;
     }
 
     public ValoracionAuto() {
@@ -62,5 +66,13 @@ public class ValoracionAuto {
 
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public Alquiler getAlquiler() {
+        return alquiler;
+    }
+
+    public void setAlquiler(Alquiler alquiler) {
+        this.alquiler = alquiler;
     }
 }

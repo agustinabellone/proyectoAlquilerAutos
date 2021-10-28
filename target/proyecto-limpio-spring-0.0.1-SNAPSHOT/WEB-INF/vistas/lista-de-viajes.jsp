@@ -15,9 +15,7 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<header class="d-flex flex-row-reverse p-3">
-
-</header>
+<jsp:include page="header.jsp" />
 <section>
     <div class="container text-center">
         <div>
@@ -52,12 +50,11 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="container">
-                                                    <img src="https://www.automobilemag.com/uploads/sites/11/2014/02/2015-Ford-Focus-hatchback-front-view2.jpg?fit=around%7C875:492"
-                                                         alt="" style="width: 100%; height: auto;">
+                                                    <img src="${viaje.auto.imagen}" class="card-img-top" alt="...">
                                                 </div>
                                             </div>
                                             <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3"
-                                               href="valorar-auto?id_auto=${viaje.auto.id}">VALORAR VEHICULO</a>
+                                               href="valorar-auto?id_auto=${viaje.auto.id}&id_alquiler=${viaje.id}">VALORAR VEHICULO</a>
                                         </div>
                                     </div>
                                 </div>

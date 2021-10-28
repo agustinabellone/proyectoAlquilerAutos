@@ -1,6 +1,9 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<header class = "d-flex flex-row-reverse p-3">
-  <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-4 justify-content">
+<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+
+<header class = "p-3">
+  <div class = " d-flex  col-md-12 justify-content-end ">
 
     <c:if test = "${id != null}">
 
@@ -20,11 +23,11 @@
               </button>
             </div>
             <div class="modal-body">
-              Esta seguro que quiere cerrar sesion?
+              ¿Estás seguro? Tendrás que iniciar sesión de nuevo.
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <a href="logout"><button type="button" class="btn btn-primary">Cerrar sesion</button></a>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <a href="logout"><button type="button" class="btn btn-danger">Cerrar</button></a>
             </div>
           </div>
         </div>
@@ -49,11 +52,13 @@
         </c:otherwise>
 
       </c:choose>
+      <a href="home" type="button" class="btn btn-info">Inicio</a>
     </c:if>
-    <c:if test = "${id == null}">
-      <a href="login" type="button" class="btn btn-primary">Iniciar sesion</a>
-      <a href="registro" type="button" class="btn btn-warning">Crear cuenta</a>
-    </c:if>
-    <a href="home" type="button" class="btn btn-success">Inicio</a>
+    <div class="d-flex justify-content-around align-items-center col-lg-3">
+      <c:if test = "${id == null}">
+        <a href="registro" type="button" class="btn btn-outline-primary">Crear cuenta</a>
+        <a href="login" type="button" class="btn btn-primary">Iniciar sesion</a>
+      </c:if>
+    </div>
   </div>
 </header>

@@ -64,6 +64,10 @@
             </div>
         </div>
     </div>
+    <c:if test="${not empty mensaje}">
+        <caption><p class="text-center text-danger">${mensaje}</p></caption>
+        <br>
+    </c:if>
 </section>
 </body>
 
