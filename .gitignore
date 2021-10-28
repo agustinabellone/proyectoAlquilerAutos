@@ -1,9 +1,6 @@
-/shelf/
-/workspace.xml
 src/main/resources/hibernateContext.xml
 .idea
 out
 .travis.yml
-
-
+target
 

@@ -9,13 +9,13 @@ import javax.persistence.OneToOne;
 public class Garage {
 
     @Id
-    private Integer id;
+    private Long id;
     private String direccion;
     private Integer capacidad;
     private Integer cantAutosActual;
 
 
-    public Garage(Integer id, String direccion, Integer capacidad, Integer cantAutosActual) {
+    public Garage(Long id, String direccion, Integer capacidad, Integer cantAutosActual) {
         this.id = id;
         this.direccion = direccion;
         this.capacidad = capacidad;
@@ -26,11 +26,11 @@ public class Garage {
 
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
