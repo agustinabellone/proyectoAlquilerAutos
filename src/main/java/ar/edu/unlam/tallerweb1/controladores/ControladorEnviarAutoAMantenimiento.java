@@ -1,118 +1,60 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Marca;
-import ar.edu.unlam.tallerweb1.modelo.Modelo;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.servicios.ServicioMantenimiento;
+import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 
 @Controller
 public class ControladorEnviarAutoAMantenimiento {
 
-    private ModelMap model = new ModelMap();
-    private ServicioMantenimiento servicioMantenimiento;
+    private ServicioDeAuto servicioDeAuto;
+    ModelMap model = new ModelMap();
     private String viewName;
-
     @Autowired
-    public ControladorEnviarAutoAMantenimiento(ServicioMantenimiento servicioMantenimiento) {
-        this.servicioMantenimiento = servicioMantenimiento;
+    public ControladorEnviarAutoAMantenimiento(ServicioDeAuto servicioDeAuto) {
+        this.servicioDeAuto = servicioDeAuto;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/ir-lista-de-autos")
-    public ModelAndView irAListaDeAutos() throws NoHayAutosEnMantenientoException {
-        try {
-            List<Auto> autosObtenidos = servicioMantenimiento.obtenerAutosEnMantenimiento();
-            DatosEnvioAMantenimiento datos = new DatosEnvioAMantenimiento();
-            ModelMap model = new ModelMap();
-            model.put("datosMantenimiento", datos);
-            model.put("autosEnMantenimiento",autosObtenidos);
-            return new ModelAndView("lista-de-autos", model);
-        } catch (NoHayAutosEnMantenientoException e) {
-            model.put("mensaje","No hay autos desponibles para mantenimiento");
-            return new ModelAndView("lista-de-autos",model);        }
-    }
-
-    @RequestMapping(method = RequestMethod.POST, path = "/mantenimiento")
-    public ModelAndView enviarAutoAManteniminento(@ModelAttribute("datosMantenimiento") DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
-        //TODO CUANDO SE UTILIZEN LAS VISTAS DESCOMENTAR ESTE METODO PARA QUE DE ESA FORMA MANDE EL AUTO Y EL USUARIO HARDCODEADO
-        //hardCodeoLosDatosQueLleganPorPost(datosEnvioAMantenimiento);
-
-        if (esAdministradorElUsuarioQueLlegaCon(datosEnvioAMantenimiento)) {
-            elServicioDeMantenimientoEnviaElAutoAMantenientoSiNoLanzaUnaException(datosEnvioAMantenimiento);
-            enviarAlaVistaDeMantenimientoYPasarLosDatosDeMantenimentoAlModelMap(datosEnvioAMantenimiento);
+    @RequestMapping(method = RequestMethod.GET, path = "/enviar-a-mantenimiento")
+    public ModelAndView enviarAutoAMantenimiento(HttpServletRequest request, Long idDelAuto) {
+        if (elUsuarioTieneRolDeAdministrador(request) && elRolEstaSeteado(request)) {
+            try {
+                Auto existente = servicioDeAuto.buscarAutoPorId(idDelAuto);
+                servicioDeAuto.enviarAutoMantenimiento(existente);
+                model.put("mensaje", "Se envio correctamente un auto a mantenimiento");
+                viewName = "lista-de-autos";
+            } catch (AutoNoExistente e) {
+                model.put("mensaje", "No existe el auto que queres mandar");
+                viewName = "lista-de-autos";
+            } catch (AutoYaExistente e) {
+                model.put("mensaje", "No podes enviar un auto que ya esta en mantenimiento");
+                viewName = "lista-de-autos";
+            }
         } else {
-            enviarALaVistadeListaDeAutosYMandaUnMensajeDeError(datosEnvioAMantenimiento);
+            model.put("mensaje", "No tenes permiso para realizar esta accion");
+            viewName = "home";
         }
         return new ModelAndView(viewName, model);
     }
 
-    private boolean esAdministradorElUsuarioQueLlegaCon(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
-        return datosEnvioAMantenimiento.getUsuario().getRol() == "Admin";
+    private boolean elRolEstaSeteado(HttpServletRequest request) {
+        return request.getSession().getAttribute("rol") != null;
     }
 
-    private void elServicioDeMantenimientoEnviaElAutoAMantenientoSiNoLanzaUnaException(DatosEnvioAMantenimiento datosEnvioAMantenimiento) throws Exception {
-        try {
-            servicioMantenimiento.enviar(datosEnvioAMantenimiento.getAuto(),datosEnvioAMantenimiento.getFechaInicial());
-        } catch (Exception e) {
-            viewName = "lista-de-autos";
-            throw new Exception();
-        }
-    }
-
-    private void enviarAlaVistaDeMantenimientoYPasarLosDatosDeMantenimentoAlModelMap(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
-        model.put("datosMantenimiento", datosEnvioAMantenimiento);
-        model.put("mensaje", "El auto se envio correctamente a mantenimiento");
-        model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
-        model.put("marca", datosEnvioAMantenimiento.getAuto().getMarca());
-        model.put("modelo", datosEnvioAMantenimiento.getAuto().getModelo());
-        model.put("km-del-auto", datosEnvioAMantenimiento.getAuto().getKm());
-        model.put("fecha",datosEnvioAMantenimiento.getFechaInicial());
-        viewName = "mantenimiento";
-    }
-
-    private void enviarALaVistadeListaDeAutosYMandaUnMensajeDeError(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
-        model.put("mensaje", "No se envio correctamente ya que el usuario no es administrador");
-        model.put("usuario", datosEnvioAMantenimiento.getUsuario().getRol());
-        viewName = "lista-de-autos";
-    }
-
-    private void hardCodeoLosDatosQueLleganPorPost(DatosEnvioAMantenimiento datosEnvioAMantenimiento) {
-        Auto auto = creoUnAuto();
-        Usuario usuario = creoUnUsuario();
-        seteoElAutoYElUsuarioALosDatosDeMantenimiento(datosEnvioAMantenimiento, auto, usuario);
-    }
-
-    private Auto creoUnAuto() {
-        Auto auto = new Auto();
-        Marca marca = new Marca(1, "Ford");
-        Modelo modelo = new Modelo(1, "Fiesta", marca);
-        auto.setMarca(marca);
-        auto.setModelo(modelo);
-        auto.setKm(100);
-        return auto;
-    }
-
-    private Usuario creoUnUsuario() {
-        Usuario usuario = new Usuario("Admin");
-        return usuario;
-    }
-
-    private void seteoElAutoYElUsuarioALosDatosDeMantenimiento(DatosEnvioAMantenimiento datosEnvioAMantenimiento, Auto auto, Usuario usuario) {
-        datosEnvioAMantenimiento.setAuto(auto);
-        datosEnvioAMantenimiento.setUsuario(usuario);
-        datosEnvioAMantenimiento.setFechaInicial("07/10/21");
+    private boolean elUsuarioTieneRolDeAdministrador(HttpServletRequest request) {
+        return request.getSession().getAttribute("rol") == "admin";
     }
 
 }
