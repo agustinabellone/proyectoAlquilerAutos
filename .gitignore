@@ -3,7 +3,6 @@
 src/main/resources/hibernateContext.xml
 .idea
 out
-target
 .travis.yml
 
 
