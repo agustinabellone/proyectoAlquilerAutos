@@ -1,0 +1,86 @@
+.portada {
+    background-image: url("https://images.pexels.com/photos/1280560/pexels-photo-1280560.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    height: 400px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.portada:before {
+    content:'';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.portada h1 {
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    position: relative
+}
+
+h3 {
+    font-weight: bold;
+}
+
+/*Planes*/
+
+.card-box {
+    background: #FAFAFA;
+    min-height: 300px;
+    position: relative;
+    padding: 30px 30px 20px;
+    margin-bottom: 20px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    cursor: pointer;
+}
+
+.card-box:hover {
+    background: #9acfea;
+}
+
+.card-box:after {
+    display: block;
+    background: #2196F3;
+    border-top: 2px solid #2196F3;
+    content: '';
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.card-title h2 {
+    padding-top: 5%;
+    color: #2196F3;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    font-size: 24px;
+    line-height: 1;
+    margin: 0 0 15px;
+}
+
+.card-title p {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.card-link a {
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    color: #FF5722;
+    font-size: 15px;
+}

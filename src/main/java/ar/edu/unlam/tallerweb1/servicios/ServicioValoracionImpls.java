@@ -1,9 +1,11 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoAlquilerYaValorado;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioValoracion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class ServicioValoracionImpls implements ServicioValoracion {
 
     private RepositorioValoracion repositorioValoracion;
     private RepositorioAuto repositorioAuto;
+
 
 
     @Autowired
@@ -41,8 +44,15 @@ public class ServicioValoracionImpls implements ServicioValoracion {
     }
 
     @Override
-    public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto) {
-        repositorioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto);
+    public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto,Long alquilerID) {
+        Alquiler alquiler=obtenerAlquilerPorId(alquilerID);
+        ValoracionAuto valoracionAuto=repositorioValoracion.obtenerValoracionALquilerAuto(auto,alquiler);
+        if(valoracionAuto!=null){
+            throw  new AutoAlquilerYaValorado();
+        }else{
+            repositorioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto,alquiler);
+        }
+
     }
 
     @Override
@@ -59,6 +69,12 @@ public class ServicioValoracionImpls implements ServicioValoracion {
             promedioValoracion=suma/valoraciones.size();
         }
         return promedioValoracion;
+    }
+
+    @Override
+    public Alquiler obtenerAlquilerPorId(Long alquilerID) {
+        Alquiler alquiler=repositorioValoracion.obtenerAlquilerPorId(alquilerID);
+        return  alquiler;
     }
 
 

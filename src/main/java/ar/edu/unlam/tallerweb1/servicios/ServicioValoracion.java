@@ -12,8 +12,10 @@ public interface ServicioValoracion {
 
     Auto obtenerAutoPorId(Long autoID);
 
-    void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto);
+    void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto,Long alquiler);
 
     Long obtenerValoracionAuto(Auto auto);
+
+    Alquiler obtenerAlquilerPorId(Long alquilerID);
 }
 

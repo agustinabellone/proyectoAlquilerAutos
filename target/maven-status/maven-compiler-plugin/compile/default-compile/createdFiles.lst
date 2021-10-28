@@ -28,7 +28,6 @@ ar/edu/unlam/tallerweb1/servicios/ServicioRegistroImpl.class
 ar/edu/unlam/tallerweb1/modelo/Garage.class
 ar/edu/unlam/tallerweb1/servicios/ServicioSuscripcionImpl.class
 ar/edu/unlam/tallerweb1/repositorios/RepositorioDevolucion.class
-ar/edu/unlam/tallerweb1/servicios/ServicioAlquilar.class
 ar/edu/unlam/tallerweb1/modelo/Situacion.class
 ar/edu/unlam/tallerweb1/servicios/ServicioAlquiler.class
 ar/edu/unlam/tallerweb1/Exceptions/AutoNoExistente.class
@@ -37,6 +36,7 @@ ar/edu/unlam/tallerweb1/repositorios/RepositorioEnviarAutoAMantenimientoImpl.cla
 ar/edu/unlam/tallerweb1/modelo/Suscripcion.class
 ar/edu/unlam/tallerweb1/Exceptions/ClaveLongitudIncorrectaException.class
 ar/edu/unlam/tallerweb1/repositorios/RepositorioSuscripcion.class
+ar/edu/unlam/tallerweb1/Exceptions/AutoAlquilerYaValorado.class
 ar/edu/unlam/tallerweb1/repositorios/RepositorioTipoSuscripcion.class
 ar/edu/unlam/tallerweb1/modelo/TipoSuscripcion.class
 ar/edu/unlam/tallerweb1/servicios/ServicioMantenimientoImpl.class
@@ -66,6 +66,7 @@ ar/edu/unlam/tallerweb1/controladores/ControladorUsuario.class
 ar/edu/unlam/tallerweb1/servicios/ServicioRegistro.class
 ar/edu/unlam/tallerweb1/repositorios/RepositorioAlquilerImpl.class
 ar/edu/unlam/tallerweb1/servicios/ServicioEncargadoImpl.class
+ar/edu/unlam/tallerweb1/controladores/ControladorHome.class
 ar/edu/unlam/tallerweb1/repositorios/RepositorioDevolucionImpl.class
 ar/edu/unlam/tallerweb1/Exceptions/ClienteYaExisteException.class
 ar/edu/unlam/tallerweb1/servicios/ServicioMantenimiento.class

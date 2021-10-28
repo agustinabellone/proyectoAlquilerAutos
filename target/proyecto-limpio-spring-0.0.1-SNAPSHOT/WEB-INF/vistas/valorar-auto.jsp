@@ -20,7 +20,7 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<header class = "d-flex flex-row-reverse p-3"></header>
+<jsp:include page="header.jsp" />
 <section>
     <div class="container text-center">
         <div>
@@ -43,7 +43,7 @@
                         <div class="col-lg-12">
                             <div class="row mt-3">
                                 <div class="col-lg-6 align-self-center">
-                                    <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}" method="post">
+                                    <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}" method="post">
                                         <input type="radio" id="uno" name="estrellasValoracion" value="5">
                                         <label for="uno"><i class="glyphicon glyphicon-star"></i></label>
                                         <input type="radio" id="dos" name="estrellasValoracion" value="4">
@@ -65,8 +65,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="container">
-                                        <img src="https://www.automobilemag.com/uploads/sites/11/2014/02/2015-Ford-Focus-hatchback-front-view2.jpg?fit=around%7C875:492"
-                                             alt="" style="width: 100%; height: auto;">
+                                        <img src="${auto.imagen}" class="card-img-top" alt="...">
                                     </div>
                                 </div>
                                 <button class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" Type="Submit" />Cargar</button>
