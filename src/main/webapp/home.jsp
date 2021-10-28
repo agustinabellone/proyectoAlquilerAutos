@@ -69,7 +69,7 @@
                             <div>
                                 <div class="price-box my-3">
                                     <sup class="text-light">$</sup><span class=" display-5 text-light">15.000</span>
-                                    <h6 class="font-weight-light text-light">1 Mes</h6>
+                                    <h6 class="font-weight-medium text-light">1 MES</h6>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                             <div>
                                 <div class="price-box my-3">
                                     <sup>$</sup><span class="text-white display-5">20.000</span>
-                                    <h6 class="font-weight-medium text-white">1 Mes</h6>
+                                    <h6 class="font-weight-medium text-white">1 MES</h6>
                                 </div>
                             </div>
                         </div>
