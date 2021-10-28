@@ -42,19 +42,11 @@
             </div>
         </div>
     </div>
-    </div>
     <div class="d-flex justify-content-center">
-        <table>
-            <tr>
-                <td colspan="2">ALQUILER</td>
-            </tr>
-
-            <tr>
-                <td>B</td>
-                <td>C</td>
-            </tr>
-        </table>
-        <a href="finalizar-alquiler"  class="btn btn-primary mt-3">Finalizar alquiler</a>
+        <c:forEach items="${alquileres}" var="alquiler">
+                    <td>${alquiler.id}</td>
+                    <a href='finalizar-alquiler?alquilerID=${alquiler.id}'  class="btn btn-primary mt-3">Finalizar alquiler</a>
+        </c:forEach>
     </div>
 </section>
 </body>

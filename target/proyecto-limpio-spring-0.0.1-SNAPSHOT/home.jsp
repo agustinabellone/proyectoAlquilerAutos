@@ -17,7 +17,6 @@
 </head>
 <body>
 <jsp:include page="WEB-INF/vistas/header.jsp" />
-
 <section>
     <div class="container">
         <div>

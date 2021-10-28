@@ -23,6 +23,7 @@
 
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center m-5">¡Ingresaste a tu cuenta!</h1>
+            <h1 class="text-center m-5">¡Bienvenid@ <c:out value="${nombre}"/>!</h1>
         </div>
 
         <div class="d-flex justify-content-around">
@@ -41,15 +42,13 @@
             </div>
         </div>
     </div>
-    </div>
     <div class="d-flex justify-content-center">
-        <a href="finalizar-alquiler"  class="btn btn-primary mt-3">Finalizar alquiler</a>
+        <c:forEach items="${alquileres}" var="alquiler">
+                    <td>${alquiler.id}</td>
+                    <a href='finalizar-alquiler?alquilerID=${alquiler.id}'  class="btn btn-primary mt-3">Finalizar alquiler</a>
+        </c:forEach>
     </div>
 </section>
-<<<<<<< HEAD:out/artifacts/proyecto_limpio_spring_war_exploded/WEB-INF/vistas/main.jsp
-=======
-
->>>>>>> master:target/proyecto-limpio-spring-0.0.1-SNAPSHOT/WEB-INF/vistas/main.jsp
 </body>
 
 <!-- Optional JavaScript -->

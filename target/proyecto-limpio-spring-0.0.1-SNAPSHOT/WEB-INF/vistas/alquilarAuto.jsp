@@ -18,7 +18,7 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<header class = "d-flex flex-row-reverse p-3"></header>
+<jsp:include page="header.jsp" />
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">

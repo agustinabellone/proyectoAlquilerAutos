@@ -10,6 +10,7 @@
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 </head>
 <body>
+<jsp:include page="header.jsp" />
 <div>
    <h1>INFO FINAL DEL ALQUILER</h1>
 </div>

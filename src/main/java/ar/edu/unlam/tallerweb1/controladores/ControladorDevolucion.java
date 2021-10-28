@@ -49,16 +49,18 @@ public class ControladorDevolucion {
     }
 
     @RequestMapping("finalizar-alquiler")
-    public ModelAndView irFinalizarAlquiler(HttpServletRequest request) {
+    public ModelAndView irFinalizarAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
         ModelMap model = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
+        Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
-        //Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerActivoDeCliente(usuario);
         Garage garagePartida = servicioGarage.obtenerGaragePorID(alquilerActivo.getGaragePartida().getId());
         Garage garageLlegadaEst = servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegadaEst().getId());
         Auto auto = alquilerActivo.getAuto();
+        String fechaInicio = alquilerActivo.getF_egreso().toString();
 
         if (clienteID != null) {
+            model.put("fechaInicio", fechaInicio);
             model.put("garagePartida", garagePartida);
             model.put("garageLlegadaEst", garageLlegadaEst);
             model.put("cliente", usuario);
@@ -86,17 +88,17 @@ public class ControladorDevolucion {
         Garage garage = servicioGarage.obtenerGaragePorID(garageID);
         alquiler.setGarageLlegada(garage);
         servicioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
-        irFinalizarAlquiler(request); //PARA QUE ACTUALIZE DATOS, esta bien en esta clase ya que manejo vistas de controlador
-        return new ModelAndView("mostrarConfirmacionDeFin");
+        return new ModelAndView("redirect:/finalizar-alquiler?alquilerID=" + alquilerID);
     }
 
     @RequestMapping("/confirmacion-fin-alquiler")
     public ModelAndView procesarConfirmacionFinDeAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
-        Long clienteID = (Long) request.getAttribute("id");
+
+        Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
         Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
         servicioDevolucion.finalizarAlquilerCliente(alquiler);
-        return new ModelAndView("mostrarConfirmacionDeFin");
+        return new ModelAndView("redirect:/main");
     }
 
 

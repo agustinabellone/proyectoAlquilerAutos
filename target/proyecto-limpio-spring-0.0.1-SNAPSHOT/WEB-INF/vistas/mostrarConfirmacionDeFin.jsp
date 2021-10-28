@@ -1,3 +1,5 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,19 +7,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Document</title>
 </head>
 <body>
-<h1>${alquiler}</h1>
+<h1>${cliente.nombre} CONFIRMA LOS DATOS PARA DAR FIN AL ALQUILER EN CURSO</h1>
 
+        <h5>Inicio: ${fechaInicio}</h5>
+        <h5>Desde: ${garagePartida.direccion}</h5>
 
-        Usted esta entregando el auto en:
-        <!--<h1><c:>{alquiler.garageLlegadaEst}</c:></h1>
-        <a href='/modificar-garage-llegada?alquilerID={alquiler.id}'>En caso de no ser asi debe <br>
-        </br>MODIFICAR GARAGE DE LLEGADA</a>
+        <h5>Entrega el vehiculo en: ${garageLlegadaEst.direccion}</h5>
+        <p>En caso de no ser asi debe <a href='modificar-garage-llegada?alquilerID=${alquiler.id}'>MODIFICAR GARAGE DE LLEGADA</a></p>
         <b>Recordar que se cobrara una tarifa por la modificacion</b>
-        -->
 
-        <a href="/confirmacion-fin-alquiler">CONFIRMAR FINALIZACION DE ALQUILER</a>
+        <a href='confirmacion-fin-alquiler?alquilerID=${alquiler.id}'>CONFIRMAR FINALIZACION DE ALQUILER</a>
 </body>
 </html>
