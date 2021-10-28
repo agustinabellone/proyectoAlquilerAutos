@@ -41,10 +41,25 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
     }
 
     @Override
-    public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto) {
-       ValoracionAuto valoracionAuto =new ValoracionAuto(cantidadEstrellas,comentarioAuto,auto);
+    public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto, Alquiler alquiler) {
+       ValoracionAuto valoracionAuto =new ValoracionAuto(cantidadEstrellas,comentarioAuto,auto,alquiler);
        this.sessionFactory.getCurrentSession()
                .save(valoracionAuto);
+    }
+
+
+    @Override
+    public Alquiler obtenerAlquilerPorId(Long id){
+        return this.sessionFactory.getCurrentSession().get(Alquiler.class, id);
+    }
+
+    @Override
+    public ValoracionAuto obtenerValoracionALquilerAuto(Auto auto, Alquiler alquiler) {
+        return (ValoracionAuto) this.sessionFactory.getCurrentSession()
+                .createCriteria(ValoracionAuto.class)
+                .add(Restrictions.eq("auto",auto))
+                .add(Restrictions.eq("alquiler", alquiler))
+                .uniqueResult();
     }
 
 
