@@ -44,4 +44,9 @@ public class RepositorioAutoImpl implements RepositorioAuto{
                 .createCriteria(Auto.class)
                 .list();
     }
+
+    @Override
+    public Auto guardarEnMantenimiento(Auto buscado) {
+        return null;
+    }
 }

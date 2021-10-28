@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -17,44 +19,42 @@ import javax.servlet.http.HttpServletRequest;
 public class ControladorEnviarAutoAMantenimiento {
 
     private ServicioDeAuto servicioDeAuto;
+    ModelMap model = new ModelMap();
+    private String viewName;
 
     @Autowired
     public ControladorEnviarAutoAMantenimiento(ServicioDeAuto servicioDeAuto) {
         this.servicioDeAuto = servicioDeAuto;
     }
 
-    public ControladorEnviarAutoAMantenimiento() {
-    }
-
-
     @RequestMapping(method = RequestMethod.GET, path = "/enviar-a-mantenimiento")
     public ModelAndView enviarAutoAMantenimiento(HttpServletRequest request, Long idDelAuto) {
-        ModelMap modelMap = new ModelMap();
-        if (elRolEstaSeteado(request) && elRolEsAdministrador(request)) {
-            Auto auto = servicioDeAuto.buscarAutoPorId(idDelAuto);
-            if (auto != null) {
-                if (servicioDeAuto.enviarAutoMantenimiento(auto)) {
-                    modelMap.put("mensaje", "Se envio un auto correctamente a mantenimiento");
-                    return new ModelAndView("lista-de-autos", modelMap);
-                } else {
-                    modelMap.put("mensaje", "No tienes permisos para realizar esta accion");
-                    return new ModelAndView("home", modelMap);
-                }
-            } else {
-                modelMap.put("mensaje", "No tienes permisos para realizar esta accion");
-                return new ModelAndView("home", modelMap);
+        if (elUsuarioTieneRolDeAdministrador(request) && elRolEstaSeteado(request)) {
+            try {
+                Auto existente = servicioDeAuto.buscarAutoPorId(idDelAuto);
+                servicioDeAuto.enviarAutoMantenimiento(existente);
+                model.put("mensaje", "Se envio correctamente un auto a mantenimiento");
+                viewName = "lista-de-autos";
+            } catch (AutoNoExistente e) {
+                model.put("mensaje", "No existe el auto que queres mandar");
+                viewName = "lista-de-autos";
+            } catch (AutoYaExistente e) {
+                model.put("mensaje", "No existe el auto que queres mandar");
+                viewName = "lista-de-autos";
             }
         } else {
-            modelMap.put("mensaje", "No tienes permisos para realizar esta accion");
-            return new ModelAndView("home", modelMap);
+            model.put("mensaje", "No tenes permiso para realizar esta accion");
+            viewName = "home";
         }
+        return new ModelAndView(viewName, model);
     }
 
     private boolean elRolEstaSeteado(HttpServletRequest request) {
         return request.getSession().getAttribute("rol") != null;
     }
 
-    private boolean elRolEsAdministrador(HttpServletRequest request) {
+    private boolean elUsuarioTieneRolDeAdministrador(HttpServletRequest request) {
         return request.getSession().getAttribute("rol") == "admin";
     }
+
 }

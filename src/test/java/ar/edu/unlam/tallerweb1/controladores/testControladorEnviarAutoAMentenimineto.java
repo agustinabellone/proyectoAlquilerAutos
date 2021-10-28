@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import org.junit.Test;
@@ -15,87 +17,90 @@ import static org.mockito.Mockito.*;
 public class testControladorEnviarAutoAMentenimineto {
 
     private static final String ADMIN = "admin";
-    private static final String INVITADO = "invitado";
-    private ServicioDeAuto servicio = mock(ServicioDeAuto.class);
-    private ControladorEnviarAutoAMantenimiento controlador = new ControladorEnviarAutoAMantenimiento(servicio);
-    private ModelAndView modelAnView = new ModelAndView();
+    private static final String OTRO = "otro";
     private HttpServletRequest request = mock(HttpServletRequest.class);
-    private HttpSession session = mock(HttpSession.class);
-    private Auto auto = new Auto();
+    private HttpSession sesion = mock(HttpSession.class);
+    private ServicioDeAuto servicioDeAuto = mock(ServicioDeAuto.class);
+    private ControladorEnviarAutoAMantenimiento controlador = new ControladorEnviarAutoAMantenimiento(servicioDeAuto);
+    private ModelAndView modelAndView = new ModelAndView();
 
     @Test
-    public void queUnUsuarioAdministradorPuedaEnviarUnAutoAMantenimiento() {
-        Auto aEnviar = givenExisteUnAuto();
-        HttpServletRequest usuarioConRolAdmin = givenExisteUnUsuarioConRol(ADMIN);
-        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolAdmin, aEnviar);
-        thenElEnvioEsExitoso(this.modelAnView);
-    }
-
-    private Auto givenExisteUnAuto() {
-        when(servicio.buscarAutoPorId(anyLong())).thenReturn(auto);
-        when(servicio.enviarAutoMantenimiento(auto)).thenReturn(true);
-        return auto;
-    }
-
-    private HttpServletRequest givenExisteUnUsuarioConRol(String rol) {
-        when(request.getSession()).thenReturn(session);
-        when(request.getSession().getAttribute(anyString())).thenReturn(rol);
-        return request;
-    }
-
-    private void whenElUsuarioAdministradorEnviaElAutoAMantenimiento(HttpServletRequest request, Auto aEnviar) {
-        this.modelAnView = controlador.enviarAutoAMantenimiento(request, aEnviar.getId());
-    }
-
-    private void thenElEnvioEsExitoso(ModelAndView modelAnView) {
-        verify(servicio, times(1)).buscarAutoPorId(anyLong());
-        verify(servicio, times(1)).enviarAutoMantenimiento(anyObject());
-        assertThat(servicio.buscarAutoPorId(auto.getId())).isNotNull();
-        assertThat(servicio.enviarAutoMantenimiento(auto)).isTrue();
-        assertThat(request.getSession().getAttribute("rol")).isEqualTo("admin");
-        assertThat(modelAnView.getViewName()).isEqualTo("lista-de-autos");
-        assertThat(modelAnView.getModel().get("mensaje")).isEqualTo("Se envio un auto correctamente a mantenimiento");
+    public void queUnUsuarioAdministradorPuedaEnviarUnAutoAMantenimiento() throws AutoNoExistente, AutoYaExistente {
+        HttpServletRequest usuarioAdmin = givenUnUsuarioConRol(ADMIN);
+        Auto aEnviar = givenUnAuto();
+        whenEnvioElAutoAMantenimiento(usuarioAdmin, aEnviar);
+        thenElEnvioEsExitoso(this.modelAndView);
     }
 
     @Test
     public void queUnUsuarioSinRolDeAdministradorNoPuedaEnviarUnAutoAMantenimiento() {
-        Auto aEnviar = givenExisteUnAuto();
-        HttpServletRequest usuarioConRolInvitado = givenExisteUnUsuarioConRol(INVITADO);
-        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolInvitado, aEnviar);
-        thenElEnvioFalla(this.modelAnView);
-    }
-
-    private void thenElEnvioFalla(ModelAndView modelAnView) {
-        assertThat(modelAnView.getViewName()).isEqualTo("home");
-        assertThat(modelAnView.getModel().get("mensaje")).isEqualTo("No tienes permisos para realizar esta accion");
+        HttpServletRequest usuarioSinRolDeAdmin = givenUnUsuarioConRol(OTRO);
+        Auto aEnviar = givenUnAuto();
+        whenEnvioElAutoAMantenimiento(usuarioSinRolDeAdmin, aEnviar);
+        thenElEnvioFalla(this.modelAndView);
     }
 
     @Test
-    public void queNoSePuedaEnviarUnAutoAMantenimientoPorQueNoExisteElAuto() {
-        Auto aEnviar = givenNoExisteUnAuto();
-        HttpServletRequest usuarioConRolAdmin = givenExisteUnUsuarioConRol(ADMIN);
-        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolAdmin, aEnviar);
-        thenElEnvioFalla(this.modelAnView);
+    public void queNoSePuedaMandarUnAutoNoExistenteAMantenimiento() throws AutoNoExistente {
+        Auto noExistente = givenNoExisteUnAuto();
+        HttpServletRequest usuarioAdmin = givenUnUsuarioConRol(ADMIN);
+        whenEnvioElAutoAMantenimiento(usuarioAdmin, noExistente);
+        thenElEnvioFallaPorQueelAutoNoExiste(this.modelAndView);
     }
 
-    private Auto givenNoExisteUnAuto() {
-        when(servicio.buscarAutoPorId(auto.getId())).thenReturn(null);
-        when(servicio.enviarAutoMantenimiento(auto)).thenReturn(false);
-        return auto;
-    }
 
     @Test
-    public void queNoSePuedaEnviarUnAutoAMantenimientoPorqueYaExisteEnMantenimiento() {
-        //given
-        Auto aEnviar = givenExisteUnAutoEnMantenimiento();
-        HttpServletRequest usuarioConRolAdmin = givenExisteUnUsuarioConRol(ADMIN);
-        //when
-        whenElUsuarioAdministradorEnviaElAutoAMantenimiento(usuarioConRolAdmin, aEnviar);
-        thenElEnvioFalla(this.modelAnView);
+    public void queNoSePuedaEnviarDosVecesAlMismoAutoAMantenimiento() throws AutoYaExistente {
+        Auto existente = givenExisteUnAutoEnMantenimiento();
+        HttpServletRequest usuarioAdmin = givenUnUsuarioConRol(ADMIN);
+        whenEnvioElAutoAMantenimiento(usuarioAdmin,existente);
+        thenElEnvioFallaPorQueElAutoYaExisteEnMantenimiento(this.modelAndView);
     }
 
-    private Auto givenExisteUnAutoEnMantenimiento() {
-        when(servicio.enviarAutoMantenimiento(auto)).thenReturn(false);
-        return auto;
+    private void thenElEnvioFallaPorQueElAutoYaExisteEnMantenimiento(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("lista-de-autos");
+        assertThat(modelAndView.getModel().get("mensaje")).isEqualTo("No podes enviar un auto que ya esta en mantenimiento");
+    }
+
+    private Auto givenExisteUnAutoEnMantenimiento() throws AutoYaExistente {
+        when(servicioDeAuto.enviarAutoMantenimiento(anyObject())).thenThrow(AutoYaExistente.class);
+        return new Auto();
+    }
+
+    private Auto givenNoExisteUnAuto() throws AutoNoExistente {
+        when(servicioDeAuto.buscarAutoPorId(anyLong())).thenThrow(AutoNoExistente.class);
+        return new Auto();
+    }
+
+
+    private Auto givenUnAuto() {
+        return new Auto();
+    }
+
+    private HttpServletRequest givenUnUsuarioConRol(String admin) {
+        when(request.getSession()).thenReturn(sesion);
+        when(request.getSession().getAttribute(anyString())).thenReturn(admin);
+        return request;
+    }
+
+    private void whenEnvioElAutoAMantenimiento(HttpServletRequest request, Auto aEnviar) {
+        this.modelAndView = controlador.enviarAutoAMantenimiento(request, aEnviar.getId());
+    }
+
+    private void thenElEnvioEsExitoso(ModelAndView modelAndView) throws AutoNoExistente, AutoYaExistente {
+        assertThat(modelAndView.getViewName()).isEqualTo("lista-de-autos");
+        assertThat(modelAndView.getModel().get("mensaje")).isEqualTo("Se envio correctamente un auto a mantenimiento");
+        verify(servicioDeAuto, times(1)).buscarAutoPorId(anyLong());
+        verify(servicioDeAuto,times(1)).enviarAutoMantenimiento(anyObject());
+    }
+
+    private void thenElEnvioFalla(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("home");
+        assertThat(modelAndView.getModel().get("mensaje")).isEqualTo("No tenes permiso para realizar esta accion");
+    }
+
+    private void thenElEnvioFallaPorQueelAutoNoExiste(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("lista-de-autos");
+        assertThat(modelAndView.getModel().get("mensaje")).isEqualTo("No existe el auto que queres mandar");
     }
 }

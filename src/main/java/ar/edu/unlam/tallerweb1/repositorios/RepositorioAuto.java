@@ -12,4 +12,6 @@ public interface RepositorioAuto {
     Auto buscarPorModelo(String modelo);
 
     List<Auto> buscarTodos();
+
+    Auto guardarEnMantenimiento(Auto buscado);
 }
