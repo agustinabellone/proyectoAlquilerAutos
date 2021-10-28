@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 
 @Service
 @Transactional
 public class ServicioDeAutoImpl implements ServicioDeAuto {
 
     private RepositorioAuto repositorioAuto;
+    private LocalDate localDate = LocalDate.now();
 
     @Autowired
     public ServicioDeAutoImpl(RepositorioAuto repositorioAuto) {
@@ -33,12 +35,12 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
 
     @Override
     public Auto enviarAutoMantenimiento(Auto aEnviar) throws AutoYaExistente {
-        Auto buscado = repositorioAuto.buscarAutoEnMantenimientoPorIdYPorSituacion(aEnviar.getId(),aEnviar.getSituacion());
-        if (buscado != null){
+        Auto buscado = repositorioAuto.buscarAutoEnMantenimientoPorIdYPorSituacion(aEnviar.getId(), aEnviar.getSituacion());
+        if (buscado != null) {
             throw new AutoYaExistente();
         }
         aEnviar.setSituacion(Situacion.EN_MANTENIMIENTO);
-        repositorioAuto.guardarEnMantenimiento(aEnviar);
+        repositorioAuto.guardarEnMantenimiento(aEnviar,localDate);
         return aEnviar;
     }
 }

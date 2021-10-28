@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 
 @Controller
 public class ControladorEnviarAutoAMantenimiento {
@@ -21,7 +22,6 @@ public class ControladorEnviarAutoAMantenimiento {
     private ServicioDeAuto servicioDeAuto;
     ModelMap model = new ModelMap();
     private String viewName;
-
     @Autowired
     public ControladorEnviarAutoAMantenimiento(ServicioDeAuto servicioDeAuto) {
         this.servicioDeAuto = servicioDeAuto;
@@ -39,7 +39,7 @@ public class ControladorEnviarAutoAMantenimiento {
                 model.put("mensaje", "No existe el auto que queres mandar");
                 viewName = "lista-de-autos";
             } catch (AutoYaExistente e) {
-                model.put("mensaje", "No existe el auto que queres mandar");
+                model.put("mensaje", "No podes enviar un auto que ya esta en mantenimiento");
                 viewName = "lista-de-autos";
             }
         } else {

@@ -50,7 +50,7 @@ public class testServicioEnviarAutoAMantenimiento {
 
     private Auto givenExisteUnAutoEnMantenimiento() {
         Auto auto = new Auto();
-        when(repositorioAuto.guardarEnMantenimiento(auto)).thenThrow(AutoYaExistente.class);
+        when(repositorioAuto.guardarEnMantenimiento(anyObject(), anyObject())).thenThrow(AutoYaExistente.class);
         return auto;
     }
 
@@ -88,6 +88,6 @@ public class testServicioEnviarAutoAMantenimiento {
     private void thenElAutoesEnviadoCorrectamente(Auto guardadoEnMantenimiento) {
         assertThat(guardadoEnMantenimiento).isNotNull();
         assertThat(guardadoEnMantenimiento.getSituacion()).isEqualTo(Situacion.EN_MANTENIMIENTO);
-        verify(repositorioAuto,times(1)).guardarEnMantenimiento(guardadoEnMantenimiento);
+        verify(repositorioAuto,times(1)).guardarEnMantenimiento(anyObject(), anyObject());
     }
 }
