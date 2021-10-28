@@ -41,12 +41,28 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="d-flex justify-content-center">
-        <c:forEach items="${alquileres}" var="alquiler">
-                    <td>${alquiler.id}</td>
-                    <a href='finalizar-alquiler?alquilerID=${alquiler.id}'  class="btn btn-primary mt-3">Finalizar alquiler</a>
-        </c:forEach>
+        <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
+            <h1 class="text-center">Alquileres actuales</h1>
+        </div>
+
+        <div class="d-flex justify-content-around">
+            <div class="card col-sm-9">
+                <div class="d-flex justify-content-center">
+                    <c:forEach items="${alquileres}" var="alquiler">
+                        <c:forEach items="${fechas}" var="fechas">
+                            <td>${fechas}</td>
+                        </c:forEach>
+                        <c:forEach items="${modelos}" var="modelo">
+                            <td>${modelo.descripcion}</td>
+                        </c:forEach>
+                        <c:forEach items="${marcas}" var="marca">
+                            <td>${marca.descripcion}</td>
+                        </c:forEach>
+                        <a href='finalizar-alquiler?alquilerID=${alquiler.id}'>Finalizar alquiler</a>
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 </body>

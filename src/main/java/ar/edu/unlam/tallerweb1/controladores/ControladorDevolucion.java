@@ -55,7 +55,7 @@ public class ControladorDevolucion {
         Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
         Garage garagePartida = servicioGarage.obtenerGaragePorID(alquilerActivo.getGaragePartida().getId());
-        Garage garageLlegadaEst = servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegadaEst().getId());
+        Garage garageLlegadaEst = servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegada().getId());
         Auto auto = alquilerActivo.getAuto();
         String fechaInicio = alquilerActivo.getF_egreso().toString();
 
@@ -93,12 +93,15 @@ public class ControladorDevolucion {
 
     @RequestMapping("/confirmacion-fin-alquiler")
     public ModelAndView procesarConfirmacionFinDeAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
-
+        ModelMap modelo = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
         Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
+        Auto auto = alquiler.getAuto();
+        modelo.put("alquilerID", alquiler.getId());
+        modelo.put("auto", auto);
         servicioDevolucion.finalizarAlquilerCliente(alquiler);
-        return new ModelAndView("redirect:/main");
+        return new ModelAndView("valorar-auto", modelo);
     }
 
 
