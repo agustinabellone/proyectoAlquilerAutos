@@ -1,12 +1,22 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.persistence.*;
+
 import java.time.LocalDate;
+
 
 @Entity
 public class Alquiler {
@@ -16,8 +26,8 @@ public class Alquiler {
     private Long id;
     private LocalDate f_egreso;
     private LocalDate f_ingreso;
-    private Float adicionalCambioLugarFecha;
-    private Float adicionalInfraccionesOtro;
+    private Float adicionalCambioLugarFecha = 0.0f;
+    private Float adicionalInfraccionesOtro = 0.0f;
     @ManyToOne
     private Auto auto;
     @ManyToOne
@@ -52,37 +62,20 @@ public class Alquiler {
         this.estado = Estado.ACTIVO;
     }
 
-    public Alquiler(Long id,LocalDate f_ingreso,LocalDate f_regreso,Auto auto,Usuario usuario){
-        this.id=id;
-        this.f_ingreso=f_ingreso;
-        this.f_egreso=f_regreso;
-        this.auto=auto;
-        this.usuario=usuario;
+    public Alquiler(Long id, LocalDate f_ingreso, LocalDate f_regreso, Auto auto, Usuario usuario) {
+        this.id = id;
+        this.f_ingreso = f_ingreso;
+        this.f_egreso = f_regreso;
+        this.auto = auto;
+        this.usuario = usuario;
     }
 
-    public Alquiler(DatosAlquiler datosAlquiler ){
+    public Alquiler(DatosAlquiler datosAlquiler) {
         this.auto = datosAlquiler.getAuto();
         this.usuario = datosAlquiler.getUsuario();
         this.f_ingreso = datosAlquiler.getF_ingreso();
         this.f_egreso = datosAlquiler.getF_salida();
         this.estado = Estado.ACTIVO;
-    }
-
-    public void setAdicionalCambioLugarFecha(Usuario usuario) {
-        Suscripcion suscripcion = new Suscripcion();
-        if (usuario.getRol().equalsIgnoreCase("cliente")) {
-            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
-                String descripcion = suscripcion.getTipoSuscripcion().getDescripcion();
-                switch (descripcion) {
-                    case "standard":
-                        this.adicionalCambioLugarFecha += 500f;
-                    case "premium":
-                        this.adicionalCambioLugarFecha += 400f;
-                    case "golden":
-                        this.adicionalCambioLugarFecha += 0f; //CAMBIAR POR EXCEPTION
-                }
-            }
-        }
     }
 
     public Long getId() {
@@ -181,6 +174,29 @@ public class Alquiler {
         this.estado = estado;
     }
 
+    public void setAdicionalCambioLugarFecha(Alquiler alquiler, Suscripcion suscripcion) {
+        Usuario usuario = suscripcion.getUsuario();
+        if (usuario.getRol().equalsIgnoreCase("cliente")) {
+            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
+                String descripcion = suscripcion.getTipoSuscripcion().getDescripcion();
+                if (this.garageLlegadaEst != this.garageLlegada)
+                switch (descripcion) {
+                    case "standard":
+                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+500f;
+                        break;
+                    case "premium":
+                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+400f;
+                        break;
+                    case "golden":
+                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+0f; //CAMBIAR POR EXCEPTION
+                        break;
+                }
+            }
+        }
+    }
+
 
 }
+
+
 

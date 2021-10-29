@@ -39,6 +39,10 @@
                     <a href="ir-a-suscribir" class="btn btn-primary">Volver</a>
                 </div>
                 <div class="card-footer text-muted">
+                    <c:if test="${not empty error}">
+                        <caption><p class="text-center text-danger">${error}</p></caption>
+                        <br>
+                    </c:if>
 
                 </div>
             </div>

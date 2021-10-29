@@ -52,7 +52,7 @@
         </c:otherwise>
 
       </c:choose>
-      <a href="home" type="button" class="btn btn-info">Inicio</a>
+      <a href="/home" type="button" class="btn btn-info">Inicio</a>
     </c:if>
     <div class="d-flex justify-content-around align-items-center col-lg-3">
       <c:if test = "${id == null}">

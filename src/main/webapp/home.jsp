@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+         pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,8 +19,8 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<jsp:include page="WEB-INF/vistas/header.jsp" />
 
+<jsp:include page="WEB-INF/vistas/header.jsp"/>
 <section>
     <div class="portada">
         <div class="container portada-contenido">
@@ -100,7 +100,6 @@
 </section>
 
 </body>
-
 
 
 <!-- Optional JavaScript -->

@@ -1,14 +1,14 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Solicitud;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioDevolucion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -27,8 +27,8 @@ public class ServicioDevolucionImpl implements ServicioDevolucion{
 
 
     @Override
-    public Alquiler obtenerAlquilerActivoDeCliente(Usuario usuario) {
-       Alquiler alquiler = repositorioDevolucion.obtenerAlquilerActivoDeCliente(usuario);
+    public List<Alquiler> obtenerAlquilerActivoDeCliente(Usuario usuario) {
+       List<Alquiler> alquiler = repositorioDevolucion.obtenerAlquilerActivoDeCliente(usuario);
         return alquiler;
     }
 
@@ -39,15 +39,23 @@ public class ServicioDevolucionImpl implements ServicioDevolucion{
 
     @Override
     public void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler) {
-        alquiler.setAdicionalCambioLugarFecha(alquiler.getUsuario());
+        Suscripcion suscripcion = obtenerSuscripcionDeUsuario(alquiler.getUsuario());
+        alquiler.setAdicionalCambioLugarFecha(alquiler, suscripcion);
         repositorioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
+    }
+
+    private Suscripcion obtenerSuscripcionDeUsuario(Usuario usuario) {
+        return repositorioDevolucion.obtenerSuscripcionDeUnUsuario(usuario);
     }
 
     @Override
     public void finalizarAlquilerCliente(Alquiler alquiler) {
-        Solicitud solicitud = new Solicitud();
-        solicitud.setEncargado(alquiler.getEncargado()); //METODO DUDOSO
-        alquiler.getEncargado().enviarConfirmacion(alquiler);
+        //CAMBIAR ESTADO AUTO, CAMBIAR ESTADO ALQUIER
+        alquiler.getAuto().setSituacion(Situacion.DISPONIBLE);
+        alquiler.setEstado(Estado.FINALIZADO);
+        Float adicional = alquiler.getAdicionalCambioLugarFecha();
+        alquiler.setAdicionalCambioLugarFecha(adicional);
+        repositorioDevolucion.finalizarAlquilerCliente(alquiler); //UPDATE
     }
 
 }

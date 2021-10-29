@@ -23,7 +23,6 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
 
     @Override
     public Suscripcion guardar(Suscripcion suscripcion) {
-
         this.sessionFactory.getCurrentSession().save(suscripcion);
         return suscripcion;
     }

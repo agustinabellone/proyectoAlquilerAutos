@@ -1,15 +1,26 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Marca;
+import ar.edu.unlam.tallerweb1.modelo.Modelo;
+import ar.edu.unlam.tallerweb1.modelo.Situacion;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface RepositorioAuto {
 
-    void guardar(Auto auto);
+    void guardar(Long id);
 
     Auto buscarPor(Long id);
 
-    Auto buscarPorModelo(String modelo);
+    List<Auto> buscarPorModelo(Modelo modelo);
 
     List<Auto> buscarTodos();
+
+    Auto guardarEnMantenimiento(Auto buscado, LocalDate localDate);
+
+    Auto buscarAutoEnMantenimientoPorIdYPorSituacion(Long id, Situacion situacion);
+
+    List<Auto> buscarPorMarca(Marca ford);
 }

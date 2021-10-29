@@ -1,0 +1,61 @@
+.portada {
+    background-image: url("https://premiumrentacar.com.ar/imagenes/portada/4x4.jpg");
+    height: 400px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.portada-contenido{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.portada:before {
+    content:'';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.portada h1 {
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+    position: relative
+}
+
+.portada h2 {
+    padding: 5px;
+    font-size: 20px;
+    color: white;
+    position: relative
+}
+
+h3 {
+    font-weight: bold;
+}
+
+/*Planes*/
+
+.card-box {
+    background: #FAFAFA;
+    min-height: 300px;
+    position: relative;
+    padding: 30px 30px 20px;
+    margin-bottom: 20px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+
