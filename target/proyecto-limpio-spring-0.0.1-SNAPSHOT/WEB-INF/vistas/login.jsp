@@ -15,17 +15,18 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="css/login.css"/>
     <title>Proyecto - Alquiler de autos</title>
 </head>
-<body>
-<jsp:include page="header.jsp" />
-<section class="h-100">
-    <div class="container h-100">
-        <div class="row justify-content-center h-100">
-            <div class="card-wrapper">
-                <div class="card fat">
+<body class="bg-dark">
+<section>
+    <div class="container">
+        <div class="row justify-content-center d-flex">
+            <div class="card-wrapper mt-5">
+                <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Iniciar sesión</h4>
+                        <h4 class="mb-3">Iniciar sesión</h4>
                         <form:form action="validar-login" method="POST" modelAttribute="datosLogin">
                             <div class="form-group">
                                 <label >Email</label>
@@ -38,10 +39,10 @@
                             </div>
 
                             <div class="form-group m-0">
-                                <button class="btn btn-lg btn-primary btn-block" Type="Submit"/>Ingresar</button>
+                                <button class="btn btn-lg btn-dark btn-block" Type="Submit"/>Ingresar</button>
                             </div>
                             <div class="mt-4 text-center">
-                                ¿No tienes una cuenta? <a href="registro">Crear una</a>
+                                ¿No tienes una cuenta? <a class="text-success" href="registro">Crear una</a>
                             </div>
                         </form:form>
                     </div>
@@ -51,7 +52,9 @@
                         <br>
                     </c:if>
                 </div>
-                <a href="home" class="btn col text-center">Volver</a>
+                <div class="mt-5 text-center">
+                    <a href="" class="text-white col font-weight-medium">Volver</a>
+                </div>
             </div>
         </div>
     </div>

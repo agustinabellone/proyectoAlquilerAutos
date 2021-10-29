@@ -24,7 +24,7 @@
 <section>
     <div class="portada">
         <div class="container portada-contenido">
-            <h1 class="display-3 p-4 text-center">Bienvenidos</h1>
+            <h1 class="display-3 mt-3 text-center">Bienvenidos</h1>
             <h2 class="text-center">Conocé nuestros vehiculos y elegí el que más te guste.</h2>
         </div>
     </div>
@@ -41,10 +41,10 @@
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="card-box bg-secondary text-white text-center">
+                        <div class="card-box bg-secondary text-white text-center rounded">
                             <div class="card-title">
                                 <h2 class="mb-5 text-white">PLAN BÁSICO</h2>
-                                <p>50Km de recorrido</p>
+                                <p>50 Km de recorrido</p>
                                 <p>KM excedido: $350</p>
                                 <p> Cambio de tiempo/lugar estipulado: $1200</p>
                             </div>
@@ -57,10 +57,10 @@
                         </div>
                     </div>
                     <div class="col-md-4 ">
-                        <div class="card-box bg-dark text-light text-center">
+                        <div class="card-box bg-dark text-light text-center rounded">
                             <div class="card-title">
                                 <h2 class="mb-5 text-light">PLAN ORO</h2>
-                                <p>80km de recorrido </p>
+                                <p>80 km de recorrido </p>
                                 <p>KM excedido: $300</p>
                                 <p> Permite eleccion de vehiculo</p>
                                 <p>Permite reservas con 3 días de anticipación</p>
@@ -75,10 +75,10 @@
                         </div>
                     </div>
                     <div class="col-md-4 text-dark text-center">
-                        <div class="card-box bg-secondary text-white">
+                        <div class="card-box bg-secondary text-white rounded">
                             <div class="card-title">
                                 <h2 class="mb-5 text-white">PLAN DIAMANTE</h2>
-                                <p>200km de recorrido</p>
+                                <p>200 km de recorrido</p>
                                 <p> Km excedido: $500</p>
                                 <p> Eleccion de vehiculo (incluye gama alta)</p>
                                 <p> Reservar con cualquier anticipación</p>
