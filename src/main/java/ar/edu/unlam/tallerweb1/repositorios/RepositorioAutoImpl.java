@@ -45,11 +45,11 @@ public class RepositorioAutoImpl implements RepositorioAuto{
     }
 
     @Override
-    public Auto guardarEnMantenimiento(Auto buscado, LocalDate localDate) {
+    public void guardarEnMantenimiento(Auto buscado, LocalDate localDate) {
         Mantenimiento mantenimiento = new Mantenimiento();
         mantenimiento.setAuto(buscado);
         mantenimiento.setFechaDeEnvio(localDate);
-        return (Auto) sessionFactory.getCurrentSession().save(mantenimiento);
+        sessionFactory.getCurrentSession().save(mantenimiento);
     }
 
     @Override

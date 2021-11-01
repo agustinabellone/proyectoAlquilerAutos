@@ -7,6 +7,8 @@ import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
 import org.junit.Test;
 
+import java.time.LocalDate;
+
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -50,7 +52,7 @@ public class testServicioEnviarAutoAMantenimiento {
 
     private Auto givenExisteUnAutoEnMantenimiento() {
         Auto auto = new Auto();
-        when(repositorioAuto.guardarEnMantenimiento(anyObject(), anyObject())).thenThrow(AutoYaExistente.class);
+        doThrow(AutoYaExistente.class).when(repositorioAuto).guardarEnMantenimiento(auto, LocalDate.now());
         return auto;
     }
 

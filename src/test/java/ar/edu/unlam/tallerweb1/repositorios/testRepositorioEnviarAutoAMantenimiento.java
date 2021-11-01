@@ -70,7 +70,6 @@ public class testRepositorioEnviarAutoAMantenimiento extends SpringTest {
 
     private LocalDate givenLaFechaActual() {
         LocalDate localDate = LocalDate.now();
-        session().save(localDate);
         return localDate;
     }
 

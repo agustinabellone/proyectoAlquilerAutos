@@ -36,7 +36,7 @@
                 <div class="card card-shadow border-0 mb-4">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center">
-                            <h5 class="font-weight-medium mb-0"><c:>${auto.modelo} </c:></h5>
+                            <h5 class="font-weight-medium mb-0"><c:>${auto.modelo.descripcion} </c:></h5>
                         </div>
                     </div>
                     <div class="col">
