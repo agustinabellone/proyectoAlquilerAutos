@@ -4,30 +4,60 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class testControladorAdministrador {
     private ControladorAdministrador controlador;
     private ModelAndView modelAndView;
+    private HttpServletRequest request;
+    private HttpSession session;
 
     @Before
     public void init(){
         controlador = new ControladorAdministrador();
         modelAndView = new ModelAndView();
+        request = mock(HttpServletRequest.class);
+        session = mock(HttpSession.class);
     }
 
     @Test
     public void alAccederALaVistaPrincipalNoPuedePorqueNoEstaAsignadoElRolDeAdministrador() {
-        givenExisteUnUsuarioSinRolDeAdministrador();
-        whenAccedeALaVistaPrincipal();
+        HttpServletRequest usuarioSinRol = givenExisteUnUsuarioSinRolDeAdministrador();
+        whenAccedeALaVistaPrincipal(usuarioSinRol);
         thenloMandaAlLoginConMensajeDeError(this.modelAndView,"No tienes los permisos necesarios");
     }
 
-    private void givenExisteUnUsuarioSinRolDeAdministrador() {
+    @Test
+    public void alAccederALaVistaPrincipalLoDejaAccederConMensajeDeBienvenida() {
+        HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
+        whenAccedeALaVistaPrincipal(usuarioConRol);
+        thenLoEnviaALaVistaPrincipalConMensajeDeBienvenida(this.modelAndView,"Bienvenido!!!");
     }
 
-    private void whenAccedeALaVistaPrincipal() {
-        this.modelAndView = controlador.irALaVistaPrincipal();
+    private HttpServletRequest givenExisteUnUsuarioSinRolDeAdministrador() {
+        when(request.getSession()).thenReturn(session);
+        when(request.getSession().getAttribute("rol")).thenReturn(null);
+        return request;
+    }
+
+    private HttpServletRequest givenExisteUnUsuarioConRolDeAdministrador() {
+        when(request.getSession()).thenReturn(session);
+        when(request.getSession().getAttribute("rol")).thenReturn("admin");
+        return request;
+    }
+
+    private void whenAccedeALaVistaPrincipal(HttpServletRequest usuario) {
+        this.modelAndView = controlador.irALaVistaPrincipal(usuario);
+    }
+
+    private void thenLoEnviaALaVistaPrincipalConMensajeDeBienvenida(ModelAndView modelAndView, String mensaje) {
+        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/panel-principal");
+        assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
     }
 
     private void thenloMandaAlLoginConMensajeDeError(ModelAndView modelAndView, String error) {
