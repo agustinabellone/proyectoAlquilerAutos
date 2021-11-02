@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,6 +40,13 @@ public class testControladorAdministrador {
         thenLoEnviaALaVistaPrincipalConMensajeDeBienvenida(this.modelAndView,"Bienvenido!!!");
     }
 
+    @Test
+    public void queSePuedaMostrarElPanelPrincipalConInformarcionDelAdministrador(){
+        HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
+        whenSeMuestraLaVistaPrincipalConLaInformacionDel(usuarioConRol);
+        thenSeMuestraElPanelPrincipalConLaInformacionDelUsuario(this.modelAndView);
+    }
+
     private HttpServletRequest givenExisteUnUsuarioSinRolDeAdministrador() {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("rol")).thenReturn(null);
@@ -48,6 +56,8 @@ public class testControladorAdministrador {
     private HttpServletRequest givenExisteUnUsuarioConRolDeAdministrador() {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("rol")).thenReturn("admin");
+        when(request.getSession().getAttribute("id")).thenReturn(1L);
+        when(request.getSession().getAttribute("nombre")).thenReturn("admin");
         return request;
     }
 
@@ -55,13 +65,22 @@ public class testControladorAdministrador {
         this.modelAndView = controlador.irALaVistaPrincipal(usuario);
     }
 
+    private void whenSeMuestraLaVistaPrincipalConLaInformacionDel(HttpServletRequest usuarioConRol) {
+        this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador((Long) usuarioConRol.getSession().getAttribute("id"),(String) usuarioConRol.getSession().getAttribute("nombre"));
+    }
+
     private void thenLoEnviaALaVistaPrincipalConMensajeDeBienvenida(ModelAndView modelAndView, String mensaje) {
-        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/panel-principal");
+        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/panel-principal?idUsuario=1&nombre=admin");
         assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
     }
 
     private void thenloMandaAlLoginConMensajeDeError(ModelAndView modelAndView, String error) {
         assertThat(modelAndView.getViewName()).isEqualTo("redirect:/login");
         assertThat(modelAndView.getModel().get("error")).isEqualTo(error);
+    }
+
+    private void thenSeMuestraElPanelPrincipalConLaInformacionDelUsuario(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("panel-principal");
+        assertThat(modelAndView.getModel().get("nombre")).isEqualTo("admin");
     }
 }

@@ -1,7 +1,9 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-
-import ar.edu.unlam.tallerweb1.modelo.*;
+import ar.edu.unlam.tallerweb1.modelo.Alquiler;
+import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
