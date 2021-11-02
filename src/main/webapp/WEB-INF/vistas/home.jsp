@@ -24,7 +24,7 @@
 <section>
     <div class="portada">
         <div class="container portada-contenido">
-            <h1 class="display-3 mt-3 text-center">Bienvenidos</h1>
+            <h1 class="display-3 mt-3 text-center">¡Te damos la bienvenida!</h1>
             <h2 class="text-center">Conocé nuestros vehiculos y elegí el que más te guste.</h2>
         </div>
     </div>
