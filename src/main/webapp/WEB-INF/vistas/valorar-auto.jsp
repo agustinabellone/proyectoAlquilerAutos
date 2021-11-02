@@ -56,7 +56,7 @@
                                         <input type="radio" id="cinco" name="estrellasValoracion" value="1">
                                         <label for="cinco"><i class="glyphicon glyphicon-star"></i></label>
 
-                                        <p><textarea class="form-control mt-3" name="comentario" rows="5" placeholder="Escribir comentario... "></textarea></p>
+                                        <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
 
                                         <div class="form-group m-0">
                                             <button class="btn btn-lg btn-primary btn-block" Type="Submit" />Cargar</button>
