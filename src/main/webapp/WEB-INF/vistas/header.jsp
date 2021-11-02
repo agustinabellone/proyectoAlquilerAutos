@@ -51,8 +51,11 @@
           <a href="ir-a-suscribir" type="button" class="btn btn-danger">Suscribirse a un plan</a>
         </c:otherwise>
 
+
       </c:choose>
-      <a href="/home" type="button" class="btn btn-info">Inicio</a>
+      <a href="home" type="button" class="btn btn-info">Inicio</a>
+      <a href="main" type="button" class="btn btn-secondary">Mi Cuenta</a>
+
     </c:if>
     <div class="d-flex justify-content-around align-items-center col-lg-3">
       <c:if test = "${id == null}">

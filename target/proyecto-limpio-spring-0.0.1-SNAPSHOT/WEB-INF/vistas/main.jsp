@@ -20,9 +20,7 @@
 <jsp:include page="header.jsp" />
 <section>
     <div class="container">
-
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center m-5">¡Ingresaste a tu cuenta!</h1>
             <h1 class="text-center m-5">¡Bienvenid@ <c:out value="${nombre}"/>!</h1>
         </div>
 
@@ -30,37 +28,39 @@
             <div class="card col-sm-3">
                 <img class="card-img-top mt-3" src="https://img.freepik.com/vector-gratis/ilustracion-coche-alquiler-joven-feliz_179970-626.jpg?size=626&ext=jpg" alt="Card image">
                 <div class="d-flex justify-content-center">
-                    <a href="alquilar-auto" class="btn btn-primary mt-3 mb-3">Alquilar auto</a>
+                    <a href="alquilar-auto" class="btn btn-dark mt-3 mb-3">Alquilar auto</a>
                 </div>
             </div>
 
             <div class="card col-sm-3">
-                <img class="card-img-top mt-3" src="https://cdni.iconscout.com/illustration/free/thumb/task-list-2080780-1753768.png" alt="Card image">
+                <img class="card-img-top mt-3" src="https://image.freepik.com/free-vector/city-driver-concept-illustration_114360-2648.jpg" alt="Card image">
                 <div class="d-flex justify-content-center">
-                    <a href="lista-viajes"  class="btn btn-primary mt-3">Ver mis viajes</a>
+                    <a href="lista-viajes"  class="btn btn-dark">Historial de alquileres</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
-            <h1 class="text-center">Alquileres actuales</h1>
+            <h1 class="text-center">Alquileres actuales:</h1>
         </div>
 
-        <div class="d-flex justify-content-around">
-            <div class="card col-sm-9">
-                <div class="d-flex justify-content-center">
+        <div class="container d-flex justify-content-center text-center">
+            <div class="col-sm-9">
                     <c:forEach items="${alquileres}" var="alquiler">
-                        <c:forEach items="${fechas}" var="fechas">
-                            <td>${fechas}</td>
-                        </c:forEach>
-                        <c:forEach items="${modelos}" var="modelo">
-                            <td>${modelo.descripcion}</td>
-                        </c:forEach>
-                        <c:forEach items="${marcas}" var="marca">
-                            <td>${marca.descripcion}</td>
-                        </c:forEach>
-                        <a href='finalizar-alquiler?alquilerID=${alquiler.id}'>Finalizar alquiler</a>
+                            <div class="d-flex flex-column bg-dark p-2 mt-2 mb-2 text-light justify-content-center rounded">
+                                <div>
+                                    <td>Auto: ${alquiler.auto.marca.descripcion} ${alquiler.auto.modelo.descripcion}</td>
+                                </div>
+                                <div>
+                                    <td>Retiro del auto: ${alquiler.f_egreso}</td>
+                                </div>
+                                <div>
+                                    <td>Devolución del auto: ${alquiler.f_ingreso}</td>
+                                </div>
+                                <div class="col-sm-12 d-flex justify-content-center mt-2">
+                                    <a class="btn btn-danger" href='finalizar-alquiler?alquilerID=${alquiler.id}'>Finalizar alquiler</a>
+                                </div>
+                            </div>
                     </c:forEach>
-                </div>
             </div>
         </div>
     </div>
