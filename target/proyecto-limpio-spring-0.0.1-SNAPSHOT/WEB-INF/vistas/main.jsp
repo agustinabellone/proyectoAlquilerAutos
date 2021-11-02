@@ -18,8 +18,8 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
-    <div class="container">
+<section class="bg-light">
+    <div class="container ">
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center m-5">¡Bienvenid@ <c:out value="${nombre}"/>!</h1>
         </div>
@@ -39,10 +39,11 @@
                 </div>
             </div>
         </div>
+    <c:if test = "${alquileres != null}">
         <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
             <h1 class="text-center">Alquileres actuales:</h1>
         </div>
-
+    </c:if>
         <div class="container d-flex justify-content-center text-center">
             <div class="col-sm-9">
                     <c:forEach items="${alquileres}" var="alquiler">

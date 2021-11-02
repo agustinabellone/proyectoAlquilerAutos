@@ -18,8 +18,8 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
-    <div class="container">
+<section class="bg-light">
+    <div class="container ">
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center m-5">¡Bienvenid@ <c:out value="${nombre}"/>!</h1>
         </div>
@@ -35,14 +35,15 @@
             <div class="card col-sm-3">
                 <img class="card-img-top mt-3" src="https://image.freepik.com/free-vector/city-driver-concept-illustration_114360-2648.jpg" alt="Card image">
                 <div class="d-flex justify-content-center">
-                    <a href="lista-viajes"  class="btn btn-dark">Historial de alquileres</a>
+                    <a href="lista-viajes" class="btn btn-dark">Historial de alquileres</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
-            <h1 class="text-center">Alquileres actuales:</h1>
-        </div>
-
+        <c:if test = "${alquileres.size() > 0}">
+            <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
+                <h1 class="text-center">Alquileres actuales:</h1>
+            </div>
+        </c:if>
         <div class="container d-flex justify-content-center text-center">
             <div class="col-sm-9">
                     <c:forEach items="${alquileres}" var="alquiler">
