@@ -3,8 +3,10 @@ package ar.edu.unlam.tallerweb1.modelo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 
+@Transactional
 @Entity
 public class Suscripcion {
 
@@ -42,6 +44,7 @@ public class Suscripcion {
         this.FechaFin=null;
     }
 
+
     public Long getId() {
         return id;
     }
@@ -50,11 +53,19 @@ public class Suscripcion {
         this.id = id;
     }
 
-    public TipoSuscripcion getTipoSuscripcion() {
+    public ar.edu.unlam.tallerweb1.modelo.Usuario getUsuario() {
+        return Usuario;
+    }
+
+    public void setUsuario(ar.edu.unlam.tallerweb1.modelo.Usuario usuario) {
+        Usuario = usuario;
+    }
+
+    public ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion getTipoSuscripcion() {
         return TipoSuscripcion;
     }
 
-    public void setTipoSuscripcion(TipoSuscripcion tipoSuscripcion) {
+    public void setTipoSuscripcion(ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion tipoSuscripcion) {
         TipoSuscripcion = tipoSuscripcion;
     }
 
@@ -82,11 +93,4 @@ public class Suscripcion {
         FechaFin = fechaFin;
     }
 
-    public Usuario getUsuario() {
-        return Usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        Usuario = usuario;
-    }
 }
