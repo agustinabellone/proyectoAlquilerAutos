@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<jsp:include page="WEB-INF/vistas/header.jsp"/>
+<jsp:include page="header.jsp" />
 <section>
     <div class="portada">
         <div class="container portada-contenido">
