@@ -19,6 +19,11 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
+<c:if test="${not empty errorSinPermisos}">
+    <div class="alert alert-danger text-center container" role="alert">
+       ${errorSinPermisos}
+    </div>
+</c:if>
 <section class="h-100">
     <div class="container h-100">
         <div class="row justify-content-center h-100">
