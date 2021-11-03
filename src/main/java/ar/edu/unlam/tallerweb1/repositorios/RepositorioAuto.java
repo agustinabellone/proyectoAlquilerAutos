@@ -18,7 +18,7 @@ public interface RepositorioAuto {
 
     List<Auto> buscarTodos();
 
-    Auto guardarEnMantenimiento(Auto buscado, LocalDate localDate);
+    void guardarEnMantenimiento(Auto buscado, LocalDate localDate);
 
     Auto buscarAutoEnMantenimientoPorIdYPorSituacion(Long id, Situacion situacion);
 

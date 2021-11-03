@@ -18,7 +18,14 @@
 
     <title>Proyecto - Alquiler de autos</title>
 </head>
+
 <body class="bg-dark">
+<jsp:include page="header.jsp" />
+<c:if test="${not empty errorSinPermisos}">
+    <div class="alert alert-danger text-center container" role="alert">
+            ${errorSinPermisos}
+    </div>
+</c:if>
 <section>
     <div class="container">
         <div class="mt-5 justify-content-center">
