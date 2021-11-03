@@ -12,19 +12,31 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ControladorAdministrador {
 
-    private ModelAndView modelAndView = new ModelAndView();
     private ModelMap modelMap = new ModelMap();
+    private String viewName;
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
     public ModelAndView irALaVistaPrincipal(HttpServletRequest request) {
         if (elRolEstaSeteado(request) && elRolEsAdministrador(request)){
-            modelAndView.addObject("mensaje","Bienvenido!!!");
-            modelAndView.setViewName("redirect:/panel-principal?idUsuario="+request.getSession().getAttribute("id")+"&nombre="+request.getSession().getAttribute("nombre"));
+            viewName = "redirect:/panel-principal";
+            return new ModelAndView(viewName);
         } else{
-            modelAndView.addObject("error","No tienes los permisos necesarios");
-            modelAndView.setViewName("redirect:/login");
+            modelMap.put("errorSinPermisos","No tienes los permisos necesarios para acceder a esta pagina");
+            modelMap.put("datosLogin",new DatosLogin());
+            return new ModelAndView("login",modelMap);
         }
-        return modelAndView;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/panel-principal")
+    public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request) {
+        if (elRolEstaSeteado(request)&& elRolEsAdministrador(request)){
+            modelMap.put("nombre",request.getSession().getAttribute("nombre"));
+            return new ModelAndView("panel-principal",modelMap);
+        }else{
+            modelMap.put("errorSinPermisos","No tienes los permisos necesarios para acceder a esta pagina");
+            modelMap.put("datosLogin",new DatosLogin());
+            return new ModelAndView("login",modelMap);
+        }
     }
 
     private boolean elRolEstaSeteado(HttpServletRequest request) {
@@ -33,10 +45,5 @@ public class ControladorAdministrador {
 
     private boolean elRolEsAdministrador(HttpServletRequest request) {
         return request.getSession().getAttribute("rol").equals("admin");
-    }
-
-    public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(@RequestParam("idUsuario") Long idDelAdministrador, @RequestParam("nombre") String nombre) {
-        modelMap.put("nombre",nombre);
-        return new ModelAndView("panel-principal",modelMap);
     }
 }
