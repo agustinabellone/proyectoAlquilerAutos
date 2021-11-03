@@ -36,13 +36,14 @@
                 <div class="card card-shadow border-0 mb-4">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center">
-                            <h5 class="font-weight-medium mb-0"><c:>${auto.modelo} </c:></h5>
+                            <h3 class="font-weight-medium mb-0"><c:> ${auto.marca.descripcion} ${auto.modelo.descripcion} </c:></h3>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="">
                         <div class="col-lg-12">
-                            <div class="row mt-3">
+                            <div class="">
                                 <div class="col-lg-6 align-self-center">
+                                    <p>Valorar vehículo</p>
                                     <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}" method="post">
                                         <input type="radio" id="uno" name="estrellasValoracion" value="5">
                                         <label for="uno"><i class="glyphicon glyphicon-star"></i></label>
@@ -54,18 +55,17 @@
                                         <label for="cuatro"><i class="glyphicon glyphicon-star"></i></label>
                                         <input type="radio" id="cinco" name="estrellasValoracion" value="1">
                                         <label for="cinco"><i class="glyphicon glyphicon-star"></i></label>
-                                        <br><br>
-                                        <p><textarea class="form-control" name="comentario" rows="5" placeholder="Deje su comentario: "></textarea></p>
-                                        <br><br>
+
+                                        <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
+
                                         <div class="form-group m-0">
                                             <button class="btn btn-lg btn-primary btn-block" Type="Submit" />Cargar</button>
                                         </div>
-                                        <br><br>
                                     </form>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="container">
-                                        <img src="${auto.imagen}" class="card-img-top" alt="...">
+                                    <div class="">
+                                        <img src="${auto.imagen}"  alt="...">
                                     </div>
                                 </div>
                                 <button class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" Type="Submit" />Cargar</button>

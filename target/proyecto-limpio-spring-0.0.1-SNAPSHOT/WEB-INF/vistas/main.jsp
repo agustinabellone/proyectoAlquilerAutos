@@ -18,49 +18,49 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
-
-        <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center m-5">¡Ingresaste a tu cuenta!</h1>
-            <h1 class="text-center m-5">¡Bienvenid@ <c:out value="${nombre}"/>!</h1>
-        </div>
-
+        <br>
+        <h1>¡Hola <c:out value="${nombre}"/>!</h1>
+        <br>
         <div class="d-flex justify-content-around">
+            <div class="card col-sm-3">
+                <img class="card-img-top mt-3" src="https://img.freepik.com/vector-gratis/feliz-mujer-monta-coche-rojo_163786-27.jpg?size=626&ext=jpg" alt="Card image">
+                <div class="d-flex justify-content-center">
+                    <a href="alquilar-auto" class="btn btn-dark mt-3 mb-3">Alquilar auto</a>
+                </div>
+            </div>
+
             <div class="card col-sm-3">
                 <img class="card-img-top mt-3" src="https://img.freepik.com/vector-gratis/ilustracion-coche-alquiler-joven-feliz_179970-626.jpg?size=626&ext=jpg" alt="Card image">
                 <div class="d-flex justify-content-center">
-                    <a href="alquilar-auto" class="btn btn-primary mt-3 mb-3">Alquilar auto</a>
-                </div>
-            </div>
-
-            <div class="card col-sm-3">
-                <img class="card-img-top mt-3" src="https://cdni.iconscout.com/illustration/free/thumb/task-list-2080780-1753768.png" alt="Card image">
-                <div class="d-flex justify-content-center">
-                    <a href="lista-viajes"  class="btn btn-primary mt-3">Ver mis viajes</a>
+                    <a href="lista-viajes" class="btn btn-dark mt-3">Historial de alquileres</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
-            <h1 class="text-center">Alquileres actuales</h1>
-        </div>
-
-        <div class="d-flex justify-content-around">
-            <div class="card col-sm-9">
-                <div class="d-flex justify-content-center">
+        <c:if test = "${alquileres.size() > 0}">
+            <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
+                <h1 class="text-center">Alquileres actuales: ${alquileres.size()}</h1>
+            </div>
+        </c:if>
+        <div class="container d-flex justify-content-center text-center">
+            <div class="col-sm-9">
                     <c:forEach items="${alquileres}" var="alquiler">
-                        <c:forEach items="${fechas}" var="fechas">
-                            <td>${fechas}</td>
-                        </c:forEach>
-                        <c:forEach items="${modelos}" var="modelo">
-                            <td>${modelo.descripcion}</td>
-                        </c:forEach>
-                        <c:forEach items="${marcas}" var="marca">
-                            <td>${marca.descripcion}</td>
-                        </c:forEach>
-                        <a href='finalizar-alquiler?alquilerID=${alquiler.id}'>Finalizar alquiler</a>
+                            <div class="d-flex flex-column bg-dark p-2 mt-2 mb-2 text-light justify-content-center rounded">
+                                <div>
+                                    <td><span class="font-weight-bold">Auto: </span> ${alquiler.auto.marca.descripcion} ${alquiler.auto.modelo.descripcion}</td>
+                                </div>
+                                <div>
+                                    <td><span class="font-weight-bold">Retiro del auto: </span> ${alquiler.f_egreso}</td>
+                                </div>
+                                <div>
+                                    <td><span class="font-weight-bold">Devolución del auto: </span> ${alquiler.f_ingreso}</td>
+                                </div>
+                                <div class="col-sm-12 d-flex justify-content-center mt-2">
+                                    <a class="btn btn-danger" href='finalizar-alquiler?alquilerID=${alquiler.id}'>Finalizar alquiler</a>
+                                </div>
+                            </div>
                     </c:forEach>
-                </div>
             </div>
         </div>
     </div>

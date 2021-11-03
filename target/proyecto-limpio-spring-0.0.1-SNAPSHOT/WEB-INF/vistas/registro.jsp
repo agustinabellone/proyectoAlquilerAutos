@@ -17,15 +17,14 @@
         crossorigin="anonymous">
   <title>Proyecto - Alquiler de autos</title>
 </head>
-<body>
-<jsp:include page="header.jsp" />
-<section class="h-100 ">
-  <div class="container h-100">
-    <div class="row justify-content-center h-100">
-      <div class="card-wrapper">
-        <div class="card fat">
+<body class="bg-dark">
+<section>
+  <div class="container">
+    <div class="justify-content-center mt-5">
+      <div class="card-wrapper mt-5">
+        <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Crear cuenta</h4>
+            <h4 class="mb-3 text-center">Crear Cuenta</h4>
             <form:form action="validar-registro" method="POST" modelAttribute="datosRegistro">
 
               <div class="form-group">
@@ -49,7 +48,7 @@
               </div>
 
               <div class="form-group m-0">
-                <button class="btn btn-lg btn-primary btn-block" Type="Submit"/>Registrarme</button>
+                <button class="btn btn-lg btn-dark btn-block" Type="Submit"/>Registrarme</button>
               </div>
             </form:form>
 
@@ -59,7 +58,9 @@
               <br>
             </c:if>
         </div>
-        <a href="home" class="btn col text-center">Volver</a>
+        <div class="mt-3 text-center">
+          <a href="home" class="text-white font-weight-medium">Volver</a>
+        </div>
       </div>
     </div>
   </div>
