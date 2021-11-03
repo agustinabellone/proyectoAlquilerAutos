@@ -47,6 +47,14 @@ public class testControladorAdministrador {
         thenSeMuestraElPanelPrincipalConLaInformacionDelUsuario(this.modelAndView);
     }
 
+
+    @Test
+    public void queNoSePuedaMostrarelPanelPrincipalConLaInformacionPorqueIntentaAccederSinLoguearse(){
+        HttpServletRequest usuarioSinRol = givenExisteUnUsuarioSinRolDeAdministrador();
+        whenSeMuestraLaVistaPrincipalConLaInformacionDel(usuarioSinRol);
+        thenloMandaAlLoginConMensajeDeError(this.modelAndView,"No tienes los permisos necesarios para acceder a esta pagina");
+    }
+
     private HttpServletRequest givenExisteUnUsuarioSinRolDeAdministrador() {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("rol")).thenReturn(null);
