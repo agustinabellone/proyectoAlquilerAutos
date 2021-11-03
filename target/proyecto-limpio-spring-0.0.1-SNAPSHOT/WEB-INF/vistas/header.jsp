@@ -64,5 +64,6 @@
         </div>
       </div>
     </div>
+    <!--Fin del modal-->
   </div>
 </header>

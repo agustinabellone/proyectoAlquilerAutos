@@ -24,7 +24,7 @@
 }
 
 .portada h1 {
-    font-size: 60px;
+    font-size: 50px;
     font-weight: bold;
     color: white;
     position: relative
@@ -42,7 +42,6 @@ h3 {
 }
 
 /*Planes*/
-
 .card-box {
     background: #FAFAFA;
     min-height: 300px;

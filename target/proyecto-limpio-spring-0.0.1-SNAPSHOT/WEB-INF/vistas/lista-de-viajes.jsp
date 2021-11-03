@@ -28,7 +28,7 @@
         <div class="container">
             <div class="col center-block">
                 <div class="d-flex align-items-center">
-                    <h5 class="font-weight-medium mb-3">Cantidad: </h5>
+                    <h5 class="font-weight-medium mb-3">Cantidad: ${viajesObtenidos.size()} </h5>
                 </div>
             </div>
                 <c:forEach var="viaje" items= "${viajesObtenidos}" >
