@@ -37,7 +37,7 @@ public class testControladorAdministrador {
     public void alAccederALaVistaPrincipalLoDejaAccederConMensajeDeBienvenida() {
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         whenAccedeALaVistaPrincipal(usuarioConRol);
-        thenLoEnviaALaVistaPrincipalConMensajeDeBienvenida(this.modelAndView,"Bienvenido!!!");
+        thenLoEnviaALaVistaPrincipalConMensajeDeBienvenida(this.modelAndView);
     }
 
     @Test
@@ -66,12 +66,11 @@ public class testControladorAdministrador {
     }
 
     private void whenSeMuestraLaVistaPrincipalConLaInformacionDel(HttpServletRequest usuarioConRol) {
-        this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador((Long) usuarioConRol.getSession().getAttribute("id"),(String) usuarioConRol.getSession().getAttribute("nombre"));
+        this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador(usuarioConRol);
     }
 
-    private void thenLoEnviaALaVistaPrincipalConMensajeDeBienvenida(ModelAndView modelAndView, String mensaje) {
-        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/panel-principal?idUsuario=1&nombre=admin");
-        assertThat(modelAndView.getModel().get("mensaje")).isEqualTo(mensaje);
+    private void thenLoEnviaALaVistaPrincipalConMensajeDeBienvenida(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/panel-principal");
     }
 
     private void thenloMandaAlLoginConMensajeDeError(ModelAndView modelAndView, String error) {
