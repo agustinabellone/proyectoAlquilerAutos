@@ -30,7 +30,7 @@ public class testControladorAdministrador {
     public void alAccederALaVistaPrincipalNoPuedePorqueNoEstaAsignadoElRolDeAdministrador() {
         HttpServletRequest usuarioSinRol = givenExisteUnUsuarioSinRolDeAdministrador();
         whenAccedeALaVistaPrincipal(usuarioSinRol);
-        thenloMandaAlLoginConMensajeDeError(this.modelAndView,"No tienes los permisos necesarios");
+        thenloMandaAlLoginConMensajeDeError(this.modelAndView,"No tienes los permisos necesarios para acceder a esta pagina");
     }
 
     @Test
@@ -74,8 +74,8 @@ public class testControladorAdministrador {
     }
 
     private void thenloMandaAlLoginConMensajeDeError(ModelAndView modelAndView, String error) {
-        assertThat(modelAndView.getViewName()).isEqualTo("redirect:/login");
-        assertThat(modelAndView.getModel().get("error")).isEqualTo(error);
+        assertThat(modelAndView.getViewName()).isEqualTo("login");
+        assertThat(modelAndView.getModel().get("errorSinPermisos")).isEqualTo(error);
     }
 
     private void thenSeMuestraElPanelPrincipalConLaInformacionDelUsuario(ModelAndView modelAndView) {
