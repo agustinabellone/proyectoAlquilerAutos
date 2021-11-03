@@ -20,7 +20,6 @@
 </head>
 
 <body class="bg-dark">
-<jsp:include page="header.jsp" />
 <section>
     <div class="container">
         <div class="mt-5 justify-content-center">
@@ -49,8 +48,9 @@
                     </div>
 
                     <c:if test="${not empty error}">
-                        <caption><p class="text-center text-danger">${error}</p></caption>
-                        <br>
+                    <div class="alert alert-danger text-center container mt-3" role="alert">
+                            ${error}
+                    </div>
                     </c:if>
                 </div>
 

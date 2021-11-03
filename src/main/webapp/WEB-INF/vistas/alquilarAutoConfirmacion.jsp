@@ -36,10 +36,11 @@
         </div>
     </div>
     <c:if test="${not empty mensaje}">
-        <caption id="mensaje">
-            <p class="text-center text-success">${mensaje}</p>
-        </caption>
+        <div class="alert alert-danger text-center container mt-3" role="alert">
+                <p class="text-center text-success">${mensaje}</p>
+        </div>
     </c:if>
+
 </section>
 </body>
 </html>
