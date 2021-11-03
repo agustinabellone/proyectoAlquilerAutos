@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -54,6 +55,11 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     @Override
     public List<Alquiler> obtenerAlquileresDeUsuario(Usuario id) {
         return repositorioAlquiler.obtenerAlquileresActivosDeUsuario(id);
+    }
+
+    @Override
+    public List<Auto> obtenerAutosAlquilados() {
+        return null;
     }
 
 }
