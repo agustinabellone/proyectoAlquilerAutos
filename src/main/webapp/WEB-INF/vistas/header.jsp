@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 
-<header class = "bg-light p-3">
+<header class = "p-3">
   <div class = "d-flex col-md-12 justify-content-around align-items-center">
 
     <c:if test = "${id != null}">
