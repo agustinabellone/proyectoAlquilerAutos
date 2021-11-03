@@ -10,6 +10,7 @@
 <head>
     <title>Vista del Administrador</title>
     <h1>Bienvenido ${nombre}</h1>
+    <h2>${mensaje}</h2>
 </head>
 <body>
 
