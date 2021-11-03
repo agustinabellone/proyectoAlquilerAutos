@@ -6,6 +6,10 @@
 <header class = "p-3">
   <div class = " d-flex  col-md-12 justify-content-end ">
 =======
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
 >>>>>>> develop
 
 <header class = "mt-3 mb-3">
@@ -36,6 +40,10 @@
     <c:if test = "${id != null}">
       <a href="home" type="button" class="btn btn-secondary">Inicio</a>
       <a href="main" type="button" class="btn btn-secondary">Mi Cuenta</a>
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
 >>>>>>> develop
 
       <c:choose>
@@ -104,6 +112,10 @@
       </div>
     </div>
     <!--Fin del modal-->
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
 >>>>>>> develop
   </div>
 </header>

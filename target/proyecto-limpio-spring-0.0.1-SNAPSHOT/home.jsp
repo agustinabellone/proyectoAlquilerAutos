@@ -3,6 +3,10 @@
          pageEncoding="ISO-8859-1"%>
 =======
          pageEncoding="ISO-8859-1" %>
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
 >>>>>>> develop
 <!DOCTYPE html>
 <html lang="es">
@@ -34,6 +38,10 @@
         <div class="container portada-contenido">
             <h1 class="display-3 mt-3 text-center">¡Te damos la bienvenida!</h1>
             <h2 class="text-center">Conocé nuestros vehiculos y elegí el que más te guste.</h2>
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
 >>>>>>> develop
         </div>
     </div>
@@ -74,6 +82,10 @@
                                 <div class="price-box my-3">
                                     <sup>$</sup><span class="text-white display-5 text-center">10.000</span>
                                     <h6 class="font-weight-medium text-white text-center">1 MES</h6>
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
 >>>>>>> develop
                                 </div>
                             </div>
@@ -91,6 +103,10 @@
                             <div class="card-title">
                                 <h2 class="mb-5 text-light">PLAN ORO</h2>
                                 <p>80 km de recorrido </p>
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
 >>>>>>> develop
                                 <p>KM excedido: $300</p>
                                 <p> Permite eleccion de vehiculo</p>
@@ -107,6 +123,10 @@
                                 <div class="price-box my-3">
                                     <sup class="text-light">$</sup><span class=" display-5 text-light">15.000</span>
                                     <h6 class="font-weight-medium text-light">1 MES</h6>
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
 >>>>>>> develop
                                 </div>
                             </div>
@@ -124,6 +144,10 @@
                             <div class="card-title">
                                 <h2 class="mb-5 text-white">PLAN DIAMANTE</h2>
                                 <p>200 km de recorrido</p>
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
 >>>>>>> develop
                                 <p> Km excedido: $500</p>
                                 <p> Eleccion de vehiculo (incluye gama alta)</p>
@@ -140,6 +164,10 @@
                                 <div class="price-box my-3">
                                     <sup>$</sup><span class="text-white display-5">20.000</span>
                                     <h6 class="font-weight-medium text-white">1 MES</h6>
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+>>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
 >>>>>>> develop
                                 </div>
                             </div>
