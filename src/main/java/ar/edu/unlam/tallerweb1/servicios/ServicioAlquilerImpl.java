@@ -51,4 +51,9 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
         return usuario;
     }
 
+    @Override
+    public List<Alquiler> obtenerAlquileresDeUsuario(Usuario id) {
+        return repositorioAlquiler.obtenerAlquileresActivosDeUsuario(id);
+    }
+
 }

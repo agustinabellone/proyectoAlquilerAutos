@@ -43,24 +43,23 @@ public class ControladorLogin {
 
         try {
             servicioLogin.ingresar(datosLogin);
-        }
-        catch (ClienteNoExisteException e) {
+        } catch (ClienteNoExisteException e) {
             return registroFallido(modelo, "El usuario no existe");
-        }catch (PasswordIncorrectaException e) {
+        } catch (PasswordIncorrectaException e) {
             return registroFallido(modelo, "Datos incorrectos");
         }
 
         iniciarSesion(servicioUsuario.buscarPorEmail(datosLogin.getEmail()), request);
 
-        return registroExitoso();
+        return registroExitoso(request);
     }
 
     @RequestMapping(path = "/logout")
     public ModelAndView cerrarSesion(HttpServletRequest request) {
 
-        if (request.getSession().getAttribute("id")!=null){
-            request.getSession().setAttribute("id",null);
-            request.getSession().setAttribute("rol",null);
+        if (request.getSession().getAttribute("id") != null) {
+            request.getSession().setAttribute("id", null);
+            request.getSession().setAttribute("rol", null);
         }
 
         return new ModelAndView("redirect:/home");
@@ -72,6 +71,7 @@ public class ControladorLogin {
         // EL SWITCH ES UTIL SI LOS 4 ROLES TIENEN DISTINTOS DATOS QUE GUARDAR, POR EL MOMENTO NO LOS TIENEN
         /*
         switch (buscado.getRol()){
+>>>>>>> c7436b7ca3be4e63fd2c9a8d9bd214d9d9c1d10b
             case "cliente":
                 request.getSession().setAttribute("rol", "cliente");
                 request.getSession().setAttribute("id", buscado.getId());
@@ -94,8 +94,10 @@ public class ControladorLogin {
 
     }
 
-    private ModelAndView registroExitoso() {
-
+    private ModelAndView registroExitoso(HttpServletRequest request) {
+        if (request.getSession().getAttribute("rol").equals("admin")){
+            return new ModelAndView("redirect:/ir-a-panel-principal");
+        }
         return new ModelAndView("redirect:/main");
     }
 

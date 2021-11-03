@@ -15,17 +15,19 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+
     <title>Proyecto - Alquiler de autos</title>
 </head>
-<body>
+
+<body class="bg-dark">
 <jsp:include page="header.jsp" />
-<section class="h-100">
-    <div class="container h-100">
-        <div class="row justify-content-center h-100">
-            <div class="card-wrapper">
-                <div class="card fat">
+<section>
+    <div class="container">
+        <div class="mt-5 justify-content-center">
+            <div class="card-wrapper mt-5">
+                <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Iniciar sesión</h4>
+                        <h4 class="mb-3 text-center">Iniciar Sesión</h4>
                         <form:form action="validar-login" method="POST" modelAttribute="datosLogin">
                             <div class="form-group">
                                 <label >Email</label>
@@ -38,10 +40,10 @@
                             </div>
 
                             <div class="form-group m-0">
-                                <button class="btn btn-lg btn-primary btn-block" Type="Submit"/>Ingresar</button>
+                                <button class="btn btn-lg btn-dark btn-block" Type="Submit"/>Ingresar</button>
                             </div>
                             <div class="mt-4 text-center">
-                                ¿No tienes una cuenta? <a href="registro">Crear una</a>
+                                ¿No tienes una cuenta? <a class="text-primary" href="registro">Crear una</a>
                             </div>
                         </form:form>
                     </div>
@@ -51,7 +53,15 @@
                         <br>
                     </c:if>
                 </div>
-                <a href="home" class="btn col text-center">Volver</a>
+
+                <c:if test="${not empty errorSinPermisos}">
+                    <div class="alert alert-danger text-center container mt-3" role="alert">
+                            ${errorSinPermisos}
+                    </div>
+                </c:if>
+                <div class="mt-3 text-center">
+                    <a href="home" class="text-white col font-weight-medium">Volver</a>
+                </div>
             </div>
         </div>
     </div>

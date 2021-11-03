@@ -13,11 +13,11 @@ import static org.mockito.Mockito.*;
 
 public class testControladorSuscripcion {
 
-    private static final Long ID_USUARIO =123L;
-    private static final Long ID_TIPO=1L;
+    private static final Long ID_USUARIO = 123L;
+    private static final Long ID_TIPO = 1L;
 
-    private Usuario Usuario = new Usuario(ID_USUARIO) ;
-    private TipoSuscripcion TIPO_SUSCRIPCION = new TipoSuscripcion(ID_TIPO, "") ;
+    private Usuario Usuario = new Usuario(ID_USUARIO);
+    private TipoSuscripcion TIPO_SUSCRIPCION = new TipoSuscripcion(ID_TIPO, "");
 
     private ServicioSuscripcion servicioSuscripcion = mock(ServicioSuscripcion.class);
     private ControladorSuscripcion controladorSuscripcion = new ControladorSuscripcion(servicioSuscripcion);
@@ -26,7 +26,7 @@ public class testControladorSuscripcion {
 
 
     @Test
-    public void queUnClienteSePuedaSuscribirExitosamente(){
+    public void queUnClienteSePuedaSuscribirExitosamente() {
         givenExisteUnClienteyUnTipoSuscripcion();
         whenUnClienteSeSuscribe(Usuario, TIPO_SUSCRIPCION);
         thenLaSuscripcionEsExitosa();
@@ -38,11 +38,11 @@ public class testControladorSuscripcion {
     private void whenUnClienteSeSuscribe(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
 
 
-        mav =  controladorSuscripcion.suscribirUsuario(usuario.getId(), tipoSuscripcion.getId());
+        mav = controladorSuscripcion.suscribirUsuario(usuario.getId(), tipoSuscripcion.getId());
 
     }
 
-    private void  thenLaSuscripcionEsExitosa() {
+    private void thenLaSuscripcionEsExitosa() {
 
         assertThat(mav.getViewName()).isEqualTo("home"); //Vista placeholder
     }
@@ -73,7 +73,7 @@ public class testControladorSuscripcion {
     }
 
     @Test
-    public void unClienteRenuevaLaSuscripcionExitosamente(){
+    public void unClienteRenuevaLaSuscripcionExitosamente() {
         Suscripcion suscripcion = givenExisteUnaSuscripcion(Usuario, TIPO_SUSCRIPCION);
         whenUnClienteRenuevaLaSuscripcion(suscripcion);
         thenLasRenovacionEsExitosa();
@@ -89,7 +89,7 @@ public class testControladorSuscripcion {
     }
 /*
     @Test
-    public void unClienteNoPuedeRenovarDosVecesUnaSuscripcion(){
+    public void unClienteNoPuedeRenovarDosVecesUnaSuscripcion() {
         Suscripcion suscripcion = givenExisteUnaSuscripcion(Usuario, TIPO_SUSCRIPCION);
         doThrow(SuscripcionYaRenovadaException.class)
                 .when(servicioSuscripcion)

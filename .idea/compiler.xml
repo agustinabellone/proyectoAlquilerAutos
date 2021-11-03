@@ -7,10 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="proyecto-limpio-spring" />
+        <module name="proyectoAlquilerAutos" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="proyectoAlquilerAutos" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>

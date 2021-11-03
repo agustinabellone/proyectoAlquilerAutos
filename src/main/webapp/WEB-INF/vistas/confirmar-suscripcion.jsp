@@ -1,4 +1,6 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,8 +35,8 @@
 
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Porfavor <c:out value="${nombre}"/>, confirme su suscripcion</h5>
-                    <p class="card-text">Suscribirse al plan numero <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>
+                    <h5 class="card-title">Por favor <c:out value="${nombre}"/>, confirmá tu suscripcion</h5>
+                    <p class="card-text">¿Te suscribimos al plan número <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>
                     <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id}" class="btn btn-primary">Confirmar</a>
                     <a href="ir-a-suscribir" class="btn btn-primary">Volver</a>
                 </div>
