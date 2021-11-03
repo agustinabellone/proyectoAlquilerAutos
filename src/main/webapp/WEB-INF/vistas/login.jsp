@@ -21,11 +21,6 @@
 
 <body class="bg-dark">
 <jsp:include page="header.jsp" />
-<c:if test="${not empty errorSinPermisos}">
-    <div class="alert alert-danger text-center container" role="alert">
-            ${errorSinPermisos}
-    </div>
-</c:if>
 <section>
     <div class="container">
         <div class="mt-5 justify-content-center">
@@ -58,6 +53,12 @@
                         <br>
                     </c:if>
                 </div>
+
+                <c:if test="${not empty errorSinPermisos}">
+                    <div class="alert alert-danger text-center container mt-3" role="alert">
+                            ${errorSinPermisos}
+                    </div>
+                </c:if>
                 <div class="mt-3 text-center">
                     <a href="home" class="text-white col font-weight-medium">Volver</a>
                 </div>
