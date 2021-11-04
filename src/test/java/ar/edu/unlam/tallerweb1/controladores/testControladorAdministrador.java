@@ -72,7 +72,7 @@ public class testControladorAdministrador {
         thenLaMuestroEnElPanelPrincipal(this.modelAndView, autosAlquilados, 10);
     }
 
-    @Test (expected = NoHayAutosAlquiladosException.class)
+    @Test(expected = NoHayAutosAlquiladosException.class)
     public void alMostrarLaVistaPrincipalConLaInformacionDelAdministradorTambienNoSeDebeMostrarLaListaDeAutosYaQueNoHayAutosAlquilados() throws NoHayAutosAlquiladosException {
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         givenSeMuestraLaVistaPrincipalConLaInformacion(usuarioConRol);
@@ -93,7 +93,7 @@ public class testControladorAdministrador {
     private void thenLaMuestroEnElPanelPrincipal(ModelAndView modelAndView, List<Auto> autosAlquilados, int cantidad_esperada) {
         assertThat(modelAndView.getViewName()).isEqualTo("panel-principal");
         assertThat(autosAlquilados).hasSize(cantidad_esperada);
-       // assertThat(modelAndView.getModel().get("lista-de-autos-alquilados")).isEqualTo(autosAlquilados);
+        // assertThat(modelAndView.getModel().get("lista-de-autos-alquilados")).isEqualTo(autosAlquilados);
     }
 
     private List<Auto> whenObtengoLaListaDeAutosAlquilados(List<Auto> autosAlquilados) throws NoHayAutosAlquiladosException {
