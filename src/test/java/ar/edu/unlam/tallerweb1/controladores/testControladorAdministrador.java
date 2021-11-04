@@ -66,9 +66,9 @@ public class testControladorAdministrador {
     public void alMostrarLaVistaPrincipalConLaInformacionDelAdministradorTambienSeDebeMostrarLaListaDeAutosAlquilados() throws NoHayAutosAlquiladosException {
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         givenSeMuestraLaVistaPrincipalConLaInformacion(usuarioConRol);
-        List<Auto> autosAlquilados = givenExisteUnaListaDeAutosAlquilados(10);
+        givenExisteUnaListaDeAutosAlquilados(10);
 
-        whenObtengoLaListaDeAutosAlquilados(autosAlquilados);
+        List<Auto> autosAlquilados = whenObtengoLaListaDeAutosAlquilados();
         thenLaMuestroEnElPanelPrincipal(this.modelAndView, autosAlquilados, 10);
     }
 
@@ -77,7 +77,7 @@ public class testControladorAdministrador {
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         givenSeMuestraLaVistaPrincipalConLaInformacion(usuarioConRol);
         givenNoExistenAutosAlquilados();
-        whenObtengoLaListaDeAutosAlquilados(new ArrayList<>());
+        whenObtengoLaListaDeAutosAlquilados();
         thenMuestroUnMensajeDeError(this.modelAndView, "No hay autos alquilados actualmente");
     }
 
@@ -92,12 +92,14 @@ public class testControladorAdministrador {
 
     private void thenLaMuestroEnElPanelPrincipal(ModelAndView modelAndView, List<Auto> autosAlquilados, int cantidad_esperada) {
         assertThat(modelAndView.getViewName()).isEqualTo("panel-principal");
-        assertThat(autosAlquilados).hasSize(cantidad_esperada);
-        // assertThat(modelAndView.getModel().get("lista-de-autos-alquilados")).isEqualTo(autosAlquilados);
+        assertThat(modelAndView.getModel().get("lista-de-autos-alquilados")).isNotNull();
+        assertThat(modelAndView.getModel().get("lista-de-autos-alquilados")).isInstanceOf(List.class);
+        List<Auto> autosObtenidos = (List<Auto>) modelAndView.getModel().get("lista-de-autos-alquilados");
+        autosObtenidos.addAll(autosAlquilados);
+        assertThat(autosObtenidos).hasSize(cantidad_esperada);
     }
 
-    private List<Auto> whenObtengoLaListaDeAutosAlquilados(List<Auto> autosAlquilados) throws NoHayAutosAlquiladosException {
-        when(servicioAlquiler.obtenerAutosAlquilados()).thenReturn(autosAlquilados);
+    private List<Auto> whenObtengoLaListaDeAutosAlquilados() throws NoHayAutosAlquiladosException {
         return controlador.obtenerListaDeAutosAlquilados();
     }
 
@@ -105,14 +107,14 @@ public class testControladorAdministrador {
         this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador(usuarioConRol);
     }
 
-    private List<Auto> givenExisteUnaListaDeAutosAlquilados(int cantidad) throws NoHayAutosAlquiladosException {
+    private void givenExisteUnaListaDeAutosAlquilados(int cantidad) throws NoHayAutosAlquiladosException {
         List<Auto> autosAlquilados = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Auto auto = new Auto();
             auto.setSituacion(Situacion.OCUPADO);
             autosAlquilados.add(auto);
         }
-        return autosAlquilados;
+        when(servicioAlquiler.obtenerAutosAlquilados()).thenReturn(autosAlquilados);
     }
 
 
