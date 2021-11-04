@@ -49,7 +49,7 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     }
 
     @Override
-    public List<Auto> obtenerAutosAlquilados() {
+    public List<Auto> buscarAutosAlquilados(Situacion ocupado) {
         return null;
     }
 }

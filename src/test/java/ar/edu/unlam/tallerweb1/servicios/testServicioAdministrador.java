@@ -38,11 +38,11 @@ public class testServicioAdministrador {
             auto.setSituacion(Situacion.OCUPADO);
             listaAutosAlquilados.add(auto);
         }
-        when(repositorioAlquiler.obtenerAutosAlquilados()).thenReturn(listaAutosAlquilados);
+        when(repositorioAlquiler.buscarAutosAlquilados(Situacion.OCUPADO)).thenReturn(listaAutosAlquilados);
     }
 
     private void givenNoExistenAutosAlquilados() {
-        when(repositorioAlquiler.obtenerAutosAlquilados()).thenThrow(NoHayAutosAlquiladosException.class);
+        when(repositorioAlquiler.buscarAutosAlquilados(Situacion.OCUPADO)).thenThrow(NoHayAutosAlquiladosException.class);
     }
 
     private List<Auto> whenObtengoLosAutos() throws NoHayAutosAlquiladosException {
