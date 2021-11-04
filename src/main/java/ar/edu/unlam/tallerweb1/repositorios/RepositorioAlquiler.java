@@ -17,4 +17,6 @@ public interface RepositorioAlquiler {
     Usuario obtenerUsuarioPorId(Long id_usuario);
 
     List<Alquiler> obtenerAlquileresActivosDeUsuario(Usuario id);
+
+    List<Auto> obtenerAutosAlquilados();
 }
