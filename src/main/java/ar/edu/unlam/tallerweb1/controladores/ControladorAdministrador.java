@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,33 +27,53 @@ public class ControladorAdministrador {
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
     public ModelAndView irALaVistaPrincipal(HttpServletRequest request) {
-        if (elRolEstaSeteado(request) && elRolEsAdministrador(request)) {
-            viewName = "redirect:/panel-principal";
-            return new ModelAndView(viewName);
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
+            return redirigirAlPanelPrincipal();
         } else {
-            modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            modelMap.put("datosLogin", new DatosLogin());
-            return new ModelAndView("login", modelMap);
+            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/panel-principal")
     public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request) {
-        if (elRolEstaSeteado(request) && elRolEsAdministrador(request)) {
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
             try {
-                List<Auto> autosAlquilados = servicioAlquiler.obtenerAutosAlquilados();
-                modelMap.put("nombre", request.getSession().getAttribute("nombre"));
-                modelMap.put("lista-de-autos-alquilados", autosAlquilados);
-                return new ModelAndView("panel-principal", modelMap);
+                return obtenerLaListaDeLosAutosAlquiladosYLaInformacionDelAdministradorParaMostrarlaEnElPanelPrincipal(request);
             } catch (NoHayAutosAlquiladosException e) {
-                modelMap.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
-                return new ModelAndView("panel-principal");
+                return enviarAlPanelPrincipalConUnAvisoDeQueTodaviaNoHayAutosAlquilados();
             }
         } else {
-            modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            modelMap.put("datosLogin", new DatosLogin());
-            return new ModelAndView("login", modelMap);
+            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
+    }
+
+    private boolean elRolEstaSeteadoYEsAdministrador(HttpServletRequest request) {
+        return elRolEstaSeteado(request) && elRolEsAdministrador(request);
+    }
+
+    private ModelAndView redirigirAlPanelPrincipal() {
+        viewName = "redirect:/panel-principal";
+        return new ModelAndView(viewName);
+    }
+
+    private ModelAndView enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista() {
+        modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
+        modelMap.put("datosLogin", new DatosLogin());
+        viewName = "login";
+        return getModelAndView();
+    }
+
+    private ModelAndView obtenerLaListaDeLosAutosAlquiladosYLaInformacionDelAdministradorParaMostrarlaEnElPanelPrincipal(HttpServletRequest request) throws NoHayAutosAlquiladosException {
+        List<Auto> autosAlquilados = this.obtenerListaDeAutosAlquilados();
+        guardarEnElModelMapElNombreDelAdministradorYLaLisstaDeAutosAlquilados(request, autosAlquilados);
+        viewName = "panel-principal";
+        return getModelAndView();
+    }
+
+    private ModelAndView enviarAlPanelPrincipalConUnAvisoDeQueTodaviaNoHayAutosAlquilados() {
+        modelMap.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
+        viewName = "panel-principal";
+        return getModelAndView();
     }
 
     private boolean elRolEstaSeteado(HttpServletRequest request) {
@@ -65,7 +84,16 @@ public class ControladorAdministrador {
         return request.getSession().getAttribute("rol").equals("admin");
     }
 
+    private ModelAndView getModelAndView() {
+        return new ModelAndView(viewName, modelMap);
+    }
+
     public List<Auto> obtenerListaDeAutosAlquilados() throws NoHayAutosAlquiladosException {
-        return null;
+        return servicioAlquiler.obtenerAutosAlquilados();
+    }
+
+    private void guardarEnElModelMapElNombreDelAdministradorYLaLisstaDeAutosAlquilados(HttpServletRequest request, List<Auto> autosAlquilados) {
+        modelMap.put("nombre", request.getSession().getAttribute("nombre"));
+        modelMap.put("lista-de-autos-alquilados", autosAlquilados);
     }
 }
