@@ -18,9 +18,8 @@
 
     <title>Proyecto - Alquiler de autos</title>
 </head>
-<body>
-
 <jsp:include page="header.jsp" />
+<body>
 <section>
     <div class="portada">
         <div class="container portada-contenido">
@@ -41,19 +40,6 @@
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-md-4">
-<<<<<<< HEAD
-                        <div class="card-box">
-                            <div class="card-title">
-                                <h2>PLAN BÁSICO</h2>
-                                <p>50Km de recorrido</p>
-                                <p>KM excedido: $350</p>
-                                <p> Cambio de tiempo/lugar estipulado: $1200</p>
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="price-box my-3">
-                                    <sup>$</sup><span class="text-dark display-5">2.600</span>
-                                    <h6 class="font-weight-light">1 MES</h6>
-=======
                         <div class="card-box bg-secondary text-white text-center rounded">
                             <div class="card-title">
                                 <h2 class="mb-5 text-white">PLAN BÁSICO</h2>
@@ -65,73 +51,42 @@
                                 <div class="price-box my-3">
                                     <sup>$</sup><span class="text-white display-5 text-center">10.000</span>
                                     <h6 class="font-weight-medium text-white text-center">1 MES</h6>
->>>>>>> 8653a62814e70f56230ee2305a6a83160922c7fd
                                 </div>
                             </div>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <div class="col-md-4">
-                        <div class="card-box">
-                            <div class="card-title">
-                                <h2>PLAN ORO</h2>
-                                <p>80km de recorrido </p>
-=======
                     <div class="col-md-4 ">
                         <div class="card-box bg-dark text-light text-center rounded">
                             <div class="card-title">
                                 <h2 class="mb-5 text-light">PLAN ORO</h2>
                                 <p>80 km de recorrido </p>
->>>>>>> 8653a62814e70f56230ee2305a6a83160922c7fd
                                 <p>KM excedido: $300</p>
                                 <p> Permite eleccion de vehiculo</p>
                                 <p>Permite reservas con 3 días de anticipación</p>
                                 <p> Cambio de tiempo/lugar estipulado: $800</p>
                             </div>
-<<<<<<< HEAD
-                            <div class="col-lg-5">
-                                <div class="price-box my-3">
-                                    <sup>$</sup><span class="text-dark display-5">24.000</span>
-                                    <h6 class="font-weight-light">12 Meses</h6>
-=======
                             <div>
                                 <div class="price-box my-3">
                                     <sup class="text-light">$</sup><span class=" display-5 text-light">15.000</span>
                                     <h6 class="font-weight-medium text-light">1 MES</h6>
->>>>>>> 8653a62814e70f56230ee2305a6a83160922c7fd
                                 </div>
                             </div>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <div class="col-md-4">
-                        <div class="card-box">
-                            <div class="card-title">
-                                <h2>PLAN DIAMANTE</h2>
-                                <p>200km de recorrido</p>
-=======
                     <div class="col-md-4 text-dark text-center">
                         <div class="card-box bg-secondary text-white rounded">
                             <div class="card-title">
                                 <h2 class="mb-5 text-white">PLAN DIAMANTE</h2>
                                 <p>200 km de recorrido</p>
->>>>>>> 8653a62814e70f56230ee2305a6a83160922c7fd
                                 <p> Km excedido: $500</p>
                                 <p> Eleccion de vehiculo (incluye gama alta)</p>
                                 <p> Reservar con cualquier anticipación</p>
                                 <p>Cambio de tiempo/lugar estipulado SIN COSTO</p>
                             </div>
-<<<<<<< HEAD
-                            <div class="col-lg-5">
-                                <div class="price-box my-3">
-                                    <sup>$</sup><span class="text-dark display-5">30.000</span>
-                                    <h6 class="font-weight-light">12 Meses</h6>
-=======
                             <div>
                                 <div class="price-box my-3">
                                     <sup>$</sup><span class="text-white display-5">20.000</span>
                                     <h6 class="font-weight-medium text-white">1 MES</h6>
->>>>>>> 8653a62814e70f56230ee2305a6a83160922c7fd
                                 </div>
                             </div>
                         </div>

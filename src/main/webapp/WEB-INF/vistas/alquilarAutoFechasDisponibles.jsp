@@ -41,7 +41,7 @@
                    </div>
                 <br>
                 <div class="col-sm-12 d-flex justify-content-around">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit"/>Confirmar días</button>
+                    <button class="btn btn-lg btn-dark btn-block" type="submit"/>Confirmar días</button>
                 </div>
             </form>
         </div>

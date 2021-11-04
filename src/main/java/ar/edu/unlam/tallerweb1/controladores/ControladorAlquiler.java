@@ -87,7 +87,7 @@ public class ControladorAlquiler {
             return alquilerFallido(modelo, "El auto ya fue alquilado.");
         }
 
-        return alquilerExitoso(modelo, "Alquiler realizado exitosamente");
+        return alquilerExitoso(modelo, "Alquiler realizado con éxito.");
 
     }
 
