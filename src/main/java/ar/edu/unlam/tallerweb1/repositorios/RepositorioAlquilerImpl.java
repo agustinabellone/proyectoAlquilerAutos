@@ -52,4 +52,9 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     public List<Auto> buscarAutosAlquilados(Situacion ocupado) {
         return null;
     }
+
+    @Override
+    public Garage obtenerGaragePorId(Long lugar) {
+        return sessionFactory.getCurrentSession().get(Garage.class, lugar);
+    }
 }

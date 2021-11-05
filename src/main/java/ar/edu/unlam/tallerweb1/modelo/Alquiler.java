@@ -62,19 +62,13 @@ public class Alquiler {
         this.estado = Estado.ACTIVO;
     }
 
-    public Alquiler(Long id, LocalDate f_ingreso, LocalDate f_regreso, Auto auto, Usuario usuario) {
-        this.id = id;
-        this.f_ingreso = f_ingreso;
-        this.f_egreso = f_regreso;
-        this.auto = auto;
-        this.usuario = usuario;
-    }
-
     public Alquiler(DatosAlquiler datosAlquiler) {
         this.auto = datosAlquiler.getAuto();
         this.usuario = datosAlquiler.getUsuario();
         this.f_ingreso = datosAlquiler.getF_ingreso();
         this.f_egreso = datosAlquiler.getF_salida();
+        this.garagePartida = datosAlquiler.getLugarRetiro();
+        this.garageLlegadaEst = datosAlquiler.getLugarDevolucion();
         this.estado = Estado.ACTIVO;
     }
 
