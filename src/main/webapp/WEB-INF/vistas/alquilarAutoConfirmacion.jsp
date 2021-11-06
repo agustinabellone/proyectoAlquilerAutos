@@ -41,7 +41,7 @@
                ${mensaje}
             </div>
             <div class="col-sm-12 d-flex justify-content-center">
-                <a href="home" class="btn btn-dark" >Volver al inicio</a>
+                <a href="main" class="btn btn-dark" >Volver a mi cuenta</a>
             </div>
         </c:if>
     </div>
