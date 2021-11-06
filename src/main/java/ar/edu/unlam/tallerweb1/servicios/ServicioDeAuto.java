@@ -4,8 +4,12 @@ import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 
+import java.util.List;
+
 public interface ServicioDeAuto {
     Auto buscarAutoPorId(Long idDelAuto) throws AutoNoExistente;
 
     Auto enviarAutoMantenimiento(Auto aEnviar) throws AutoYaExistente;
+
+    List<Auto> obtenerTodoLosAutos();
 }

@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
+import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,10 +20,12 @@ public class ControladorAdministrador {
     private ModelMap modelMap = new ModelMap();
     private String viewName;
     private ServicioAlquiler servicioAlquiler;
+    private ServicioDeAuto servicioDeAuto;
 
     @Autowired
-    public ControladorAdministrador(ServicioAlquiler servicioAlquiler) {
+    public ControladorAdministrador(ServicioAlquiler servicioAlquiler, ServicioDeAuto servicioDeAuto) {
         this.servicioAlquiler = servicioAlquiler;
+        this.servicioDeAuto = servicioDeAuto;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
@@ -95,5 +98,17 @@ public class ControladorAdministrador {
     private void guardarEnElModelMapElNombreDelAdministradorYLaLisstaDeAutosAlquilados(HttpServletRequest request, List<Auto> autosAlquilados) {
         modelMap.put("nombre", request.getSession().getAttribute("nombre"));
         modelMap.put("lista-de-autos-alquilados", autosAlquilados);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/todos-los-autos")
+    public ModelAndView mostrarTodosLosAutos(HttpServletRequest usuarioConRol) {
+        if(elRolEstaSeteadoYEsAdministrador(usuarioConRol)){
+            List<Auto> autosObtenidos = servicioDeAuto.obtenerTodoLosAutos();
+            modelMap.put("lista-de-autos",autosObtenidos);
+            return new ModelAndView("todos-los-autos", modelMap);
+        }
+        else {
+            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
+        }
     }
 }

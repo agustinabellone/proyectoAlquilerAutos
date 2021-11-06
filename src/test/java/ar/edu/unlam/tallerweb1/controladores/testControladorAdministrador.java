@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
+import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,11 +24,13 @@ public class testControladorAdministrador {
     private HttpServletRequest request;
     private HttpSession session;
     private ServicioAlquiler servicioAlquiler;
+    private ServicioDeAuto servicioDeAuto;
 
     @Before
     public void init() {
+        servicioDeAuto = mock(ServicioDeAuto.class);
         servicioAlquiler = mock(ServicioAlquiler.class);
-        controlador = new ControladorAdministrador(servicioAlquiler);
+        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto);
         modelAndView = new ModelAndView();
         request = mock(HttpServletRequest.class);
         session = mock(HttpSession.class);
@@ -79,6 +82,35 @@ public class testControladorAdministrador {
         givenNoExistenAutosAlquilados();
         whenObtengoLaListaDeAutosAlquilados();
         thenMuestroUnMensajeDeError(this.modelAndView, "No hay autos alquilados actualmente");
+    }
+
+    @Test
+    public void queElUsuarioAdministradorPuedaAccerderATodosLosAutos() {
+        HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
+        givenExisteUnaListaDeAutos(10);
+        whenAccedeAVerTodosLosAutos(usuarioConRol);
+        thenSeMuestraLaVistaConTodosLosAutos(this.modelAndView);
+    }
+
+    private void givenExisteUnaListaDeAutos(int cantidad) {
+        List<Auto> listaDeAutos = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Auto auto = new Auto();
+            listaDeAutos.add(auto);
+        }
+        when(servicioDeAuto.obtenerTodoLosAutos()).thenReturn(listaDeAutos);
+    }
+
+    private void whenAccedeAVerTodosLosAutos(HttpServletRequest usuarioConRol) {
+        this.modelAndView = controlador.mostrarTodosLosAutos(usuarioConRol);
+    }
+
+    private void thenSeMuestraLaVistaConTodosLosAutos(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("todos-los-autos");
+        assertThat(modelAndView.getModel().get("lista-de-autos")).isNotNull();
+        assertThat(modelAndView.getModel().get("lista-de-autos")).isInstanceOf(List.class);
+        List<Auto> autos = (List<Auto>) modelAndView.getModel().get("lista-de-autos");
+        assertThat(autos).hasSize(10);
     }
 
     private void thenMuestroUnMensajeDeError(ModelAndView modelAndView, String error) {
