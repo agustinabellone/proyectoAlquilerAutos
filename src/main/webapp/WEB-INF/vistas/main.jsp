@@ -34,7 +34,7 @@
             <div class="card col-sm-3">
                 <img class="card-img-top mt-3" src="img/verHistorialAlquileres.jpg" alt="Hombre con un auto">
                 <div class="d-flex justify-content-center">
-                    <a href="lista-viajes" class="btn btn-dark mt-3">Historial de alquileres</a>
+                    <a href="lista-viajes" class="btn btn-dark mt-4">Historial de alquileres</a>
                 </div>
             </div>
         </div>

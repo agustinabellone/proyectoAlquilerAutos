@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Modelo;
+import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,9 @@ public class ControladorAlquiler {
     public ModelAndView mostrarConfirmacionAlquiler(@RequestParam("salida") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate salida,
                                                     @RequestParam("ingreso") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate ingreso,
                                                     @RequestParam("id_auto") Long id_auto,
-                                                    @RequestParam("imagen_auto") String imagen_auto) {
+                                                    @RequestParam("imagen_auto") String imagen_auto,
+                                                    @RequestParam("lugarRetiro") Long lugarRetiro,
+                                                    @RequestParam("lugarDevolucion") Long lugarDevolucion) {
 
         Auto auto = servicioAlquiler.obtenerAutoPorId(id_auto);
         ModelMap modelo = new ModelMap();
@@ -61,6 +63,12 @@ public class ControladorAlquiler {
         modelo.put("marca_auto", auto.getMarca().getDescripcion());
         modelo.put("imagen_auto", imagen_auto);
 
+        Garage garageRetiro = servicioAlquiler.obtenerGaragePorId(lugarRetiro);
+        Garage garageDevolucion = servicioAlquiler.obtenerGaragePorId(lugarDevolucion);
+
+        modelo.put("lugarRetiro", garageRetiro);
+        modelo.put("lugarDevolucion", garageDevolucion);
+
         return new ModelAndView("alquilarAutoConfirmacion", modelo);
     }
 
@@ -68,7 +76,9 @@ public class ControladorAlquiler {
     public ModelAndView alquilarAuto(HttpServletRequest request,
                                      @RequestParam("id_auto") Long id_auto,
                                      @RequestParam("salida") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate salida,
-                                     @RequestParam("ingreso") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate ingreso){
+                                     @RequestParam("ingreso") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate ingreso,
+                                     @RequestParam("lugarRetiro") Long lugarRetiro,
+                                     @RequestParam("lugarDevolucion") Long lugarDevolucion){
 
         ModelMap modelo = new ModelMap();
 
@@ -78,7 +88,10 @@ public class ControladorAlquiler {
 
         Usuario usuario = servicioAlquiler.obtenerUsuarioPorId(id_usuario);
 
-        DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, salida, ingreso);
+        Garage garageRetiro = servicioAlquiler.obtenerGaragePorId(lugarRetiro);
+        Garage garageDevolucion = servicioAlquiler.obtenerGaragePorId(lugarDevolucion);
+
+        DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, salida, ingreso, garageRetiro, garageDevolucion);
 
         try {
             servicioAlquiler.AlquilarAuto(datosAlquiler);

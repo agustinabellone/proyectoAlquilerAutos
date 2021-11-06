@@ -28,10 +28,10 @@
                 <img src="${imagen_auto}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${marca_auto} ${modelo_auto}  </h5>
-                    <p class="card-text">Retiro el auto: ${salida}</p>
-                    <p class="card-text">Devuelvo el auto: ${ingreso}</p>
+                    <p class="card-text">Retiro el auto: ${salida} en ${lugarRetiro.direccion}</p>
+                    <p class="card-text">Devuelvo el auto: ${ingreso} en ${lugarDevolucion.direccion}</p>
                     <div class="col-sm-12 d-flex justify-content-center">
-                        <a href="validar-alquiler?id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}" class="btn btn-dark mt-5" >ALQUILAR</a>
+                        <a href="validar-alquiler?id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}&lugarRetiro=${lugarRetiro.id}&lugarDevolucion=${lugarDevolucion.id}" class="btn btn-dark mt-5" >ALQUILAR</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                ${mensaje}
             </div>
             <div class="col-sm-12 d-flex justify-content-center">
-                <a href="home" class="btn btn-dark" >Volver al inicio</a>
+                <a href="main" class="btn btn-dark" >Volver a mi cuenta</a>
             </div>
         </c:if>
     </div>

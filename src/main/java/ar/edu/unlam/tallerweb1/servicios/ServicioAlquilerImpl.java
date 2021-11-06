@@ -2,10 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Situacion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,6 +63,11 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
             throw new NoHayAutosAlquiladosException();
         }
         return autosAlquilados;
+    }
+
+    @Override
+    public Garage obtenerGaragePorId(Long lugar) {
+        return repositorioAlquiler.obtenerGaragePorId(lugar);
     }
 
 }

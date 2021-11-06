@@ -20,9 +20,10 @@
 <body>
 <jsp:include page="header.jsp" />
 <section>
-    <div class="container">
-        <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center">Elegir fechas</h1>
+    <div class="container mt-5">
+        <div class="col-sm-12 d-flex flex-column justify-content-center">
+            <h1 class="text-center">Elegir fechas y lugares disponibles</h1>
+            <h4 class="text-center">Para retirar y devolver el auto</h4>
         </div>
     </div>
 <br>
@@ -33,15 +34,36 @@
                         <div class="col-sm-5 d-flex flex-column justify-content-center">
                             <p>Fecha que planeo retirar el auto:</p>
                             <input name="salida" id="salida" type="date" required>
+
                         </div>
+                        <div class="col-sm-5 d-flex flex-column justify-content-center">
+                            <p>Lugar de retiro:</p>
+                            <select name="lugarRetiro" id="lugarRetiro" class="form-select" required>
+                                <option value="">Seleccionar</option>
+                                <option value="1">Sede Ramos Mejía</option>
+                                <option value="2">Sede Morón</option>
+                                <option value="3">Sede La Matanza</option>
+                            </select>
+                        </div>
+                   </div>
+                    <div class="container col-sm-12 d-flex justify-content-around mt-3">
                         <div class="col-sm-5 d-flex flex-column justify-content-center">
                             <p>Fecha que planeo devolverlo:</p>
                             <input name="ingreso" id="ingreso" type="date" required>
                         </div>
-                   </div>
+                        <div class="col-sm-5 d-flex flex-column justify-content-center">
+                            <p>Lugar de devolución:</p>
+                            <select name="lugarDevolucion" id="lugarDevolucion" class="form-select" required>
+                                <option value="">Seleccionar</option>
+                                <option value="1">Sede Ramos Mejía</option>
+                                <option value="2">Sede Morón</option>
+                                <option value="3">Sede La Matanza</option>
+                            </select>
+                        </div>
+                    </div>
                 <br>
                 <div class="col-sm-12 d-flex justify-content-around">
-                    <button class="btn btn-lg btn-dark btn-block" type="submit"/>Confirmar días</button>
+                    <button class="btn btn-lg btn-dark btn-block" type="submit"/>Confirmar</button>
                 </div>
             </form>
         </div>
