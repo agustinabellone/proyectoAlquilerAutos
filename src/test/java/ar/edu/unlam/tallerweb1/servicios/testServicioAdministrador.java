@@ -29,6 +29,7 @@ public class testServicioAdministrador {
     public void queNoSePuedaObtenerAutosAlquiladosPorqueTodaviaNoHay() throws NoHayAutosAlquiladosException {
         givenNoExistenAutosAlquilados();
         List<Auto> autosAlquilados = whenObtengoLosAutos();
+        thenMeDevuelveUnaListaVacia(autosAlquilados);
     }
 
     private void givenExistenAutosAlquilados(int cantidad) {
@@ -51,5 +52,9 @@ public class testServicioAdministrador {
 
     private void thenMeTraeLaListaConLosDiezAutos(List<Auto> autosAlquilados, int cantidad_esperada) {
         assertThat(autosAlquilados).hasSize(cantidad_esperada);
+    }
+
+    private void thenMeDevuelveUnaListaVacia(List<Auto> autosAlquilados) {
+        assertThat(autosAlquilados).hasSize(0);
     }
 }
