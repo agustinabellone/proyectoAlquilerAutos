@@ -8,4 +8,5 @@ public interface ServicioUsuario {
 
     Usuario buscarPorEmail(String email);
 
+    void eliminarUsuario(Long id);
 }
