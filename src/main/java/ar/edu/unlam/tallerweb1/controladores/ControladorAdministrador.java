@@ -107,7 +107,7 @@ public class ControladorAdministrador {
 
     private void guardarEnElModelMapElNombreDelAdministradorYLaLisstaDeAutosAlquilados(HttpServletRequest request, List<Auto> autosAlquilados) {
         modelMap.put("nombre", request.getSession().getAttribute("nombre"));
-        modelMap.put("lista-de-autos-alquilados", autosAlquilados);
+        modelMap.put("autos-alquilados", autosAlquilados);
     }
 
     private List<Auto> obtenerTodosLosAutos() {
