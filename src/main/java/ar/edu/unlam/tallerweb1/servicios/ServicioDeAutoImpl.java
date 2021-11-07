@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Transactional
@@ -42,5 +43,10 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         aEnviar.setSituacion(Situacion.EN_MANTENIMIENTO);
         repositorioAuto.guardarEnMantenimiento(aEnviar,localDate);
         return aEnviar;
+    }
+
+    @Override
+    public List<Auto> obtenerTodoLosAutos() {
+        return null;
     }
 }
