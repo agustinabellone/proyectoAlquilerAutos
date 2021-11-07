@@ -27,4 +27,14 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
     public Usuario buscarPorEmail(String email) {
         return repositorioUsuario.buscarPorEmail(email);
     }
+
+    @Override
+    public void eliminarUsuario(Long id) {
+        this.repositorioUsuario.eliminarUsuario(id);
+    }
+
+    @Override
+    public void actualizarUsuario(Long id_usuario, String nombre, String contraseña) {
+        this.repositorioUsuario.actualizarUsuario(id_usuario, nombre, contraseña);
+    }
 }

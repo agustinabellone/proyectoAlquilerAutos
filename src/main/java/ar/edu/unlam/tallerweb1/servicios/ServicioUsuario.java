@@ -8,4 +8,7 @@ public interface ServicioUsuario {
 
     Usuario buscarPorEmail(String email);
 
+    void eliminarUsuario(Long id);
+
+    void actualizarUsuario(Long id_usuario, String nombre, String contraseña);
 }
