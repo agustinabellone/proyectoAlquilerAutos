@@ -53,10 +53,10 @@ public class ControladorSuscripcion {
 
     @RequestMapping(path = "/suscribirse", method = RequestMethod.GET)
     public ModelAndView suscribirUsuario(@RequestParam(value = "id_tipo") Long id_tipo,
-                                         @RequestParam(value = "id_usuario")Long id_usuario) {
+                                         @RequestParam(value = "id_usuario")Long id_usuario,
+                                         HttpServletRequest request) {
 
         ModelMap model= new ModelMap();
-        //ACA ES NECESARIO BUSCAR EL USUARIO Y EL TIPO EN LA BD
         Usuario usuario = new Usuario(id_usuario);
         TipoSuscripcion tipoSuscripcion = new TipoSuscripcion(id_tipo);
         try{
@@ -65,13 +65,12 @@ public class ControladorSuscripcion {
             model.put("error", "Usted ya se encuentra suscripto a un plan");
             return new ModelAndView("confirmar-suscripcion", model);
         }
-
-        return new ModelAndView("main");
+        request.getSession().setAttribute("tieneSuscripcion",true);
+        return new ModelAndView("redirect:/main");
     }
 
     @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)
     public ModelAndView renovarSuscripcion(HttpServletRequest request) {
-
         Long id= (Long)request.getSession().getAttribute("id");
         try{
             servicioSuscripcion.renovarAutomaticamenteSuscripcion(id);
@@ -93,11 +92,33 @@ public class ControladorSuscripcion {
         return new ModelAndView("redirect:/home");
     }
 
+    @RequestMapping(path = "/administrar-suscripcion")
+    private ModelAndView mostrarAdministrarSuscripcion(HttpServletRequest request){
+
+
+        if(null != request.getSession().getAttribute("rol")){
+            if(request.getSession().getAttribute("rol").equals("cliente")){
+                ModelMap model = new ModelMap();
+                model=obtenerDatosDeSuscripcion(request, model, (Long)request.getSession().getAttribute("id"));
+                return new ModelAndView("administrar-suscripcion", model);
+            }
+        }
+        return new ModelAndView("redirect:/main");
+    }
+
     //@Scheduled(fixedRate = 10000)
     @Scheduled(cron = "0 29 19 ? * *")
     public void controlDeFechaDeSuscripciones(){
         //System.out.println("Fixed rate task ");
         servicioSuscripcion.revisionDeSuscripciones();
+    }
+
+    private ModelMap obtenerDatosDeSuscripcion(HttpServletRequest request, ModelMap model, Long id) {
+        if((Boolean) request.getSession().getAttribute("tieneSuscripcion")){
+            model.put("suscripcion", servicioSuscripcion.buscarPorIdUsuario(id));
+            model.put("tipoSuscripcion", servicioSuscripcion.buscarPorIdUsuario(id).getTipoSuscripcion());
+        }
+        return model;
     }
 
 

@@ -39,7 +39,7 @@
                             <img class="card-img-top" src="img/cliente-feliz.jpg" alt="Cliente Feliz">
                             <div class="card-body">
                                 <h5 class="card-title">Suscripcion</h5>
-                                <p class="card-text">No se encuentra suscripto a ninguno de nuestros planes :(</p>
+                                <p class="card-text">No se encuentra suscripto a ningun plan  :(</p>
                                 <a href="ir-a-suscribir" class="btn btn-danger">¡Suscribirme!</a>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                             <img class="card-img-top" src="img/cliente-feliz.jpg" alt="Cliente feliz">
                             <div class="card-body">
                                 <h5 class="card-title">Suscripcion</h5>
-                                <p class="card-text">Suscripcion numero : ${suscripcion.getId()}</p>
+                                <p class="card-text">Nivel de Suscripcion : <span class="text-primary">${tipoSuscripcion.getNombre()}</span></p>
                                 <a href="administrar-suscripcion" class="btn btn-danger">Administre su suscripcion</a>
                             </div>
                         </div>

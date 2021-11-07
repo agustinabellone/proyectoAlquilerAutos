@@ -41,7 +41,7 @@ public class testControladorSuscripcion {
     private void whenUnClienteSeSuscribe(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
 
 
-        mav = controladorSuscripcion.suscribirUsuario(usuario.getId(), tipoSuscripcion.getId());
+        mav = controladorSuscripcion.suscribirUsuario(usuario.getId(), tipoSuscripcion.getId(), mockedRequest);
 
     }
 
