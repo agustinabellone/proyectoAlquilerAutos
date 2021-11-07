@@ -51,6 +51,13 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         this.sessionFactory.getCurrentSession().delete(usuario);
     }
 
+    @Override
+    public void actualizarUsuario(Long id_usuario, String nombre, String contraseña) {
+        Usuario usuario = buscarPorId(id_usuario);
+        usuario.setNombre(nombre);
+        usuario.setClave(contraseña);
+        this.sessionFactory.getCurrentSession().update(usuario);
+    }
 
 
 }

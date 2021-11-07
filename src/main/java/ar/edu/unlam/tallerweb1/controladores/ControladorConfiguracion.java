@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,17 @@ public class ControladorConfiguracion {
         Long id_usuario = (Long) request.getSession().getAttribute("id");
         servicioUsuario.eliminarUsuario(id_usuario);
         modelo.put("mensaje", "Usuario eliminado con éxito.");
+        return new ModelAndView("configuracion", modelo);
+    }
+
+    @RequestMapping(path = "/guardar-cambios", method = RequestMethod.GET)
+    public ModelAndView guardarCambios(HttpServletRequest request,
+                                       @RequestParam("nombre") String nombre,
+                                       @RequestParam("password") String contraseña) {
+        ModelMap modelo = new ModelMap();
+        Long id_usuario = (Long) request.getSession().getAttribute("id");
+        servicioUsuario.actualizarUsuario(id_usuario, nombre, contraseña);
+        modelo.put("cambiosActualizados", "Datos actualizados con éxito.");
         return new ModelAndView("configuracion", modelo);
     }
 
