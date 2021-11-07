@@ -70,9 +70,9 @@ public class ControladorSuscripcion {
     }
 
     @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)
-    public ModelAndView renovarSuscripcion(@RequestParam("id") Long id) {
+    public ModelAndView renovarSuscripcion(HttpServletRequest request) {
 
-
+        Long id= (Long)request.getSession().getAttribute("id");
         try{
             servicioSuscripcion.renovarAutomaticamenteSuscripcion(id);
         }catch(SuscripcionYaRenovadaException e){
