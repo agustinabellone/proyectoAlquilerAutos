@@ -29,42 +29,43 @@
                 <div class="container col-md-9">
                     <div class="col">
                         <c:forEach items="${autosDisponibles}" var="auto">
-                        <div class="col-md-12 ">
-                            <div class="card card-shadow border-0 mb-4">
-                                <div class="card-body p-4">
-                                    <div class="d-flex align-items-center">
-                                        <h5 class="font-weight-bold">${auto.marca.descripcion}</h5>
-                                    </div>
-                                    <div class="col">
-                                        <div class="col-lg-12">
-                                            <div class="row mt-3">
-                                                <div class="col-lg-6 align-self-center">
-                                                    <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>Patente: <span class="font-weight-bold">${auto.patente}</span>
-                                                        </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>Marca:<span class="font-weight-bold"> ${auto.marca.descripcion}</span>
-                                                        </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>Modelo: <span class="font-weight-bold"> ${auto.modelo.descripcion}</span>
-                                                        </li>
-                                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>Kilometros: <span class="font-weight-bold"> ${auto.km} km</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="container">
-                                                        <img src= "${auto.imagen}"
-                                                             alt="" style="width: 100%; height: auto;">
+                            <div class="col-md-12 ">
+                                <div class="card card-shadow border-0 mb-4">
+                                    <div class="card-body p-4">
+                                        <div class="d-flex align-items-center">
+                                            <h5 class="font-weight-bold">${auto.marca.descripcion}</h5>
+                                        </div>
+                                        <div class="col">
+                                            <div class="col-lg-12">
+                                                <div class="row mt-3">
+                                                    <div class="col-lg-6 align-self-center">
+                                                        <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
+                                                            <li class="py-2"><i class="icon-check text-info mr-2"></i>Patente: <span class="font-weight-bold">${auto.patente}</span>
+                                                            </li>
+                                                            <li class="py-2"><i class="icon-check text-info mr-2"></i>Marca:<span class="font-weight-bold"> ${auto.marca.descripcion}</span>
+                                                            </li>
+                                                            <li class="py-2"><i class="icon-check text-info mr-2"></i>Modelo: <span class="font-weight-bold"> ${auto.modelo.descripcion}</span>
+                                                            </li>
+                                                            <li class="py-2"><i class="icon-check text-info mr-2"></i>Kilometros: <span class="font-weight-bold"> ${auto.km} km</span>
+                                                            </li>
+                                                        </ul>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-12 d-flex justify-content-center">
-                                                    <a href="elegir-fechas?id_auto=${auto.id}&imagen_auto=${auto.imagen}" class="btn btn-dark mt-5">ALQUILAR AUTO</a>
+                                                    <div class="col-lg-6">
+                                                        <div class="container">
+                                                            <img src= "${auto.imagen}"
+                                                                 alt="" style="width: 100%; height: auto;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 d-flex justify-content-center">
+                                                        <a href="elegir-fechas?id_auto=${auto.id}&imagen_auto=${auto.imagen}" class="btn btn-dark mt-5">ALQUILAR AUTO</a>
+                                                        <a href="valoraciones-auto?id_auto=${auto.id}" class="btn btn-dark mt-5">VER VALORACIONES</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </c:forEach>
                     </div>
                 </div>

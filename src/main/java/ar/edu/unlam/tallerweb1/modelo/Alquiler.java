@@ -28,6 +28,7 @@ public class Alquiler {
     private LocalDate f_ingreso;
     private Float adicionalCambioLugarFecha = 0.0f;
     private Float adicionalInfraccionesOtro = 0.0f;
+    private Boolean estadoValoracionAuto=Boolean.FALSE;
     @ManyToOne
     private Auto auto;
     @ManyToOne
@@ -43,6 +44,7 @@ public class Alquiler {
     @ManyToOne
     private Encargado encargado;
     private Estado estado; //ACTIVO O FINALIZADO
+
 
 
     public Alquiler() {
@@ -112,6 +114,14 @@ public class Alquiler {
         this.adicionalInfraccionesOtro = adicionalInfraccionesOtro;
     }
 
+    public Boolean getEstadoValoracionAuto() {
+        return estadoValoracionAuto;
+    }
+
+    public void setEstadoValoracionAuto(Boolean estadoValoracionAuto) {
+        this.estadoValoracionAuto = estadoValoracionAuto;
+    }
+
     public Auto getAuto() {
         return auto;
     }
@@ -174,23 +184,22 @@ public class Alquiler {
             if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
                 String descripcion = suscripcion.getTipoSuscripcion().getDescripcion();
                 if (this.garageLlegadaEst != this.garageLlegada)
-                switch (descripcion) {
-                    case "standard":
-                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+500f;
-                        break;
-                    case "premium":
-                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+400f;
-                        break;
-                    case "golden":
-                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+0f; //CAMBIAR POR EXCEPTION
-                        break;
-                }
+                    switch (descripcion) {
+                        case "standard":
+                            adicionalCambioLugarFecha=adicionalCambioLugarFecha+500f;
+                            break;
+                        case "premium":
+                            adicionalCambioLugarFecha=adicionalCambioLugarFecha+400f;
+                            break;
+                        case "golden":
+                            adicionalCambioLugarFecha=adicionalCambioLugarFecha+0f; //CAMBIAR POR EXCEPTION
+                            break;
+                    }
             }
         }
     }
 
 
 }
-
 
 

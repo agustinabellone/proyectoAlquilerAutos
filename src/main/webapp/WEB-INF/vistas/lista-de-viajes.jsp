@@ -31,44 +31,46 @@
                     <h5 class="font-weight-medium mb-3">Cantidad: ${viajesObtenidos.size()} </h5>
                 </div>
             </div>
-                <c:forEach var="viaje" items= "${viajesObtenidos}" >
-                    <div class="col-md-12">
-                        <div class="card card-shadow border-0 mb-4">
-                            <div class="card-body p-4">
-                                <div class="col">
-                                    <div class="col-lg-12">
-                                        <div class="row mt-3">
-                                            <div class="col-lg-6 align-self-center">
-                                                <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Auto: ${viaje.auto.marca.descripcion} ${viaje.auto.modelo.descripcion}</span>
-                                                    </li>
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Patente: ${viaje.auto.patente}</span>
-                                                    </li>
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span> Retiro del auto: ${viaje.f_ingreso}</span>
-                                                    </li>
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span> Devolución del auto: ${viaje.f_egreso}</span>
+            <c:forEach var="viaje" items= "${viajesObtenidos}" >
+                <div class="col-md-12">
+                    <div class="card card-shadow border-0 mb-4">
+                        <div class="card-body p-4">
+                            <div class="col">
+                                <div class="col-lg-12">
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6 align-self-center">
+                                            <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
+                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Auto: ${viaje.auto.marca.descripcion} ${viaje.auto.modelo.descripcion}</span>
+                                                </li>
+                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Patente: ${viaje.auto.patente}</span>
+                                                </li>
+                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span> Retiro del auto: ${viaje.f_ingreso}</span>
+                                                </li>
+                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span> Devolución del auto: ${viaje.f_egreso}</span>
 
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="container">
-                                                    <img src="${viaje.auto.imagen}" class="card-img-top" alt="...">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 d-flex justify-content-center">
-                                                <a class="btn btn-primary mt-5"
-                                               href="valorar-auto?id_auto=${viaje.auto.id}&id_alquiler=${viaje.id}">VALORAR VEHICULO</a>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="container">
+                                                <img src="${viaje.auto.imagen}" class="card-img-top" alt="...">
                                             </div>
                                         </div>
+                                        <c:if test="${viaje.estadoValoracionAuto==TRUE}">
+                                            <div class="col-sm-12 d-flex justify-content-center">
+                                                <a class="btn btn-primary mt-5"
+                                                   href="valorar-auto?id_auto=${viaje.auto.id}&id_alquiler=${viaje.id}">VALORAR VEHICULO</a>
+                                            </div>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                </c:forEach>
-            </div>
+            </c:forEach>
         </div>
+    </div>
     </div>
 </section>
 
