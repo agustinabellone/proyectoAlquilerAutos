@@ -18,9 +18,8 @@
 
     <title>Proyecto - Alquiler de autos</title>
 </head>
-<body>
-
 <jsp:include page="WEB-INF/vistas/header.jsp"/>
+<body>
 <section>
     <div class="portada">
         <div class="container portada-contenido">

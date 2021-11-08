@@ -47,4 +47,14 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
                 .add(Restrictions.eq("usuario", usuario))
                 .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
     }
+
+    @Override
+    public List<Auto> buscarAutosAlquilados(Situacion ocupado) {
+        return null;
+    }
+
+    @Override
+    public Garage obtenerGaragePorId(Long lugar) {
+        return sessionFactory.getCurrentSession().get(Garage.class, lugar);
+    }
 }

@@ -1,8 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 
 import java.util.List;
 
@@ -17,4 +15,8 @@ public interface RepositorioAlquiler {
     Usuario obtenerUsuarioPorId(Long id_usuario);
 
     List<Alquiler> obtenerAlquileresActivosDeUsuario(Usuario id);
+
+    List<Auto> buscarAutosAlquilados(Situacion ocupado);
+
+    Garage obtenerGaragePorId(Long lugar);
 }

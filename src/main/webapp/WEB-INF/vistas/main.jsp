@@ -25,16 +25,16 @@
         <br>
         <div class="d-flex justify-content-around">
             <div class="card col-sm-3">
-                <img class="card-img-top mt-3" src="https://img.freepik.com/vector-gratis/feliz-mujer-monta-coche-rojo_163786-27.jpg?size=626&ext=jpg" alt="Card image">
+                <img class="card-img-top mt-3" src="img/alquilarAuto.jpg" alt="Mujer en un auto">
                 <div class="d-flex justify-content-center">
                     <a href="alquilar-auto" class="btn btn-dark mt-3 mb-3">Alquilar auto</a>
                 </div>
             </div>
 
             <div class="card col-sm-3">
-                <img class="card-img-top mt-3" src="https://img.freepik.com/vector-gratis/ilustracion-coche-alquiler-joven-feliz_179970-626.jpg?size=626&ext=jpg" alt="Card image">
+                <img class="card-img-top mt-3" src="img/verHistorialAlquileres.jpg" alt="Hombre con un auto">
                 <div class="d-flex justify-content-center">
-                    <a href="lista-viajes" class="btn btn-dark mt-3">Historial de alquileres</a>
+                    <a href="lista-viajes" class="btn btn-dark mt-4">Historial de alquileres</a>
                 </div>
             </div>
         </div>
