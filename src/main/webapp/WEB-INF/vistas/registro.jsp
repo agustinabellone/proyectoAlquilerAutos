@@ -54,7 +54,7 @@
 
           </div>
             <c:if test="${not empty error}">
-              <caption><p class="text-center text-danger">${error}</p></caption>
+              <div class="alert alert-danger text-center container mt-3" role="alert">${error}</div>>
               <br>
             </c:if>
         </div>

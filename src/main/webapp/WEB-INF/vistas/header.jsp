@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 
-<header class = "mt-3 mb-3">
+<header class = "p-3">
   <div class = "d-flex col-md-12 justify-content-around align-items-center">
 
     <c:if test = "${id != null}">
@@ -25,6 +25,7 @@
 
         <c:otherwise>
           <a href="ir-a-suscribir" type="button" class="btn btn-secondary">Suscribirse a un plan</a>
+          <a href="configuracion" type="button" class="btn btn-secondary">Configuración</a>
         </c:otherwise>
 
 
