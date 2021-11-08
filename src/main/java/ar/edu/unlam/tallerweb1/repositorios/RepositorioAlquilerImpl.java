@@ -49,11 +49,6 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     }
 
     @Override
-    public Alquiler obtenerAlquilerPorId(Long alquilerID){
-        return sessionFactory.getCurrentSession().get(Alquiler.class, alquilerID);
-    }
-
-    @Override
     public List<Auto> buscarAutosAlquilados(Situacion ocupado) {
         return null;
     }

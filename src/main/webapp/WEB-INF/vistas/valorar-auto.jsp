@@ -12,10 +12,11 @@
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/planes.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
@@ -29,55 +30,54 @@
 </section>
 <section>
     <div class="pricing6 py-5 bg-light">
-        <div class="container">
-            <div class="col center-block">
-                <div class="col-md-12">
-                    <div class="card card-shadow border-0 mb-4">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center">
-                                <h3 class="font-weight-medium mb-0"><c:> ${auto.marca.descripcion} ${auto.modelo.descripcion} </c:></h3>
-                            </div>
+    <div class="container">
+        <div class="col center-block">
+            <div class="col-md-12">
+                <div class="card card-shadow border-0 mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <h3 class="font-weight-medium mb-0"><c:> ${auto.marca.descripcion} ${auto.modelo.descripcion} </c:></h3>
                         </div>
-                        <div class="">
-                            <div class="col-lg-12">
+                    </div>
+                    <div class="">
+                        <div class="col-lg-12">
+                            <div class="">
+                                <div class="col-lg-6 align-self-center">
+                                    <p>Valorar vehículo</p>
+                                    <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}" method="post">
+                                        <input type="radio" id="uno" name="estrellasValoracion" value="5">
+                                        <label for="uno"><i class="glyphicon glyphicon-star"></i></label>
+                                        <input type="radio" id="dos" name="estrellasValoracion" value="4">
+                                        <label for="dos"><i class="glyphicon glyphicon-star"></i></label>
+                                        <input type="radio" id="tres" name="estrellasValoracion" value="3">
+                                        <label for="tres"><i class="glyphicon glyphicon-star"></i></label>
+                                        <input type="radio" id="cuatro" name="estrellasValoracion" value="2">
+                                        <label for="cuatro"><i class="glyphicon glyphicon-star"></i></label>
+                                        <input type="radio" id="cinco" name="estrellasValoracion" value="1">
+                                        <label for="cinco"><i class="glyphicon glyphicon-star"></i></label>
 
-                                <div class="row mt-3">
-                                    <div class="col-lg-6 align-self-center">
-                                        <p>Valorar vehículo</p>
-                                        <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}" method="post">
-                                            <input type="radio" id="uno" name="estrellasValoracion" value="5">
-                                            <label for="uno"><i class="fa fa-star"></i></label>
-                                            <input type="radio" id="dos" name="estrellasValoracion" value="4">
-                                            <label for="dos"><i class="fa fa-star"></i></label>
-                                            <input type="radio" id="tres" name="estrellasValoracion" value="3">
-                                            <label for="tres"><i class="fa fa-star"></i></label>
-                                            <input type="radio" id="cuatro" name="estrellasValoracion" value="2">
-                                            <label for="cuatro"><i class="fa fa-star"></i></label>
-                                            <input type="radio" id="cinco" name="estrellasValoracion" value="1">
-                                            <label for="cinco"><i class="fa fa-star"></i></label>
+                                        <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
 
-                                            <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
-                                            <div class="col-sm-12 d-flex justify-content-center">
-                                                <button class="btn btn-lg btn-primary btn-block" Type="Submit" />Cargar</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="container">
-                                            <img src="${auto.imagen}" alt="" style="width: 100%; height: auto;">
+                                        <div class="form-group m-0">
+                                            <button class="btn btn-lg btn-primary btn-block" Type="Submit" />Cargar</button>
                                         </div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="">
+                                        <img src="${auto.imagen}"  alt="...">
                                     </div>
                                 </div>
-
+                                <button class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" Type="Submit" />Cargar</button>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
+    </section>
 
 </body>
 
@@ -86,6 +86,7 @@
 <style type="text/css">
     input{
         display: none;
+
     }
     label {
         font-size: 20px;
