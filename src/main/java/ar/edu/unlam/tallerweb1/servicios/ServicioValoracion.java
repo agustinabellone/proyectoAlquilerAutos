@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
 
 import java.util.List;
 
@@ -12,10 +13,11 @@ public interface ServicioValoracion {
 
     Auto obtenerAutoPorId(Long autoID);
 
-    void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto,Long alquiler);
+    void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto,Long alquilerID);
 
-    Long obtenerValoracionAuto(Auto auto);
+    Long obtenerValoracionPromedioAuto(Long autoID);
 
-    Alquiler obtenerAlquilerPorId(Long alquilerID);
+    List<ValoracionAuto> obtenerValoracionesAuto(Long autoID);
+
 }
 

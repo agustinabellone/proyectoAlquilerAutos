@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,36 +12,32 @@ import java.util.List;
 public class RepositorioValoracionImpl implements RepositorioValoracion {
 
     private SessionFactory sessionFactory;
+    private RepositorioUsuario repositorioUsuario;
+    private RepositorioAlquiler repositorioAlquiler;
 
 
     @Autowired
-    public RepositorioValoracionImpl(SessionFactory sessionFactory){
-
+    public RepositorioValoracionImpl(SessionFactory sessionFactory,RepositorioUsuario repositorioUsuario, RepositorioAlquiler repositorioAlquiler){
         this.sessionFactory=sessionFactory;
+        this.repositorioUsuario=repositorioUsuario;
+        this.repositorioAlquiler=repositorioAlquiler;
     }
 
     @Override
     public List<Alquiler> obtenerAlquileresHechos(Long clienteID) {
-        Usuario usuario=obtenerClientePorId(clienteID);
+        Usuario usuario=repositorioUsuario.buscarPorId(clienteID);
         return this.sessionFactory.getCurrentSession()
                 .createCriteria(Alquiler.class)
                 .add(Restrictions.eq("usuario",usuario))
                 .list();
     }
 
-    @Override
-    public Auto obtenerAutoPorId(Long autoID) {
-        return this.sessionFactory.getCurrentSession().get(Auto.class, autoID);
-    }
+
+
 
     @Override
-    public Usuario obtenerClientePorId(Long autoID) {
-        return this.sessionFactory.getCurrentSession().get(Usuario.class, autoID);
-    }
-
-    @Override
-    public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto, Alquiler alquiler) {
-       ValoracionAuto valoracionAuto =new ValoracionAuto(cantidadEstrellas,comentarioAuto,auto,alquiler);
+    public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto) {
+       ValoracionAuto valoracionAuto =new ValoracionAuto(cantidadEstrellas,comentarioAuto,auto);
        this.sessionFactory.getCurrentSession()
                .save(valoracionAuto);
     }
@@ -55,14 +48,6 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
         return this.sessionFactory.getCurrentSession().get(Alquiler.class, id);
     }
 
-    @Override
-    public ValoracionAuto obtenerValoracionALquilerAuto(Auto auto, Alquiler alquiler) {
-        return (ValoracionAuto) this.sessionFactory.getCurrentSession()
-                .createCriteria(ValoracionAuto.class)
-                .add(Restrictions.eq("auto",auto))
-                .add(Restrictions.eq("alquiler", alquiler))
-                .uniqueResult();
-    }
 
 
     @Override
