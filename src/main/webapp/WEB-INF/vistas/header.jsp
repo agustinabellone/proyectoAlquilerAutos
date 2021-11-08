@@ -25,6 +25,7 @@
 
         <c:otherwise>
           <a href="ir-a-suscribir" type="button" class="btn btn-secondary">Suscribirse a un plan</a>
+          <a href="configuracion" type="button" class="btn btn-secondary">Configuración</a>
         </c:otherwise>
 
 
