@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +22,13 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
         this.repositorioAlquiler = repositorioAlquiler;
     }
 
+
     @Override
     public Alquiler AlquilarAuto(DatosAlquiler datosAlquiler) {
-
-        /*if(repositorioAlquiler.buscarAutoPorId(datosAlquiler.getAuto().getId()) != null){
-            throw new AutoYaAlquiladoException();
-        }*/
         Alquiler alquiler = new Alquiler(datosAlquiler);
         repositorioAlquiler.guardar(alquiler);
-
+        Auto auto = repositorioAlquiler.obtenerAutoPorId(datosAlquiler.getAuto().getId());
+        auto.setSituacion(Situacion.OCUPADO);
         return alquiler;
     }
 

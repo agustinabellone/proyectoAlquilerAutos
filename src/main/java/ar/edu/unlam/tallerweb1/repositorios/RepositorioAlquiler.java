@@ -19,4 +19,5 @@ public interface RepositorioAlquiler {
     List<Auto> buscarAutosAlquilados(Situacion ocupado);
 
     Garage obtenerGaragePorId(Long lugar);
+
 }

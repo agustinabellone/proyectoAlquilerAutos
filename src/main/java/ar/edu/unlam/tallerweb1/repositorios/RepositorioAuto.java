@@ -23,4 +23,5 @@ public interface RepositorioAuto {
     Auto buscarAutoEnMantenimientoPorIdYPorSituacion(Long id, Situacion situacion);
 
     List<Auto> buscarPorMarca(Marca ford);
+
 }

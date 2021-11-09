@@ -57,4 +57,5 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     public Garage obtenerGaragePorId(Long lugar) {
         return sessionFactory.getCurrentSession().get(Garage.class, lugar);
     }
+
 }
