@@ -52,10 +52,19 @@ public class ControladorAdministrador {
 
     @RequestMapping(method = RequestMethod.GET, path = "/todos-los-autos")
     public ModelAndView mostrarTodosLosAutos(HttpServletRequest usuarioConRol) {
-        if(elRolEstaSeteadoYEsAdministrador(usuarioConRol)){
+        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
             return enviarALaVistaDeTodosLosAutosConLaListaDeLosAutos();
+        } else {
+            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
-        else {
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/autos-disponibles")
+    public ModelAndView mostrarAutosDisponibles(HttpServletRequest usuarioConRol) {
+        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
+            modelMap.put("lista-autos-disponibles",servicioAlquiler.obtenerAutosDisponibles());
+            return new ModelAndView("disponibles",modelMap);
+        } else {
             return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
     }
@@ -117,7 +126,7 @@ public class ControladorAdministrador {
 
     private ModelAndView enviarALaVistaDeTodosLosAutosConLaListaDeLosAutos() {
         List<Auto> autosObtenidos = obtenerTodosLosAutos();
-        modelMap.put("lista-de-autos",autosObtenidos);
+        modelMap.put("lista-de-autos", autosObtenidos);
         viewName = "todos-los-autos";
         return getModelAndView();
     }

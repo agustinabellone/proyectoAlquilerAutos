@@ -84,11 +84,33 @@ public class testControladorAdministrador {
     }
 
     @Test
-    public void queElUsuarioAdministradorPuedaAccerderATodosLosAutos() {
+    public void queElUsuarioAdministradorPuedaAccederALosAutosDisponibles() {
+        givenExistenAutosDisponibles(Situacion.DISPONIBLE, 10);
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
-        givenExisteUnaListaDeAutos(10);
-        whenAccedeAVerTodosLosAutos(usuarioConRol);
-        thenSeMuestraLaVistaConTodosLosAutos(this.modelAndView);
+        whenAccedeALaVistaDeAutosDisponibles(usuarioConRol);
+        thenSeMuestraLaVistaConLaListaDeLosAutosDisponibles(this.modelAndView);
+    }
+
+    private void whenAccedeALaVistaDeAutosDisponibles(HttpServletRequest usuarioConRol) {
+        this.modelAndView = controlador.mostrarAutosDisponibles(usuarioConRol);
+    }
+
+    private void givenExistenAutosDisponibles(Situacion disponible, int cantidadDeAutosDisponibles) {
+        List<Auto> listaDeAutosDisponibles = new ArrayList<>();
+        for (int i = 0; i < cantidadDeAutosDisponibles; i++) {
+            Auto auto = new Auto();
+            auto.setSituacion(disponible);
+            listaDeAutosDisponibles.add(auto);
+        }
+        when(servicioAlquiler.obtenerAutosDisponibles()).thenReturn(listaDeAutosDisponibles);
+    }
+
+    private void thenSeMuestraLaVistaConLaListaDeLosAutosDisponibles(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("disponibles");
+        assertThat(modelAndView.getModel().get("lista-autos-disponibles")).isNotNull();
+        assertThat(modelAndView.getModel().get("lista-autos-disponibles")).isInstanceOf(List.class);
+        List<Auto> autosDisponibles = (List<Auto>) modelAndView.getModel().get("lista-autos-disponibles");
+        assertThat(autosDisponibles).hasSize(10);
     }
 
     private HttpServletRequest givenExisteUnUsuarioSinRolDeAdministrador() {
@@ -119,25 +141,12 @@ public class testControladorAdministrador {
         when(servicioAlquiler.obtenerAutosAlquilados()).thenReturn(listaDeAutos);
     }
 
-    private void givenExisteUnaListaDeAutos(int cantidad) {
-        List<Auto> listaDeAutos = new ArrayList<>();
-        for (int i = 0; i < cantidad; i++) {
-            Auto auto = new Auto();
-            listaDeAutos.add(auto);
-        }
-        when(servicioDeAuto.obtenerTodoLosAutos()).thenReturn(listaDeAutos);
-    }
-
     private void givenNoExistenAutosAlquilados() throws NoHayAutosAlquiladosException {
         doThrow(NoHayAutosAlquiladosException.class).when(servicioAlquiler).obtenerAutosAlquilados();
     }
 
     private void givenSeMuestraLaVistaPrincipalConLaInformacion(HttpServletRequest usuarioConRol) {
         this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador(usuarioConRol);
-    }
-
-    private void whenAccedeAVerTodosLosAutos(HttpServletRequest usuarioConRol) {
-        this.modelAndView = controlador.mostrarTodosLosAutos(usuarioConRol);
     }
 
     private List<Auto> whenObtengoLaListaDeAutosAlquilados() throws NoHayAutosAlquiladosException {
@@ -184,11 +193,4 @@ public class testControladorAdministrador {
         assertThat(autos).hasSize(10);
     }
 
-    private void thenSeMuestraLaVistaConTodosLosAutos(ModelAndView modelAndView) {
-        assertThat(modelAndView.getViewName()).isEqualTo("todos-los-autos");
-        assertThat(modelAndView.getModel().get("lista-de-autos")).isNotNull();
-        assertThat(modelAndView.getModel().get("lista-de-autos")).isInstanceOf(List.class);
-        List<Auto> autos = (List<Auto>) modelAndView.getModel().get("lista-de-autos");
-        assertThat(autos).hasSize(10);
-    }
 }
