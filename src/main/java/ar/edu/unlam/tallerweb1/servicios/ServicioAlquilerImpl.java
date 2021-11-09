@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
+import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.modelo.*;
@@ -26,10 +28,17 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     @Override
     public Alquiler AlquilarAuto(DatosAlquiler datosAlquiler) {
         Alquiler alquiler = new Alquiler(datosAlquiler);
+        if(buscarSiElAutoYaFueAlquiladoEnEsasFechas()){
+            throw new AutoYaAlquiladoException();
+        }
         repositorioAlquiler.guardar(alquiler);
         Auto auto = repositorioAlquiler.obtenerAutoPorId(datosAlquiler.getAuto().getId());
         auto.setSituacion(Situacion.OCUPADO);
         return alquiler;
+    }
+
+    private boolean buscarSiElAutoYaFueAlquiladoEnEsasFechas() {
+        return true;
     }
 
     @Override

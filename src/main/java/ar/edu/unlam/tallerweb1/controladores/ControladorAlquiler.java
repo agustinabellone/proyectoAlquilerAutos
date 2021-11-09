@@ -97,7 +97,7 @@ public class ControladorAlquiler {
             servicioAlquiler.AlquilarAuto(datosAlquiler);
         }
         catch (AutoYaAlquiladoException e) {
-            return alquilerFallido(modelo, "El auto ya fue alquilado.");
+            return alquilerFallido(modelo, "El auto ya fue alquilado en esas fechas.");
         }
 
         return alquilerExitoso(modelo, "Alquiler realizado con éxito.");
@@ -110,7 +110,7 @@ public class ControladorAlquiler {
     }
 
     private ModelAndView alquilerFallido(ModelMap modelo, String mensaje) {
-        modelo.put("mensaje", mensaje);
+        modelo.put("mensajeFallido", mensaje);
         return new ModelAndView("alquilarAutoConfirmacion", modelo);
     }
 }
