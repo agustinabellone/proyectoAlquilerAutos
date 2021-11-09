@@ -1,13 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 
-import ar.edu.unlam.tallerweb1.Exceptions.AutoAlquilerYaValorado;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioValoracion;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.EvaluationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,7 @@ public class ControladorValoracionAuto {
 
     @RequestMapping(path = "/lista-viajes", method = RequestMethod.GET)
     public ModelAndView irListaViajes(HttpServletRequest request){
-        Long clienteID = (Long) request.getSession().getAttribute("id");//me trae de la session
+        Long clienteID = (Long) request.getSession().getAttribute("id");
         ModelMap modelo=new ModelMap();
 
         if(elUsuarioEsCliente(request)){
@@ -64,23 +63,31 @@ public class ControladorValoracionAuto {
     public ModelAndView guardarValoracionAuto(@RequestParam(value = "estrellasValoracion") int cantidadEstrellas,
                                               @RequestParam(value = "comentario") String comentarioAuto,
                                               @RequestParam(value ="autoID") Long autoID,
-                                              @RequestParam(value = "alquilerID") Long alquilerID)
+                                              @RequestParam(value = "alquilerID")Long alquilerID)
                                               {
         ModelMap modelo=new ModelMap();
         Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
-        Long valoracionAuto=servicioValoracion.obtenerValoracionAuto(auto);
         modelo.put("auto", auto);
-        modelo.put("valoracionAuto", valoracionAuto);
 
-        try{
-            servicioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto,alquilerID);
-        }catch (AutoAlquilerYaValorado e){
-            modelo.put("mensaje", "El auto ya fue valorado");
-            return new ModelAndView("main", modelo);
-        }
+        servicioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto,alquilerID);
         modelo.put("mensaje", "Auto valorado exitosamente");
         return new ModelAndView("main", modelo);
 
+    }
+
+    @RequestMapping(path = "valoraciones-auto" , method = RequestMethod.GET)
+    public ModelAndView verValoracionesAuto(@RequestParam(value = "id_auto")Long autoID){
+        ModelMap modelo=new ModelMap();
+        List<ValoracionAuto> valoracionesAuto = servicioValoracion.obtenerValoracionesAuto(autoID);
+        Long valoracionPromedioAuto=servicioValoracion.obtenerValoracionPromedioAuto(autoID);
+        Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
+        int cantValoraciones=valoracionesAuto.size();
+        modelo.put("auto", auto);
+        modelo.put("listadoValoracionesAuto",valoracionesAuto);
+        modelo.put("valoracionPromedio",valoracionPromedioAuto);
+        modelo.put("cantidadValoraciones",cantValoraciones);
+
+        return new ModelAndView("vista-valoraciones-auto",modelo);
 
     }
 

@@ -28,6 +28,7 @@ public class Alquiler {
     private LocalDate f_ingreso;
     private Float adicionalCambioLugarFecha = 0.0f;
     private Float adicionalInfraccionesOtro = 0.0f;
+    private Boolean estadoValoracionAuto=Boolean.FALSE;
     @ManyToOne
     private Auto auto;
     @ManyToOne
@@ -43,6 +44,7 @@ public class Alquiler {
     @ManyToOne
     private Encargado encargado;
     private Estado estado; //ACTIVO O FINALIZADO
+
 
 
     public Alquiler() {
@@ -110,6 +112,14 @@ public class Alquiler {
 
     public void setAdicionalInfraccionesOtro(Float adicionalInfraccionesOtro) {
         this.adicionalInfraccionesOtro = adicionalInfraccionesOtro;
+    }
+
+    public Boolean getEstadoValoracionAuto() {
+        return estadoValoracionAuto;
+    }
+
+    public void setEstadoValoracionAuto(Boolean estadoValoracionAuto) {
+        this.estadoValoracionAuto = estadoValoracionAuto;
     }
 
     public Auto getAuto() {
