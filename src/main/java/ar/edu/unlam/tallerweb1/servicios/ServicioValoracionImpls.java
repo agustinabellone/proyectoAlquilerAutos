@@ -5,7 +5,6 @@ import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioValoracion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +20,13 @@ public class ServicioValoracionImpls implements ServicioValoracion {
 
     private RepositorioValoracion repositorioValoracion;
     private RepositorioAuto repositorioAuto;
-    private RepositorioAlquiler repositorioAlquiler;
+
 
 
     @Autowired
-    public ServicioValoracionImpls(RepositorioValoracion repositorioValoracion, RepositorioAuto repositorioAuto,RepositorioAlquiler repositorioAlquiler) {
+    public ServicioValoracionImpls(RepositorioValoracion repositorioValoracion, RepositorioAuto repositorioAuto) {
         this.repositorioValoracion = repositorioValoracion;
         this.repositorioAuto=repositorioAuto;
-        this.repositorioAlquiler=repositorioAlquiler;
     }
 
     @Override
@@ -47,7 +45,7 @@ public class ServicioValoracionImpls implements ServicioValoracion {
     @Override
     public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto,Long alquilerID) {
         repositorioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto);
-        Alquiler alquiler=repositorioAlquiler.obtenerAlquilerPorId(alquilerID);
+        Alquiler alquiler=repositorioValoracion.obtenerAlquilerPorId(alquilerID);
         alquiler.setEstadoValoracionAuto(Boolean.TRUE);
     }
 

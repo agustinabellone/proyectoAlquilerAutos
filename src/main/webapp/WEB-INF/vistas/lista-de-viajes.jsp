@@ -55,7 +55,7 @@
                                                     <img src="${viaje.auto.imagen}" class="card-img-top" alt="...">
                                                 </div>
                                             </div>
-                                            <c:if test="${viaje.estadoValoracionAuto==TRUE}">
+                                            <c:if test="${viaje.estadoValoracionAuto==FALSE}">
                                             <div class="col-sm-12 d-flex justify-content-center">
                                                 <a class="btn btn-primary mt-5"
                                                href="valorar-auto?id_auto=${viaje.auto.id}&id_alquiler=${viaje.id}">VALORAR VEHICULO</a>
