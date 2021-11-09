@@ -37,9 +37,9 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
 
     @Override
     public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto) {
-        ValoracionAuto valoracionAuto =new ValoracionAuto(cantidadEstrellas,comentarioAuto,auto);
-        this.sessionFactory.getCurrentSession()
-                .save(valoracionAuto);
+       ValoracionAuto valoracionAuto =new ValoracionAuto(cantidadEstrellas,comentarioAuto,auto);
+       this.sessionFactory.getCurrentSession()
+               .save(valoracionAuto);
     }
 
 
@@ -59,7 +59,6 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
     }
 
 }
-
 
 
 

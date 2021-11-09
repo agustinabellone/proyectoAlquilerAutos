@@ -24,7 +24,6 @@ public class ValoracionAuto {
         this.valoracion=valoracion;
         this.comentarios=comentarios;
         this.auto=auto;
-
     }
 
     public ValoracionAuto() {

@@ -20,6 +20,5 @@ public interface RepositorioAlquiler {
 
     Garage obtenerGaragePorId(Long lugar);
 
-
     Alquiler obtenerAlquilerPorId(Long alquilerID);
 }

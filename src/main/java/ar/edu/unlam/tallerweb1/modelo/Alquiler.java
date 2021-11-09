@@ -184,22 +184,23 @@ public class Alquiler {
             if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
                 String descripcion = suscripcion.getTipoSuscripcion().getDescripcion();
                 if (this.garageLlegadaEst != this.garageLlegada)
-                    switch (descripcion) {
-                        case "standard":
-                            adicionalCambioLugarFecha=adicionalCambioLugarFecha+500f;
-                            break;
-                        case "premium":
-                            adicionalCambioLugarFecha=adicionalCambioLugarFecha+400f;
-                            break;
-                        case "golden":
-                            adicionalCambioLugarFecha=adicionalCambioLugarFecha+0f; //CAMBIAR POR EXCEPTION
-                            break;
-                    }
+                switch (descripcion) {
+                    case "standard":
+                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+500f;
+                        break;
+                    case "premium":
+                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+400f;
+                        break;
+                    case "golden":
+                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+0f; //CAMBIAR POR EXCEPTION
+                        break;
+                }
             }
         }
     }
 
 
 }
+
 
 

@@ -35,7 +35,7 @@
                         <img src="${auto.imagen}" alt="" style="width: 100%; height: auto;">
                     </div>
                 </div>
-                <c:forEach var="valoracion" items= "${listadoValoracionesAuto}" >
+<c:forEach var="valoracion" items= "${listadoValoracionesAuto}" >
                 <div class="col-sm-12 d-flex justify-content-center">
                     <div class="row mt-3">
                         <div class="col-lg-6 align-self-center">
@@ -71,4 +71,3 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
-

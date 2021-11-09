@@ -64,7 +64,7 @@ public class ControladorValoracionAuto {
                                               @RequestParam(value = "comentario") String comentarioAuto,
                                               @RequestParam(value ="autoID") Long autoID,
                                               @RequestParam(value = "alquilerID")Long alquilerID)
-    {
+                                              {
         ModelMap modelo=new ModelMap();
         Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
         modelo.put("auto", auto);
@@ -94,5 +94,4 @@ public class ControladorValoracionAuto {
 
 
 }
-
 
