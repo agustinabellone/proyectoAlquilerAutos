@@ -48,10 +48,7 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
                 .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
     }
 
-    @Override
-    public Alquiler obtenerAlquilerPorId(Long alquilerID){
-        return sessionFactory.getCurrentSession().get(Alquiler.class, alquilerID);
-    }
+
 
     @Override
     public List<Auto> buscarAutosAlquilados(Situacion ocupado) {
@@ -62,4 +59,5 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     public Garage obtenerGaragePorId(Long lugar) {
         return sessionFactory.getCurrentSession().get(Garage.class, lugar);
     }
+
 }
