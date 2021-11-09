@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoValorado;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -68,9 +70,12 @@ public class ServicioValoracionImpls implements ServicioValoracion {
 
 
     @Override
-    public List<ValoracionAuto> obtenerValoracionesAuto(Long autoID) {
+    public List<ValoracionAuto> obtenerValoracionesAuto(Long autoID) throws AutoNoValorado {
         Auto auto = repositorioAuto.buscarPor(autoID);
         List<ValoracionAuto> valoracionesAuto = repositorioValoracion.obtenerValoracionesAuto(auto);
+        if (valoracionesAuto.size() == 0){
+            throw new AutoNoValorado();
+        }
         return valoracionesAuto;
     }
 
