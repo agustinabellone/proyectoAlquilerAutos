@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -29,7 +30,7 @@ public class ControladorAlquiler {
     }
 
     @RequestMapping(path = "/alquilar-auto", method = RequestMethod.GET)
-    public ModelAndView mostrarListaDeAutos() {
+    public ModelAndView mostrarListaDeAutos() throws NoHayAutosDisponiblesException {
         ModelMap modelo = new ModelMap();
         List<Auto> autosDisponibles = servicioAlquiler.obtenerAutosDisponibles();
         modelo.put("autosDisponibles", autosDisponibles);
