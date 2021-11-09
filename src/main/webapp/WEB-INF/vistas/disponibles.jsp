@@ -304,9 +304,9 @@
                 </div>
 
                 <!-- Content Row -->
-                <c:if test="${not empty error_no_hay_autos_alquilados}">
+                <c:if test="${not empty error_sin_autos_disponibles}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                            ${error_no_hay_autos_alquilados}
+                            ${error_sin_autos_disponibles}
                     </div>
                 </c:if>
                 <div class="row">
