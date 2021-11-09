@@ -50,20 +50,11 @@ public class ControladorAdministrador {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/todos-los-autos")
-    public ModelAndView mostrarTodosLosAutos(HttpServletRequest usuarioConRol) {
-        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
-            return enviarALaVistaDeTodosLosAutosConLaListaDeLosAutos();
-        } else {
-            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
-        }
-    }
-
     @RequestMapping(method = RequestMethod.GET, path = "/autos-disponibles")
     public ModelAndView mostrarAutosDisponibles(HttpServletRequest usuarioConRol) {
         if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
-            modelMap.put("lista-autos-disponibles",servicioAlquiler.obtenerAutosDisponibles());
-            return new ModelAndView("disponibles",modelMap);
+            modelMap.put("lista-autos-disponibles", servicioAlquiler.obtenerAutosDisponibles());
+            return new ModelAndView("disponibles", modelMap);
         } else {
             return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
@@ -117,17 +108,5 @@ public class ControladorAdministrador {
     private void guardarEnElModelMapElNombreDelAdministradorYLaLisstaDeAutosAlquilados(HttpServletRequest request, List<Auto> autosAlquilados) {
         modelMap.put("nombre", request.getSession().getAttribute("nombre"));
         modelMap.put("autos-alquilados", autosAlquilados);
-    }
-
-    private List<Auto> obtenerTodosLosAutos() {
-        List<Auto> autosObtenidos = servicioDeAuto.obtenerTodoLosAutos();
-        return autosObtenidos;
-    }
-
-    private ModelAndView enviarALaVistaDeTodosLosAutosConLaListaDeLosAutos() {
-        List<Auto> autosObtenidos = obtenerTodosLosAutos();
-        modelMap.put("lista-de-autos", autosObtenidos);
-        viewName = "todos-los-autos";
-        return getModelAndView();
     }
 }
