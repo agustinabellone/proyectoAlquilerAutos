@@ -131,15 +131,13 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
             </div>
             </c:forEach>
         </section>
+        <c:if test="${not empty mensaje}">
+            <caption><p class="text-center text-danger">${mensaje}</p></caption>
+            <br>
+        </c:if>
     </div>
 </section>
 

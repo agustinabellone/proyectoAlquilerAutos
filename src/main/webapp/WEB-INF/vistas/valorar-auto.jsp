@@ -45,7 +45,7 @@
                                     <div class="col-lg-6 align-self-center">
                                         <p>Valorar vehículo</p>
                                         <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}" method="post">
-                                            <input type="radio" id="uno" name="estrellasValoracion" value="5">
+                                            <input type="radio" id="uno" name="estrellasValoracion" value="5" required>
                                             <label for="uno"><i class="fa fa-star"></i></label>
                                             <input type="radio" id="dos" name="estrellasValoracion" value="4">
                                             <label for="dos"><i class="fa fa-star"></i></label>
