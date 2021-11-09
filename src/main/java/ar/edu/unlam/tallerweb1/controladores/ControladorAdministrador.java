@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -53,8 +54,14 @@ public class ControladorAdministrador {
     @RequestMapping(method = RequestMethod.GET, path = "/autos-disponibles")
     public ModelAndView mostrarAutosDisponibles(HttpServletRequest usuarioConRol) {
         if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
-            modelMap.put("lista-autos-disponibles", servicioAlquiler.obtenerAutosDisponibles());
-            return new ModelAndView("disponibles", modelMap);
+            try {
+                List<Auto> autosDisponibles = this.obtenerListaDeAutosDisponibles();
+                modelMap.put("lista-autos-disponibles", autosDisponibles);
+                return new ModelAndView("disponibles", modelMap);
+            } catch (NoHayAutosDisponiblesException e) {
+                modelMap.put("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
+                return new ModelAndView("disponibles", modelMap);
+            }
         } else {
             return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
@@ -108,5 +115,9 @@ public class ControladorAdministrador {
     private void guardarEnElModelMapElNombreDelAdministradorYLaLisstaDeAutosAlquilados(HttpServletRequest request, List<Auto> autosAlquilados) {
         modelMap.put("nombre", request.getSession().getAttribute("nombre"));
         modelMap.put("autos-alquilados", autosAlquilados);
+    }
+
+    public List<Auto> obtenerListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
+        return servicioAlquiler.obtenerAutosDisponibles();
     }
 }

@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
@@ -84,33 +85,37 @@ public class testControladorAdministrador {
     }
 
     @Test
-    public void queElUsuarioAdministradorPuedaAccederALosAutosDisponibles() {
+    public void queElUsuarioAdministradorPuedaAccederALosAutosDisponibles() throws NoHayAutosDisponiblesException {
         givenExistenAutosDisponibles(Situacion.DISPONIBLE, 10);
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         whenAccedeALaVistaDeAutosDisponibles(usuarioConRol);
         thenSeMuestraLaVistaConLaListaDeLosAutosDisponibles(this.modelAndView);
     }
 
-    private void whenAccedeALaVistaDeAutosDisponibles(HttpServletRequest usuarioConRol) {
+    @Test(expected = NoHayAutosDisponiblesException.class)
+    public void queElUsuarioAdministradorNoPuedaVerLaListaPorqueNoHayAutosDisponibles() throws NoHayAutosDisponiblesException {
+        givenNoExistenAutosDisponibles();
+        HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
+        givenSeMuestraLaVistaDisponibles(usuarioConRol);
+        whenObtengoLaListaDeAutosDisponibles();
+        thenMuestroUnMensajeDeErrorDisponibles(this.modelAndView,"No hay autos disponibles actualmente");
+    }
+
+    private void thenMuestroUnMensajeDeErrorDisponibles(ModelAndView modelAndView, String error) {
+        assertThat(modelAndView.getViewName()).isEqualTo("disponibles");
+        assertThat(modelAndView.getModel().get("error_sin_autos_disponibles")).isEqualTo(error);
+    }
+
+    private void givenSeMuestraLaVistaDisponibles(HttpServletRequest usuarioConRol) {
         this.modelAndView = controlador.mostrarAutosDisponibles(usuarioConRol);
     }
 
-    private void givenExistenAutosDisponibles(Situacion disponible, int cantidadDeAutosDisponibles) {
-        List<Auto> listaDeAutosDisponibles = new ArrayList<>();
-        for (int i = 0; i < cantidadDeAutosDisponibles; i++) {
-            Auto auto = new Auto();
-            auto.setSituacion(disponible);
-            listaDeAutosDisponibles.add(auto);
-        }
-        when(servicioAlquiler.obtenerAutosDisponibles()).thenReturn(listaDeAutosDisponibles);
+    private List<Auto> whenObtengoLaListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
+        return controlador.obtenerListaDeAutosDisponibles();
     }
 
-    private void thenSeMuestraLaVistaConLaListaDeLosAutosDisponibles(ModelAndView modelAndView) {
-        assertThat(modelAndView.getViewName()).isEqualTo("disponibles");
-        assertThat(modelAndView.getModel().get("lista-autos-disponibles")).isNotNull();
-        assertThat(modelAndView.getModel().get("lista-autos-disponibles")).isInstanceOf(List.class);
-        List<Auto> autosDisponibles = (List<Auto>) modelAndView.getModel().get("lista-autos-disponibles");
-        assertThat(autosDisponibles).hasSize(10);
+    private void givenNoExistenAutosDisponibles() throws NoHayAutosDisponiblesException {
+        when(servicioAlquiler.obtenerAutosDisponibles()).thenThrow(NoHayAutosDisponiblesException.class);
     }
 
     private HttpServletRequest givenExisteUnUsuarioSinRolDeAdministrador() {
@@ -149,6 +154,16 @@ public class testControladorAdministrador {
         this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador(usuarioConRol);
     }
 
+    private void givenExistenAutosDisponibles(Situacion disponible, int cantidadDeAutosDisponibles) throws NoHayAutosDisponiblesException {
+        List<Auto> listaDeAutosDisponibles = new ArrayList<>();
+        for (int i = 0; i < cantidadDeAutosDisponibles; i++) {
+            Auto auto = new Auto();
+            auto.setSituacion(disponible);
+            listaDeAutosDisponibles.add(auto);
+        }
+        when(servicioAlquiler.obtenerAutosDisponibles()).thenReturn(listaDeAutosDisponibles);
+    }
+
     private List<Auto> whenObtengoLaListaDeAutosAlquilados() throws NoHayAutosAlquiladosException {
         return controlador.obtenerListaDeAutosAlquilados();
     }
@@ -163,6 +178,10 @@ public class testControladorAdministrador {
 
     private void whenMuestroLaListaDeAutosAlquiladosAl(HttpServletRequest usuarioConRol) {
         this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador(usuarioConRol);
+    }
+
+    private void whenAccedeALaVistaDeAutosDisponibles(HttpServletRequest usuarioConRol) {
+        this.modelAndView = controlador.mostrarAutosDisponibles(usuarioConRol);
     }
 
     private void thenLoEnviaALaVistaPrincipalConMensajeDeBienvenida(ModelAndView modelAndView) {
@@ -193,4 +212,12 @@ public class testControladorAdministrador {
         assertThat(autos).hasSize(10);
     }
 
+
+    private void thenSeMuestraLaVistaConLaListaDeLosAutosDisponibles(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("disponibles");
+        assertThat(modelAndView.getModel().get("lista-autos-disponibles")).isNotNull();
+        assertThat(modelAndView.getModel().get("lista-autos-disponibles")).isInstanceOf(List.class);
+        List<Auto> autosDisponibles = (List<Auto>) modelAndView.getModel().get("lista-autos-disponibles");
+        assertThat(autosDisponibles).hasSize(10);
+    }
 }
