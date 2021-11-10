@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioHome;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +21,14 @@ public class ControladorHome {
     private ServicioAlquiler servicioAlquiler;
     private ServicioUsuario servicioUsuario;
     private ServicioHome servicioHome;
+    private ServicioSuscripcion servicioSuscripcion;
 
     @Autowired
-    public ControladorHome(ServicioAlquiler servicioAlquiler, ServicioUsuario servicioUsuario, ServicioHome servicioHome) {
+    public ControladorHome(ServicioAlquiler servicioAlquiler, ServicioUsuario servicioUsuario, ServicioHome servicioHome, ServicioSuscripcion servicioSuscripcion) {
         this.servicioAlquiler = servicioAlquiler;
         this.servicioUsuario=servicioUsuario;
         this.servicioHome=servicioHome;
+        this.servicioSuscripcion=servicioSuscripcion;
     }
 
 
@@ -47,10 +50,20 @@ public class ControladorHome {
                 model.put("fechas", fechasAlquileresUsuario);
                 model.put("modelos", autosModelo);
                 model.put("marcas", autosMarca);
+                Long id=(Long) request.getSession().getAttribute("id");
+                model=obtenerDatosDeSuscripcion(request, model, id);
                 return new ModelAndView("main", model);
             }
 
         return new ModelAndView("redirect:/home");
+    }
+
+    private ModelMap obtenerDatosDeSuscripcion(HttpServletRequest request, ModelMap model, Long id) {
+        if((Boolean) request.getSession().getAttribute("tieneSuscripcion")){
+            model.put("suscripcion", servicioSuscripcion.buscarPorIdUsuario(id));
+            model.put("tipoSuscripcion", servicioSuscripcion.buscarPorIdUsuario(id).getTipoSuscripcion());
+        }
+        return model;
     }
 
 }

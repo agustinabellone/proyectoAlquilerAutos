@@ -20,4 +20,6 @@ public interface RepositorioAlquiler {
 
     Garage obtenerGaragePorId(Long lugar);
 
+    List<Alquiler> obtenerAlquileresDelAuto(Auto id);
+
 }

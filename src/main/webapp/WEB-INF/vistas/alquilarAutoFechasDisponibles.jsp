@@ -62,6 +62,11 @@
                         </div>
                     </div>
                 <br>
+                <c:if test="${not empty mensaje}">
+                    <div class="alert alert-danger text-center container mt-3" role="alert">
+                            ${mensaje}
+                    </div>
+                </c:if>
                 <div class="col-sm-12 d-flex justify-content-around">
                     <button class="btn btn-lg btn-dark btn-block" type="submit"/>Confirmar</button>
                 </div>

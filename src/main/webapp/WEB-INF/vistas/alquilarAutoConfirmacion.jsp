@@ -23,9 +23,9 @@
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center">Confirmación</h1>
         </div>
-        <c:if test="${empty mensaje}">
+        <c:if test="${empty mensaje && empty mensajeFallido && empty errorFechas}" >
             <div id="contenido" class="container card col-md-6 my-4" >
-                <img src="${imagen_auto}" class="card-img-top" alt="...">
+                <img src="${imagen_auto}" class="card-img-top" alt="imagen auto">
                 <div class="card-body">
                     <h5 class="card-title">${marca_auto} ${modelo_auto}  </h5>
                     <p class="card-text">Retiro el auto: ${salida} en ${lugarRetiro.direccion}</p>
@@ -36,12 +36,28 @@
                 </div>
             </div>
         </c:if>
+        <c:if test="${not empty errorFechas}">
+            <div class="alert alert-danger text-center container mt-3" role="alert">
+                    ${errorFechas}
+            </div>
+            <div class="col-sm-12 d-flex justify-content-center">
+                <a href="alquilar-auto" class="btn btn-dark" >Volver</a>
+            </div>
+        </c:if>
         <c:if test="${not empty mensaje}">
             <div class="alert alert-success text-center container mt-3" role="alert">
                ${mensaje}
             </div>
             <div class="col-sm-12 d-flex justify-content-center">
                 <a href="main" class="btn btn-dark" >Volver a mi cuenta</a>
+            </div>
+        </c:if>
+        <c:if test="${not empty mensajeFallido}">
+            <div class="alert alert-danger text-center container mt-3" role="alert">
+                    ${mensajeFallido}
+            </div>
+            <div class="col-sm-12 d-flex justify-content-center">
+                <a href="alquilar-auto" class="btn btn-dark" >Volver</a>
             </div>
         </c:if>
     </div>

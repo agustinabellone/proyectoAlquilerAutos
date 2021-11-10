@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoValorado;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
@@ -17,7 +18,7 @@ public interface ServicioValoracion {
 
     Long obtenerValoracionPromedioAuto(Long autoID);
 
-    List<ValoracionAuto> obtenerValoracionesAuto(Long autoID);
+    List<ValoracionAuto> obtenerValoracionesAuto(Long autoID) throws AutoNoValorado;
 
 }
 

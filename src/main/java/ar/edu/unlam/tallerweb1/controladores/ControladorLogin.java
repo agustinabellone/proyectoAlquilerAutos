@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,11 +22,13 @@ public class ControladorLogin {
 
     private ServicioLogin servicioLogin;
     private ServicioUsuario servicioUsuario;
+    private ServicioSuscripcion servicioSuscripcion;
 
     @Autowired
-    public ControladorLogin(ServicioLogin servicioLogin, ServicioUsuario servicioUsuario) {
+    public ControladorLogin(ServicioLogin servicioLogin, ServicioUsuario servicioUsuario, ServicioSuscripcion servicioSuscripcion) {
         this.servicioLogin = servicioLogin;
         this.servicioUsuario = servicioUsuario;
+        this.servicioSuscripcion=servicioSuscripcion;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
@@ -71,6 +74,7 @@ public class ControladorLogin {
         request.getSession().setAttribute("rol", buscado.getRol());
         request.getSession().setAttribute("id", buscado.getId());
         request.getSession().setAttribute("nombre", buscado.getNombre());
+        request.getSession().setAttribute("tieneSuscripcion", servicioSuscripcion.existeSuscripcionPorUsuario(servicioUsuario.buscarPorId(buscado.getId())));
 
     }
 
