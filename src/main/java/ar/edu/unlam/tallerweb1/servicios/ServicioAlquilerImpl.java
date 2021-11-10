@@ -27,7 +27,7 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     @Override
     public Alquiler AlquilarAuto(DatosAlquiler datosAlquiler) {
         Alquiler alquiler = new Alquiler(datosAlquiler);
-        if(buscarSiElAutoYaFueAlquiladoEnEsasFechas(datosAlquiler.getAuto(), datosAlquiler.getF_salida(), datosAlquiler.getF_ingreso())){
+        if (buscarSiElAutoYaFueAlquiladoEnEsasFechas(datosAlquiler.getAuto(), datosAlquiler.getF_salida(), datosAlquiler.getF_ingreso())) {
             throw new AutoYaAlquiladoException();
         }
         repositorioAlquiler.guardar(alquiler);
@@ -38,12 +38,11 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
 
     @Override
     public boolean buscarSiElAutoYaFueAlquiladoEnEsasFechas(Auto auto, LocalDate f_egreso, LocalDate f_ingreso) {
-        List<Alquiler> lista =  obtenerAlquileresDelAuto(auto);
+        List<Alquiler> lista = obtenerAlquileresDelAuto(auto);
 
-        if(lista.size() > 0){
-            for(Alquiler alquiler : lista)
-            {
-                if(alquiler.getF_egreso().isBefore(f_egreso) && alquiler.getF_ingreso().isAfter(f_egreso)){
+        if (lista.size() > 0) {
+            for (Alquiler alquiler : lista) {
+                if (alquiler.getF_egreso().isBefore(f_egreso) && alquiler.getF_ingreso().isAfter(f_egreso)) {
                     return true;
                 }
             }
@@ -54,7 +53,7 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     @Override
     public List<Auto> obtenerAutosDisponibles() throws NoHayAutosDisponiblesException {
         List<Auto> autosDisponibles = repositorioAlquiler.obtenerAutosDisponibles();
-        if (autosDisponibles.size() == 0){
+        if (autosDisponibles.size() == 0) {
             throw new NoHayAutosDisponiblesException();
         }
         return autosDisponibles;
@@ -85,7 +84,7 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     @Override
     public List<Auto> obtenerAutosAlquilados() throws NoHayAutosAlquiladosException {
         List<Auto> autosAlquilados = repositorioAlquiler.buscarAutosAlquilados(Situacion.OCUPADO);
-        if (autosAlquilados.size() == 0 || autosAlquilados == null){
+        if (autosAlquilados.size() == 0 || autosAlquilados == null) {
             throw new NoHayAutosAlquiladosException();
         }
         return autosAlquilados;
