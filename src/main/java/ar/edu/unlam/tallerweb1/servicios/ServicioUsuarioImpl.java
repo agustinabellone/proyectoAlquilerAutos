@@ -2,12 +2,14 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
+import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service("ServicioUsuario")
 @Transactional
@@ -41,6 +43,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
             throw new ClaveLongitudIncorrectaException();
         }
         this.repositorioUsuario.actualizarUsuario(id_usuario, nombre, contraseña);
+    }
+
+    @Override
+    public List<Usuario> obtenerUsuariosSuscriptosAlPlanBasico() {
+        throw new RuntimeException();
     }
 
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {

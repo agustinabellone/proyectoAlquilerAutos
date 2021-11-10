@@ -4,8 +4,10 @@ import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,11 +25,16 @@ public class ControladorAdministrador {
     private String viewName;
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorAdministrador(ServicioAlquiler servicioAlquiler, ServicioDeAuto servicioDeAuto) {
+    public ControladorAdministrador(ServicioAlquiler servicioAlquiler, ServicioDeAuto servicioDeAuto, ServicioUsuario servicioUsuario) {
         this.servicioAlquiler = servicioAlquiler;
         this.servicioDeAuto = servicioDeAuto;
+        this.servicioUsuario = servicioUsuario;
+    }
+
+    public ControladorAdministrador() {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
@@ -153,5 +160,17 @@ public class ControladorAdministrador {
 
     public List<Auto> obtenerListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
         return servicioAlquiler.obtenerAutosDisponibles();
+    }
+
+    public ModelAndView mostrarClientesSuscriptos(HttpServletRequest usuarioAdministrador) {
+        if (elRolEstaSeteadoYEsAdministrador(usuarioAdministrador)) {
+            return new ModelAndView("clientes-suscriptos");
+        } else {
+            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
+        }
+    }
+
+    public List<Usuario> obtenerListaDeUsuariosSuscriptosAlPlanBasico() {
+        return servicioUsuario.obtenerUsuariosSuscriptosAlPlanBasico();
     }
 }

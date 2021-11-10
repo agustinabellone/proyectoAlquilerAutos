@@ -17,4 +17,5 @@ public interface ServicioSuscripcion {
     Suscripcion buscarPorIdUsuario(Long id);
 
     void revisionDeSuscripciones();
+    
 }
