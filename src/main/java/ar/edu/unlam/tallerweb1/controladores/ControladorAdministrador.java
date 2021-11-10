@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
@@ -164,15 +165,21 @@ public class ControladorAdministrador {
 
     public ModelAndView mostrarClientesSuscriptos(HttpServletRequest usuarioAdministrador) {
         if (elRolEstaSeteadoYEsAdministrador(usuarioAdministrador)) {
-            List<Usuario> usuariosSuscriptos = this.obtenerListaDeUsuariosSuscriptosAlPlanBasico();
-            modelMap.put("clientes_suscriptos_plan_basico", usuariosSuscriptos);
-            return new ModelAndView("clientes-suscriptos",modelMap);
+            List<Usuario> usuariosSuscriptos = null;
+            try {
+                usuariosSuscriptos = this.obtenerListaDeUsuariosSuscriptosAlPlanBasico();
+                modelMap.put("clientes_suscriptos_plan_basico", usuariosSuscriptos);
+                return new ModelAndView("clientes-suscriptos",modelMap);
+            } catch (NoHayClientesSuscriptosAlPlanBasico e) {
+                modelMap.put("error_no_hay_usuarios_suscriptos","No hay clientes suscriptos actualmente");
+                return new ModelAndView("clientes-suscriptos",modelMap);
+            }
         } else {
             return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
     }
 
-    public List<Usuario> obtenerListaDeUsuariosSuscriptosAlPlanBasico() {
+    public List<Usuario> obtenerListaDeUsuariosSuscriptosAlPlanBasico() throws NoHayClientesSuscriptosAlPlanBasico {
         return servicioUsuario.obtenerUsuariosSuscriptosAlPlanBasico();
     }
 }
