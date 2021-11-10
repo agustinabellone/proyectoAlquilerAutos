@@ -54,8 +54,13 @@ public class ControladorAlquiler {
                                                     @RequestParam("lugarRetiro") Long lugarRetiro,
                                                     @RequestParam("lugarDevolucion") Long lugarDevolucion) {
 
-        Auto auto = servicioAlquiler.obtenerAutoPorId(id_auto);
         ModelMap modelo = new ModelMap();
+
+        if(salida.isAfter(ingreso)) {
+            modelo.put("errorFechas", "La fecha de salida debe ser menor a la fecha de devolución");
+        }
+
+        Auto auto = servicioAlquiler.obtenerAutoPorId(id_auto);
         modelo.put("salida", salida);
         modelo.put("ingreso", ingreso);
         modelo.put("id_auto", id_auto);

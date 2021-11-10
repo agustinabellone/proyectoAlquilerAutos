@@ -23,7 +23,7 @@
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center">Confirmación</h1>
         </div>
-        <c:if test="${empty mensaje && empty mensajeFallido}" >
+        <c:if test="${empty mensaje && empty mensajeFallido && empty errorFechas}" >
             <div id="contenido" class="container card col-md-6 my-4" >
                 <img src="${imagen_auto}" class="card-img-top" alt="imagen auto">
                 <div class="card-body">
@@ -34,6 +34,14 @@
                         <a href="validar-alquiler?id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}&lugarRetiro=${lugarRetiro.id}&lugarDevolucion=${lugarDevolucion.id}" class="btn btn-dark mt-5" >ALQUILAR</a>
                     </div>
                 </div>
+            </div>
+        </c:if>
+        <c:if test="${not empty errorFechas}">
+            <div class="alert alert-danger text-center container mt-3" role="alert">
+                    ${errorFechas}
+            </div>
+            <div class="col-sm-12 d-flex justify-content-center">
+                <a href="alquilar-auto" class="btn btn-dark" >Volver</a>
             </div>
         </c:if>
         <c:if test="${not empty mensaje}">
