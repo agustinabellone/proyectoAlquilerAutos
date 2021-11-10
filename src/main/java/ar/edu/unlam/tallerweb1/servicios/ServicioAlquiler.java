@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -14,7 +15,7 @@ public interface ServicioAlquiler {
 
     Alquiler AlquilarAuto(DatosAlquiler datosAlquiler);
 
-    List<Auto> obtenerAutosDisponibles();
+    List<Auto> obtenerAutosDisponibles() throws NoHayAutosDisponiblesException;
 
     Auto obtenerAutoPorId(Long id_auto);
 

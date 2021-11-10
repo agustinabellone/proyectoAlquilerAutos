@@ -1,11 +1,12 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.Exceptions.AutoAlquilerYaValorado;
+
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoValorado;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioValoracion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,20 +46,16 @@ public class ServicioValoracionImpls implements ServicioValoracion {
 
     @Override
     public void guardarValoracionAuto(int cantidadEstrellas, String comentarioAuto, Auto auto,Long alquilerID) {
-        Alquiler alquiler=obtenerAlquilerPorId(alquilerID);
-        ValoracionAuto valoracionAuto=repositorioValoracion.obtenerValoracionALquilerAuto(auto,alquiler);
-        if(valoracionAuto!=null){
-            throw  new AutoAlquilerYaValorado();
-        }else{
-            repositorioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto,alquiler);
-        }
-
+        repositorioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto);
+        Alquiler alquiler=repositorioValoracion.obtenerAlquilerPorId(alquilerID);
+        alquiler.setEstadoValoracionAuto(Boolean.TRUE);
     }
 
     @Override
-    public Long obtenerValoracionAuto(Auto auto){
+    public Long obtenerValoracionPromedioAuto(Long autoID){
         Long suma=0L;
         Long promedioValoracion=0L;
+        Auto auto = obtenerAutoPorId(autoID);
         List<ValoracionAuto> valoraciones=repositorioValoracion.obtenerValoracionesAuto(auto);
         int cantidadValoracion=valoraciones.size();
         if(cantidadValoracion!=0){
@@ -71,11 +68,18 @@ public class ServicioValoracionImpls implements ServicioValoracion {
         return promedioValoracion;
     }
 
+
     @Override
-    public Alquiler obtenerAlquilerPorId(Long alquilerID) {
-        Alquiler alquiler=repositorioValoracion.obtenerAlquilerPorId(alquilerID);
-        return  alquiler;
+    public List<ValoracionAuto> obtenerValoracionesAuto(Long autoID) throws AutoNoValorado {
+        Auto auto = repositorioAuto.buscarPor(autoID);
+        List<ValoracionAuto> valoracionesAuto = repositorioValoracion.obtenerValoracionesAuto(auto);
+        if (valoracionesAuto.size() == 0){
+            throw new AutoNoValorado();
+        }
+        return valoracionesAuto;
     }
+
+
 
 
 }
