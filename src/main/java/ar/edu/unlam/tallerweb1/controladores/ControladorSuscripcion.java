@@ -131,8 +131,8 @@ public class ControladorSuscripcion {
 
     }
 
-    //@Scheduled(fixedRate = 10000)
-    @Scheduled(cron = "0 29 19 ? * *")
+    //@Scheduled(cron = "0 29 19 ? * *")
+    @Scheduled(fixedRate = 10000)
     public void controlDeFechaDeSuscripciones(){
         //System.out.println("Fixed rate task ");
         servicioSuscripcion.revisionDeSuscripciones();
