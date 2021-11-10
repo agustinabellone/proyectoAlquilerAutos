@@ -62,10 +62,6 @@ public class RepositorioAutoImpl implements RepositorioAuto{
         return sessionFactory.getCurrentSession().createCriteria(Auto.class)
                 .createAlias("marca","marca")
                 .add(Restrictions.eq("marca.id",marca.getId())).list();
-
-        //return sessionFactory.getCurrentSession().createCriteria(Producto.class)
-                //.createAlias("subcategoria", "scBuscada")
-                //.add(Restrictions.like("scBuscada.descripcion", productoBusqueda+"%"))
-                //.list();
     }
+
 }

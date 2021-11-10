@@ -55,8 +55,13 @@ public class ControladorAlquiler {
                                                     @RequestParam("lugarRetiro") Long lugarRetiro,
                                                     @RequestParam("lugarDevolucion") Long lugarDevolucion) {
 
-        Auto auto = servicioAlquiler.obtenerAutoPorId(id_auto);
         ModelMap modelo = new ModelMap();
+
+        if(salida.isAfter(ingreso)) {
+            modelo.put("errorFechas", "La fecha de retiro debe ser anterior a la fecha de devolución");
+        }
+
+        Auto auto = servicioAlquiler.obtenerAutoPorId(id_auto);
         modelo.put("salida", salida);
         modelo.put("ingreso", ingreso);
         modelo.put("id_auto", id_auto);
@@ -98,7 +103,7 @@ public class ControladorAlquiler {
             servicioAlquiler.AlquilarAuto(datosAlquiler);
         }
         catch (AutoYaAlquiladoException e) {
-            return alquilerFallido(modelo, "El auto ya fue alquilado.");
+            return alquilerFallido(modelo, "El auto ya fue alquilado en esas fechas.");
         }
 
         return alquilerExitoso(modelo, "Alquiler realizado con éxito.");
@@ -111,7 +116,7 @@ public class ControladorAlquiler {
     }
 
     private ModelAndView alquilerFallido(ModelMap modelo, String mensaje) {
-        modelo.put("mensaje", mensaje);
+        modelo.put("mensajeFallido", mensaje);
         return new ModelAndView("alquilarAutoConfirmacion", modelo);
     }
 }
