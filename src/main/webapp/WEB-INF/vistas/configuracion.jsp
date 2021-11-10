@@ -27,7 +27,7 @@
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center mt-5">Configuración</h1>
         </div>
-        <c:if test="${empty mensaje && empty cambiosActualizados}">
+        <c:if test="${empty mensaje && empty cambiosActualizados && empty error}">
         <h4>Editar datos personales</h4>
             <form id="form" action="guardar-cambios" method="get">
         <article style="height: 300px" class="d-flex flex-column justify-content-around">
@@ -70,6 +70,15 @@
         <c:if test="${not empty cambiosActualizados}">
             <div class="alert alert-success text-center container mt-3" role="alert">
                     ${cambiosActualizados}
+            </div>
+            <div class="col-sm-12 d-flex justify-content-center">
+                <a href="configuracion" class="btn btn-dark" >Volver</a>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger text-center container mt-3" role="alert">
+                    ${error}
             </div>
             <div class="col-sm-12 d-flex justify-content-center">
                 <a href="configuracion" class="btn btn-dark" >Volver</a>
