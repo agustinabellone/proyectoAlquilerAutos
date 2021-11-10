@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,25 +13,18 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/home.css"/>
     <link rel="stylesheet" type="text/css" href="css/planes.css"/>
+
     <title>Proyecto - Alquiler de autos</title>
 </head>
+<jsp:include page="WEB-INF/vistas/header.jsp"/>
 <body>
-<<<<<<< HEAD:out/artifacts/proyectoAlquilerAutos_war_exploded/home.jsp
-<header class = "d-flex flex-row-reverse p-3">
-    <div class = " d-flex flex-row-reverse col-md-6 col-lg-4 col-xl-3 justify-content-around">
-        <a href="login" type="button" class="btn btn-primary">Iniciar sesion</a>
-        <a href="registro" type="button" class="btn btn-warning">Crear cuenta</a>
-        <a href="ir-a-suscribir" type="button" class="btn btn-danger">Suscribirse a un plan</a>
-    </div>
-</header>
-=======
-<jsp:include page="WEB-INF/vistas/header.jsp" />
->>>>>>> master:out/artifacts/proyecto_limpio_spring_war_exploded/home.jsp
 <section>
-    <div class="container">
-        <div>
-            <h1 class="display-4 p-4">Bienvenidos</h1>
+    <div class="portada">
+        <div class="container portada-contenido">
+            <h1 class="display-3 mt-3 text-center">¡Te damos la bienvenida!</h1>
+            <h2 class="text-center">Conocé nuestros vehiculos y elegí el que más te guste.</h2>
         </div>
     </div>
 </section>
@@ -39,76 +33,72 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
-                    <h3 class="mb-3">Alquila un auto a un precio accesible</h3>
-                    <h6 class="subtitle font-weight-normal">Contamos con 2 planes diferentes</h6>
+                    <h3 class="mb-3">Alquilá un auto a un precio accesible</h3>
+                    <h6 class="subtitle font-weight-normal">Contamos con 3 planes diferentes</h6>
                 </div>
             </div>
-            <!-- row  -->
-            <div class="row mt-4">
-                <!-- column  -->
-                <div class="col-md-6">
-                    <div class="card card-shadow border-0 mb-4">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center">
-                                <h5 class="font-weight-medium mb-0">Plan basico</h5>
-                                <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Popular</span></div>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card-box bg-secondary text-white text-center rounded">
+                            <div class="card-title">
+                                <h2 class="mb-5 text-white">PLAN BÁSICO</h2>
+                                <p>50 Km de recorrido</p>
+                                <p>KM excedido: $350</p>
+                                <p> Cambio de tiempo/lugar estipulado: $1200</p>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5 text-center">
-                                    <div class="price-box my-3">
-                                        <sup>$</sup><span class="text-dark display-5">2.600</span>
-                                        <h6 class="font-weight-light">1 MES</h6>
-                                        <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3" href="#">ELEGIR PLAN</a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 align-self-center">
-                                    <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                    </ul>
+                            <div>
+                                <div class="price-box my-3">
+                                    <sup>$</sup><span class="text-white display-5 text-center">10.000</span>
+                                    <h6 class="font-weight-medium text-white text-center">1 MES</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- column  -->
-                <!-- column  -->
-                <div class="col-md-6">
-                    <div class="card card-shadow border-0 mb-4">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center">
-                                <h5 class="font-medium m-b-0">Plan Premium</h5>
+                    <div class="col-md-4 ">
+                        <div class="card-box bg-dark text-light text-center rounded">
+                            <div class="card-title">
+                                <h2 class="mb-5 text-light">PLAN ORO</h2>
+                                <p>80 km de recorrido </p>
+                                <p>KM excedido: $300</p>
+                                <p> Permite eleccion de vehiculo</p>
+                                <p>Permite reservas con 3 días de anticipación</p>
+                                <p> Cambio de tiempo/lugar estipulado: $800</p>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5 text-center">
-                                    <div class="price-box my-3">
-                                        <sup>$</sup><span class="text-dark display-5">24.000</span>
-                                        <h6 class="font-weight-light">12 Meses</h6>
-                                        <a class="btn btn-info-gradiant border-0 font-14 text-white p-3 btn-block mt-3" href="#">ELEGIR PLAN</a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 align-self-center">
-                                    <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lorem ipsum dolor sit amet</span></li>
-                                    </ul>
+                            <div>
+                                <div class="price-box my-3">
+                                    <sup class="text-light">$</sup><span class=" display-5 text-light">15.000</span>
+                                    <h6 class="font-weight-medium text-light">1 MES</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4 text-dark text-center">
+                        <div class="card-box bg-secondary text-white rounded">
+                            <div class="card-title">
+                                <h2 class="mb-5 text-white">PLAN DIAMANTE</h2>
+                                <p>200 km de recorrido</p>
+                                <p> Km excedido: $500</p>
+                                <p> Eleccion de vehiculo (incluye gama alta)</p>
+                                <p> Reservar con cualquier anticipación</p>
+                                <p>Cambio de tiempo/lugar estipulado SIN COSTO</p>
+                            </div>
+                            <div>
+                                <div class="price-box my-3">
+                                    <sup>$</sup><span class="text-white display-5">20.000</span>
+                                    <h6 class="font-weight-medium text-white">1 MES</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <!-- column  -->
             </div>
         </div>
     </div>
 </section>
 
 </body>
-
 
 
 <!-- Optional JavaScript -->
