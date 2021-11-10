@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
@@ -34,8 +35,11 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     }
 
     @Override
-    public List<Auto> obtenerAutosDisponibles() {
+    public List<Auto> obtenerAutosDisponibles() throws NoHayAutosDisponiblesException {
         List<Auto> autosDisponibles = repositorioAlquiler.obtenerAutosDisponibles();
+        if (autosDisponibles.size() == 0){
+            throw new NoHayAutosDisponiblesException();
+        }
         return autosDisponibles;
     }
 
@@ -59,7 +63,7 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     @Override
     public List<Auto> obtenerAutosAlquilados() throws NoHayAutosAlquiladosException {
         List<Auto> autosAlquilados = repositorioAlquiler.buscarAutosAlquilados(Situacion.OCUPADO);
-        if (autosAlquilados.size() == 0){
+        if (autosAlquilados.size() == 0 || autosAlquilados == null){
             throw new NoHayAutosAlquiladosException();
         }
         return autosAlquilados;

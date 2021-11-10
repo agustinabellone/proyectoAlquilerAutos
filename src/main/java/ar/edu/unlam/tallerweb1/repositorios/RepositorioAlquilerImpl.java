@@ -51,8 +51,11 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
 
 
     @Override
-    public List<Auto> buscarAutosAlquilados(Situacion ocupado) {
-        return null;
+    public List<Auto> buscarAutosAlquilados(Situacion alquilado) {
+
+        return sessionFactory.getCurrentSession().createCriteria(Auto.class).
+                add(Restrictions.eq("situacion",alquilado))
+                .list();
     }
 
     @Override

@@ -14,7 +14,8 @@ insert into auto (id, situacion, imagen, km, marca_id, modelo_id, patente)
 values (3, 0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/xl/RT_V_bde57fdcf34b4e75be144e7400b4c97a.jpg",93680,1,1,"CCC111");
 INSERT INTO alquiler (auto_id, usuario_id, estado, garageLlegadaEst_id, garagePartida_id, adicionalCambioLugarFecha, adicionalInfraccionesOtro, f_egreso, f_ingreso, garageLlegada_id) VALUES (1, 1, 0, 2, 1, '0.0', '0.0', '20211027', '20211031', 2);
 
-
+-- script de eze no tocar pliss por ahora, luz si no te anda proba cambiando la 'U' por 'u'
+INSERT INTO Usuario (clave, email, rol, nombre) VALUES ('admin', 'admin@admin', 'admin', 'admin');
 
 
 select * from alquiler;
