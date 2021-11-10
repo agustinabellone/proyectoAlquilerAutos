@@ -260,18 +260,18 @@ public class testControladorAdministrador {
     private void thenSeMuestraElPanelPrincipalConLaListaDeAutos(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("panel-principal");
         assertThat(modelAndView.getModel().get("nombre")).isEqualTo(request.getSession().getAttribute("nombre"));
-        assertThat(modelAndView.getModel().get("autos-alquilados")).isNotNull();
-        assertThat(modelAndView.getModel().get("autos-alquilados")).isInstanceOf(List.class);
-        List<Auto> autos = (List<Auto>) modelAndView.getModel().get("autos-alquilados");
+        assertThat(modelAndView.getModel().get("autosAlquilados")).isNotNull();
+        assertThat(modelAndView.getModel().get("autosAlquilados")).isInstanceOf(List.class);
+        List<Auto> autos = (List<Auto>) modelAndView.getModel().get("autosAlquilados");
         assertThat(autos).hasSize(10);
     }
 
 
     private void thenSeMuestraLaVistaConLaListaDeLosAutosDisponibles(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("disponibles");
-        assertThat(modelAndView.getModel().get("lista-autos-disponibles")).isNotNull();
-        assertThat(modelAndView.getModel().get("lista-autos-disponibles")).isInstanceOf(List.class);
-        List<Auto> autosDisponibles = (List<Auto>) modelAndView.getModel().get("lista-autos-disponibles");
+        assertThat(modelAndView.getModel().get("autosDisponibles")).isNotNull();
+        assertThat(modelAndView.getModel().get("autosDisponibles")).isInstanceOf(List.class);
+        List<Auto> autosDisponibles = (List<Auto>) modelAndView.getModel().get("autosDisponibles");
         assertThat(autosDisponibles).hasSize(10);
     }
 }

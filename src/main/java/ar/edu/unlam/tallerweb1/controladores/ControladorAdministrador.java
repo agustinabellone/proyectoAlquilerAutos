@@ -57,7 +57,7 @@ public class ControladorAdministrador {
         if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
             try {
                 List<Auto> autosDisponibles = this.obtenerListaDeAutosDisponibles();
-                modelMap.put("lista-autos-disponibles", autosDisponibles);
+                modelMap.put("autosDisponibles", autosDisponibles);
                 return new ModelAndView("disponibles", modelMap);
             } catch (NoHayAutosDisponiblesException e) {
                 modelMap.put("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
@@ -148,7 +148,7 @@ public class ControladorAdministrador {
 
     private void guardarEnElModelMapElNombreDelAdministradorYLaLisstaDeAutosAlquilados(HttpServletRequest request, List<Auto> autosAlquilados) {
         modelMap.put("nombre", request.getSession().getAttribute("nombre"));
-        modelMap.put("autos-alquilados", autosAlquilados);
+        modelMap.put("autosAlquilados", autosAlquilados);
     }
 
     public List<Auto> obtenerListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {

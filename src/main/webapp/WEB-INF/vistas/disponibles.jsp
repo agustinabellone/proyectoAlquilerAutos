@@ -68,7 +68,6 @@
                     <a class="collapse-item" href="autos-disponibles">Disponibles</a>
                     <a class="collapse-item" href="autos-alquilados">Alquilados</a>
                     <a class="collapse-item" href="autos-en-mantenimiento">En mantenimiento</a>
-                    <a class="collapse-item" href="autos-en-confirmacion">En Confirmacion</a>
                 </div>
             </div>
         </li>
@@ -102,6 +101,7 @@
                     <a class="collapse-item" href="utilities-color.html">Administradores</a>
                     <a class="collapse-item" href="utilities-border.html">Encargado Service</a>
                     <a class="collapse-item" href="utilities-animation.html">Encargado Suscripcion</a>
+                    <a class="collapse-item" href="utilities-color.html">Encargado Mantenimiento</a>
                 </div>
             </div>
         </li>
@@ -302,6 +302,53 @@
                     </div>
                 </div>
 
+                <!-- Empieza FOR-EAH-->
+                <c:forEach items="${autosAlquilados}" var="auto">
+                    <div class="col-md-12">
+                        <div class="card card-shadow border-0 mb-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="font-weight-medium mb-0">Auto: Alquilado</h5>
+                                    <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Fecha en se alquilo(iria fecha de inicio)</span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-lg-12">
+                                        <div class="row mt-3">
+                                            <div class="col-lg-6 align-self-center">
+                                                <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        <span>${auto.patente}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        <span>${auto.marca.descripcion}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        <span>${auto.modelo.descripcion}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        <span>${auto.km}</span>
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="container">
+                                                    <img src="${auto.imagen}"
+                                                         alt="" style="width: 100%; height: auto;">
+                                                </div>
+                                            </div>
+                                            <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3"
+                                               href="#">Vuelve en tal fecha(iria la fecha de retorno)</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </c:forEach>
+                <!-- termina FOR-EACH -->
                 <!-- Content Row -->
                 <c:if test="${not empty error_no_hay_autos_alquilados}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
@@ -358,7 +405,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="logout">Cerrar Sesion</a>
             </div>
         </div>
     </div>
