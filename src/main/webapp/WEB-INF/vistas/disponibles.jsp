@@ -210,7 +210,6 @@
                     </form>
                 </div>
 
-
                 <!-- Content Row -->
                 <div class="row">
 
@@ -223,7 +222,7 @@
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             Clientes Nuevos
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Cantidad de clients nuevos
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">0
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -243,8 +242,7 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             Clientes Suscriptos
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Cantidad de clientes
-                                            suscriptos
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">1
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -266,8 +264,7 @@
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Cantidad de
-                                                    alquileres nuevos
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0
                                                 </div>
                                             </div>
                                         </div>
@@ -287,10 +284,9 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Asignacion de rol pendiente
+                                            Pendiente de Rol
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Cantidad de asignaciones
-                                            pendientes
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -303,32 +299,32 @@
                 </div>
 
                 <!-- Empieza FOR-EAH-->
-                <c:forEach items="${autosAlquilados}" var="auto">
+                <c:forEach items="${autosDisponibles}" var="auto">
                     <div class="col-md-12">
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="font-weight-medium mb-0">Auto: Alquilado</h5>
-                                    <div class="ml-auto"><span class="badge badge-danger font-weight-normal p-2">Fecha en se alquilo(iria fecha de inicio)</span>
-                                    </div>
+                                    <h5 class="font-weight-medium mb-0">Situacion: ${auto.situacion}</h5>
                                 </div>
                                 <div class="col">
                                     <div class="col-lg-12">
                                         <div class="row mt-3">
                                             <div class="col-lg-6 align-self-center">
                                                 <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        <span>${auto.patente}</span>
+                                                    <li>
+                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio: dd/mm/yy</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        <span>${auto.marca.descripcion}</span>
+                                                        Patente: <span>${auto.patente}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        <span>${auto.modelo.descripcion}</span>
+                                                        Marca: <span>${auto.marca.descripcion}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        <span>${auto.km}</span>
-
+                                                        Modelo: <span>${auto.modelo.descripcion}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Kilometraje: <span>${auto.km}</span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -338,8 +334,8 @@
                                                          alt="" style="width: 100%; height: auto;">
                                                 </div>
                                             </div>
-                                            <a class="btn btn-info-gradiant font-14 border-0 text-white p-3 btn-block mt-3"
-                                               href="#">Vuelve en tal fecha(iria la fecha de retorno)</a>
+                                            <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
+                                            >Fecha Retorno: dd/mm/yy</p>
                                         </div>
                                     </div>
                                 </div>
@@ -350,9 +346,9 @@
                 </c:forEach>
                 <!-- termina FOR-EACH -->
                 <!-- Content Row -->
-                <c:if test="${not empty error_no_hay_autos_alquilados}">
+                <c:if test="${not empty error_sin_autos_disponibles}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                            ${error_no_hay_autos_alquilados}
+                            ${error_sin_autos_disponibles}
                     </div>
                 </c:if>
                 <div class="row">
