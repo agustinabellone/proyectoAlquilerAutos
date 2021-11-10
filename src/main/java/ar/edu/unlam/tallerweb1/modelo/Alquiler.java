@@ -1,20 +1,11 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import javax.persistence.*;
-
 import java.time.LocalDate;
 
 
@@ -28,6 +19,7 @@ public class Alquiler {
     private LocalDate f_ingreso;
     private Float adicionalCambioLugarFecha = 0.0f;
     private Float adicionalInfraccionesOtro = 0.0f;
+    private Boolean estadoValoracionAuto=Boolean.FALSE;
     @ManyToOne
     private Auto auto;
     @ManyToOne
@@ -43,6 +35,7 @@ public class Alquiler {
     @ManyToOne
     private Encargado encargado;
     private Estado estado; //ACTIVO O FINALIZADO
+
 
 
     public Alquiler() {
@@ -70,6 +63,7 @@ public class Alquiler {
         this.garagePartida = datosAlquiler.getLugarRetiro();
         this.garageLlegadaEst = datosAlquiler.getLugarDevolucion();
         this.estado = Estado.ACTIVO;
+        this.estadoValoracionAuto=Boolean.FALSE;
     }
 
     public Long getId() {
@@ -110,6 +104,14 @@ public class Alquiler {
 
     public void setAdicionalInfraccionesOtro(Float adicionalInfraccionesOtro) {
         this.adicionalInfraccionesOtro = adicionalInfraccionesOtro;
+    }
+
+    public Boolean getEstadoValoracionAuto() {
+        return estadoValoracionAuto;
+    }
+
+    public void setEstadoValoracionAuto(Boolean estadoValoracionAuto) {
+        this.estadoValoracionAuto = estadoValoracionAuto;
     }
 
     public Auto getAuto() {

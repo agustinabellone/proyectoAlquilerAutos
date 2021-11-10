@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -50,12 +51,18 @@ public class ControladorAdministrador {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/todos-los-autos")
-    public ModelAndView mostrarTodosLosAutos(HttpServletRequest usuarioConRol) {
-        if(elRolEstaSeteadoYEsAdministrador(usuarioConRol)){
-            return enviarALaVistaDeTodosLosAutosConLaListaDeLosAutos();
-        }
-        else {
+    @RequestMapping(method = RequestMethod.GET, path = "/autos-disponibles")
+    public ModelAndView mostrarAutosDisponibles(HttpServletRequest usuarioConRol) {
+        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
+            try {
+                List<Auto> autosDisponibles = this.obtenerListaDeAutosDisponibles();
+                modelMap.put("lista-autos-disponibles", autosDisponibles);
+                return new ModelAndView("disponibles", modelMap);
+            } catch (NoHayAutosDisponiblesException e) {
+                modelMap.put("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
+                return new ModelAndView("disponibles", modelMap);
+            }
+        } else {
             return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
     }
@@ -110,15 +117,7 @@ public class ControladorAdministrador {
         modelMap.put("autos-alquilados", autosAlquilados);
     }
 
-    private List<Auto> obtenerTodosLosAutos() {
-        List<Auto> autosObtenidos = servicioDeAuto.obtenerTodoLosAutos();
-        return autosObtenidos;
-    }
-
-    private ModelAndView enviarALaVistaDeTodosLosAutosConLaListaDeLosAutos() {
-        List<Auto> autosObtenidos = obtenerTodosLosAutos();
-        modelMap.put("lista-de-autos",autosObtenidos);
-        viewName = "todos-los-autos";
-        return getModelAndView();
+    public List<Auto> obtenerListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
+        return servicioAlquiler.obtenerAutosDisponibles();
     }
 }

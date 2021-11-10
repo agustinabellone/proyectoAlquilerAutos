@@ -14,5 +14,7 @@ public interface RepositorioUsuario {
 
     List<Usuario> buscarTodos();
 
+    void eliminarUsuario(Long id);
 
+    void actualizarUsuario(Long id_usuario, String nombre, String contraseña);
 }

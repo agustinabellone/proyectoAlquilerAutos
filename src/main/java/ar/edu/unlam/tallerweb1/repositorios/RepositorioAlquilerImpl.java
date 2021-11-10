@@ -27,7 +27,7 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     public List<Auto> obtenerAutosDisponibles() {
         return this.sessionFactory.getCurrentSession()
                 .createCriteria(Auto.class)
-                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
+                //.add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
                 .list();
     }
 
@@ -48,13 +48,26 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
                 .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
     }
 
+
+
     @Override
-    public List<Auto> buscarAutosAlquilados(Situacion ocupado) {
-        return null;
+    public List<Auto> buscarAutosAlquilados(Situacion alquilado) {
+
+        return sessionFactory.getCurrentSession().createCriteria(Auto.class).
+                add(Restrictions.eq("situacion",alquilado))
+                .list();
     }
 
     @Override
     public Garage obtenerGaragePorId(Long lugar) {
         return sessionFactory.getCurrentSession().get(Garage.class, lugar);
     }
+
+    @Override
+    public List<Alquiler> obtenerAlquileresDelAuto(Auto id) {
+        return sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
+                .add(Restrictions.eq("auto", id))
+                .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
+    }
+
 }

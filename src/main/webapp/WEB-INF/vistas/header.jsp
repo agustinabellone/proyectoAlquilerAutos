@@ -24,12 +24,8 @@
         </c:when>
 
         <c:otherwise>
-          <c:if test = "${tieneSuscripcion==false}">
-            <a href="ir-a-suscribir" type="button" class="btn btn-secondary">Suscribirse a un plan</a>
-          </c:if>
-          <c:if test = "${tieneSuscripcion==true}">
-            <a href="administrar-suscripcion" type="button" class="btn btn-secondary">Administrar Suscripcion</a>
-          </c:if>
+          <a href="ir-a-suscribir" type="button" class="btn btn-secondary">Suscribirse a un plan</a>
+          <a href="configuracion" type="button" class="btn btn-secondary">Configuración</a>
         </c:otherwise>
 
 
