@@ -22,7 +22,7 @@
 <body>
 <jsp:include page="header.jsp" />
 <body>
-<section>
+<section class="pb-5">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center mt-5">Configuración</h1>
@@ -110,6 +110,7 @@
 
 </section>
 </body>
+<jsp:include page="footer.jsp" />
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

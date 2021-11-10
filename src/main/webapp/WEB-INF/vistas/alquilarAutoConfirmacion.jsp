@@ -21,7 +21,7 @@
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center">Confirmación</h1>
+            <h1 class="text-center mt-5">Confirmación</h1>
         </div>
         <c:if test="${empty mensaje && empty mensajeFallido && empty errorFechas}" >
             <div id="contenido" class="container card col-md-6 my-4" >
