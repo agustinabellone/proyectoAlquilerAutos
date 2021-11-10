@@ -68,7 +68,7 @@
                     <a class="collapse-item" href="autos-disponibles">Disponibles</a>
                     <a class="collapse-item" href="autos-alquilados">Alquilados</a>
                     <a class="collapse-item" href="autos-en-mantenimiento">En mantenimiento</a>
-                    <a class="collapse-item" href="">En service</a>
+                    <a class="collapse-item" href="autos-en-confirmacion">En Confirmacion</a>
                 </div>
             </div>
         </li>
@@ -304,9 +304,9 @@
                 </div>
 
                 <!-- Content Row -->
-                <c:if test="${not empty error_no_hay_autos_en_mantenimiento}">
+                <c:if test="${not empty error_no_hay_autos_alquilados}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                            ${error_no_hay_autos_en_mantenimiento}
+                            ${error_no_hay_autos_alquilados}
                     </div>
                 </c:if>
                 <div class="row">
