@@ -51,7 +51,7 @@
     <div class="pricing6 py-5 bg-light">
         <div class="container">
             <!-- row  -->
-            <c:if test="${tipoSuscripcion.nombre=='Basico'}">
+            <c:if test="${tipoSuscripcion.getNombre()=='Basico'}">
                 <div class="row mt-4">
                     <!-- column  -->
                     <div class="col-md-6">
@@ -65,7 +65,7 @@
                                         <div class="price-box my-3">
                                             <sup>$</sup><span class="text-dark display-5">15.000</span>
                                             <h6 class="font-weight-light">1 MES</h6>
-                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="mejorar-suscripcion?id_tipo=2">Subir de Nivel!</a>
+                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="mejorar-suscripcion?id_mejora=2&nombre_mejora=Oro">Subir de Nivel!</a>
                                         </div>
                                     </div>
                                     <div class="col-lg-7 align-self-center">
@@ -94,7 +94,7 @@
                                         <div class="price-box my-3">
                                             <sup>$</sup><span class="text-dark display-5">20.000</span>
                                             <h6 class="font-weight-light">1 MES</h6>
-                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="confirmar-suscripcion?id_tipo=2">Subir de Nivel!</a>
+                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="mejorar-suscripcion?id_mejora=3&nombre_mejora=Diamante">Subir de Nivel!</a>
                                         </div>
                                     </div>
                                     <div class="col-lg-7 align-self-center">
@@ -113,7 +113,7 @@
                     <!-- column  -->
                 </div>
             </c:if>
-            <c:if test="${tipoSuscripcion.nombre=='Oro'}">
+            <c:if test="${tipoSuscripcion.getNombre()=='Oro'}">
                 <div >
                     <!-- column  -->
                     <div >
@@ -127,7 +127,7 @@
                                         <div class="price-box my-3">
                                             <sup>$</sup><span class="text-dark display-5">20.000</span>
                                             <h6 class="font-weight-light">1 MES</h6>
-                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="confirmar-suscripcion?id_tipo=2">Subir de Nivel!</a>
+                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="mejorar-suscripcion?id_mejora=3&nombre_mejora=Diamante">Subir de Nivel!</a>
                                         </div>
                                     </div>
                                     <div class="col-lg-7 align-self-center">
@@ -175,8 +175,7 @@
     </div>
     <!--Fin del modal-->
 </section>
-
-
+<jsp:include page="footer.jsp" />
 </body>
 
 

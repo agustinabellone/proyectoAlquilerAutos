@@ -12,9 +12,11 @@ public interface ServicioSuscripcion {
 
     void cancelarRenovacionAutomaticaDeSuscripcion(Long id);
 
-    void mejorarNivelSuscripcion(Suscripcion suscripcion, TipoSuscripcion nuevo_tipo);
-
     Suscripcion buscarPorIdUsuario(Long id);
 
     void revisionDeSuscripciones();
+
+    TipoSuscripcion getTipoPorid(Long id_tipo);
+
+    void cancelarSuscripcionForzada(Usuario usuario);
 }

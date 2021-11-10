@@ -18,11 +18,10 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section class="bg-light">
+<section class="bg-light p-5">
     <div class="container">
-        <br>
-        <h1>¡Hola <c:out value="${nombre}"/>!</h1>
-        <br>
+        <h1 class="mb-5">¡Hola <c:out value="${nombre}"/>!</h1>
+
         <c:if test="${not empty confirmacionDarDeBaja}">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>-</strong> ${confirmacionDarDeBaja}<strong>-</strong>
@@ -107,6 +106,7 @@
         <br>
     </c:if>
 </section>
+<jsp:include page="footer.jsp" />
 </body>
 
 <!-- Optional JavaScript -->

@@ -47,7 +47,9 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
         return (Suscripcion)this.sessionFactory.getCurrentSession()
                 .createCriteria(Suscripcion.class)
                 .add(Restrictions.eq("Usuario", usuario))
-                .add(Restrictions.isNull("FechaFin"))
+                .add(Restrictions.gt("FechaFin", LocalDate.now()))
+                .add(Restrictions.le("FechaInicio", LocalDate.now()))
+                .add(Restrictions.isNull("FechaFinForzada"))
                 .uniqueResult();
     }
 
@@ -63,14 +65,20 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
 
         listaDeBajas= sessionFactory.getCurrentSession()
                 .createCriteria(Suscripcion.class)
-                .add(Restrictions.isNull("FechaFin"))
-                .add(Restrictions.eq("FechaInicio", fechaActual.minusDays(30L)))
+                .add(Restrictions.eq("FechaFin", fechaActual))
                 .list();
 
 
         return listaDeBajas;
     }
 
+    @Override
+    public TipoSuscripcion getTipoPorId(Long id_tipo) {
+        return (TipoSuscripcion) this.sessionFactory.getCurrentSession()
+                .createCriteria(TipoSuscripcion.class)
+                .add(Restrictions.eq("id", id_tipo))
+                .uniqueResult();
+    }
 
 
 }

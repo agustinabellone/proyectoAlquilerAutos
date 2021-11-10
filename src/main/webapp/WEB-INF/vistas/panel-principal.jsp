@@ -66,9 +66,8 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="autos-disponibles">Disponibles</a>
-                    <a class="collapse-item" href="buttons.html">Alquilados</a>
-                    <a class="collapse-item" href="cards.html">En mantenimiento</a>
-                    <a class="collapse-item" href="cards.html">En service</a>
+                    <a class="collapse-item" href="autos-alquilados">Alquilados</a>
+                    <a class="collapse-item" href="autos-en-mantenimiento">En mantenimiento</a>
                 </div>
             </div>
         </li>
@@ -196,22 +195,6 @@
                     <h1 class="h3 mb-0 text-gray-800 text-center">Bienvenido ${nombre}</h1>
                 </div>
 
-                <!-- Topbar Search -->
-                <div class="row">
-                    <form class="d-sm-inline-block form-inline col-12 mb-4">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-white border-0 small" placeholder="Buscar por..."
-                                   aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
                 <!-- Content Row -->
                 <div class="row">
 
@@ -224,7 +207,7 @@
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             Clientes Nuevos
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Cantidad de clients nuevos
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">0
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -244,8 +227,7 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             Clientes Suscriptos
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Cantidad de clientes
-                                            suscriptos
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">1
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -267,8 +249,7 @@
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Cantidad de
-                                                    alquileres nuevos
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0
                                                 </div>
                                             </div>
                                         </div>
@@ -288,10 +269,9 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Asignacion de rol pendiente
+                                            Pendiente de Rol
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Cantidad de asignaciones
-                                            pendientes
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -303,6 +283,53 @@
                     </div>
                 </div>
 
+                <!-- Empieza FOR-EAH-->
+                <c:forEach items="${autosAlquilados}" var="auto">
+                    <div class="col-md-12">
+                        <div class="card card-shadow border-0 mb-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="font-weight-medium mb-0">Situacion: ${auto.situacion}</h5>
+                                </div>
+                                <div class="col">
+                                    <div class="col-lg-12">
+                                        <div class="row mt-3">
+                                            <div class="col-lg-6 align-self-center">
+                                                <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
+                                                    <li>
+                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio: dd/mm/yy</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Patente: <span>${auto.patente}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Marca: <span>${auto.marca.descripcion}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Modelo: <span>${auto.modelo.descripcion}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Kilometraje: <span>${auto.km}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="container">
+                                                    <img src="${auto.imagen}"
+                                                         alt="" style="width: 100%; height: auto;">
+                                                </div>
+                                            </div>
+                                            <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
+                                            >Fecha Retorno: dd/mm/yy</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </c:forEach>
+                <!-- termina FOR-EACH -->
                 <!-- Content Row -->
                 <c:if test="${not empty error_no_hay_autos_alquilados}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
@@ -359,7 +386,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="logout">Cerrar Sesion</a>
             </div>
         </div>
     </div>

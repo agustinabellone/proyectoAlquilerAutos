@@ -60,8 +60,9 @@ public class ControladorHome {
 
     private ModelMap obtenerDatosDeSuscripcion(HttpServletRequest request, ModelMap model, Long id) {
         if((Boolean) request.getSession().getAttribute("tieneSuscripcion")){
-            model.put("suscripcion", servicioSuscripcion.buscarPorIdUsuario(id));
-            model.put("tipoSuscripcion", servicioSuscripcion.buscarPorIdUsuario(id).getTipoSuscripcion());
+            Suscripcion suscripcion = servicioSuscripcion.buscarPorIdUsuario(id);
+            model.put("suscripcion", suscripcion);
+            model.put("tipoSuscripcion", suscripcion.getTipoSuscripcion());
         }
         return model;
     }

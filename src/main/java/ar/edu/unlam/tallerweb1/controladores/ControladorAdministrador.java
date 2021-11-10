@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -56,7 +57,7 @@ public class ControladorAdministrador {
         if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
             try {
                 List<Auto> autosDisponibles = this.obtenerListaDeAutosDisponibles();
-                modelMap.put("lista-autos-disponibles", autosDisponibles);
+                modelMap.put("autosDisponibles", autosDisponibles);
                 return new ModelAndView("disponibles", modelMap);
             } catch (NoHayAutosDisponiblesException e) {
                 modelMap.put("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
@@ -65,6 +66,39 @@ public class ControladorAdministrador {
         } else {
             return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/autos-alquilados")
+    public ModelAndView mostrarAutosAlquilados(HttpServletRequest request) {
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
+            try {
+                return obtenerLaListaDeLosAutosAlquiladosYLaInformacionDelAdministradorParaMostrarlaEnElPanelPrincipal(request);
+            } catch (NoHayAutosAlquiladosException e) {
+                return enviarAlPanelPrincipalConUnAvisoDeQueTodaviaNoHayAutosAlquilados();
+            }
+        } else {
+            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/autos-en-mantenimiento")
+    public ModelAndView mostrarAutosEnMantenimiento(HttpServletRequest usuarioConRol) {
+        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
+            try {
+                List<Auto> autosEnMantenimiento = this.obtenerListaDeAutosEnMantenimiento();
+                modelMap.put("en_mantenimiento", autosEnMantenimiento);
+                return new ModelAndView("autos_en_mantenimiento", modelMap);
+            } catch (NoHayAutosEnMantenientoException e) {
+                modelMap.put("error_no_hay_autos_en_mantenimiento", "No hay autos en mantenimiento actualmente");
+                return new ModelAndView("autos_en_mantenimiento", modelMap);
+            }
+        } else {
+            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
+        }
+    }
+
+    public List<Auto> obtenerListaDeAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        return servicioDeAuto.obtenerAutosEnMantenimiento();
     }
 
     private boolean elRolEstaSeteadoYEsAdministrador(HttpServletRequest request) {
@@ -114,7 +148,7 @@ public class ControladorAdministrador {
 
     private void guardarEnElModelMapElNombreDelAdministradorYLaLisstaDeAutosAlquilados(HttpServletRequest request, List<Auto> autosAlquilados) {
         modelMap.put("nombre", request.getSession().getAttribute("nombre"));
-        modelMap.put("autos-alquilados", autosAlquilados);
+        modelMap.put("autosAlquilados", autosAlquilados);
     }
 
     public List<Auto> obtenerListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {

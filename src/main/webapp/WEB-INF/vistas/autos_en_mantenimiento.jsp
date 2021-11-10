@@ -299,7 +299,7 @@
                 </div>
 
                 <!-- Empieza FOR-EAH-->
-                <c:forEach items="${autosDisponibles}" var="auto">
+                <c:forEach items="${en_mantenimiento}" var="auto">
                     <div class="col-md-12">
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
@@ -346,9 +346,9 @@
                 </c:forEach>
                 <!-- termina FOR-EACH -->
                 <!-- Content Row -->
-                <c:if test="${not empty error_sin_autos_disponibles}">
+                <c:if test="${not empty error_no_hay_autos_en_mantenimiento}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                            ${error_sin_autos_disponibles}
+                            ${error_no_hay_autos_en_mantenimiento}
                     </div>
                 </c:if>
                 <div class="row">

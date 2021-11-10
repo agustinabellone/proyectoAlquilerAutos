@@ -13,6 +13,8 @@ public class TipoSuscripcion {
     private String descripcion;
     @Column
     private String nombre;
+    @Column
+    private Long duracion;
 
     public TipoSuscripcion(Long id, String descripcion, String nombre) {
         this.id = id;
@@ -48,5 +50,13 @@ public class TipoSuscripcion {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Long getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(Long duracion) {
+        this.duracion = duracion;
     }
 }
