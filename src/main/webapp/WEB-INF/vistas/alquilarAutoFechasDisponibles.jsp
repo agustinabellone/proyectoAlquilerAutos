@@ -19,7 +19,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="pb-5">
     <div class="container mt-5">
         <div class="col-sm-12 d-flex flex-column justify-content-center">
             <h1 class="text-center">Elegir fechas y lugares disponibles</h1>
@@ -76,7 +76,9 @@
 
 
 </section>
+<jsp:include page="footer.jsp" />
 </body>
+
 <script type="text/javascript">
     document.getElementById('salida').setAttribute('min', new Date().toISOString().split('T')[0])
     document.getElementById('ingreso').setAttribute('min', new Date().toISOString().split('T')[0])

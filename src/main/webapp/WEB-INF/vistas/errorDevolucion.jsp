@@ -12,4 +12,5 @@
 <jsp:include page="header.jsp" />
 <H1>NO SE PUDO REALIZAR LA DEVOLUCION</H1>
 </body>
+<jsp:include page="footer.jsp" />
 </html>

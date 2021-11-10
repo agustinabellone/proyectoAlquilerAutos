@@ -22,12 +22,12 @@
 <body>
 <jsp:include page="header.jsp" />
 <body>
-<section>
+<section class="pb-5">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class="text-center mt-5">Configuración</h1>
         </div>
-        <c:if test="${empty mensaje && empty cambiosActualizados}">
+        <c:if test="${empty mensaje && empty cambiosActualizados && empty error}">
         <h4>Editar datos personales</h4>
             <form id="form" action="guardar-cambios" method="get">
         <article style="height: 300px" class="d-flex flex-column justify-content-around">
@@ -75,6 +75,15 @@
                 <a href="configuracion" class="btn btn-dark" >Volver</a>
             </div>
         </c:if>
+
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger text-center container mt-3" role="alert">
+                    ${error}
+            </div>
+            <div class="col-sm-12 d-flex justify-content-center">
+                <a href="configuracion" class="btn btn-dark" >Volver</a>
+            </div>
+        </c:if>
     </div>
 
     <!-- Modal -->
@@ -101,6 +110,7 @@
 
 </section>
 </body>
+<jsp:include page="footer.jsp" />
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

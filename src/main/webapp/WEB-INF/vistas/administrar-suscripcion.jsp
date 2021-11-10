@@ -175,8 +175,7 @@
     </div>
     <!--Fin del modal-->
 </section>
-
-
+<jsp:include page="footer.jsp" />
 </body>
 
 

@@ -66,7 +66,6 @@
         </div>
     </div>
 </section>
-
 </body>
 
 <!-- Optional JavaScript -->

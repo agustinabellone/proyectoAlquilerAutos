@@ -78,7 +78,7 @@
         </div>
     </div>
 </section>
-
+<jsp:include page="footer.jsp" />
 </body>
 
 
@@ -93,7 +93,7 @@
     }
     label:hover,
     label:hover ~ label {
-        color: orange;
+        color: #ff8400;
     }
     input[type="radio"]:checked ~ label {
         color: orange;
