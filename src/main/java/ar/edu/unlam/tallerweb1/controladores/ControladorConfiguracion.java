@@ -50,6 +50,8 @@ public class ControladorConfiguracion {
         Long id_usuario = (Long) request.getSession().getAttribute("id");
         servicioUsuario.actualizarUsuario(id_usuario, nombre, contraseña);
         modelo.put("cambiosActualizados", "Datos actualizados con éxito.");
+        request.getSession().setAttribute("nombre", nombre);
+        request.getSession().setAttribute("contraseña", contraseña);
         return new ModelAndView("configuracion", modelo);
     }
 
