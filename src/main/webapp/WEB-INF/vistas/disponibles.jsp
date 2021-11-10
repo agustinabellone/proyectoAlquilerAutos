@@ -102,7 +102,6 @@
                     <a class="collapse-item" href="utilities-color.html">Administradores</a>
                     <a class="collapse-item" href="utilities-border.html">Encargado Service</a>
                     <a class="collapse-item" href="utilities-animation.html">Encargado Suscripcion</a>
-                    <a class="collapse-item" href="utilities-color.html">Encargado Mantenimiento</a>
                 </div>
             </div>
         </li>
