@@ -129,10 +129,6 @@ public class testControladorAdministrador {
         return controlador.obtenerListaDeAutosEnMantenimiento();
     }
 
-    private void givenSeMuestraLaVistaEnMantenimiento(HttpServletRequest usuarioConRol) {
-        this.modelAndView = controlador.mostrarAutosEnMantenimiento(usuarioConRol);
-    }
-
     private void givenNoExistenAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
         when(servicioDeAuto.obtenerAutosEnMantenimiento()).thenThrow(NoHayAutosEnMantenientoException.class);
     }
