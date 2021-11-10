@@ -23,12 +23,49 @@
         <br>
         <h1>¡Hola <c:out value="${nombre}"/>!</h1>
         <br>
+        <c:if test="${not empty confirmacionDarDeBaja}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>-</strong> ${confirmacionDarDeBaja}<strong>-</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
         <div class="d-flex justify-content-around">
             <div class="card col-sm-3">
                 <img class="card-img-top mt-3" src="img/alquilarAuto.jpg" alt="Mujer en un auto">
                 <div class="d-flex justify-content-center">
                     <a href="alquilar-auto" class="btn btn-dark mt-3 mb-3">Alquilar auto</a>
                 </div>
+            </div>
+
+            <div class="container col-sm-3 d-flex justify-content-center text-center">
+                <c:choose>
+                    <c:when test="${tieneSuscripcion==false}">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="img/cliente-feliz.jpg" alt="Cliente Feliz">
+                            <div class="card-body">
+                                <h5 class="card-title">Suscripcion</h5>
+                                <p class="card-text">No se encuentra suscripto a ningun plan  :(</p>
+                                <a href="ir-a-suscribir" class="btn btn-danger">¡Suscribirme!</a>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="img/cliente-feliz.jpg" alt="Cliente feliz">
+                            <div class="card-body">
+                                <h5 class="card-title">Suscripcion</h5>
+                                <p class="card-text">Nivel de Suscripcion : <span class="text-primary">${tipoSuscripcion.getNombre()}</span></p>
+                                <c:if test="${suscripcion.getRenovacion() == false}">
+                                    <p class="card-text text-danger"><strong>Su suscripcion acabara al finalizar el mes</strong> </p>
+                                </c:if>
+                                <a href="administrar-suscripcion" class="btn btn-danger">Administre su suscripcion</a>
+                            </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
 
             <div class="card col-sm-3">
@@ -63,6 +100,7 @@
                     </c:forEach>
             </div>
         </div>
+
     </div>
     <c:if test="${not empty mensaje}">
         <caption><p class="text-center text-danger">${mensaje}</p></caption>

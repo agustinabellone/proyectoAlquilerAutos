@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
@@ -41,12 +42,21 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
             throw new AutoYaExistente();
         }
         aEnviar.setSituacion(Situacion.EN_MANTENIMIENTO);
-        repositorioAuto.guardarEnMantenimiento(aEnviar,localDate);
+        repositorioAuto.guardarEnMantenimiento(aEnviar, localDate);
         return aEnviar;
     }
 
     @Override
     public List<Auto> obtenerTodoLosAutos() {
         return null;
+    }
+
+    @Override
+    public List<Auto> obtenerAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        List<Auto> autosEnMantenimiento = repositorioAuto.buscarAutosEnMantenimiento(Situacion.EN_MANTENIMIENTO);
+        if (autosEnMantenimiento.size() == 0) {
+            throw new NoHayAutosEnMantenientoException();
+        }
+        return autosEnMantenimiento;
     }
 }

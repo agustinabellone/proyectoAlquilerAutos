@@ -1,12 +1,14 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaRenovadaException;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -17,10 +19,11 @@ public class testControladorSuscripcion {
     private static final Long ID_TIPO = 1L;
 
     private Usuario Usuario = new Usuario(ID_USUARIO);
-    private TipoSuscripcion TIPO_SUSCRIPCION = new TipoSuscripcion(ID_TIPO, "");
+    private TipoSuscripcion TIPO_SUSCRIPCION = new TipoSuscripcion(ID_TIPO, "", "");
 
     private ServicioSuscripcion servicioSuscripcion = mock(ServicioSuscripcion.class);
     private ControladorSuscripcion controladorSuscripcion = new ControladorSuscripcion(servicioSuscripcion);
+    HttpServletRequest mockedRequest = Mockito.mock(HttpServletRequest.class);
 
     private ModelAndView mav;
 
@@ -38,7 +41,7 @@ public class testControladorSuscripcion {
     private void whenUnClienteSeSuscribe(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
 
 
-        mav = controladorSuscripcion.suscribirUsuario(usuario.getId(), tipoSuscripcion.getId());
+        mav = controladorSuscripcion.suscribirUsuario(usuario.getId(), tipoSuscripcion.getId(), mockedRequest);
 
     }
 
@@ -81,7 +84,7 @@ public class testControladorSuscripcion {
     }
 
     private void whenUnClienteRenuevaLaSuscripcion(Suscripcion suscripcion) {
-        mav = controladorSuscripcion.renovarSuscripcion(suscripcion.getUsuario().getId());
+        mav = controladorSuscripcion.darDeBajaSuscripcion(mockedRequest);
     }
 
     private void thenLasRenovacionEsExitosa() {

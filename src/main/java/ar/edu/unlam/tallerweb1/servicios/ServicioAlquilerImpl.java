@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service("ServicioAlquiler")
@@ -24,20 +26,34 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
 
     @Override
     public Alquiler AlquilarAuto(DatosAlquiler datosAlquiler) {
-
-        /*if(repositorioAlquiler.buscarAutoPorId(datosAlquiler.getAuto().getId()) != null){
-            throw new AutoYaAlquiladoException();
-        }*/
         Alquiler alquiler = new Alquiler(datosAlquiler);
+        if (buscarSiElAutoYaFueAlquiladoEnEsasFechas(datosAlquiler.getAuto(), datosAlquiler.getF_salida(), datosAlquiler.getF_ingreso())) {
+            throw new AutoYaAlquiladoException();
+        }
         repositorioAlquiler.guardar(alquiler);
-
+        Auto auto = repositorioAlquiler.obtenerAutoPorId(datosAlquiler.getAuto().getId());
+        auto.setSituacion(Situacion.OCUPADO);
         return alquiler;
+    }
+
+    @Override
+    public boolean buscarSiElAutoYaFueAlquiladoEnEsasFechas(Auto auto, LocalDate f_egreso, LocalDate f_ingreso) {
+        List<Alquiler> lista = obtenerAlquileresDelAuto(auto);
+
+        if (lista.size() > 0) {
+            for (Alquiler alquiler : lista) {
+                if (alquiler.getF_egreso().isBefore(f_egreso) && alquiler.getF_ingreso().isAfter(f_egreso)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
     public List<Auto> obtenerAutosDisponibles() throws NoHayAutosDisponiblesException {
         List<Auto> autosDisponibles = repositorioAlquiler.obtenerAutosDisponibles();
-        if (autosDisponibles.size() == 0){
+        if (autosDisponibles.size() == 0) {
             throw new NoHayAutosDisponiblesException();
         }
         return autosDisponibles;
@@ -61,9 +77,14 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     }
 
     @Override
+    public List<Alquiler> obtenerAlquileresDelAuto(Auto auto) {
+        return repositorioAlquiler.obtenerAlquileresDelAuto(auto);
+    }
+
+    @Override
     public List<Auto> obtenerAutosAlquilados() throws NoHayAutosAlquiladosException {
         List<Auto> autosAlquilados = repositorioAlquiler.buscarAutosAlquilados(Situacion.OCUPADO);
-        if (autosAlquilados.size() == 0 || autosAlquilados == null){
+        if (autosAlquilados.size() == 0 || autosAlquilados == null) {
             throw new NoHayAutosAlquiladosException();
         }
         return autosAlquilados;

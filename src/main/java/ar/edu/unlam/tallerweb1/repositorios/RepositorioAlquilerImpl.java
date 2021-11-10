@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("RepositorioAlquiler")
-public class RepositorioAlquilerImpl implements RepositorioAlquiler{
+public class RepositorioAlquilerImpl implements RepositorioAlquiler {
 
     private SessionFactory sessionFactory;
 
     @Autowired
-    public RepositorioAlquilerImpl(SessionFactory sessionFactory){
+    public RepositorioAlquilerImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -49,18 +49,23 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
     }
 
 
-
     @Override
     public List<Auto> buscarAutosAlquilados(Situacion alquilado) {
-
         return sessionFactory.getCurrentSession().createCriteria(Auto.class).
-                add(Restrictions.eq("situacion",alquilado))
+                add(Restrictions.eq("situacion", alquilado))
                 .list();
     }
 
     @Override
     public Garage obtenerGaragePorId(Long lugar) {
         return sessionFactory.getCurrentSession().get(Garage.class, lugar);
+    }
+
+    @Override
+    public List<Alquiler> obtenerAlquileresDelAuto(Auto id) {
+        return sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
+                .add(Restrictions.eq("auto", id))
+                .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
     }
 
 }

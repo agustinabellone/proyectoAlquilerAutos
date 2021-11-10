@@ -2,7 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
-import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaRenovadaException;
+import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaCanceladaException;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
@@ -36,10 +36,12 @@ public class ControladorSuscripcion {
 
         if(null != request.getSession().getAttribute("rol")){
             if(request.getSession().getAttribute("rol").equals("cliente")){
-                return new ModelAndView("ir-a-suscribir");
+                if(!(Boolean)request.getSession().getAttribute("tieneSuscripcion")){
+                    return new ModelAndView("ir-a-suscribir");
+                }
             }
         }
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("redirect:/main");
     }
 
     @RequestMapping(path = "/confirmar-suscripcion", method = RequestMethod.GET)
@@ -53,10 +55,10 @@ public class ControladorSuscripcion {
 
     @RequestMapping(path = "/suscribirse", method = RequestMethod.GET)
     public ModelAndView suscribirUsuario(@RequestParam(value = "id_tipo") Long id_tipo,
-                                         @RequestParam(value = "id_usuario")Long id_usuario) {
+                                         @RequestParam(value = "id_usuario")Long id_usuario,
+                                         HttpServletRequest request) {
 
         ModelMap model= new ModelMap();
-        //ACA ES NECESARIO BUSCAR EL USUARIO Y EL TIPO EN LA BD
         Usuario usuario = new Usuario(id_usuario);
         TipoSuscripcion tipoSuscripcion = new TipoSuscripcion(id_tipo);
         try{
@@ -65,23 +67,53 @@ public class ControladorSuscripcion {
             model.put("error", "Usted ya se encuentra suscripto a un plan");
             return new ModelAndView("confirmar-suscripcion", model);
         }
-
-        return new ModelAndView("main");
+        request.getSession().setAttribute("tieneSuscripcion",true);
+        return new ModelAndView("redirect:/main");
     }
 
-    @RequestMapping(path = "/renovar-suscripcion", method = RequestMethod.POST)
-    public ModelAndView renovarSuscripcion(@RequestParam("id") Long id) {
-
-
+    @RequestMapping(path = "/darDeBajaSuscripcion")
+    public ModelAndView darDeBajaSuscripcion(HttpServletRequest request) {
+        Long id= (Long)request.getSession().getAttribute("id");
         try{
-            servicioSuscripcion.renovarAutomaticamenteSuscripcion(id);
-        }catch(SuscripcionYaRenovadaException e){
-            return new ModelAndView("redirect:/perfil"); //EL USUARIO RENUEVA SU SUSCRIPCION DESDE SU PERFIL
+            servicioSuscripcion.cancelarRenovacionAutomaticaDeSuscripcion(id);
+        }catch(SuscripcionYaCanceladaException e){
+            ModelMap model = new ModelMap();
+            model.put("errorDarDeBaja","Su suscripcion ya fue dada de baja");
+            return new ModelAndView("administrar-suscripcion", model);
         }
-        return new ModelAndView("main");
+        ModelMap model = new ModelMap();
+        model.put("confirmacionDarDeBaja","Su suscripcion fue dada de baja exitosamente");
+        return new ModelAndView("main", model);
     }
 
-    @RequestMapping(path = "/admin-suscripcion", method = RequestMethod.GET)
+    @RequestMapping(path = "/administrar-suscripcion")
+    private ModelAndView mostrarAdministrarSuscripcion(HttpServletRequest request){
+
+
+        if(null != request.getSession().getAttribute("rol")){
+            if(request.getSession().getAttribute("rol").equals("cliente")){
+                obtenerDatosDeSuscripcion(request, (Long)request.getSession().getAttribute("id"));
+                return new ModelAndView("administrar-suscripcion");
+            }
+        }
+        return new ModelAndView("redirect:/main");
+    }
+
+    //@Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 29 19 ? * *")
+    public void controlDeFechaDeSuscripciones(){
+        //System.out.println("Fixed rate task ");
+        servicioSuscripcion.revisionDeSuscripciones();
+    }
+
+    private void obtenerDatosDeSuscripcion(HttpServletRequest request, Long id) {
+        if((Boolean) request.getSession().getAttribute("tieneSuscripcion")){
+            request.getSession().setAttribute("suscripcion", servicioSuscripcion.buscarPorIdUsuario(id));
+            request.getSession().setAttribute("tipoSuscripcion", servicioSuscripcion.buscarPorIdUsuario(id).getTipoSuscripcion());
+        }
+    }
+
+/* @RequestMapping(path = "/admin-suscripcion", method = RequestMethod.GET)
     private ModelAndView vistaAdminSuscripcion(HttpServletRequest request){
 
 
@@ -92,13 +124,6 @@ public class ControladorSuscripcion {
         }
         return new ModelAndView("redirect:/home");
     }
-
-    //@Scheduled(fixedRate = 10000)
-    @Scheduled(cron = "0 29 19 ? * *")
-    public void controlDeFechaDeSuscripciones(){
-        //System.out.println("Fixed rate task ");
-        servicioSuscripcion.revisionDeSuscripciones();
-    }
-
+*/
 
 }

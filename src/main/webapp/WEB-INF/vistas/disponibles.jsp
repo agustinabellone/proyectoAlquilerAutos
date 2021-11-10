@@ -66,9 +66,9 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="autos-disponibles">Disponibles</a>
-                    <a class="collapse-item" href="buttons.html">Alquilados</a>
-                    <a class="collapse-item" href="cards.html">En mantenimiento</a>
-                    <a class="collapse-item" href="cards.html">En service</a>
+                    <a class="collapse-item" href="autos-alquilados">Alquilados</a>
+                    <a class="collapse-item" href="autos-en-mantenimiento">En mantenimiento</a>
+                    <a class="collapse-item" href="autos-en-confirmacion">En Confirmacion</a>
                 </div>
             </div>
         </li>
@@ -102,7 +102,6 @@
                     <a class="collapse-item" href="utilities-color.html">Administradores</a>
                     <a class="collapse-item" href="utilities-border.html">Encargado Service</a>
                     <a class="collapse-item" href="utilities-animation.html">Encargado Suscripcion</a>
-                    <a class="collapse-item" href="utilities-color.html">Encargado Mantenimiento</a>
                 </div>
             </div>
         </li>
@@ -304,9 +303,9 @@
                 </div>
 
                 <!-- Content Row -->
-                <c:if test="${not empty error_sin_autos_disponibles}">
+                <c:if test="${not empty error_no_hay_autos_alquilados}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                            ${error_sin_autos_disponibles}
+                            ${error_no_hay_autos_alquilados}
                     </div>
                 </c:if>
                 <div class="row">

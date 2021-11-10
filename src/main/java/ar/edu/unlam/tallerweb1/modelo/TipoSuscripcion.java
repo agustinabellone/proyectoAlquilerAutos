@@ -11,10 +11,13 @@ public class TipoSuscripcion {
     private Long id;
     @Column
     private String descripcion;
+    @Column
+    private String nombre;
 
-    public TipoSuscripcion(Long id, String descripcion) {
+    public TipoSuscripcion(Long id, String descripcion, String nombre) {
         this.id = id;
         this.descripcion = descripcion;
+        this.nombre = nombre;
     }
     public TipoSuscripcion() {
     }
@@ -37,5 +40,13 @@ public class TipoSuscripcion {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
