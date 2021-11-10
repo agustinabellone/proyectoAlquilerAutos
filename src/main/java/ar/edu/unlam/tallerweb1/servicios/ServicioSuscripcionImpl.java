@@ -2,7 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NivelDeSuscripcionActualMejorOIgualQueElNuevoException;
-import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaRenovadaException;
+import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaCanceladaException;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
@@ -51,14 +51,14 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     }
 
     @Override
-    public void renovarAutomaticamenteSuscripcion(Long id) {
+    public void cancelarRenovacionAutomaticaDeSuscripcion(Long id) {
 
         Suscripcion buscada= buscarPorIdUsuario(id);
 
-        if(buscada.getRenovacion() == true){
-            throw new SuscripcionYaRenovadaException();
+        if(buscada.getRenovacion() == false){
+            throw new SuscripcionYaCanceladaException();
         }
-        buscada.setRenovacion(true);
+        buscada.setRenovacion(false);
         repositorioSuscripcion.actualizarSuscripcion(buscada);
     }
 

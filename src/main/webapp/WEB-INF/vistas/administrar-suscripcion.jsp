@@ -22,12 +22,28 @@
     <div class="container">
         <div>
             <h1 class="display-4 p-4 text-center">Administre su Suscripcion</h1>
+            <c:if test="${not empty errorDarDeBaja}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>-Error-</strong> ${errorDarDeBaja}.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:if>
         </div>
         <div>
             <h3 class="display-6 p-4 text-left">Usted se encuentra suscripto al nivel <span class="text-primary">${tipoSuscripcion.getNombre()}</span></h3>
+            <c:if test="${suscripcion.getRenovacion() == false}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong class="text-danger p-2">Su suscripcion fue dada de baja y no sera renovada automaticamente</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:if>
         </div>
         <div>
-            <h4 class="display-8 p-4 text-left text-danger">Mejore su nivel de suscripcion, active la renovacion automatica o desactive su suscripcion</h4>
+            <h4 class="display-8 p-4 text-left text-success">Aqui puede mejorar su nivel de suscripcion o descactivarla</h4>
         </div>
     </div>
 </section>
@@ -49,7 +65,7 @@
                                         <div class="price-box my-3">
                                             <sup>$</sup><span class="text-dark display-5">15.000</span>
                                             <h6 class="font-weight-light">1 MES</h6>
-                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="confirmar-suscripcion?id_tipo=2">SUSCRIBIRME</a>
+                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="mejorar-suscripcion?id_tipo=2">Subir de Nivel!</a>
                                         </div>
                                     </div>
                                     <div class="col-lg-7 align-self-center">
@@ -78,7 +94,7 @@
                                         <div class="price-box my-3">
                                             <sup>$</sup><span class="text-dark display-5">20.000</span>
                                             <h6 class="font-weight-light">1 MES</h6>
-                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="confirmar-suscripcion?id_tipo=2">SUSCRIBIRME</a>
+                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="confirmar-suscripcion?id_tipo=2">Subir de Nivel!</a>
                                         </div>
                                     </div>
                                     <div class="col-lg-7 align-self-center">
@@ -111,7 +127,7 @@
                                         <div class="price-box my-3">
                                             <sup>$</sup><span class="text-dark display-5">20.000</span>
                                             <h6 class="font-weight-light">1 MES</h6>
-                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="confirmar-suscripcion?id_tipo=2">SUSCRIBIRME</a>
+                                            <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="confirmar-suscripcion?id_tipo=2">Subir de Nivel!</a>
                                         </div>
                                     </div>
                                     <div class="col-lg-7 align-self-center">
@@ -132,11 +148,32 @@
             </c:if>
             <!-- row  -->
                     <div class="card card-shadow p-4 text-center  ">
-                        <h3>Renueve su Suscripcion AUTOMATICAMENTE al finalizar el mes</h3>
-                        <a class="btn btn-danger border-0 text-white p-3 mt-3" style="width: 50%; margin: auto" href="renovar-suscripcion">Renovar</a>
+                        <h3>Cancele su suscripcion al finalizar el mes</h3>
+                        <button type="button" class="btn btn-danger border-0 text-white p-3 mt-3" style="width: 50%; margin: auto" data-toggle="modal" data-target="#desactivacionModal">Cancelar</button>
                     </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="desactivacionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cancelar suscripcion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro? Su suscripcion continuara hasta que se venza.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a href="darDeBajaSuscripcion"><button type="button" class="btn btn-danger">Cancelar suscripcion</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Fin del modal-->
 </section>
 
 

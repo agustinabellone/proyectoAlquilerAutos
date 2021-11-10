@@ -40,7 +40,7 @@ public class Suscripcion {
     public Suscripcion(Usuario usuario, TipoSuscripcion tipoSuscripcion) {
         this.Usuario = usuario;
         this.TipoSuscripcion = tipoSuscripcion;
-        this.Renovacion=false;
+        this.Renovacion=true;
         this.FechaFin=null;
     }
 
