@@ -68,14 +68,19 @@ public class testControladorAdministradorSeccionClientes {
         HttpServletRequest usuarioAdministrador = givenQueExisteUnUsuario(ADMIN);
         whenAccedeALaVistaDeSuscriptos(usuarioAdministrador);
         List<Usuario> usuariosSuscriptos = whenMuestroLosUsuariosEnUnaLista();
-        thenSeMuestraLaListaConLos(usuariosSuscriptos,suscripcion,5);
+        thenSeMuestraLaListaConLos(modelAndView, usuariosSuscriptos, suscripcion, 5);
     }
 
-    private void thenSeMuestraLaListaConLos(List<Usuario> usuariosSuscriptos, Suscripcion suscripcion, int cantidad_esperada) {
+    private void thenSeMuestraLaListaConLos(ModelAndView modelAndView, List<Usuario> usuariosSuscriptos, Suscripcion suscripcion, int cantidad_esperada) {
         assertThat(usuariosSuscriptos).hasSize(cantidad_esperada);
-        for (Usuario usuario: usuariosSuscriptos) {
+        for (Usuario usuario : usuariosSuscriptos) {
             assertThat(usuario.getId()).isEqualTo(suscripcion.getUsuario().getId());
         }
+        assertThat(modelAndView.getViewName()).isEqualTo("clientes-suscriptos");
+        assertThat(modelAndView.getModel().get("clientes_suscriptos_plan_basico")).isNotNull();
+        assertThat(modelAndView.getModel().get("clientes_suscriptos_plan_basico")).isInstanceOf(List.class);
+        List<Usuario> usuarios = (List<Usuario>) modelAndView.getModel().get("clientes_suscriptos_plan_basico");
+        assertThat(usuarios).hasSize(cantidad_esperada);
     }
 
     private List<Usuario> whenMuestroLosUsuariosEnUnaLista() {

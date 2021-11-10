@@ -164,7 +164,9 @@ public class ControladorAdministrador {
 
     public ModelAndView mostrarClientesSuscriptos(HttpServletRequest usuarioAdministrador) {
         if (elRolEstaSeteadoYEsAdministrador(usuarioAdministrador)) {
-            return new ModelAndView("clientes-suscriptos");
+            List<Usuario> usuariosSuscriptos = this.obtenerListaDeUsuariosSuscriptosAlPlanBasico();
+            modelMap.put("clientes_suscriptos_plan_basico", usuariosSuscriptos);
+            return new ModelAndView("clientes-suscriptos",modelMap);
         } else {
             return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
