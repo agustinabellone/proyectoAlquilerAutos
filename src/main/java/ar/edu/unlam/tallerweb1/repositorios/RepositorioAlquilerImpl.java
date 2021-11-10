@@ -58,4 +58,11 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler{
         return sessionFactory.getCurrentSession().get(Garage.class, lugar);
     }
 
+    @Override
+    public List<Alquiler> obtenerAlquileresDelAuto(Auto id) {
+        return sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
+                .add(Restrictions.eq("auto", id))
+                .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
+    }
+
 }

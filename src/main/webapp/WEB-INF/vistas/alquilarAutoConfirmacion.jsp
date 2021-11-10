@@ -49,7 +49,7 @@
                     ${mensajeFallido}
             </div>
             <div class="col-sm-12 d-flex justify-content-center">
-                <a href="alquilar-auto" class="btn btn-dark" >Volver atrás</a>
+                <a href="alquilar-auto" class="btn btn-dark" >Volver</a>
             </div>
         </c:if>
     </div>

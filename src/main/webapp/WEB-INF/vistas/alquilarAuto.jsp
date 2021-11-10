@@ -22,7 +22,7 @@
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Autos disponibles</h1>
+            <h1 class="text-center mt-5">Nuestros autos</h1>
         </div>
         <section>
             <div class="pricing6 py-5 bg-light my-4">

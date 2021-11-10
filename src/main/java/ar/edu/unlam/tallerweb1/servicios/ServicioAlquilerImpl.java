@@ -1,16 +1,15 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
-import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service("ServicioAlquiler")
@@ -24,11 +23,10 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
         this.repositorioAlquiler = repositorioAlquiler;
     }
 
-
     @Override
     public Alquiler AlquilarAuto(DatosAlquiler datosAlquiler) {
         Alquiler alquiler = new Alquiler(datosAlquiler);
-        if(buscarSiElAutoYaFueAlquiladoEnEsasFechas()){
+        if(buscarSiElAutoYaFueAlquiladoEnEsasFechas(datosAlquiler.getAuto(), datosAlquiler.getF_salida(), datosAlquiler.getF_ingreso())){
             throw new AutoYaAlquiladoException();
         }
         repositorioAlquiler.guardar(alquiler);
@@ -37,8 +35,19 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
         return alquiler;
     }
 
-    private boolean buscarSiElAutoYaFueAlquiladoEnEsasFechas() {
-        return true;
+    @Override
+    public boolean buscarSiElAutoYaFueAlquiladoEnEsasFechas(Auto auto, LocalDate f_egreso, LocalDate f_ingreso) {
+        List<Alquiler> lista =  obtenerAlquileresDelAuto(auto);
+
+        if(lista.size() > 0){
+            for(Alquiler alquiler : lista)
+            {
+                if(alquiler.getF_egreso().isBefore(f_egreso) && alquiler.getF_ingreso().isAfter(f_egreso)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -62,6 +71,11 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     @Override
     public List<Alquiler> obtenerAlquileresDeUsuario(Usuario id) {
         return repositorioAlquiler.obtenerAlquileresActivosDeUsuario(id);
+    }
+
+    @Override
+    public List<Alquiler> obtenerAlquileresDelAuto(Auto auto) {
+        return repositorioAlquiler.obtenerAlquileresDelAuto(auto);
     }
 
     @Override
