@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
@@ -98,7 +99,64 @@ public class testControladorAdministrador {
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         givenSeMuestraLaVistaDisponibles(usuarioConRol);
         whenObtengoLaListaDeAutosDisponibles();
-        thenMuestroUnMensajeDeErrorDisponibles(this.modelAndView,"No hay autos disponibles actualmente");
+        thenMuestroUnMensajeDeErrorDisponibles(this.modelAndView, "No hay autos disponibles actualmente");
+    }
+
+    @Test
+    public void queElUsuarioAdministradorPuedaVerLosAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
+        givenExistenAutosEnMantenimiento(Situacion.EN_MANTENIMIENTO, 10);
+        whenAccedeAlaVistaDeAutosEnMantenimiento(usuarioConRol);
+        whenObtengoLaListaDeAutosEnMantenimiento();
+        thenSeMuestraLaVistaConLaListaDeLosAutosEnMantenimiento(this.modelAndView);
+    }
+
+    @Test(expected = NoHayAutosEnMantenientoException.class)
+    public void queElUsuarioAdministradorNoPuedaVerLosAutosEnMantenimientoPorqueNoHayTodavia() throws NoHayAutosEnMantenientoException {
+        givenNoExistenAutosEnMantenimiento();
+        HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
+        whenAccedeAlaVistaDeAutosEnMantenimiento(usuarioConRol);
+        whenObtengoLaListaDeAutosEnMantenimiento();
+        thenMuestraLaVistaConMensajeDeErrorQueNoHayAutosEnMatenimiento(this.modelAndView, "No hay autos en mantenimiento actualmente");
+    }
+
+    private void thenMuestraLaVistaConMensajeDeErrorQueNoHayAutosEnMatenimiento(ModelAndView modelAndView, String error) {
+        assertThat(modelAndView.getViewName()).isEqualTo("autos_en_mantenimiento");
+        assertThat(modelAndView.getModel().get("error_no_hay_autos_en_mantenimiento")).isEqualTo(error);
+    }
+
+    private List<Auto> whenObtengoLaListaDeAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        return controlador.obtenerListaDeAutosEnMantenimiento();
+    }
+
+    private void givenSeMuestraLaVistaEnMantenimiento(HttpServletRequest usuarioConRol) {
+        this.modelAndView = controlador.mostrarAutosEnMantenimiento(usuarioConRol);
+    }
+
+    private void givenNoExistenAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        when(servicioDeAuto.obtenerAutosEnMantenimiento()).thenThrow(NoHayAutosEnMantenientoException.class);
+    }
+
+    private void thenSeMuestraLaVistaConLaListaDeLosAutosEnMantenimiento(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("autos_en_mantenimiento");
+        assertThat(modelAndView.getModel().get("en_mantenimiento")).isNotNull();
+        assertThat(modelAndView.getModel().get("en_mantenimiento")).isInstanceOf(List.class);
+        List<Auto> autosEnMantenimiento = (List<Auto>) modelAndView.getModel().get("en_mantenimiento");
+        assertThat(autosEnMantenimiento).hasSize(10);
+    }
+
+    private void whenAccedeAlaVistaDeAutosEnMantenimiento(HttpServletRequest usuarioConRol) {
+        this.modelAndView = controlador.mostrarAutosEnMantenimiento(usuarioConRol);
+    }
+
+    private void givenExistenAutosEnMantenimiento(Situacion enMantenimiento, int cantidadDeAutos) throws NoHayAutosEnMantenientoException {
+        List<Auto> listaDeAutosEnMantenimiento = new ArrayList<>();
+        for (int i = 0; i < cantidadDeAutos; i++) {
+            Auto auto = new Auto();
+            auto.setSituacion(enMantenimiento);
+            listaDeAutosEnMantenimiento.add(auto);
+        }
+        when(servicioDeAuto.obtenerAutosEnMantenimiento()).thenReturn(listaDeAutosEnMantenimiento);
     }
 
     private void thenMuestroUnMensajeDeErrorDisponibles(ModelAndView modelAndView, String error) {
