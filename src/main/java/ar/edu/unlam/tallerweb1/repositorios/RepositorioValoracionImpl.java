@@ -43,12 +43,6 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
     }
 
 
-    @Override
-    public Alquiler obtenerAlquilerPorId(Long id){
-        return this.sessionFactory.getCurrentSession().get(Alquiler.class, id);
-    }
-
-
 
     @Override
     public List<ValoracionAuto> obtenerValoracionesAuto(Auto auto){
@@ -56,6 +50,11 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
                 .createCriteria(ValoracionAuto.class)
                 .add(Restrictions.eq("auto",auto))
                 .list();
+    }
+
+    @Override
+    public Alquiler obtenerAlquilerPorId(Long alquilerID) {
+        return sessionFactory.getCurrentSession().get(Alquiler.class, alquilerID);
     }
 
 }

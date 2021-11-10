@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoValorado;
+import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -71,21 +73,28 @@ public class ControladorValoracionAuto {
 
         servicioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto,alquilerID);
         modelo.put("mensaje", "Auto valorado exitosamente");
-        return new ModelAndView("main", modelo);
+        return new ModelAndView("redirect:/main",modelo);
 
     }
 
     @RequestMapping(path = "valoraciones-auto" , method = RequestMethod.GET)
     public ModelAndView verValoracionesAuto(@RequestParam(value = "id_auto")Long autoID){
         ModelMap modelo=new ModelMap();
-        List<ValoracionAuto> valoracionesAuto = servicioValoracion.obtenerValoracionesAuto(autoID);
-        Long valoracionPromedioAuto=servicioValoracion.obtenerValoracionPromedioAuto(autoID);
-        Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
-        int cantValoraciones=valoracionesAuto.size();
-        modelo.put("auto", auto);
-        modelo.put("listadoValoracionesAuto",valoracionesAuto);
-        modelo.put("valoracionPromedio",valoracionPromedioAuto);
-        modelo.put("cantidadValoraciones",cantValoraciones);
+
+        try {
+            List<ValoracionAuto> valoracionesAuto = servicioValoracion.obtenerValoracionesAuto(autoID);
+            Long valoracionPromedioAuto=servicioValoracion.obtenerValoracionPromedioAuto(autoID);
+            Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
+            int cantValoraciones=valoracionesAuto.size();
+            modelo.put("auto", auto);
+            modelo.put("listadoValoracionesAuto",valoracionesAuto);
+            modelo.put("valoracionPromedio",valoracionPromedioAuto);
+            modelo.put("cantidadValoraciones",cantValoraciones);
+        }
+        catch (AutoNoValorado e) {
+           modelo.put("mensaje", "El auto no tiene valoraciones");
+           return new ModelAndView("vista-valoraciones-auto",modelo);
+        }
 
         return new ModelAndView("vista-valoraciones-auto",modelo);
 

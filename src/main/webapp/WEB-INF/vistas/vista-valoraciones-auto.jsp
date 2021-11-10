@@ -15,6 +15,7 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
@@ -28,29 +29,115 @@
             <div class="row mt-3">
                 <div class="col-lg-6 align-self-center">
                     <h2>${valoracionPromedio}</h2>
+                    <c:choose>
+
+                        <c:when test = "${valoracionPromedio == 1 }">
+                            <i class="fa fa-star"></i>
+                        </c:when>
+
+                        <c:when test = "${valoracionPromedio == 2 }">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </c:when>
+
+                        <c:when test = "${valoracionPromedio == 3 }">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </c:when>
+
+                        <c:when test = "${valoracionPromedio == 4}">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </c:when>
+                        <c:when test = "${valoracionPromedio == 5}">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </c:when>
+
+                        <c:otherwise>
+                        </c:otherwise>
+
+                    </c:choose>
                     <h3>Promedio entre ${cantidadValoraciones} valoraciones</h3>
                 </div>
+
                 <div class="col-lg-6">
                     <div class="container">
                         <img src="${auto.imagen}" alt="" style="width: 100%; height: auto;">
                     </div>
                 </div>
+
 <c:forEach var="valoracion" items= "${listadoValoracionesAuto}" >
-                <div class="col-sm-12 d-flex justify-content-center">
-                    <div class="row mt-3">
-                        <div class="col-lg-6 align-self-center">
-                            <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Cantidad de estrellas: ${valoracion.valoracion} </span>
-                                </li>
-                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${valoracion.comentarios}</span>
-                                </li>
-                            </ul>
+                <div class="col-md-12">
+                    <div class="card card-shadow border-0 mb-4">
+                        <div class="card-body p-4">
+                            <div class="col">
+                                <div class="col-lg-12">
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6 align-self-center">
+                                            <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
+                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span> Cantidad de estrellas: ${valoracion.valoracion} </span>
+                                                </li>
+                                                <c:choose>
+
+                                                    <c:when test = "${valoracion.valoracion == 1 }">
+                                                        <i class="fa fa-star"></i>
+                                                    </c:when>
+
+                                                    <c:when test = "${valoracion.valoracion == 2 }">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </c:when>
+
+                                                    <c:when test = "${valoracion.valoracion == 3 }">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </c:when>
+
+                                                    <c:when test = "${valoracion.valoracion == 4}">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </c:when>
+                                                    <c:when test = "${valoracion.valoracion == 5}">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </c:when>
+
+                                                    <c:otherwise>
+                                                    </c:otherwise>
+
+                                                </c:choose>
+
+                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${valoracion.comentarios}</span>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             </c:forEach>
         </section>
+        <c:if test="${not empty mensaje}">
+            <caption><p class="text-center text-danger">${mensaje}</p></caption>
+            <br>
+        </c:if>
     </div>
 </section>
 

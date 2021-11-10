@@ -72,6 +72,7 @@ public class Alquiler {
         this.garagePartida = datosAlquiler.getLugarRetiro();
         this.garageLlegadaEst = datosAlquiler.getLugarDevolucion();
         this.estado = Estado.ACTIVO;
+        this.estadoValoracionAuto=Boolean.FALSE;
     }
 
     public Long getId() {
