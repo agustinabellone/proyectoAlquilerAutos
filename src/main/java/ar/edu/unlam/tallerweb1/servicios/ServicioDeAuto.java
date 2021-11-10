@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface ServicioDeAuto {
     Auto enviarAutoMantenimiento(Auto aEnviar) throws AutoYaExistente;
 
     List<Auto> obtenerTodoLosAutos();
+
+    List<Auto> obtenerAutosEnMantenimiento() throws NoHayAutosEnMantenientoException;
 }

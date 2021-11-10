@@ -68,4 +68,11 @@ public class RepositorioAutoImpl implements RepositorioAuto{
                 //.add(Restrictions.like("scBuscada.descripcion", productoBusqueda+"%"))
                 //.list();
     }
+
+    @Override
+    public List<Auto> buscarAutosEnMantenimiento(Situacion enMantenimiento) {
+        return sessionFactory.getCurrentSession().createCriteria(Auto.class).
+                add(Restrictions.eq("situacion",enMantenimiento))
+                .list();
+    }
 }

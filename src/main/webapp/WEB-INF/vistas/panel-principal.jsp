@@ -66,9 +66,9 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="autos-disponibles">Disponibles</a>
-                    <a class="collapse-item" href="buttons.html">Alquilados</a>
-                    <a class="collapse-item" href="cards.html">En mantenimiento</a>
-                    <a class="collapse-item" href="cards.html">En service</a>
+                    <a class="collapse-item" href="autos-alquilados">Alquilados</a>
+                    <a class="collapse-item" href="autos-en-mantenimiento">En mantenimiento</a>
+                    <a class="collapse-item" href="autos-en-confirmacion">En Confirmacion</a>
                 </div>
             </div>
         </li>
