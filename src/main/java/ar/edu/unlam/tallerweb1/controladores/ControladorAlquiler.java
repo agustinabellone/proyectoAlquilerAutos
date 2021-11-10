@@ -57,7 +57,7 @@ public class ControladorAlquiler {
         ModelMap modelo = new ModelMap();
 
         if(salida.isAfter(ingreso)) {
-            modelo.put("errorFechas", "La fecha de salida debe ser menor a la fecha de devolución");
+            modelo.put("errorFechas", "La fecha de retiro debe ser anterior a la fecha de devolución");
         }
 
         Auto auto = servicioAlquiler.obtenerAutoPorId(id_auto);
