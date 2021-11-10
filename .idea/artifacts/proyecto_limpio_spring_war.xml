@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="proyecto-limpio-spring:war">
-    <output-path>$PROJECT_DIR$/out/artifacts/proyecto_limpio_spring_war</output-path>
-    <root id="archive" name="proyecto-limpio-spring_war.war">
-      <element id="artifact" artifact-name="proyecto-limpio-spring:war exploded" />
-    </root>
-  </artifact>
-</component>
