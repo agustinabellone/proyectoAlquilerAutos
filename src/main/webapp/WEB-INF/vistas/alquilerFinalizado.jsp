@@ -20,4 +20,5 @@
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 </body>
+<jsp:include page="footer.jsp" />
 </html>
