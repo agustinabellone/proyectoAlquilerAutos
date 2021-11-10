@@ -16,34 +16,57 @@ public class testRepositorioAdministrador extends SpringTest {
 
     @Autowired
     private RepositorioAlquiler repositorioAlquiler;
+    @Autowired
+    private RepositorioAuto repositorioAuto;
 
     @Test
     @Rollback
     @Transactional
-    public void queSePuedaGuardarAutosAlquiladosParaQuePuedanSerObtenidos() {
-        givenExistenAutosAlquilados(Situacion.OCUPADO, 10);
+    public void queSePuedanBuscarAutosEnSituacionDeAlquilados() {
+        givenExistenAutos(Situacion.OCUPADO, 10);
         List<Auto> autosAlquilados = whenBuscoAutosAlquilados(Situacion.OCUPADO);
-        thenObtengoLaListaConLosAutosAlquilados(autosAlquilados, 10);
+        thenObtengoLaListaConAutos(autosAlquilados, 10);
     }
 
-    private void givenExistenAutosAlquilados(Situacion alquilado, int cantidadDeAutos) {
-        for (int i = 0; i < cantidadDeAutos; i++) {
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedanBuscarAutosEnSituacionDeDisponible() {
+        givenExistenAutos(Situacion.DISPONIBLE, 10);
+        List<Auto> autosDisponibles = whenBuscoAutosDisponibles(Situacion.DISPONIBLE);
+        thenObtengoLaListaConAutos(autosDisponibles, 10);
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedanBuscarAutosEnSituacionDeEnMantenimiento() {
+        givenExistenAutos(Situacion.EN_MANTENIMIENTO, 10);
+        List<Auto> autosEnMantenimiento = whenBuscoAutosEnMantenimiento(Situacion.EN_MANTENIMIENTO);
+        thenObtengoLaListaConAutos(autosEnMantenimiento, 10);
+    }
+
+    private List<Auto> whenBuscoAutosEnMantenimiento(Situacion enMantenimiento) {
+        return repositorioAuto.buscarAutosEnMantenimiento(enMantenimiento);
+    }
+
+    private void givenExistenAutos(Situacion situacion, int cantidad) {
+        for (int i = 0; i < cantidad; i++) {
             Auto auto = new Auto();
-            auto.setSituacion(alquilado);
+            auto.setSituacion(situacion);
             session().save(auto);
         }
+    }
+
+    private List<Auto> whenBuscoAutosDisponibles(Situacion disponible) {
+        return repositorioAlquiler.obtenerAutosDisponibles();
     }
 
     private List<Auto> whenBuscoAutosAlquilados(Situacion alquilado) {
         return repositorioAlquiler.buscarAutosAlquilados(alquilado);
     }
 
-    private void thenObtengoLaListaConLosAutosAlquilados(List<Auto> autosAlquilados, int autosEncontrados) {
-        assertThat(autosAlquilados).hasSize(autosEncontrados);
-        for (Auto auto :
-                autosAlquilados) {
-            assertThat(auto.getSituacion()).isEqualTo(Situacion.OCUPADO);
-
-        }
+    private void thenObtengoLaListaConAutos(List<Auto> listaObtenida, int cantidad_esperada) {
+        assertThat(listaObtenida).hasSize(cantidad_esperada);
     }
 }

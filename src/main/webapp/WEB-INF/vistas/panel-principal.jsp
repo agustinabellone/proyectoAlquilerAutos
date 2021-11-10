@@ -68,7 +68,6 @@
                     <a class="collapse-item" href="autos-disponibles">Disponibles</a>
                     <a class="collapse-item" href="autos-alquilados">Alquilados</a>
                     <a class="collapse-item" href="autos-en-mantenimiento">En mantenimiento</a>
-                    <a class="collapse-item" href="autos-en-confirmacion">En Confirmacion</a>
                 </div>
             </div>
         </li>
