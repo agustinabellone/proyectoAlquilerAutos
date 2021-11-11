@@ -50,11 +50,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         this.repositorioUsuario.actualizarUsuario(id_usuario, nombre, contraseña);
     }
 
-    @Override
+   /* @Override
     public List<Usuario> obtenerUsuariosSuscriptosAlPlanBasico() throws NoHayClientesSuscriptosAlPlanBasico {
         TipoSuscripcion tipoSuscripcion = repositorioSuscripcion.getTipoPorId(1l);
 
-    }
+    }*/
 
     @Override
     public List<Usuario> obtenerUsuariosSuscriptos(Suscripcion suscripcion) {

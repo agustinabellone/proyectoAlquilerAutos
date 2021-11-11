@@ -17,7 +17,7 @@ public interface ServicioUsuario {
 
     void actualizarUsuario(Long id_usuario, String nombre, String contraseña);
 
-    List<Usuario> obtenerUsuariosSuscriptosAlPlanBasico() throws NoHayClientesSuscriptosAlPlanBasico;
+   // List<Usuario> obtenerUsuariosSuscriptosAlPlanBasico() throws NoHayClientesSuscriptosAlPlanBasico;
 
     List<Usuario> obtenerUsuariosSuscriptos(Suscripcion suscripcion);
 }
