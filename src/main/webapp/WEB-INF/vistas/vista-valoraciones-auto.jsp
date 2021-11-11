@@ -23,14 +23,15 @@
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center">Opiniones sobre el auto </h1>
+            <h1 class="text-center mt-5">Opiniones sobre el auto </h1>
         </div>
         <section>
             <div class="row mt-3">
                 <div class="col-lg-6 align-self-center">
-                    <h2>${valoracionPromedio}</h2>
+                    <div class="d-flex align-items-center justify-content-around">
+                    <h2>Puntuación: ${valoracionPromedio}</h2>
+                    <div>
                     <c:choose>
-
                         <c:when test = "${valoracionPromedio == 1 }">
                             <i class="fa fa-star"></i>
                         </c:when>
@@ -59,12 +60,15 @@
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                         </c:when>
-
                         <c:otherwise>
                         </c:otherwise>
-
                     </c:choose>
-                    <h3>Promedio entre ${cantidadValoraciones} valoraciones</h3>
+                    </div>
+                    </div>
+                    <c:if test="${empty mensaje}">
+                        <p class="text-center">Promedio entre ${cantidadValoraciones} valoraciones</p>
+                    </c:if>
+
                 </div>
 
                 <div class="col-lg-6">
@@ -73,17 +77,16 @@
                     </div>
                 </div>
 
-<c:forEach var="valoracion" items= "${listadoValoracionesAuto}" >
+            <c:forEach var="valoracion" items= "${listadoValoracionesAuto}" >
                 <div class="col-md-12">
-                    <div class="card card-shadow border-0 mb-4">
-                        <div class="card-body p-4">
+                    <div class="card card-shadow border-0">
+                        <div class="card-body">
                             <div class="col">
                                 <div class="col-lg-12">
-                                    <div class="row mt-3">
-                                        <div class="col-lg-6 align-self-center">
-                                            <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span> Cantidad de estrellas: ${valoracion.valoracion} </span>
-                                                </li>
+                                    <div class="row">
+                                        <div class="col-lg-6 d-flex flex-column align-content-center bg-dark rounded">
+                                            <ul class="list-inline font-16 font-weight-medium text-white mt-3">
+                                                <li class=""><i class="icon-check text-info"></i> <span> Puntuación: ${valoracion.valoracion} </span></li>
                                                 <c:choose>
 
                                                     <c:when test = "${valoracion.valoracion == 1 }">
@@ -120,8 +123,7 @@
 
                                                 </c:choose>
 
-                                                <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${valoracion.comentarios}</span>
-                                                </li>
+                                                <li class=""><span class="font-italic ">"${valoracion.comentarios}"</span></li>
 
                                             </ul>
                                         </div>
@@ -135,8 +137,12 @@
             </c:forEach>
         </section>
         <c:if test="${not empty mensaje}">
-            <caption><p class="text-center text-danger">${mensaje}</p></caption>
-            <br>
+            <div class="alert alert-danger text-center container mt-3" role="alert">
+                    ${mensaje}
+            </div>
+            <div class="col-sm-12 d-flex justify-content-center">
+                <a href="alquilar-auto" class="btn btn-dark" >Volver</a>
+            </div>
         </c:if>
     </div>
 </section>

@@ -57,7 +57,7 @@
                                             </div>
                                             <c:if test="${viaje.estadoValoracionAuto== false}">
                                             <div class="col-sm-12 d-flex justify-content-center">
-                                                <a class="btn btn-primary mt-5"
+                                                <a class="btn btn-dark mt-5"
                                                href="valorar-auto?id_auto=${viaje.auto.id}&id_alquiler=${viaje.id}">VALORAR VEHICULO</a>
                                             </div>
                                             </c:if>
