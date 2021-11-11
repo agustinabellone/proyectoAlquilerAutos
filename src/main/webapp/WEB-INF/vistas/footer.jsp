@@ -27,6 +27,5 @@
             <p>Feriados: 9 a 13hs</p>
         </div>
     </div>
-    <span class="text-white" style="font-size: 10px">Todos los derechos reservados. 2021</span>
 </footer>
 </html>

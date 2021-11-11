@@ -56,7 +56,7 @@
                                                              alt="" style="width: 100%; height: auto;">
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-12 d-flex justify-content-center">
+                                                <div class="col-sm-12 d-flex justify-content-around">
                                                     <a href="elegir-fechas?id_auto=${auto.id}&imagen_auto=${auto.imagen}" class="btn btn-dark mt-5">ALQUILAR AUTO</a>
                                                     <a href="valoraciones-auto?id_auto=${auto.id}" class="btn btn-dark mt-5">VER VALORACIONES</a>
                                                 </div>
