@@ -23,7 +23,6 @@ public class Suscripcion {
     @Column(nullable = true)
     private Boolean Renovacion;
 
-
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate FechaInicio;
@@ -31,6 +30,10 @@ public class Suscripcion {
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate FechaFin;
+
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate FechaFinForzada;
 
 
     public Suscripcion(){
@@ -41,7 +44,7 @@ public class Suscripcion {
         this.Usuario = usuario;
         this.TipoSuscripcion = tipoSuscripcion;
         this.Renovacion=true;
-        this.FechaFin=null;
+        this.FechaFinForzada=null;
     }
 
 
@@ -93,4 +96,11 @@ public class Suscripcion {
         FechaFin = fechaFin;
     }
 
+    public LocalDate getFechaFinForzada() {
+        return FechaFinForzada;
+    }
+
+    public void setFechaFinForzada(LocalDate fechaFinForzada) {
+        FechaFinForzada = fechaFinForzada;
+    }
 }

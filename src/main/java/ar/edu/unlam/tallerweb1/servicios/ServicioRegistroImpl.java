@@ -34,21 +34,7 @@ public class ServicioRegistroImpl implements ServicioRegistro{
         }
         Usuario nuevoUsuario = new Usuario(datosRegistro);
 
-        // SEGUN LA CLAVE SE LE ASIGNA UN ROL ESPECIAL
-        switch(datosRegistro.getClave()){
-            case"adminadmin":
-                nuevoUsuario.setRol("admin");
-                break;
-            case"encargadoencargado":
-                nuevoUsuario.setRol("encargado");
-                break;
-            case"mecanicomecanico":
-                nuevoUsuario.setRol("mecanico");
-                break;
-            default:
-                nuevoUsuario.setRol("cliente");
-                break;
-        }
+        nuevoUsuario.setRol("cliente");
 
         repositorioUsuario.guardar(nuevoUsuario);
         return nuevoUsuario;

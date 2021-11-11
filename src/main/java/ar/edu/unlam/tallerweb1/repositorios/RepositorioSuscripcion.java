@@ -20,4 +20,5 @@ public interface RepositorioSuscripcion {
 
     List<Suscripcion> buscarSuscripcionesFueraDeFecha(LocalDate fechaActual);
 
+    TipoSuscripcion getTipoPorId(Long id_tipo);
 }

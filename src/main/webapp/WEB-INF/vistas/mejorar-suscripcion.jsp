@@ -21,8 +21,8 @@
 <jsp:include page="header.jsp" />
 <section>
     <div class="container">
-        <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Confirme su suscripción</h1>
+        <div>
+            <h1 class=" display-4 p-4">Confirme su cambio de nivel</h1>
         </div>
     </div>
 </section>
@@ -35,16 +35,12 @@
 
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Por favor <c:out value="${nombre}"/>, confirmá tu suscripción</h5>
-                    <p class="card-text">¿Te suscribimos al plan número <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>
-                    <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id}" class="btn btn-success">Confirmar</a>
-                    <a href="ir-a-suscribir" class="btn btn-secondary">Volver</a>
+                    <h5 class="card-title">Al mejorar su suscripcion, cancela la actual por una nueva de mas alto nivel</h5>
+                    <p class="card-text">¿Esta seguro, <c:out value="${nombre}"/>, de cambiar su plan por uno de nivel <span style="font-size: 120%; color: black"><c:out value="${nombre_mejora}"/></span> ?</p>
+                    <a href="suscribirseMejora?id_tipo=${id_mejora}&id_usuario=${id_usuarioMejora}" class="btn btn-primary">Confirmar</a>
+                    <a href="administrar-suscripcion" class="btn btn-primary">Volver</a>
                 </div>
                 <div class="card-footer text-muted">
-                    <c:if test="${not empty error}">
-                        <caption><p class="text-center text-danger">${error}</p></caption>
-                        <br>
-                    </c:if>
 
                 </div>
             </div>

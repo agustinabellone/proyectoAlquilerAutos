@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaCanceladaException;
+import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
@@ -60,7 +61,7 @@ public class ControladorSuscripcion {
 
         ModelMap model= new ModelMap();
         Usuario usuario = new Usuario(id_usuario);
-        TipoSuscripcion tipoSuscripcion = new TipoSuscripcion(id_tipo);
+        TipoSuscripcion tipoSuscripcion = servicioSuscripcion.getTipoPorid(id_tipo);
         try{
             servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
         }catch (ClienteYaSuscriptoException e){
@@ -68,6 +69,24 @@ public class ControladorSuscripcion {
             return new ModelAndView("confirmar-suscripcion", model);
         }
         request.getSession().setAttribute("tieneSuscripcion",true);
+        return new ModelAndView("redirect:/main");
+    }
+
+    @RequestMapping(path = "/suscribirseMejora", method = RequestMethod.GET)
+    public ModelAndView mejorarSuscripcion(@RequestParam(value = "id_tipo") Long id_tipo,
+                                         @RequestParam(value = "id_usuario")Long id_usuario,
+                                         HttpServletRequest request) {
+
+        ModelMap model= new ModelMap();
+        Usuario usuario = new Usuario(id_usuario);
+        TipoSuscripcion tipoSuscripcion = servicioSuscripcion.getTipoPorid(id_tipo);
+
+        servicioSuscripcion.cancelarSuscripcionForzada(usuario);
+
+        servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
+
+        request.getSession().setAttribute("tieneSuscripcion",true);
+
         return new ModelAndView("redirect:/main");
     }
 
@@ -99,8 +118,21 @@ public class ControladorSuscripcion {
         return new ModelAndView("redirect:/main");
     }
 
-    //@Scheduled(fixedRate = 10000)
-    @Scheduled(cron = "0 29 19 ? * *")
+    @RequestMapping(path = "/mejorar-suscripcion")
+    private ModelAndView mejorarSuscripcion(Long id_mejora, String nombre_mejora, HttpServletRequest request){
+
+        ModelMap model = new ModelMap();
+
+        model.put("id_mejora", id_mejora);
+        model.put("id_usuarioMejora", request.getSession().getAttribute("id"));
+        model.put("nombre_mejora", nombre_mejora);
+
+        return new ModelAndView("mejorar-suscripcion", model);
+
+    }
+
+    //@Scheduled(cron = "0 29 19 ? * *")
+    @Scheduled(fixedRate = 10000)
     public void controlDeFechaDeSuscripciones(){
         //System.out.println("Fixed rate task ");
         servicioSuscripcion.revisionDeSuscripciones();
