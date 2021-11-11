@@ -31,7 +31,7 @@
                     <p class="card-text">Retiro el auto: ${salida} en ${lugarRetiro.direccion}</p>
                     <p class="card-text">Devuelvo el auto: ${ingreso} en ${lugarDevolucion.direccion}</p>
                     <div class="col-sm-12 d-flex justify-content-center">
-                        <a href="validar-alquiler?id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}&lugarRetiro=${lugarRetiro.id}&lugarDevolucion=${lugarDevolucion.id}" class="btn btn-dark mt-5" >ALQUILAR</a>
+                        <a href="validar-alquiler?id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}&lugarRetiro=${lugarRetiro.id}&lugarDevolucion=${lugarDevolucion.id}" class="btn btn-dark" >ALQUILAR</a>
                     </div>
                 </div>
             </div>

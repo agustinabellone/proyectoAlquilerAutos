@@ -43,24 +43,24 @@
                 <c:choose>
                     <c:when test="${tieneSuscripcion==false}">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="img/cliente-feliz.jpg" alt="Cliente Feliz">
+                            <img class="card-img-top" src="img/noTieneSuscripcion.png" alt="no tiene suscripcion">
                             <div class="card-body">
-                                <h5 class="card-title">Suscripcion</h5>
-                                <p class="card-text">No se encuentra suscripto a ningun plan  :(</p>
-                                <a href="ir-a-suscribir" class="btn btn-danger">¡Suscribirme!</a>
+                                <h5 class="card-title">Suscripción</h5>
+                                <p class="card-text">No se encuentra suscripto a ningun plan :(</p>
+                                <a href="ir-a-suscribir" class="btn btn-success">¡Suscribirme!</a>
                             </div>
                         </div>
                     </c:when>
                     <c:otherwise>
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="img/cliente-feliz.jpg" alt="Cliente feliz">
+                            <img class="card-img-top" src="img/suscribirse.jpg" alt="tiene suscripcion">
                             <div class="card-body">
-                                <h5 class="card-title">Suscripcion</h5>
-                                <p class="card-text">Nivel de Suscripcion : <span class="text-primary">${tipoSuscripcion.getNombre()}</span></p>
+                                <h5 class="card-title">Suscripción</h5>
+                                <p class="card-text">Nivel: <span class="text-primary">${tipoSuscripcion.getNombre()}</span></p>
                                 <c:if test="${suscripcion.getRenovacion() == false}">
                                     <p class="card-text text-danger"><strong>Su suscripcion acabara al finalizar el mes</strong> </p>
                                 </c:if>
-                                <a href="administrar-suscripcion" class="btn btn-danger">Administre su suscripcion</a>
+                                <a href="administrar-suscripcion" class="btn btn-success">Administrar</a>
                             </div>
                         </div>
                     </c:otherwise>

@@ -20,8 +20,8 @@
 <jsp:include page="header.jsp" />
 <section>
     <div class="container">
-        <div>
-            <h1 class="display-4 p-4 text-center">Suscribite a uno de nuestros planes</h1>
+        <div class="col-sm-12 d-flex justify-content-center">
+            <h1 class="text-center mt-5">Suscribite a uno de nuestros planes</h1>
         </div>
     </div>
 </section>
@@ -121,16 +121,6 @@
                 </div>
             </div>
         </div>
-        <!--<div class="d-flex justify-content-center">
-            <form action=renovar-suscripcion method="post">
-                <div class="form-group">
-                    <label for="idCliente">Id del Cliente</label>
-                    <input type="text" class="form-text" name="id" id="idCliente" aria-describedby="emailHelp" placeholder="Ingrese Id">
-                    <small id="idHelp" class="form-text text-muted">Ingresa el Id del usuario ya suscripto</small>
-                </div>
-                <button type="submit" class="btn btn-primary ">Renovar</button>
-            </form>
-        </div> -->
     </div>
 </section>
 

@@ -21,8 +21,8 @@
 <jsp:include page="header.jsp" />
 <section>
     <div class="container">
-        <div>
-            <h1 class=" display-4 p-4">Confirme su suscripcion</h1>
+        <div class="col-sm-12 d-flex justify-content-center">
+            <h1 class="text-center mt-5">Confirme su suscripción</h1>
         </div>
     </div>
 </section>
@@ -35,10 +35,10 @@
 
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Por favor <c:out value="${nombre}"/>, confirmá tu suscripcion</h5>
+                    <h5 class="card-title">Por favor <c:out value="${nombre}"/>, confirmá tu suscripción</h5>
                     <p class="card-text">¿Te suscribimos al plan número <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>
-                    <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id}" class="btn btn-primary">Confirmar</a>
-                    <a href="ir-a-suscribir" class="btn btn-primary">Volver</a>
+                    <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id}" class="btn btn-success">Confirmar</a>
+                    <a href="ir-a-suscribir" class="btn btn-secondary">Volver</a>
                 </div>
                 <div class="card-footer text-muted">
                     <c:if test="${not empty error}">

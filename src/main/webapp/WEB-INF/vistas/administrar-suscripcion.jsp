@@ -13,7 +13,6 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/planes.css"/>
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
@@ -21,7 +20,7 @@
 <section>
     <div class="container">
         <div>
-            <h1 class="display-4 p-4 text-center">Administre su Suscripcion</h1>
+            <h1 class="text-center mt-5">Administre su Suscripcion</h1>
             <c:if test="${not empty errorDarDeBaja}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>-Error-</strong> ${errorDarDeBaja}.
@@ -32,7 +31,7 @@
             </c:if>
         </div>
         <div>
-            <h3 class="display-6 p-4 text-left">Usted se encuentra suscripto al nivel <span class="text-primary">${tipoSuscripcion.getNombre()}</span></h3>
+            <h5 class="p-2 mt-3 text-left">Usted se encuentra suscripto al nivel <span class="text-primary">${tipoSuscripcion.getNombre()}</span></h5>
             <c:if test="${suscripcion.getRenovacion() == false}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong class="text-danger p-2">Su suscripcion fue dada de baja y no sera renovada automaticamente</strong>
@@ -43,7 +42,7 @@
             </c:if>
         </div>
         <div>
-            <h4 class="display-8 p-4 text-left text-success">Aqui puede mejorar su nivel de suscripcion o descactivarla</h4>
+            <h6 class=" p-2 text-left">Acá podes mejorar tu nivel de suscripcion o desactivarla:</h6>
         </div>
     </div>
 </section>
@@ -149,7 +148,9 @@
             <!-- row  -->
                     <div class="card card-shadow p-4 text-center  ">
                         <h3>Cancele su suscripcion al finalizar el mes</h3>
-                        <button type="button" class="btn btn-danger border-0 text-white p-3 mt-3" style="width: 50%; margin: auto" data-toggle="modal" data-target="#desactivacionModal">Cancelar</button>
+                        <div class="col-sm-12 d-flex justify-content-center">
+                            <button type="button" class="btn btn-danger mt-3" style="width: 50%; margin: auto" data-toggle="modal" data-target="#desactivacionModal">Cancelar</button>
+                        </div>
                     </div>
         </div>
     </div>
