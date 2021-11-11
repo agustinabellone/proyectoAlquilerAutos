@@ -29,9 +29,14 @@
                     </button>
                 </div>
             </c:if>
-        </div>
-        <div>
-            <h5 class="p-2 mt-3 text-left">Usted se encuentra suscripto al nivel <span class="text-primary">${tipoSuscripcion.getNombre()}</span></h5>
+            <c:if test="${not empty errorDarDeAlta}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>-Error-</strong> ${errorDarDeAlta}.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </c:if>
             <c:if test="${suscripcion.getRenovacion() == false}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong class="text-danger p-2">Su suscripcion fue dada de baja y no sera renovada automaticamente</strong>
@@ -42,7 +47,20 @@
             </c:if>
         </div>
         <div>
-            <h6 class=" p-2 text-left">Acá podes mejorar tu nivel de suscripcion o desactivarla:</h6>
+            <h6 class=" p-2 m-4 text-left">Acá podes administrar las distintas opciones de tu suscripcion:</h6>
+        </div>
+        <div class="card text-center " style="width: 50%; margin: auto;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Usted se encuentra suscripto al nivel: <span class="text-primary">${tipoSuscripcion.getNombre()}</span></li>
+                <li class="list-group-item">Fecha de Inicio: <span class="text-primary">${suscripcion.getFechaInicio()}</span></li>
+                <li class="list-group-item">Fecha de Fin: <span class="text-primary">${suscripcion.getFechaFin()}</span></li>
+                <c:if test="${suscripcion.getRenovacion()== true}">
+                    <li class="list-group-item">Renovacion: <span class="text-success">Activa</span></li>
+                </c:if>
+                <c:if test="${suscripcion.getRenovacion()== false}">
+                    <li class="list-group-item">Renovacion: <span class="text-danger">Desactivada</span></li>
+                </c:if>
+            </ul>
         </div>
     </div>
 </section>
@@ -145,21 +163,39 @@
                     <!-- column  -->
                 </div>
             </c:if>
-            <!-- row  -->
-                    <div class="card card-shadow p-4 text-center  ">
-                        <h3>Cancele su suscripcion al finalizar el mes</h3>
-                        <div class="col-sm-12 d-flex justify-content-center">
-                            <button type="button" class="btn btn-danger mt-3" style="width: 50%; margin: auto" data-toggle="modal" data-target="#desactivacionModal">Cancelar</button>
-                        </div>
+            <c:if test="${tipoSuscripcion.getNombre()=='Diamante'}">
+                <div class="card m-3 card-shadow p-4 text-center  ">
+                    <h3>Usted ya se encuentra suscripto al nivel mas alto del que disponemos</h3>
+                    <div class="col-sm-12 d-flex justify-content-center">
+                        <a href="main" type="button" class="btn btn-warning">Volver a Mi Cuenta</a>
                     </div>
+                </div>
+            </c:if>
+            <!-- row  -->
+            <c:if test="${suscripcion.getRenovacion() == true}">
+                <div class="card card-shadow p-4 text-center  ">
+                    <h3>Cancele su suscripcion al finalizar el plazo</h3>
+                    <div class="col-sm-12 d-flex justify-content-center">
+                        <button type="button" class="btn btn-danger mt-3" style="width: 50%; margin: auto" data-toggle="modal" data-target="#desactivacionModal">Cancelar</button>
+                    </div>
+                </div>
+            </c:if>
+            <c:if test="${suscripcion.getRenovacion() == false}">
+                <div class="card card-shadow p-4 text-center  ">
+                    <h3>Reactive su suscripcion, para que esta se renueve al finalizar el plazo</h3>
+                    <div class="col-sm-12 d-flex justify-content-center">
+                        <button type="button" class="btn btn-success mt-3" style="width: 50%; margin: auto" data-toggle="modal" data-target="#activacionnModal">Activar</button>
+                    </div>
+                </div>
+            </c:if>
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="desactivacionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="desactivacionModal" tabindex="-1" role="dialog" aria-labelledby="desactivacionModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cancelar suscripcion</h5>
+                    <h5 class="modal-title" id="desactivacionModalLabel">Cancelar suscripcion</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -170,6 +206,27 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <a href="darDeBajaSuscripcion"><button type="button" class="btn btn-danger">Cancelar suscripcion</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Fin del modal-->
+    <!-- Modal -->
+    <div class="modal fade" id="activacionnModal" tabindex="-1" role="dialog" aria-labelledby="activacionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="activacionModalLabel">Reactivar suscripcion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro? Al finalizar el plazo, su suscripcion sera renovada automaticamente
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <a href="darDeAltaSuscripcion"><button type="button" class="btn btn-danger">Reactivar suscripcion</button></a>
                 </div>
             </div>
         </div>

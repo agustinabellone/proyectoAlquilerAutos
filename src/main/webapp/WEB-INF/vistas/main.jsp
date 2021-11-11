@@ -30,6 +30,14 @@
                 </button>
             </div>
         </c:if>
+        <c:if test="${not empty confirmacionDarDeAlta}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>-</strong> ${confirmacionDarDeAlta}<strong>-</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
 
         <div class="d-flex justify-content-around">
             <div class="card col-sm-3">
@@ -58,7 +66,8 @@
                                 <h5 class="card-title">Suscripción</h5>
                                 <p class="card-text">Nivel: <span class="text-primary">${tipoSuscripcion.getNombre()}</span></p>
                                 <c:if test="${suscripcion.getRenovacion() == false}">
-                                    <p class="card-text text-danger"><strong>Su suscripcion acabara al finalizar el mes</strong> </p>
+                                    <p class="card-text text-danger"><strong>Su suscripcion acabara al finalizar el plazo</strong> </p>
+                                    <p class="card-text text-danger"><strong>${suscripcion.getFechaFin()}</strong> </p>
                                 </c:if>
                                 <a href="administrar-suscripcion" class="btn btn-success">Administrar</a>
                             </div>

@@ -19,5 +19,6 @@ public interface ServicioSuscripcion {
     TipoSuscripcion getTipoPorid(Long id_tipo);
 
     void cancelarSuscripcionForzada(Usuario usuario);
-    
+
+    void activarRenovacionAutomaticaDeSuscripcion(Long id);
 }

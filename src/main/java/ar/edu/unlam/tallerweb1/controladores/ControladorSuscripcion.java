@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
+import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaActivadaException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaCanceladaException;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -105,6 +106,21 @@ public class ControladorSuscripcion {
         return new ModelAndView("main", model);
     }
 
+    @RequestMapping(path = "/darDeAltaSuscripcion")
+    public ModelAndView darDeAltaSuscripcion(HttpServletRequest request) {
+        Long id= (Long)request.getSession().getAttribute("id");
+        try{
+            servicioSuscripcion.activarRenovacionAutomaticaDeSuscripcion(id);
+        }catch(SuscripcionYaActivadaException e){
+            ModelMap model = new ModelMap();
+            model.put("errorDarDeAlta","Su suscripcion ya fue reactivada");
+            return new ModelAndView("administrar-suscripcion", model);
+        }
+        ModelMap model = new ModelMap();
+        model.put("confirmacionDarDeAlta","Su suscripcion fue reactivada exitosamente");
+        return new ModelAndView("main", model);
+    }
+
     @RequestMapping(path = "/administrar-suscripcion")
     private ModelAndView mostrarAdministrarSuscripcion(HttpServletRequest request){
 
@@ -131,8 +147,9 @@ public class ControladorSuscripcion {
 
     }
 
-    //@Scheduled(cron = "0 29 19 ? * *")
-    @Scheduled(fixedRate = 10000)
+
+    //@Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 29 19 ? * *")
     public void controlDeFechaDeSuscripciones(){
         //System.out.println("Fixed rate task ");
         servicioSuscripcion.revisionDeSuscripciones();
