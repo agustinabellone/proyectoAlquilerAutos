@@ -1,8 +1,11 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
+
+import java.util.List;
 
 public interface ServicioSuscripcion {
 
@@ -21,4 +24,6 @@ public interface ServicioSuscripcion {
     void cancelarSuscripcionForzada(Usuario usuario);
 
     void activarRenovacionAutomaticaDeSuscripcion(Long id);
+
+    List<Suscripcion> obtenerUsuariosSuscriptos() throws NoHayClientesSuscriptosAlPlanBasico;
 }

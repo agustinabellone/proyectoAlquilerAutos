@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -57,6 +58,12 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         usuario.setNombre(nombre);
         usuario.setClave(contraseña);
         this.sessionFactory.getCurrentSession().update(usuario);
+    }
+
+    @Override
+    public List<Usuario> buscarUsuariosPorSuscripcion(Suscripcion suscripcion) {
+        return sessionFactory.getCurrentSession().createCriteria(Usuario.class).
+                add(Restrictions.eq("usuario",suscripcion.getUsuario())).list();
     }
 
 

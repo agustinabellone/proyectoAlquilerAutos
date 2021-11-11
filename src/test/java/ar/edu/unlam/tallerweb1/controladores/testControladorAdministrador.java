@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,14 +29,14 @@ public class testControladorAdministrador {
     private HttpSession session;
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
-    private ServicioUsuario servicioUsuario;
+    private ServicioSuscripcion servicioSuscripcion;
 
     @Before
     public void init() {
         servicioDeAuto = mock(ServicioDeAuto.class);
         servicioAlquiler = mock(ServicioAlquiler.class);
-        servicioUsuario = mock(ServicioUsuario.class);
-        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto,servicioUsuario);
+        servicioSuscripcion = mock(ServicioSuscripcion.class);
+        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto,servicioSuscripcion);
         modelAndView = new ModelAndView();
         request = mock(HttpServletRequest.class);
         session = mock(HttpSession.class);
