@@ -55,7 +55,7 @@ public class ControladorDevolucion {
         Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
         Garage garagePartida = servicioGarage.obtenerGaragePorID(alquilerActivo.getGaragePartida().getId());
-        Garage garageLlegadaEst = servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegada().getId());
+        Garage garageLlegadaEst = servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegadaEst().getId());
         Auto auto = alquilerActivo.getAuto();
         String fechaInicio = alquilerActivo.getF_egreso().toString();
 
