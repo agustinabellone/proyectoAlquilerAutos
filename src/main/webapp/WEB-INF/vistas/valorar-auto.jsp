@@ -1,6 +1,5 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -29,9 +28,6 @@
 </section>
 <section>
     <div class="container">
-        <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Confirmación</h1>
-        </div>
             <div class="">
                 <div class="col-lg-12">
                     <div class="d-flex ">
@@ -50,7 +46,7 @@
                                 <div>
                                     <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
                                     <div class="col-sm-12 d-flex justify-content-center mb-3">
-                                        <button class="btn btn-lg btn-dark btn-block" Type="Submit" />Comentar</button>
+                                        <button class="btn btn-lg btn-dark btn-block" Type="Submit" />Valorar</button>
                                     </div>
                                 </div>
                             </form>
@@ -61,6 +57,11 @@
                             </div>
                         </div>
                     </div>
+                    <c:if test="${not empty valorarLuego}">
+                    <div class="d-flex justify-content-center">
+                        <a href="main" class="btn btn-dark mt-3 mb-3">Valorar luego</a>
+                    </div>
+                </c:if>
 
                 </div>
 

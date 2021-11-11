@@ -100,6 +100,7 @@ public class ControladorDevolucion {
         Auto auto = alquiler.getAuto();
         modelo.put("alquilerID", alquiler.getId());
         modelo.put("auto", auto);
+        modelo.put("valorarLuego", "valorarLuego");
         servicioDevolucion.finalizarAlquilerCliente(alquiler);
         return new ModelAndView("valorar-auto", modelo);
     }

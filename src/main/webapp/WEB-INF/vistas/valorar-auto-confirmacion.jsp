@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,7 +20,7 @@
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Confirmación </h1>
+            <h1 class="text-center mt-5">ConfirmaciÃ³n </h1>
         </div>
         <c:if test="${not empty mensaje}">
             <div class="alert alert-success text-center container mt-3" role="alert">

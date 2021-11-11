@@ -29,6 +29,7 @@ public class RepositorioValoracionImpl implements RepositorioValoracion {
         return this.sessionFactory.getCurrentSession()
                 .createCriteria(Alquiler.class)
                 .add(Restrictions.eq("usuario",usuario))
+                .add(Restrictions.eq("estado",Estado.FINALIZADO))
                 .list();
     }
 
