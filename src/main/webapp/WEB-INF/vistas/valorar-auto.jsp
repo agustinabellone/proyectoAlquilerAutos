@@ -28,54 +28,47 @@
     </div>
 </section>
 <section>
-    <div class="pricing6 mt-5">
-        <div class="container">
-            <div class="col center-block">
-                <div class="col-md-12">
-                    <div class="card card-shadow border-0 mb-4">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center">
-                                <h3 class="font-weight-medium mb-0"><c:> ${auto.marca.descripcion} ${auto.modelo.descripcion} </c:></h3>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="col-lg-12">
-                                <div class="d-flex ">
-                                    <div class="col-lg-6">
-                                        <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}" method="post">
-                                            <input type="radio" id="uno" name="estrellasValoracion" value="5" required>
-                                            <label for="uno"><i class="fa fa-star"></i></label>
-                                            <input type="radio" id="dos" name="estrellasValoracion" value="4">
-                                            <label for="dos"><i class="fa fa-star"></i></label>
-                                            <input type="radio" id="tres" name="estrellasValoracion" value="3">
-                                            <label for="tres"><i class="fa fa-star"></i></label>
-                                            <input type="radio" id="cuatro" name="estrellasValoracion" value="2">
-                                            <label for="cuatro"><i class="fa fa-star"></i></label>
-                                            <input type="radio" id="cinco" name="estrellasValoracion" value="1">
-                                            <label for="cinco"><i class="fa fa-star"></i></label>
-                                            <div>
-                                                <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
-                                                <div class="col-sm-12 d-flex justify-content-center mb-3">
-                                                    <button class="btn btn-lg btn-dark btn-block" Type="Submit" />Comentar</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="container">
-                                            <img src="${auto.imagen}" alt="auto" style="width: 100%; height: auto;">
-                                        </div>
+    <div class="container">
+        <div class="col-sm-12 d-flex justify-content-center">
+            <h1 class="text-center mt-5">Confirmación</h1>
+        </div>
+            <div class="">
+                <div class="col-lg-12">
+                    <div class="d-flex ">
+                        <div class="col-lg-6">
+                            <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}" method="post">
+                                <input type="radio" id="uno" name="estrellasValoracion" value="5" required>
+                                <label for="uno"><i class="fa fa-star"></i></label>
+                                <input type="radio" id="dos" name="estrellasValoracion" value="4">
+                                <label for="dos"><i class="fa fa-star"></i></label>
+                                <input type="radio" id="tres" name="estrellasValoracion" value="3">
+                                <label for="tres"><i class="fa fa-star"></i></label>
+                                <input type="radio" id="cuatro" name="estrellasValoracion" value="2">
+                                <label for="cuatro"><i class="fa fa-star"></i></label>
+                                <input type="radio" id="cinco" name="estrellasValoracion" value="1">
+                                <label for="cinco"><i class="fa fa-star"></i></label>
+                                <div>
+                                    <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
+                                    <div class="col-sm-12 d-flex justify-content-center mb-3">
+                                        <button class="btn btn-lg btn-dark btn-block" Type="Submit" />Comentar</button>
                                     </div>
                                 </div>
-
+                            </form>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="container">
+                                <img src="${auto.imagen}" alt="auto" style="width: 100%; height: auto;">
                             </div>
-
                         </div>
                     </div>
+
                 </div>
+
             </div>
-        </div>
     </div>
+
+
+
 </section>
 <jsp:include page="footer.jsp" />
 </body>

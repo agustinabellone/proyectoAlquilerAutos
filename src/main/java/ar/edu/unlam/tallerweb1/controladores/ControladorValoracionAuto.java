@@ -73,7 +73,7 @@ public class ControladorValoracionAuto {
 
         servicioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto,alquilerID);
         modelo.put("mensaje", "Auto valorado exitosamente");
-        return new ModelAndView("redirect:/main",modelo);
+        return new ModelAndView("valorar-auto-confirmacion", modelo);
 
     }
 
