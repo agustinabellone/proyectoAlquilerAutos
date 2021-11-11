@@ -30,4 +30,6 @@ public interface ServicioAlquiler {
     Garage obtenerGaragePorId(Long lugar);
 
     boolean buscarSiElAutoYaFueAlquiladoEnEsasFechas(Auto auto, LocalDate f_egreso, LocalDate f_ingreso);
+
+    Alquiler obtenerAlquilerPendienteDeUsuario(Usuario usuario);
 }

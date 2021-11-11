@@ -33,7 +33,7 @@ public class Alquiler {
     private Garage garageLlegada;
 
     @ManyToOne
-    private Encargado encargado;
+    private Usuario encargado;
     private Estado estado; //ACTIVO O FINALIZADO
 
 
@@ -57,6 +57,7 @@ public class Alquiler {
 
     public Alquiler(DatosAlquiler datosAlquiler) {
         this.auto = datosAlquiler.getAuto();
+        this.encargado= datosAlquiler.getLugarDevolucion().getEncargado();
         this.usuario = datosAlquiler.getUsuario();
         this.f_ingreso = datosAlquiler.getF_ingreso();
         this.f_egreso = datosAlquiler.getF_salida();
@@ -97,6 +98,15 @@ public class Alquiler {
     public void setAdicionalCambioLugarFecha(Float adicionalCambioLugarFecha) {
         this.adicionalCambioLugarFecha = adicionalCambioLugarFecha;
     }
+
+    public Usuario getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(Usuario encargado) {
+        this.encargado = encargado;
+    }
+
 
     public Float getAdicionalInfraccionesOtro() {
         return adicionalInfraccionesOtro;
@@ -152,14 +162,6 @@ public class Alquiler {
 
     public void setGarageLlegada(Garage garageLlegada) {
         this.garageLlegada = garageLlegada;
-    }
-
-    public Encargado getEncargado() {
-        return encargado;
-    }
-
-    public void setEncargado(Encargado encargado) {
-        this.encargado = encargado;
     }
 
     public Estado getEstado() {

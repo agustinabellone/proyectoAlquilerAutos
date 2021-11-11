@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -15,8 +15,8 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public RepositorioUsuarioImpl(SessionFactory sessionFactory){
-        this.sessionFactory=sessionFactory;
+    public RepositorioUsuarioImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
@@ -57,6 +57,14 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         usuario.setNombre(nombre);
         usuario.setClave(contraseña);
         this.sessionFactory.getCurrentSession().update(usuario);
+    }
+
+    @Override
+    public List<Solicitud> obtenerSolicitudesPendientesDeUnEncargado(Usuario usuario) {
+
+        return sessionFactory.getCurrentSession().createCriteria(Solicitud.class).
+                add(Restrictions.eq("encargado", usuario))
+                .add(Restrictions.eq("estadoSolicitud", EstadoSolicitud.PENDIENTE)).list();
     }
 
 

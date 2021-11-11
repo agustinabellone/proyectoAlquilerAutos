@@ -1,16 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
 Created-By: IntelliJ IDEA
-Built-By: luz
-Build-Jdk: version 11.0.12
+Built-By: Lu
+Build-Jdk: version 13.0.2
 
-=======
-Class-Path: 
-<<<<<<< HEAD
->>>>>>> develop
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
->>>>>>> develop

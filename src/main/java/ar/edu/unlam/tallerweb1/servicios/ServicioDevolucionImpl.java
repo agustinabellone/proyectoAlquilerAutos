@@ -49,13 +49,14 @@ public class ServicioDevolucionImpl implements ServicioDevolucion{
     }
 
     @Override
-    public void finalizarAlquilerCliente(Alquiler alquiler) {
+    public void finalizarAlquilerCliente(Solicitud solicitud) {
         //CAMBIAR ESTADO AUTO, CAMBIAR ESTADO ALQUIER
-        alquiler.getAuto().setSituacion(Situacion.DISPONIBLE);
-        alquiler.setEstado(Estado.FINALIZADO);
-        Float adicional = alquiler.getAdicionalCambioLugarFecha();
-        alquiler.setAdicionalCambioLugarFecha(adicional);
-        repositorioDevolucion.finalizarAlquilerCliente(alquiler); //UPDATE
+        solicitud.setEstadoSolicitud(EstadoSolicitud.ACEPTADA);
+        solicitud.getAlquiler().getAuto().setSituacion(Situacion.DISPONIBLE);
+        solicitud.getAlquiler().setEstado(Estado.FINALIZADO);
+        Float adicional = solicitud.getAlquiler().getAdicionalCambioLugarFecha();
+        solicitud.getAlquiler().setAdicionalCambioLugarFecha(adicional);
+        repositorioDevolucion.finalizarAlquilerCliente(solicitud.getAlquiler()); //UPDATE
     }
 
 }

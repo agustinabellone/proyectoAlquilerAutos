@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -18,7 +18,7 @@
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
-<jsp:include page="header.jsp" />
+<jsp:include page="header.jsp"/>
 <section>
     <div class="container text-center">
         <div class="col-sm-12 d-flex justify-content-center">
@@ -27,92 +27,99 @@
     </div>
 </section>
 <section>
-    <div class="container">
-            <div class="">
-                <div class="col-lg-12">
-                    <div class="d-flex ">
-                        <div class="col-lg-6">
-                            <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}" method="post">
-                                <input type="radio" id="uno" name="estrellasValoracion" value="5" required>
-                                <label for="uno"><i class="fa fa-star"></i></label>
-                                <input type="radio" id="dos" name="estrellasValoracion" value="4">
-                                <label for="dos"><i class="fa fa-star"></i></label>
-                                <input type="radio" id="tres" name="estrellasValoracion" value="3">
-                                <label for="tres"><i class="fa fa-star"></i></label>
-                                <input type="radio" id="cuatro" name="estrellasValoracion" value="2">
-                                <label for="cuatro"><i class="fa fa-star"></i></label>
-                                <input type="radio" id="cinco" name="estrellasValoracion" value="1">
-                                <label for="cinco"><i class="fa fa-star"></i></label>
-                                <div>
-                                    <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
-                                    <div class="col-sm-12 d-flex justify-content-center mb-3">
-                                        <button class="btn btn-lg btn-dark btn-block" Type="Submit" />Valorar</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="container">
-                                <img src="${auto.imagen}" alt="auto" style="width: 100%; height: auto;">
-                            </div>
-                        </div>
-                    </div>
-                    <c:if test="${not empty valorarLuego}">
-                    <div class="d-flex justify-content-center">
-                        <a href="main" class="btn btn-dark mt-3 mb-3">Valorar luego</a>
-                    </div>
-                </c:if>
-
+<div class="container">
+<div class="">
+<div class="col-lg-12">
+<div class="d-flex ">
+    <div class="col-lg-6">
+        <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}"
+              method="post">
+            <input type="radio" id="uno" name="estrellasValoracion" value="5" required>
+            <label for="uno"><i class="fa fa-star"></i></label>
+            <input type="radio" id="dos" name="estrellasValoracion" value="4">
+            <label for="dos"><i class="fa fa-star"></i></label>
+            <input type="radio" id="tres" name="estrellasValoracion" value="3">
+            <label for="tres"><i class="fa fa-star"></i></label>
+            <input type="radio" id="cuatro" name="estrellasValoracion" value="2">
+            <label for="cuatro"><i class="fa fa-star"></i></label>
+            <input type="radio" id="cinco" name="estrellasValoracion" value="1">
+            <label for="cinco"><i class="fa fa-star"></i></label>
+            <div>
+                <p><textarea class="form-control mt-3" name="comentario" rows="5" required
+                             placeholder="Escribir comentario... "></textarea></p>
+                <div class="col-sm-12 d-flex justify-content-center mb-3">
+                    <button class="btn btn-lg btn-dark btn-block" Type="Submit"/>
+                    Valorar</button>
                 </div>
-
             </div>
+        </form>
+    </div>
+    <div class="col-lg-6">
+        <div class="container">
+            <img src="${auto.imagen}" alt="auto" style="width: 100%; height: auto;">
+        </div>
+    </div>
+</div>
+<c:if test="${not empty solicitud}">
+    <div class="d-flex justify-content-center">
+    <h3>Espere a que la devolución se de por finalizada</h3>
+    </div>
+</c:if>
+    <c:if test="${not empty valorarLuego}">
+        <div class="d-flex justify-content-center">
+            <a href="main" class="btn btn-dark mt-3 mb-3">Valorar luego</a>
+        </div>
+    </c:if>
+
+
+    </div>
+
+    </div>
     </div>
 
 
-
-</section>
-<jsp:include page="footer.jsp" />
-</body>
-
+    </section>
+    <jsp:include page="footer.jsp"/>
+    </body>
 
 
-<style type="text/css">
+    <style type="text/css">
     input{
-        display: none;
+    display: none;
     }
     label {
-        font-size: 20px;
-        color: grey;
+    font-size: 20px;
+    color: grey;
     }
     label:hover,
     label:hover ~ label {
-        color: #ff8400;
+    color: #ff8400;
     }
     input[type="radio"]:checked ~ label {
-        color: orange;
+    color: orange;
     }
     form{
-        direction: rtl;
-        unicode-bidi: bidi-override;
+    direction: rtl;
+    unicode-bidi: bidi-override;
     }
     textarea{
-        direction: ltr;
+    direction: ltr;
     }
-</style>
+    </style>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-</body>
-</html>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+    <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+    <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+    </body>
+    </html>
 
