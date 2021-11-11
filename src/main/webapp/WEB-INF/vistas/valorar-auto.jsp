@@ -22,13 +22,13 @@
 <jsp:include page="header.jsp" />
 <section>
     <div class="container text-center">
-        <div>
-            <h1 class="display-4 p-4"></h1>
+        <div class="col-sm-12 d-flex justify-content-center">
+            <h1 class="text-center mt-5">Valorar Vehiculo</h1>
         </div>
     </div>
 </section>
 <section>
-    <div class="pricing6 py-5 bg-light">
+    <div class="pricing6 mt-5">
         <div class="container">
             <div class="col center-block">
                 <div class="col-md-12">
@@ -40,10 +40,8 @@
                         </div>
                         <div class="">
                             <div class="col-lg-12">
-
-                                <div class="row mt-3">
-                                    <div class="col-lg-6 align-self-center">
-                                        <p>Valorar vehículo</p>
+                                <div class="d-flex ">
+                                    <div class="col-lg-6">
                                         <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}" method="post">
                                             <input type="radio" id="uno" name="estrellasValoracion" value="5" required>
                                             <label for="uno"><i class="fa fa-star"></i></label>
@@ -55,16 +53,17 @@
                                             <label for="cuatro"><i class="fa fa-star"></i></label>
                                             <input type="radio" id="cinco" name="estrellasValoracion" value="1">
                                             <label for="cinco"><i class="fa fa-star"></i></label>
-
-                                            <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
-                                            <div class="col-sm-12 d-flex justify-content-center">
-                                                <button class="btn btn-lg btn-primary btn-block" Type="Submit" />Cargar</button>
+                                            <div>
+                                                <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
+                                                <div class="col-sm-12 d-flex justify-content-center mb-3">
+                                                    <button class="btn btn-lg btn-dark btn-block" Type="Submit" />Comentar</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="container">
-                                            <img src="${auto.imagen}" alt="" style="width: 100%; height: auto;">
+                                            <img src="${auto.imagen}" alt="auto" style="width: 100%; height: auto;">
                                         </div>
                                     </div>
                                 </div>
