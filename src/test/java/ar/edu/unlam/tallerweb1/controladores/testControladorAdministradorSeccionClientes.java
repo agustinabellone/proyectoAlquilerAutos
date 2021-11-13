@@ -1,13 +1,18 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
+import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
+import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
@@ -20,11 +25,12 @@ public class testControladorAdministradorSeccionClientes {
     private static final String INVITADO = "invitado";
     private HttpServletRequest request = mock(HttpServletRequest.class);
     private HttpSession session = mock(HttpSession.class);
-    private ControladorAdministrador controlador = new ControladorAdministrador();
     private ModelAndView modelAndView = new ModelAndView();
-    private TipoSuscripcion basico = new TipoSuscripcion(1l);
-    private TipoSuscripcion oro = new TipoSuscripcion(2l);
-    private TipoSuscripcion diamante = new TipoSuscripcion(3l);
+    private Suscripcion suscripcion = new Suscripcion();
+    private ServicioAlquiler servicioAlquiler = mock(ServicioAlquiler.class);
+    private ServicioDeAuto servicioDeAuto = mock(ServicioDeAuto.class);
+    private ServicioSuscripcion servicioSuscripcion = mock(ServicioSuscripcion.class);
+    private ControladorAdministrador controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto, servicioSuscripcion);
 
     @Test
     public void queElAdminstradorPuedaAccederALaVistaDeLosClientesSuscriptos() {
@@ -42,9 +48,12 @@ public class testControladorAdministradorSeccionClientes {
 
     @Test
     public void queElUsuarioAdmistradorPuedaVerUnaListaDeLosClientesQueEstanSuscriptos() {
-
+        givenExistenClientesSuscriptos(3);
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
+        givenIngresaALaVistaDeLosCLientesSuscriptos(administrador);
+        List<Suscripcion> listaDeClientesSuscriptos = whenObtieneLaListaDeLosClientesSuscriptos();
+        thenSeMuestraLaVistaConLaLista(this.modelAndView);
     }
-
 
     private HttpServletRequest givenQueExisteUnUsuarioConRol(String rol) {
         when(request.getSession()).thenReturn(session);
@@ -56,8 +65,21 @@ public class testControladorAdministradorSeccionClientes {
         whenIngresaALaSeccionDeClienteSuscriptosEl(administrador);
     }
 
+    private void givenExistenClientesSuscriptos(int cantidad) {
+        List<Suscripcion> listaDeUsuariosSuscriptos = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            suscripcion.setUsuario(new Usuario());
+            listaDeUsuariosSuscriptos.add(suscripcion);
+        }
+        when(servicioSuscripcion.obtenerClientesSuscriptos()).thenReturn(listaDeUsuariosSuscriptos);
+    }
+
     private void whenIngresaALaSeccionDeClienteSuscriptosEl(HttpServletRequest administrador) {
         this.modelAndView = controlador.mostrarClientesSuscriptos(administrador);
+    }
+
+    private List<Suscripcion> whenObtieneLaListaDeLosClientesSuscriptos() {
+        return controlador.obtenerListaDeClientesSuscriptos();
     }
 
     private void thenSeMuestraLaVistaDeLosClientesSuscritos(ModelAndView modelAndView) {
@@ -67,5 +89,13 @@ public class testControladorAdministradorSeccionClientes {
     private void thenLoEnviaAlLoginConMensajeDeError(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("login");
         assertThat(modelAndView.getModel().get("errorSinPermisos")).isEqualTo("No tienes los permisos necesarios para acceder a esta pagina");
+    }
+
+    private void thenSeMuestraLaVistaConLaLista(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("clientes-suscriptos");
+        assertThat(modelAndView.getModel().get("lista_de_suscriptos")).isNotNull();
+        assertThat(modelAndView.getModel().get("lista_de_suscriptos")).isInstanceOf(List.class);
+        List<Suscripcion> usuarios = (List<Suscripcion>) modelAndView.getModel().get("lista_de_suscriptos");
+        assertThat(usuarios).hasSize(3);
     }
 }

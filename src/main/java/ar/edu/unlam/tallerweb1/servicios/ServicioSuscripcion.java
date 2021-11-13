@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
@@ -25,4 +24,5 @@ public interface ServicioSuscripcion {
 
     void activarRenovacionAutomaticaDeSuscripcion(Long id);
 
+    List<Suscripcion> obtenerClientesSuscriptos();
 }

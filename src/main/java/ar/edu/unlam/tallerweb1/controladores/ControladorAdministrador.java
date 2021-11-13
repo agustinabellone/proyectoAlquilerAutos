@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
@@ -35,6 +36,7 @@ public class ControladorAdministrador {
 
     public ControladorAdministrador() {
     }
+
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
     public ModelAndView irALaVistaPrincipal(HttpServletRequest request) {
@@ -106,7 +108,8 @@ public class ControladorAdministrador {
     @RequestMapping(method = RequestMethod.GET, path = "/clientes-suscriptos")
     public ModelAndView mostrarClientesSuscriptos(HttpServletRequest elUsuarioQueVienePorLaSesion) {
         if (elRolEstaSeteadoYEsAdministrador(elUsuarioQueVienePorLaSesion)) {
-            return new ModelAndView("clientes-suscriptos");
+            modelMap.put("lista_de_suscriptos",this.obtenerListaDeClientesSuscriptos());
+            return new ModelAndView("clientes-suscriptos",modelMap);
         } else {
             return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
         }
@@ -168,5 +171,9 @@ public class ControladorAdministrador {
 
     public List<Auto> obtenerListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
         return servicioAlquiler.obtenerAutosDisponibles();
+    }
+
+    public List<Suscripcion> obtenerListaDeClientesSuscriptos() {
+        return servicioSuscripcion.obtenerClientesSuscriptos();
     }
 }

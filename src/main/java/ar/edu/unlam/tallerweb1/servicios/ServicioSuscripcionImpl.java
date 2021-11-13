@@ -115,4 +115,9 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
         buscada.setRenovacion(true);
         repositorioSuscripcion.actualizarSuscripcion(buscada);
     }
+
+    @Override
+    public List<Suscripcion> obtenerClientesSuscriptos() {
+        throw new RuntimeException();
+    }
 }
