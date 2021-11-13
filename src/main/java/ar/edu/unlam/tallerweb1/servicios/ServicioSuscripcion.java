@@ -25,5 +25,4 @@ public interface ServicioSuscripcion {
 
     void activarRenovacionAutomaticaDeSuscripcion(Long id);
 
-    List<Suscripcion> obtenerUsuariosSuscriptos() throws NoHayClientesSuscriptosAlPlanBasico;
 }

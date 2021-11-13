@@ -22,7 +22,7 @@ import java.util.List;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class testControladorAdministrador {
+public class testControladorAdministradorSeccionAutos {
     private ControladorAdministrador controlador;
     private ModelAndView modelAndView;
     private HttpServletRequest request;

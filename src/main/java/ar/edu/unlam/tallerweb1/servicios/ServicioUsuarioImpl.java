@@ -22,7 +22,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     private RepositorioSuscripcion repositorioSuscripcion;
 
     @Autowired
-    public ServicioUsuarioImpl(RepositorioUsuario repositorioUsuario,RepositorioSuscripcion repositorioSuscripcion) {
+    public ServicioUsuarioImpl(RepositorioUsuario repositorioUsuario, RepositorioSuscripcion repositorioSuscripcion) {
         this.repositorioUsuario = repositorioUsuario;
         this.repositorioSuscripcion = repositorioSuscripcion;
     }
@@ -48,18 +48,6 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
             throw new ClaveLongitudIncorrectaException();
         }
         this.repositorioUsuario.actualizarUsuario(id_usuario, nombre, contraseña);
-    }
-
-   /* @Override
-    public List<Usuario> obtenerUsuariosSuscriptosAlPlanBasico() throws NoHayClientesSuscriptosAlPlanBasico {
-        TipoSuscripcion tipoSuscripcion = repositorioSuscripcion.getTipoPorId(1l);
-
-    }*/
-
-    @Override
-    public List<Usuario> obtenerUsuariosSuscriptos(Suscripcion suscripcion) {
-        List<Usuario> usuarios = repositorioUsuario.buscarUsuariosPorSuscripcion(suscripcion);
-        return null;
     }
 
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {

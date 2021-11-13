@@ -12,7 +12,5 @@ public interface ServicioDeAuto {
 
     Auto enviarAutoMantenimiento(Auto aEnviar) throws AutoYaExistente;
 
-    List<Auto> obtenerTodoLosAutos();
-
     List<Auto> obtenerAutosEnMantenimiento() throws NoHayAutosEnMantenientoException;
 }

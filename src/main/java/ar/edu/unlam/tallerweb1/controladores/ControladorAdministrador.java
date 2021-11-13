@@ -107,23 +107,6 @@ public class ControladorAdministrador {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET,path = "/clientes-suscriptos")
-    public ModelAndView mostrarClientesSuscriptos(HttpServletRequest usuarioAdministrador) {
-        if (elRolEstaSeteadoYEsAdministrador(usuarioAdministrador)) {
-            List<Suscripcion> suscripciones = null;
-            try {
-                suscripciones = servicioSuscripcion.obtenerUsuariosSuscriptos();
-                modelMap.put("usuarios_suscriptos",suscripciones);
-                return new ModelAndView("clientes-suscriptos",modelMap);
-            } catch (NoHayClientesSuscriptosAlPlanBasico e) {
-                modelMap.put("error_no_hay_clientes","No hay clientes suscriptos actualmente");
-                return new ModelAndView("clientes-suscriptos",modelMap);
-            }
-        } else {
-            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
-        }
-    }
-
     public List<Auto> obtenerListaDeAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
         return servicioDeAuto.obtenerAutosEnMantenimiento();
     }
