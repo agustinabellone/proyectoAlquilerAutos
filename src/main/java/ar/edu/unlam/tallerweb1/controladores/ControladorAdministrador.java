@@ -3,14 +3,10 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,8 +19,8 @@ import java.util.List;
 
 @Controller
 public class ControladorAdministrador {
-
     private ModelMap modelMap = new ModelMap();
+
     private String viewName;
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
@@ -107,6 +103,15 @@ public class ControladorAdministrador {
         }
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/clientes-suscriptos")
+    public ModelAndView mostrarClientesSuscriptos(HttpServletRequest elUsuarioQueVienePorLaSesion) {
+        if (elRolEstaSeteadoYEsAdministrador(elUsuarioQueVienePorLaSesion)) {
+            return new ModelAndView("clientes-suscriptos");
+        } else {
+            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
+        }
+    }
+
     public List<Auto> obtenerListaDeAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
         return servicioDeAuto.obtenerAutosEnMantenimiento();
     }
@@ -164,5 +169,4 @@ public class ControladorAdministrador {
     public List<Auto> obtenerListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
         return servicioAlquiler.obtenerAutosDisponibles();
     }
-
 }
