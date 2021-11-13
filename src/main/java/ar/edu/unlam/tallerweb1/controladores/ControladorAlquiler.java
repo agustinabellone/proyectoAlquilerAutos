@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -32,9 +33,9 @@ public class ControladorAlquiler {
     @RequestMapping(path = "/alquilar-auto", method = RequestMethod.GET)
     public ModelAndView mostrarListaDeAutos() throws NoHayAutosDisponiblesException {
         ModelMap modelo = new ModelMap();
-        List<Auto> autosDisponibles = servicioAlquiler.obtenerAutosDisponibles();
-        modelo.put("autosDisponibles", autosDisponibles);
-        return new ModelAndView("alquilarAuto", modelo);
+            List<Auto> autosDisponibles = servicioAlquiler.obtenerAutosDisponibles();
+            modelo.put("autosDisponibles", autosDisponibles);
+            return new ModelAndView("alquilarAuto", modelo);
     }
 
 

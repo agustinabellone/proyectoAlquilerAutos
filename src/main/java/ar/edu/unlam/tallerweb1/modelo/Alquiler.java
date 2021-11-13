@@ -61,6 +61,7 @@ public class Alquiler {
         this.f_ingreso = datosAlquiler.getF_ingreso();
         this.f_egreso = datosAlquiler.getF_salida();
         this.garagePartida = datosAlquiler.getLugarRetiro();
+        this.garageLlegada = datosAlquiler.getLugarDevolucion();
         this.garageLlegadaEst = datosAlquiler.getLugarDevolucion();
         this.estado = Estado.ACTIVO;
         this.estadoValoracionAuto=Boolean.FALSE;
