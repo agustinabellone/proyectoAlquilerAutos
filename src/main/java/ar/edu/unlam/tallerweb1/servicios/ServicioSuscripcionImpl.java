@@ -117,7 +117,7 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     }
 
     @Override
-    public List<Suscripcion> obtenerClientesSuscriptos() {
-        throw new RuntimeException();
+    public List<Suscripcion> obtenerClientesSuscriptos() throws NoHayClientesSuscriptos {
+        throw new NoHayClientesSuscriptos();
     }
 }
