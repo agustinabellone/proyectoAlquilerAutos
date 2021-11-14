@@ -103,10 +103,10 @@
                                     <td><span class="font-weight-bold">Auto: </span> ${alquiler.auto.marca.descripcion} ${alquiler.auto.modelo.descripcion}</td>
                                 </div>
                                 <div>
-                                    <td><span class="font-weight-bold">Retiro del auto: </span> ${alquiler.f_egreso}</td>
+                                    <td><span class="font-weight-bold">Retiro del auto: </span> ${alquiler.f_egreso.plusDays(1)}</td>
                                 </div>
                                 <div>
-                                    <td><span class="font-weight-bold">Devolución del auto: </span> ${alquiler.f_ingreso}</td>
+                                    <td><span class="font-weight-bold">Devolución del auto: </span> ${alquiler.f_ingreso.plusDays(1)}</td>
                                 </div>
                                 <div class="col-sm-12 d-flex justify-content-center mt-2">
                                     <a class="btn btn-danger" href='finalizar-alquiler?alquilerID=${alquiler.id}'>Finalizar alquiler</a>
