@@ -21,8 +21,8 @@ import java.util.List;
 
 @Controller
 public class ControladorAdministrador {
-    private ModelMap modelMap = new ModelMap();
 
+    private ModelMap modelMap = new ModelMap();
     private String viewName;
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
@@ -38,121 +38,163 @@ public class ControladorAdministrador {
     public ControladorAdministrador() {
     }
 
-
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
     public ModelAndView irALaVistaPrincipal(HttpServletRequest request) {
-        if (elRolEstaSeteadoYEsAdministrador(request)) {
-            return redirigirAlPanelPrincipal();
-        } else {
-            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
-        }
+        if (elRolEstaSeteadoYEsAdministrador(request))
+            return enviarAlPanelPrincipal();
+        else return enviarALoginConMensajeDeError();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/panel-principal")
     public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request) {
-        if (elRolEstaSeteadoYEsAdministrador(request)) {
-            try {
-                return obtenerLaListaDeLosAutosAlquiladosYLaInformacionDelAdministradorParaMostrarlaEnElPanelPrincipal(request);
-            } catch (NoHayAutosAlquiladosException e) {
-                return enviarAlPanelPrincipalConUnAvisoDeQueTodaviaNoHayAutosAlquilados();
-            }
-        } else {
-            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
-        }
-    }
-
-    @RequestMapping(method = RequestMethod.GET, path = "/autos-disponibles")
-    public ModelAndView mostrarAutosDisponibles(HttpServletRequest usuarioConRol) {
-        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
-            try {
-                List<Auto> autosDisponibles = this.obtenerListaDeAutosDisponibles();
-                modelMap.put("autosDisponibles", autosDisponibles);
-                return new ModelAndView("disponibles", modelMap);
-            } catch (NoHayAutosDisponiblesException e) {
-                modelMap.put("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
-                return new ModelAndView("disponibles", modelMap);
-            }
-        } else {
-            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
-        }
+        if (this.elRolEstaSeteadoYEsAdministrador(request))
+            return this.intentaMostrarLaVistaDelPanelPrincipalSiNoLanzaUnException(request);
+        else return this.enviarALoginConMensajeDeError();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/autos-alquilados")
     public ModelAndView mostrarAutosAlquilados(HttpServletRequest request) {
-        if (elRolEstaSeteadoYEsAdministrador(request)) {
-            try {
-                return obtenerLaListaDeLosAutosAlquiladosYLaInformacionDelAdministradorParaMostrarlaEnElPanelPrincipal(request);
-            } catch (NoHayAutosAlquiladosException e) {
-                return enviarAlPanelPrincipalConUnAvisoDeQueTodaviaNoHayAutosAlquilados();
-            }
-        } else {
-            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
-        }
+        if (elRolEstaSeteadoYEsAdministrador(request))
+            return this.intentaMostrarLaVistaDelPanelPrincipalSiNoLanzaUnException(request);
+        else return this.enviarALoginConMensajeDeError();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/autos-disponibles")
+    public ModelAndView mostrarAutosDisponibles(HttpServletRequest usuarioConRol) {
+        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol))
+            return intentaMostrarLaVistaDeLosAutosDisponiblesSiNoLanzaUnaException();
+        else return enviarALoginConMensajeDeError();
+
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/autos-en-mantenimiento")
     public ModelAndView mostrarAutosEnMantenimiento(HttpServletRequest usuarioConRol) {
-        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
-            try {
-                List<Auto> autosEnMantenimiento = this.obtenerListaDeAutosEnMantenimiento();
-                modelMap.put("en_mantenimiento", autosEnMantenimiento);
-                return new ModelAndView("autos_en_mantenimiento", modelMap);
-            } catch (NoHayAutosEnMantenientoException e) {
-                modelMap.put("error_no_hay_autos_en_mantenimiento", "No hay autos en mantenimiento actualmente");
-                return new ModelAndView("autos_en_mantenimiento", modelMap);
-            }
-        } else {
-            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
-        }
+        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol))
+            return intentaMostrarLaVistaDeLosAutosEnMantenimientoSiNoLanzaUnaException();
+        else return enviarALoginConMensajeDeError();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/clientes-suscriptos")
     public ModelAndView mostrarClientesSuscriptos(HttpServletRequest elUsuarioQueVienePorLaSesion) {
-        if (elRolEstaSeteadoYEsAdministrador(elUsuarioQueVienePorLaSesion)) {
-            try {
-                List<Suscripcion> usuariosSuscriptos = servicioSuscripcion.obtenerClientesSuscriptos();
-                modelMap.put("lista_de_suscriptos", usuariosSuscriptos);
-                return new ModelAndView("clientes-suscriptos", modelMap);
-            } catch (NoHayClientesSuscriptos e) {
-                modelMap.put("error_no_hay_clientes_suscriptos", "No hay clientes suscriptos actualmente");
-                return new ModelAndView("clientes-suscriptos", modelMap);
-            }
-        } else {
-            return enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista();
+        if (elRolEstaSeteadoYEsAdministrador(elUsuarioQueVienePorLaSesion))
+            return intentaMostrarLaVistaDeLosClientesSuscriptosConLaLista();
+        else
+            return enviarALoginConMensajeDeError();
+    }
+
+    private ModelAndView intentaMostrarLaVistaDeLosClientesSuscriptosConLaLista() {
+        try {
+            return enviaALaVistaDeLosClientesSuscriptosMotrandoUnaLista();
+        } catch (NoHayClientesSuscriptos e) {
+            return enviaALaVistaDeLosClientesSuscriptosConMensajeDeError();
         }
     }
 
-    public List<Auto> obtenerListaDeAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
-        return servicioDeAuto.obtenerAutosEnMantenimiento();
+    private ModelAndView enviaALaVistaDeLosClientesSuscriptosConMensajeDeError() {
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("error_no_hay_clientes_suscriptos", "No hay clientes suscriptos actualmente");
+        return new ModelAndView("clientes-suscriptos", modelMap);
+    }
+
+    private ModelAndView enviaALaVistaDeLosClientesSuscriptosMotrandoUnaLista() throws NoHayClientesSuscriptos {
+        List<Suscripcion> usuariosSuscriptos = this.obtenerListaDeClientesSuscriptos();
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("lista_de_suscriptos", usuariosSuscriptos);
+        return new ModelAndView("clientes-suscriptos", modelMap);
+    }
+
+    private ModelAndView enviarAlPanelPrincipal() {
+        this.viewName = "redirect:/panel-principal";
+        return getView(viewName);
+    }
+
+    private ModelAndView enviarALoginConMensajeDeError() {
+        guardaElMensajeParaPasarloALaVista(this.modelMap);
+        this.viewName = "login";
+        return getModelAndView(this.modelMap, this.viewName);
+    }
+
+    private ModelAndView intentaMostrarLaVistaDelPanelPrincipalSiNoLanzaUnException(HttpServletRequest request) {
+        try {
+            return enviaAlPanelPrincipalMostrandoListaDeAutosAlquilados(request);
+        } catch (NoHayAutosAlquiladosException e) {
+            return enviaAlPanelPrincipalConMensajeDeError();
+        }
+    }
+
+    private ModelAndView enviaAlPanelPrincipalConMensajeDeError() {
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
+        this.viewName = "panel-principal";
+        return this.getModelAndView(this.modelMap, this.viewName);
+    }
+
+    private ModelAndView enviaAlPanelPrincipalMostrandoListaDeAutosAlquilados(HttpServletRequest request) throws
+            NoHayAutosAlquiladosException {
+        List<Auto> autosAlquilados = this.obtenerListaDeAutosAlquilados();
+        this.guardaElNombreDelUsuarioQueIniciaSesionYLaListaDeAutosAlquilados(request, autosAlquilados);
+        this.viewName = "panel-principal";
+        return this.getModelAndView(this.modelMap, this.viewName);
+    }
+
+    private void guardaElMensajeParaPasarloALaVista(ModelMap modelMap) {
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("datosLogin", new DatosLogin());
+    }
+
+    private void guardaElNombreDelUsuarioQueIniciaSesionYLaListaDeAutosAlquilados(HttpServletRequest
+                                                                                          request, List<Auto> autosAlquilados) {
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("nombre", request.getSession().getAttribute("nombre"));
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("autosAlquilados", autosAlquilados);
+    }
+
+    private void guardaLaClaveYElValorEnElMapQueSePasaEnLaVista(String nombreDeLaClave, Object valor) {
+        this.modelMap.put(nombreDeLaClave, valor);
+    }
+
+    private ModelAndView intentaMostrarLaVistaDeLosAutosEnMantenimientoSiNoLanzaUnaException() {
+        try {
+            return enviarALaVistaDeLosAutosEnMantenimientoMostrandoUnaLista();
+        } catch (NoHayAutosEnMantenientoException e) {
+            return enviaALaVistaDeLosAutosEnMantenimientoConMensajeDeError();
+        }
+    }
+
+    private ModelAndView enviaALaVistaDeLosAutosEnMantenimientoConMensajeDeError() {
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("error_no_hay_autos_en_mantenimiento", "No hay autos en mantenimiento actualmente");
+        this.viewName = "autos_en_mantenimiento";
+        return this.getModelAndView(this.modelMap, this.viewName);
+    }
+
+    private ModelAndView enviarALaVistaDeLosAutosEnMantenimientoMostrandoUnaLista() throws
+            NoHayAutosEnMantenientoException {
+        List<Auto> autosEnMantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("en_mantenimiento", autosEnMantenimiento);
+        this.viewName = "autos_en_mantenimiento";
+        return this.getModelAndView(this.modelMap, this.viewName);
+    }
+
+    private ModelAndView intentaMostrarLaVistaDeLosAutosDisponiblesSiNoLanzaUnaException() {
+        try {
+            return enviarALaVistaDeAutosDisponiblesMostrandolaListaDeAutosDisponibles();
+        } catch (NoHayAutosDisponiblesException e) {
+            return enviaALaVistaDeAutosDisponiblesConMensajeDeError();
+        }
+    }
+
+    private ModelAndView enviaALaVistaDeAutosDisponiblesConMensajeDeError() {
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
+        this.viewName = "disponibles";
+        return this.getModelAndView(this.modelMap, this.viewName);
+    }
+
+    private ModelAndView enviarALaVistaDeAutosDisponiblesMostrandolaListaDeAutosDisponibles() throws
+            NoHayAutosDisponiblesException {
+        List<Auto> autosDisponibles = this.obtenerListaDeAutosDisponibles();
+        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("autosDisponibles", autosDisponibles);
+        this.viewName = "disponibles";
+        return this.getModelAndView(this.modelMap, this.viewName);
     }
 
     private boolean elRolEstaSeteadoYEsAdministrador(HttpServletRequest request) {
         return elRolEstaSeteado(request) && elRolEsAdministrador(request);
-    }
-
-    private ModelAndView redirigirAlPanelPrincipal() {
-        viewName = "redirect:/panel-principal";
-        return new ModelAndView(viewName);
-    }
-
-    private ModelAndView enviarAlLoginConMensajeDeErrorDeQueNoTienePermisosParaAccederALaVista() {
-        modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-        modelMap.put("datosLogin", new DatosLogin());
-        viewName = "login";
-        return getModelAndView();
-    }
-
-    private ModelAndView obtenerLaListaDeLosAutosAlquiladosYLaInformacionDelAdministradorParaMostrarlaEnElPanelPrincipal(HttpServletRequest request) throws NoHayAutosAlquiladosException {
-        List<Auto> autosAlquilados = this.obtenerListaDeAutosAlquilados();
-        guardarEnElModelMapElNombreDelAdministradorYLaLisstaDeAutosAlquilados(request, autosAlquilados);
-        viewName = "panel-principal";
-        return getModelAndView();
-    }
-
-    private ModelAndView enviarAlPanelPrincipalConUnAvisoDeQueTodaviaNoHayAutosAlquilados() {
-        modelMap.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
-        viewName = "panel-principal";
-        return getModelAndView();
     }
 
     private boolean elRolEstaSeteado(HttpServletRequest request) {
@@ -163,24 +205,27 @@ public class ControladorAdministrador {
         return request.getSession().getAttribute("rol").equals("admin");
     }
 
-    private ModelAndView getModelAndView() {
-        return new ModelAndView(viewName, modelMap);
-    }
-
     public List<Auto> obtenerListaDeAutosAlquilados() throws NoHayAutosAlquiladosException {
         return servicioAlquiler.obtenerAutosAlquilados();
-    }
-
-    private void guardarEnElModelMapElNombreDelAdministradorYLaLisstaDeAutosAlquilados(HttpServletRequest request, List<Auto> autosAlquilados) {
-        modelMap.put("nombre", request.getSession().getAttribute("nombre"));
-        modelMap.put("autosAlquilados", autosAlquilados);
     }
 
     public List<Auto> obtenerListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
         return servicioAlquiler.obtenerAutosDisponibles();
     }
 
+    public List<Auto> obtenerListaDeAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        return servicioDeAuto.obtenerAutosEnMantenimiento();
+    }
+
     public List<Suscripcion> obtenerListaDeClientesSuscriptos() throws NoHayClientesSuscriptos {
         return servicioSuscripcion.obtenerClientesSuscriptos();
+    }
+
+    private ModelAndView getView(String viewName) {
+        return new ModelAndView(viewName);
+    }
+
+    private ModelAndView getModelAndView(ModelMap modelMap, String viewName) {
+        return new ModelAndView(viewName, modelMap);
     }
 }
