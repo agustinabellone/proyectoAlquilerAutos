@@ -5,7 +5,6 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
-import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -14,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 
 
 @Controller
@@ -61,11 +62,15 @@ public class ControladorAlquiler {
         if(salida.isAfter(ingreso)) {
             modelo.put("errorFechas", "La fecha de retiro debe ser anterior a la fecha de devolución");
         }
+        String formattedDateIngreso = ingreso.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale ( new Locale( "es" , "ES" )));
+        String formattedDateSalida = salida.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale ( new Locale( "es" , "ES" )));
 
         Auto auto = servicioAlquiler.obtenerAutoPorId(id_auto);
         modelo.put("salida", salida);
         modelo.put("ingreso", ingreso);
         modelo.put("id_auto", id_auto);
+        modelo.put("formattedDateIngreso", formattedDateIngreso);
+        modelo.put("formattedDateSalida", formattedDateSalida);
         modelo.put("modelo_auto", auto.getModelo().getDescripcion());
         modelo.put("marca_auto", auto.getMarca().getDescripcion());
         modelo.put("imagen_auto", imagen_auto);

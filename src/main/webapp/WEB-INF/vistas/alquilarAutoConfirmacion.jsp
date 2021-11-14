@@ -28,8 +28,8 @@
                 <img src="${imagen_auto}" class="card-img-top" alt="imagen auto">
                 <div class="card-body">
                     <h5 class="card-title">${marca_auto} ${modelo_auto}  </h5>
-                    <p class="card-text">Retiro el auto: ${salida} en ${lugarRetiro.direccion}</p>
-                    <p class="card-text">Devuelvo el auto: ${ingreso} en ${lugarDevolucion.direccion}</p>
+                    <p class="card-text">Retiro el auto: ${formattedDateSalida} en ${lugarRetiro.direccion}</p>
+                    <p class="card-text">Devuelvo el auto: ${formattedDateIngreso} en ${lugarDevolucion.direccion}</p>
                     <div class="col-sm-12 d-flex justify-content-center">
                         <a href="validar-alquiler?id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}&lugarRetiro=${lugarRetiro.id}&lugarDevolucion=${lugarDevolucion.id}" class="btn btn-dark" >ALQUILAR</a>
                     </div>

@@ -136,8 +136,7 @@
                         No puedes alquilar un auto sin una suscripción activa.
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <a href="ir-a-suscribir"><button type="button" class="btn btn-danger">Suscribirme</button></a>
+                        <a href="ir-a-suscribir"><button type="button" class="btn btn-success">Suscribirme</button></a>
                     </div>
                 </div>
             </div>
