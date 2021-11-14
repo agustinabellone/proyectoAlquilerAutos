@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <html>
-<footer class = "bg-dark p-3 d-flex flex-column align-items-center">
+<footer style="bottom: 0" class = "bg-dark p-3 d-flex flex-column align-items-center">
     <div class = "d-flex col-md-12 justify-content-around align-items-top text-white mb-2">
         <div class = "d-flex flex-column" >
             <h6 class="mb-4 text-warning">ATENCIÓN TELEFÓNICA</h6>
