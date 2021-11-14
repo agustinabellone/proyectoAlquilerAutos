@@ -19,7 +19,7 @@
 <section>
     <div class="container text-center">
         <div>
-            <h1 class="display-4 p-4">Alquileres realizados</h1>
+            <h1 class="display-4 p-4">Alquileres finalizados</h1>
         </div>
     </div>
 </section>
@@ -89,5 +89,4 @@
 
 
 </body>
-<jsp:include page="footer.jsp" />
 </html>

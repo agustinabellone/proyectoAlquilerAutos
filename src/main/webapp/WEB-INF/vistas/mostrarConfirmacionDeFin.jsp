@@ -52,7 +52,7 @@
                                             </li>
                                         </c:if>
                                         <c:if test="${empty garage}">
-                                            <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${garageLlegadaEst.direccion}</span>
+                                            <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>${garageLlegada.direccion}</span>
                                             </li>
                                         </c:if>
                                     </ul>
