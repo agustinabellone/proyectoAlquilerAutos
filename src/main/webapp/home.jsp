@@ -96,6 +96,39 @@
             </div>
         </div>
     </div>
+    <div class="pricing6 py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h3 class="mb-3">Donde nos encontramos</h3>
+                    <h6 class="subtitle font-weight-normal mb-3">Contamos con 3 garages</h6>
+                </div>
+            </div>
+            <div class="d-flex justify-content-around">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="img/sedeMorón.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="text-center">Sede Morón</h5>
+                        <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="img/sedeLaMatanza.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="text-center">Sede La Matanza</h5>
+                        <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="img/sedeLiniers.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="text-center">Sede Liniers</h5>
+                        <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <jsp:include page="WEB-INF/vistas/footer.jsp" />
 </body>
