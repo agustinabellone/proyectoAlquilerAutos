@@ -28,8 +28,8 @@
         </div>
     </div>
 </section>
-<section>
-    <div class="pricing6 py-5 bg-light">
+<section class="bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
@@ -100,7 +100,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
-                    <h3 class="mb-3">Donde nos encontramos</h3>
+                    <h3 class="mb-3">Elegí el lugar que te quede mejor</h3>
                     <h6 class="subtitle font-weight-normal mb-3">Contamos con 3 garages</h6>
                 </div>
             </div>

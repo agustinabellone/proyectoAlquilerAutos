@@ -28,7 +28,7 @@
             <h1 class="text-center mt-5">Configuración</h1>
         </div>
         <c:if test="${empty mensaje && empty cambiosActualizados && empty error}">
-        <h4>Editar datos personales</h4>
+        <h4>Editá tus datos personales</h4>
             <form id="form" action="guardar-cambios" method="get">
         <article style="height: 300px" class="d-flex flex-column justify-content-around">
                 <div>
@@ -37,7 +37,7 @@
                 </div>
                 <div>
                     <input type="email" class="form-control"  value="${usuario.email}" disabled>
-                    <span  style="font-size: 10px">No podes cambiar tu email ya que tu cuenta depende de este.</span>
+                    <span  style="font-size: 10px">Tu email no se puede cambiar ya que tu cuenta depende de este.</span>
                 </div>
                 <div>
                     <label>Contraseña</label>
