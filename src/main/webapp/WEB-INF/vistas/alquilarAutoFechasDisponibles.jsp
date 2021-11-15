@@ -40,7 +40,7 @@
                             <p>Lugar de retiro:</p>
                             <select name="lugarRetiro" id="lugarRetiro" class="form-select" required>
                                 <option value="">Seleccionar</option>
-                                <option value="1">Sede Ramos Mejía</option>
+                                <option value="1">Sede Liniers</option>
                                 <option value="2">Sede Morón</option>
                                 <option value="3">Sede La Matanza</option>
                             </select>
