@@ -120,4 +120,9 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     public List<Suscripcion> obtenerClientesSuscriptos() throws NoHayClientesSuscriptos {
         throw new NoHayClientesSuscriptos();
     }
+
+    @Override
+    public List<Suscripcion> obtenerListaDeUsuariosNoSuscriptos() {
+        return null;
+    }
 }

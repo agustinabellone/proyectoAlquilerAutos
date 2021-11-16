@@ -30,13 +30,15 @@ public class testControladorAdministradorSeccionAutos {
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
     private ServicioSuscripcion servicioSuscripcion;
+    private ServicioUsuario servicioUsuario;
 
     @Before
     public void init() {
         servicioDeAuto = mock(ServicioDeAuto.class);
         servicioAlquiler = mock(ServicioAlquiler.class);
         servicioSuscripcion = mock(ServicioSuscripcion.class);
-        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto,servicioSuscripcion);
+        servicioUsuario = mock(ServicioUsuario.class);
+        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto, servicioSuscripcion, servicioUsuario);
         modelAndView = new ModelAndView();
         request = mock(HttpServletRequest.class);
         session = mock(HttpSession.class);

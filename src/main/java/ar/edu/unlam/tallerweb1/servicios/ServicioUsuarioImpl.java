@@ -50,6 +50,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         this.repositorioUsuario.actualizarUsuario(id_usuario, nombre, contraseña);
     }
 
+    @Override
+    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) {
+        return null;
+    }
+
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {
         return contraseña.length() < 8;
     }

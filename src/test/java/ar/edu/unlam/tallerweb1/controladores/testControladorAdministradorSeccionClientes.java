@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,10 +33,11 @@ public class testControladorAdministradorSeccionClientes {
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
     private ServicioSuscripcion servicioSuscripcion;
+    private ServicioUsuario servicioUsuario;
     private ControladorAdministrador controlador;
 
     @Before
-    public void init(){
+    public void init() {
         request = mock(HttpServletRequest.class);
         session = mock(HttpSession.class);
         modelAndView = new ModelAndView();
@@ -44,7 +46,8 @@ public class testControladorAdministradorSeccionClientes {
         servicioDeAuto = mock(ServicioDeAuto.class);
         servicioSuscripcion = mock(ServicioSuscripcion.class);
         servicioSuscripcion = mock(ServicioSuscripcion.class);
-        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto, servicioSuscripcion);
+        servicioUsuario = mock(ServicioUsuario.class);
+        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto, servicioSuscripcion, servicioUsuario);
     }
 
     @Test
@@ -79,6 +82,23 @@ public class testControladorAdministradorSeccionClientes {
         thenSeMuestraLaVistaConMensajeDeError(this.modelAndView, "No hay clientes suscriptos actualmente");
     }
 
+    @Test
+    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosVeaUnaListaDeLosMismos() {
+        givenExistenClientesNoSuscriptos(5);
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
+        givenIngresaALaVistaDeLosCLientesNoSuscriptos(administrador);
+        whenObtieneLaListaDeLosClientesNoSuscriptos();
+        thenSeMuestraLaVistaConLaListaDeLosClientesSuscriptos(this.modelAndView);
+    }
+
+    private void thenSeMuestraLaVistaConLaListaDeLosClientesSuscriptos(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("clientes-no-suscriptos");
+        assertThat(modelAndView.getModel().get("clientes_no_suscriptos")).isNotNull();
+        assertThat(modelAndView.getModel().get("clientes_no_suscriptos")).isInstanceOf(List.class);
+        List<Suscripcion> clientesNoSuscriptos = (List<Suscripcion>) modelAndView.getModel().get("clientes_no_suscriptos");
+        assertThat(clientesNoSuscriptos).hasSize(5);
+    }
+
     private void givenNoExistenClientesSuscriptos() throws NoHayClientesSuscriptos {
         doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerClientesSuscriptos();
     }
@@ -107,12 +127,29 @@ public class testControladorAdministradorSeccionClientes {
         when(servicioSuscripcion.obtenerClientesSuscriptos()).thenReturn(listaDeUsuariosSuscriptos);
     }
 
+    private void givenExistenClientesNoSuscriptos(int cantidad) {
+        List<Suscripcion> listaDeClientesNoSuscriptos = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            suscripcion.setUsuario(null);
+            listaDeClientesNoSuscriptos.add(suscripcion);
+        }
+        when(servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos()).thenReturn(listaDeClientesNoSuscriptos);
+    }
+
+    private void givenIngresaALaVistaDeLosCLientesNoSuscriptos(HttpServletRequest administrador) {
+        this.modelAndView = controlador.mostrarClientesNoSuscriptos(administrador);
+    }
+
     private void whenIngresaALaSeccionDeClienteSuscriptosEl(HttpServletRequest administrador) {
         this.modelAndView = controlador.mostrarClientesSuscriptos(administrador);
     }
 
     private List<Suscripcion> whenObtieneLaListaDeLosClientesSuscriptos() throws NoHayClientesSuscriptos {
         return controlador.obtenerListaDeClientesSuscriptos();
+    }
+
+    private List<Suscripcion> whenObtieneLaListaDeLosClientesNoSuscriptos() {
+        return controlador.obtenerListaDeClientesSinSuscripcion();
     }
 
     private void thenSeMuestraLaVistaDeLosClientesSuscritos(ModelAndView modelAndView) {
