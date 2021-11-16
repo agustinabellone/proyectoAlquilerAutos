@@ -83,7 +83,7 @@ public class testControladorAdministradorSeccionClientes {
     }
 
     @Test
-    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosVeaUnaListaDeLosMismos() {
+    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos {
         givenExistenClientesNoSuscriptos(5);
         HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
         givenIngresaALaVistaDeLosCLientesNoSuscriptos(administrador);
@@ -91,21 +91,17 @@ public class testControladorAdministradorSeccionClientes {
         thenSeMuestraLaVistaConLaListaDeLosClientesSuscriptos(this.modelAndView);
     }
 
-    private void thenSeMuestraLaVistaConLaListaDeLosClientesSuscriptos(ModelAndView modelAndView) {
-        assertThat(modelAndView.getViewName()).isEqualTo("clientes-no-suscriptos");
-        assertThat(modelAndView.getModel().get("clientes_no_suscriptos")).isNotNull();
-        assertThat(modelAndView.getModel().get("clientes_no_suscriptos")).isInstanceOf(List.class);
-        List<Suscripcion> clientesNoSuscriptos = (List<Suscripcion>) modelAndView.getModel().get("clientes_no_suscriptos");
-        assertThat(clientesNoSuscriptos).hasSize(5);
+    @Test(expected = NoHayClientesSuscriptos.class)
+    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosNoVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos {
+        givenNoExistenClientesNoSuscriptos();
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
+        givenIngresaALaVistaDeLosCLientesNoSuscriptos(administrador);
+        whenObtieneLaListaDeLosClientesNoSuscriptos();
+        thenSeMuestraLaVistaConMensajeDeErrorDeQueNoHayClientesNoSuscriptos(this.modelAndView, "Al parecer todos los clientes estan suscriptos");
     }
 
     private void givenNoExistenClientesSuscriptos() throws NoHayClientesSuscriptos {
         doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerClientesSuscriptos();
-    }
-
-    private void thenSeMuestraLaVistaConMensajeDeError(ModelAndView modelAndView, String error) {
-        assertThat(modelAndView.getViewName()).isEqualTo("clientes-suscriptos");
-        assertThat(modelAndView.getModel().get("error_no_hay_clientes_suscriptos")).isEqualTo(error);
     }
 
     private HttpServletRequest givenQueExisteUnUsuarioConRol(String rol) {
@@ -127,7 +123,7 @@ public class testControladorAdministradorSeccionClientes {
         when(servicioSuscripcion.obtenerClientesSuscriptos()).thenReturn(listaDeUsuariosSuscriptos);
     }
 
-    private void givenExistenClientesNoSuscriptos(int cantidad) {
+    private void givenExistenClientesNoSuscriptos(int cantidad) throws NoHayClientesSuscriptos {
         List<Suscripcion> listaDeClientesNoSuscriptos = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             suscripcion.setUsuario(null);
@@ -140,6 +136,10 @@ public class testControladorAdministradorSeccionClientes {
         this.modelAndView = controlador.mostrarClientesNoSuscriptos(administrador);
     }
 
+    private void givenNoExistenClientesNoSuscriptos() throws NoHayClientesSuscriptos {
+        doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerListaDeUsuariosNoSuscriptos();
+    }
+
     private void whenIngresaALaSeccionDeClienteSuscriptosEl(HttpServletRequest administrador) {
         this.modelAndView = controlador.mostrarClientesSuscriptos(administrador);
     }
@@ -148,7 +148,7 @@ public class testControladorAdministradorSeccionClientes {
         return controlador.obtenerListaDeClientesSuscriptos();
     }
 
-    private List<Suscripcion> whenObtieneLaListaDeLosClientesNoSuscriptos() {
+    private List<Suscripcion> whenObtieneLaListaDeLosClientesNoSuscriptos() throws NoHayClientesSuscriptos {
         return controlador.obtenerListaDeClientesSinSuscripcion();
     }
 
@@ -167,5 +167,23 @@ public class testControladorAdministradorSeccionClientes {
         assertThat(modelAndView.getModel().get("lista_de_suscriptos")).isInstanceOf(List.class);
         List<Suscripcion> usuarios = (List<Suscripcion>) modelAndView.getModel().get("lista_de_suscriptos");
         assertThat(usuarios).hasSize(3);
+    }
+
+    private void thenSeMuestraLaVistaConMensajeDeError(ModelAndView modelAndView, String error) {
+        assertThat(modelAndView.getViewName()).isEqualTo("clientes-suscriptos");
+        assertThat(modelAndView.getModel().get("error_no_hay_clientes_suscriptos")).isEqualTo(error);
+    }
+
+    private void thenSeMuestraLaVistaConLaListaDeLosClientesSuscriptos(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("clientes-no-suscriptos");
+        assertThat(modelAndView.getModel().get("clientes_no_suscriptos")).isNotNull();
+        assertThat(modelAndView.getModel().get("clientes_no_suscriptos")).isInstanceOf(List.class);
+        List<Suscripcion> clientesNoSuscriptos = (List<Suscripcion>) modelAndView.getModel().get("clientes_no_suscriptos");
+        assertThat(clientesNoSuscriptos).hasSize(5);
+    }
+
+    private void thenSeMuestraLaVistaConMensajeDeErrorDeQueNoHayClientesNoSuscriptos(ModelAndView modelAndView, String error) {
+        assertThat(modelAndView.getViewName()).isEqualTo("clientes-no-suscriptos");
+        assertThat(modelAndView.getModel().get("error_no_hay_clientes_no_suscriptos")).isEqualTo(error);
     }
 }

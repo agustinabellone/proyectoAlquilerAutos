@@ -232,15 +232,21 @@ public class ControladorAdministrador {
 
     public ModelAndView mostrarClientesNoSuscriptos(HttpServletRequest administrador) {
         if (elRolEstaSeteadoYEsAdministrador(administrador)) {
-            List<Suscripcion> clientesNoSuscriptos = this.obtenerListaDeClientesSinSuscripcion();
-            modelMap.put("clientes_no_suscriptos", clientesNoSuscriptos);
-            return new ModelAndView("clientes-no-suscriptos",modelMap);
+            List<Suscripcion> clientesNoSuscriptos = null;
+            try {
+                clientesNoSuscriptos = this.obtenerListaDeClientesSinSuscripcion();
+                modelMap.put("clientes_no_suscriptos", clientesNoSuscriptos);
+                return new ModelAndView("clientes-no-suscriptos", modelMap);
+            } catch (NoHayClientesSuscriptos e) {
+                modelMap.put("error_no_hay_clientes_no_suscriptos", "Al parecer todos los clientes estan suscriptos");
+                return new ModelAndView("clientes-no-suscriptos", modelMap);
+            }
         } else {
             return enviarALoginConMensajeDeError();
         }
     }
 
-    public List<Suscripcion> obtenerListaDeClientesSinSuscripcion() {
+    public List<Suscripcion> obtenerListaDeClientesSinSuscripcion() throws NoHayClientesSuscriptos {
         return servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
     }
 }
