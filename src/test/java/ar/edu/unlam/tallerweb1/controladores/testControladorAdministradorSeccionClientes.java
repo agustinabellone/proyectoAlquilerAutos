@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,14 +25,27 @@ public class testControladorAdministradorSeccionClientes {
 
     private static final String ADMIN = "admin";
     private static final String INVITADO = "invitado";
-    private HttpServletRequest request = mock(HttpServletRequest.class);
-    private HttpSession session = mock(HttpSession.class);
-    private ModelAndView modelAndView = new ModelAndView();
-    private Suscripcion suscripcion = new Suscripcion();
-    private ServicioAlquiler servicioAlquiler = mock(ServicioAlquiler.class);
-    private ServicioDeAuto servicioDeAuto = mock(ServicioDeAuto.class);
-    private ServicioSuscripcion servicioSuscripcion = mock(ServicioSuscripcion.class);
-    private ControladorAdministrador controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto, servicioSuscripcion);
+    private HttpServletRequest request;
+    private HttpSession session;
+    private ModelAndView modelAndView;
+    private Suscripcion suscripcion;
+    private ServicioAlquiler servicioAlquiler;
+    private ServicioDeAuto servicioDeAuto;
+    private ServicioSuscripcion servicioSuscripcion;
+    private ControladorAdministrador controlador;
+
+    @Before
+    public void init(){
+        request = mock(HttpServletRequest.class);
+        session = mock(HttpSession.class);
+        modelAndView = new ModelAndView();
+        suscripcion = new Suscripcion();
+        servicioAlquiler = mock(ServicioAlquiler.class);
+        servicioDeAuto = mock(ServicioDeAuto.class);
+        servicioSuscripcion = mock(ServicioSuscripcion.class);
+        servicioSuscripcion = mock(ServicioSuscripcion.class);
+        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto, servicioSuscripcion);
+    }
 
     @Test
     public void queElAdminstradorPuedaAccederALaVistaDeLosClientesSuscriptos() {
