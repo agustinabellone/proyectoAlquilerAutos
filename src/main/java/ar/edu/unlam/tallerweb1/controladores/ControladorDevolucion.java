@@ -92,7 +92,7 @@ public class ControladorDevolucion {
     }
 
     @RequestMapping("/confirmacion-fin-alquiler")
-    public ModelAndView procesarConfirmacionFinDeAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
+    public ModelAndView procesarConfirmacionFinDeAlquilerr(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
         ModelMap modelo = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
