@@ -1,11 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptos;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,131 +19,171 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class testControladorAdministradorSeccionClientes {
 
     private static final String ADMIN = "admin";
-    private static final String CLIENTE = "cliente";
-    private static final Long BASICO = 1L;
+    private static final String INVITADO = "invitado";
+    private HttpServletRequest request;
     private HttpSession session;
-    private HttpServletRequest servletRequest;
-    private ServicioUsuario servicioUsuario;
-    private ControladorAdministrador controlador;
     private ModelAndView modelAndView;
-    private TipoSuscripcion basico;
+    private Suscripcion suscripcion;
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
+    private ServicioSuscripcion servicioSuscripcion;
+    private ServicioUsuario servicioUsuario;
+    private ControladorAdministrador controlador;
 
     @Before
     public void init() {
+        request = mock(HttpServletRequest.class);
         session = mock(HttpSession.class);
-        servletRequest = mock(HttpServletRequest.class);
-        servicioUsuario = mock(ServicioUsuario.class);
+        modelAndView = new ModelAndView();
+        suscripcion = new Suscripcion();
         servicioAlquiler = mock(ServicioAlquiler.class);
         servicioDeAuto = mock(ServicioDeAuto.class);
-        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto, servicioUsuario);
-        modelAndView = new ModelAndView();
-        basico = new TipoSuscripcion();
-        basico.setId(BASICO);
-        basico.setDescripcion("basico");
+        servicioSuscripcion = mock(ServicioSuscripcion.class);
+        servicioSuscripcion = mock(ServicioSuscripcion.class);
+        servicioUsuario = mock(ServicioUsuario.class);
+        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto, servicioSuscripcion, servicioUsuario);
     }
 
     @Test
-    public void queElUsuarioAdministradorPuedaAccederALaVistaSuscriptos() {
-        HttpServletRequest usuarioAdministrador = givenQueExisteUnUsuario(ADMIN);
-        whenAccedeALaVistaDeSuscriptos(usuarioAdministrador);
-        thenSeMuestraLaVistaDeClientesSuscriptos(this.modelAndView, usuarioAdministrador);
+    public void queElAdminstradorPuedaAccederALaVistaDeLosClientesSuscriptos() {
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
+        whenIngresaALaSeccionDeClienteSuscriptosEl(administrador);
+        thenSeMuestraLaVistaDeLosClientesSuscritos(this.modelAndView);
     }
 
     @Test
-    public void queUnUsuarioInvitadoNoPuedaAccederALaVistaSuscriptosYSeMuestreUnMensajeDeError() {
-        HttpServletRequest usuarioCliente = givenQueExisteUnUsuario(CLIENTE);
-        whenAccedeALaVistaDeSuscriptos(usuarioCliente);
-        thenSeMuestraLaVistaDeClientesSusCriptosConMsjDeError(this.modelAndView, "No tienes los permisos necesarios para acceder a esta pagina");
+    public void queUnUsuarioNoAdministradorNoPuedaAccederALaVistaDeClientesSuscriptos() {
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(INVITADO);
+        whenIngresaALaSeccionDeClienteSuscriptosEl(administrador);
+        thenLoEnviaAlLoginConMensajeDeError(this.modelAndView);
     }
 
     @Test
-    public void queElUsuarioAdministradorPuedaVerUnListaDeLosClientesSuscriptosAlPlanBasico() throws NoHayClientesSuscriptosAlPlanBasico {
-        Suscripcion suscripcion = givenQueExisteUnaSuscripcionConPlanBasico(basico);
-        givenQueExistenUsuariosSuscriptosAlPlan(suscripcion, 5);
-        HttpServletRequest usuarioAdministrador = givenQueExisteUnUsuario(ADMIN);
-        whenAccedeALaVistaDeSuscriptos(usuarioAdministrador);
-        List<Usuario> usuariosSuscriptos = whenMuestroLosUsuariosEnUnaLista();
-        thenSeMuestraLaListaConLos(modelAndView, usuariosSuscriptos, suscripcion, 5);
+    public void queElUsuarioAdmistradorPuedaVerUnaListaDeLosClientesQueEstanSuscriptos() throws NoHayClientesSuscriptos {
+        givenExistenClientesSuscriptos(3);
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
+        givenIngresaALaVistaDeLosCLientesSuscriptos(administrador);
+        List<Suscripcion> listaDeClientesSuscriptos = whenObtieneLaListaDeLosClientesSuscriptos();
+        thenSeMuestraLaVistaConLaLista(this.modelAndView);
     }
 
-    @Test(expected = NoHayClientesSuscriptosAlPlanBasico.class)
-    public void queElUsuarioAdministrdprNoPuedaVerLosClientesSuscriptosAlPlanBasicoPorQueNoHay() throws NoHayClientesSuscriptosAlPlanBasico {
-        givenNoExistenUsuariosSuscriptos();
-        HttpServletRequest usuarioAdministrador = givenQueExisteUnUsuario(ADMIN);
-        whenAccedeALaVistaDeSuscriptos(usuarioAdministrador);
-        List<Usuario> usuariosSuscriptos = whenMuestroLosUsuariosEnUnaLista();
-        thenSeMuestraLaVistaConMensajeDeErrorYLaListaVacia(usuariosSuscriptos, this.modelAndView, "No hay clientes suscriptos actualmente");
+    @Test(expected = NoHayClientesSuscriptos.class)
+    public void queElUsuarioAdminstradorVeaUnMensajeDeErrorDeQueTodaviaNoHayClientesSuscriptos() throws NoHayClientesSuscriptos {
+        givenNoExistenClientesSuscriptos();
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
+        givenIngresaALaVistaDeLosCLientesSuscriptos(administrador);
+        whenObtieneLaListaDeLosClientesSuscriptos();
+        thenSeMuestraLaVistaConMensajeDeError(this.modelAndView, "No hay clientes suscriptos actualmente");
     }
 
-    private void givenNoExistenUsuariosSuscriptos() throws NoHayClientesSuscriptosAlPlanBasico {
-        when(servicioUsuario.obtenerUsuariosSuscriptosAlPlanBasico()).thenThrow(NoHayClientesSuscriptosAlPlanBasico.class);
+    @Test
+    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos {
+        givenExistenClientesNoSuscriptos(5);
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
+        givenIngresaALaVistaDeLosCLientesNoSuscriptos(administrador);
+        whenObtieneLaListaDeLosClientesNoSuscriptos();
+        thenSeMuestraLaVistaConLaListaDeLosClientesSuscriptos(this.modelAndView);
     }
 
-    private void givenQueExistenUsuariosSuscriptosAlPlan(Suscripcion suscripcion, int cantidad) throws NoHayClientesSuscriptosAlPlanBasico {
-        List<Usuario> listaDeUsuariosSuscriptos = new ArrayList<>();
+    @Test(expected = NoHayClientesSuscriptos.class)
+    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosNoVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos {
+        givenNoExistenClientesNoSuscriptos();
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
+        givenIngresaALaVistaDeLosCLientesNoSuscriptos(administrador);
+        whenObtieneLaListaDeLosClientesNoSuscriptos();
+        thenSeMuestraLaVistaConMensajeDeErrorDeQueNoHayClientesNoSuscriptos(this.modelAndView, "Al parecer todos los clientes estan suscriptos");
+    }
+
+    private void givenNoExistenClientesSuscriptos() throws NoHayClientesSuscriptos {
+        doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerClientesSuscriptos();
+    }
+
+    private HttpServletRequest givenQueExisteUnUsuarioConRol(String rol) {
+        when(request.getSession()).thenReturn(session);
+        when(request.getSession().getAttribute(anyString())).thenReturn(rol);
+        return request;
+    }
+
+    private void givenIngresaALaVistaDeLosCLientesSuscriptos(HttpServletRequest administrador) {
+        whenIngresaALaSeccionDeClienteSuscriptosEl(administrador);
+    }
+
+    private void givenExistenClientesSuscriptos(int cantidad) throws NoHayClientesSuscriptos {
+        List<Suscripcion> listaDeUsuariosSuscriptos = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
-            Usuario usuario = new Usuario();
-            suscripcion.setUsuario(usuario);
-            listaDeUsuariosSuscriptos.add(usuario);
+            suscripcion.setUsuario(new Usuario());
+            listaDeUsuariosSuscriptos.add(suscripcion);
         }
-        when(servicioUsuario.obtenerUsuariosSuscriptosAlPlanBasico()).thenReturn(listaDeUsuariosSuscriptos);
+        when(servicioSuscripcion.obtenerClientesSuscriptos()).thenReturn(listaDeUsuariosSuscriptos);
     }
 
-    private Suscripcion givenQueExisteUnaSuscripcionConPlanBasico(TipoSuscripcion basico) {
-        Suscripcion suscripcion = new Suscripcion();
-        suscripcion.setTipoSuscripcion(basico);
-        return suscripcion;
+    private void givenExistenClientesNoSuscriptos(int cantidad) throws NoHayClientesSuscriptos {
+        List<Suscripcion> listaDeClientesNoSuscriptos = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            suscripcion.setUsuario(null);
+            listaDeClientesNoSuscriptos.add(suscripcion);
+        }
+        when(servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos()).thenReturn(listaDeClientesNoSuscriptos);
     }
 
-    private HttpServletRequest givenQueExisteUnUsuario(String rol) {
-        when(servletRequest.getSession()).thenReturn(session);
-        when(servletRequest.getSession().getAttribute("rol")).thenReturn(rol);
-        return servletRequest;
+    private void givenIngresaALaVistaDeLosCLientesNoSuscriptos(HttpServletRequest administrador) {
+        this.modelAndView = controlador.mostrarClientesNoSuscriptos(administrador);
     }
 
-    private List<Usuario> whenMuestroLosUsuariosEnUnaLista() throws NoHayClientesSuscriptosAlPlanBasico {
-        return controlador.obtenerListaDeUsuariosSuscriptosAlPlanBasico();
+    private void givenNoExistenClientesNoSuscriptos() throws NoHayClientesSuscriptos {
+        doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerListaDeUsuariosNoSuscriptos();
     }
 
-    private void whenAccedeALaVistaDeSuscriptos(HttpServletRequest usuarioAdministrador) {
-        this.modelAndView = controlador.mostrarClientesSuscriptos(usuarioAdministrador);
+    private void whenIngresaALaSeccionDeClienteSuscriptosEl(HttpServletRequest administrador) {
+        this.modelAndView = controlador.mostrarClientesSuscriptos(administrador);
     }
 
-    private void thenSeMuestraLaVistaDeClientesSuscriptos(ModelAndView modelAndView, HttpServletRequest usuarioAdministrador) {
+    private List<Suscripcion> whenObtieneLaListaDeLosClientesSuscriptos() throws NoHayClientesSuscriptos {
+        return controlador.obtenerListaDeClientesSuscriptos();
+    }
+
+    private List<Suscripcion> whenObtieneLaListaDeLosClientesNoSuscriptos() throws NoHayClientesSuscriptos {
+        return controlador.obtenerListaDeClientesSinSuscripcion();
+    }
+
+    private void thenSeMuestraLaVistaDeLosClientesSuscritos(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("clientes-suscriptos");
-        assertThat(usuarioAdministrador.getSession().getAttribute("rol")).isEqualTo("admin");
     }
 
-    private void thenSeMuestraLaVistaDeClientesSusCriptosConMsjDeError(ModelAndView modelAndView, String error) {
+    private void thenLoEnviaAlLoginConMensajeDeError(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("login");
-        assertThat(modelAndView.getModel().get("errorSinPermisos")).isEqualTo(error);
+        assertThat(modelAndView.getModel().get("errorSinPermisos")).isEqualTo("No tienes los permisos necesarios para acceder a esta pagina");
     }
 
-    private void thenSeMuestraLaListaConLos(ModelAndView modelAndView, List<Usuario> usuariosSuscriptos, Suscripcion suscripcion, int cantidad_esperada) {
-        assertThat(usuariosSuscriptos).hasSize(cantidad_esperada);
-        assertThat(suscripcion.getTipoSuscripcion().getDescripcion()).isEqualTo("basico");
-        for (Usuario usuario : usuariosSuscriptos) {
-            assertThat(usuario.getId()).isEqualTo(suscripcion.getUsuario().getId());
-        }
+    private void thenSeMuestraLaVistaConLaLista(ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo("clientes-suscriptos");
-
-        assertThat(modelAndView.getModel().get("clientes_suscriptos_plan_basico")).isNotNull();
-        assertThat(modelAndView.getModel().get("clientes_suscriptos_plan_basico")).isInstanceOf(List.class);
-
-        List<Usuario> usuarios = (List<Usuario>) modelAndView.getModel().get("clientes_suscriptos_plan_basico");
-        assertThat(usuarios).hasSize(cantidad_esperada);
+        assertThat(modelAndView.getModel().get("lista_de_suscriptos")).isNotNull();
+        assertThat(modelAndView.getModel().get("lista_de_suscriptos")).isInstanceOf(List.class);
+        List<Suscripcion> usuarios = (List<Suscripcion>) modelAndView.getModel().get("lista_de_suscriptos");
+        assertThat(usuarios).hasSize(3);
     }
 
-    private void thenSeMuestraLaVistaConMensajeDeErrorYLaListaVacia(List<Usuario> usuariosSuscriptos, ModelAndView modelAndView, String error) {
-        assertThat(usuariosSuscriptos).isNull();
-        assertThat(modelAndView.getModel().get("error_no_hay_usuarios_suscriptos")).isEqualTo(error);
+    private void thenSeMuestraLaVistaConMensajeDeError(ModelAndView modelAndView, String error) {
         assertThat(modelAndView.getViewName()).isEqualTo("clientes-suscriptos");
+        assertThat(modelAndView.getModel().get("error_no_hay_clientes_suscriptos")).isEqualTo(error);
+    }
+
+    private void thenSeMuestraLaVistaConLaListaDeLosClientesSuscriptos(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("clientes-no-suscriptos");
+        assertThat(modelAndView.getModel().get("clientes_no_suscriptos")).isNotNull();
+        assertThat(modelAndView.getModel().get("clientes_no_suscriptos")).isInstanceOf(List.class);
+        List<Suscripcion> clientesNoSuscriptos = (List<Suscripcion>) modelAndView.getModel().get("clientes_no_suscriptos");
+        assertThat(clientesNoSuscriptos).hasSize(5);
+    }
+
+    private void thenSeMuestraLaVistaConMensajeDeErrorDeQueNoHayClientesNoSuscriptos(ModelAndView modelAndView, String error) {
+        assertThat(modelAndView.getViewName()).isEqualTo("clientes-no-suscriptos");
+        assertThat(modelAndView.getModel().get("error_no_hay_clientes_no_suscriptos")).isEqualTo(error);
     }
 }

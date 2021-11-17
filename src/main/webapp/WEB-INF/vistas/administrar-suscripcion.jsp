@@ -20,7 +20,7 @@
 <section>
     <div class="container">
         <div>
-            <h1 class="text-center mt-5">Administre su Suscripcion</h1>
+            <h1 class="text-center mt-5">Administrá tu suscripción</h1>
             <c:if test="${not empty errorDarDeBaja}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>-Error-</strong> ${errorDarDeBaja}.
@@ -39,7 +39,7 @@
             </c:if>
             <c:if test="${suscripcion.getRenovacion() == false}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong class="text-danger p-2">Su suscripcion fue dada de baja y no sera renovada automaticamente</strong>
+                    <strong class="text-danger p-2">Tu suscripción fue dada de baja y no será renovada automaticamente</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -47,15 +47,15 @@
             </c:if>
         </div>
         <div>
-            <h6 class=" p-2 m-4 text-left">Acá podes administrar las distintas opciones de tu suscripcion:</h6>
+            <h6 class=" p-2 m-4 text-left">Administrá las distintas opciones de tu suscripcion:</h6>
         </div>
         <div class="card text-center " style="width: 50%; margin: auto;">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Usted se encuentra suscripto al nivel: <span class="text-primary">${tipoSuscripcion.getNombre()}</span></li>
+                <li class="list-group-item">Estas suscripto/a al nivel: <span class="text-primary">${tipoSuscripcion.getNombre()}</span></li>
                 <li class="list-group-item">Fecha de Inicio: <span class="text-primary">${suscripcion.getFechaInicio()}</span></li>
                 <li class="list-group-item">Fecha de Fin: <span class="text-primary">${suscripcion.getFechaFin()}</span></li>
                 <c:if test="${suscripcion.getRenovacion()== true}">
-                    <li class="list-group-item">Renovacion: <span class="text-success">Activa</span></li>
+                    <li class="list-group-item">Renovación: <span class="text-success">Activa</span></li>
                 </c:if>
                 <c:if test="${suscripcion.getRenovacion()== false}">
                     <li class="list-group-item">Renovacion: <span class="text-danger">Desactivada</span></li>
@@ -165,16 +165,16 @@
             </c:if>
             <c:if test="${tipoSuscripcion.getNombre()=='Diamante'}">
                 <div class="card m-3 card-shadow p-4 text-center  ">
-                    <h3>Usted ya se encuentra suscripto al nivel mas alto del que disponemos</h3>
+                    <h3>Ya estás suscripto/a al nivel mas alto que disponemos</h3>
                     <div class="col-sm-12 d-flex justify-content-center">
-                        <a href="main" type="button" class="btn btn-warning">Volver a Mi Cuenta</a>
+                        <a href="main" type="button" class="btn btn-warning">Volver a mi cuenta</a>
                     </div>
                 </div>
             </c:if>
             <!-- row  -->
             <c:if test="${suscripcion.getRenovacion() == true}">
                 <div class="card card-shadow p-4 text-center  ">
-                    <h3>Cancele su suscripcion al finalizar el plazo</h3>
+                    <h3>Cancelá tu suscripción al finalizar el plazo</h3>
                     <div class="col-sm-12 d-flex justify-content-center">
                         <button type="button" class="btn btn-danger mt-3" style="width: 50%; margin: auto" data-toggle="modal" data-target="#desactivacionModal">Cancelar</button>
                     </div>

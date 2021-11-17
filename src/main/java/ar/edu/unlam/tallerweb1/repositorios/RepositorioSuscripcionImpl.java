@@ -80,5 +80,10 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
                 .uniqueResult();
     }
 
+    @Override
+    public List<Suscripcion> buscarSuscripciones() {
+        return sessionFactory.getCurrentSession().createCriteria(Suscripcion.class).list();
+    }
+
 
 }

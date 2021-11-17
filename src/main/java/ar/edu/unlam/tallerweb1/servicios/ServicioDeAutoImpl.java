@@ -47,11 +47,6 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     }
 
     @Override
-    public List<Auto> obtenerTodoLosAutos() {
-        return null;
-    }
-
-    @Override
     public List<Auto> obtenerAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
         List<Auto> autosEnMantenimiento = repositorioAuto.buscarAutosEnMantenimiento(Situacion.EN_MANTENIMIENTO);
         if (autosEnMantenimiento.size() == 0) {

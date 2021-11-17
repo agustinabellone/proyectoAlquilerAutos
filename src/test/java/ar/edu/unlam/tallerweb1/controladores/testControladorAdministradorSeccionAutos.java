@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,21 +22,23 @@ import java.util.List;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class testControladorAdministrador {
+public class testControladorAdministradorSeccionAutos {
     private ControladorAdministrador controlador;
     private ModelAndView modelAndView;
     private HttpServletRequest request;
     private HttpSession session;
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
+    private ServicioSuscripcion servicioSuscripcion;
     private ServicioUsuario servicioUsuario;
 
     @Before
     public void init() {
         servicioDeAuto = mock(ServicioDeAuto.class);
         servicioAlquiler = mock(ServicioAlquiler.class);
+        servicioSuscripcion = mock(ServicioSuscripcion.class);
         servicioUsuario = mock(ServicioUsuario.class);
-        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto,servicioUsuario);
+        controlador = new ControladorAdministrador(servicioAlquiler, servicioDeAuto, servicioSuscripcion, servicioUsuario);
         modelAndView = new ModelAndView();
         request = mock(HttpServletRequest.class);
         session = mock(HttpSession.class);

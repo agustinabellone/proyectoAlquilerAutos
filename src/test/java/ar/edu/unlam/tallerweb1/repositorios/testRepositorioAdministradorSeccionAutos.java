@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-public class testRepositorioAdministrador extends SpringTest {
+public class testRepositorioAdministradorSeccionAutos extends SpringTest {
 
     @Autowired
     private RepositorioAlquiler repositorioAlquiler;

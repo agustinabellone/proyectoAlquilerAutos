@@ -40,14 +40,14 @@ public class ControladorDevolucion {
         Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
         Garage garagePartida = servicioGarage.obtenerGaragePorID(alquilerActivo.getGaragePartida().getId());
-        Garage garageLlegadaEst = servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegadaEst().getId());
+        Garage garageLlegada = servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegada().getId());
         Auto auto = alquilerActivo.getAuto();
         String fechaInicio = alquilerActivo.getF_egreso().toString();
 
         if (clienteID != null) {
             model.put("fechaInicio", fechaInicio);
             model.put("garagePartida", garagePartida);
-            model.put("garageLlegadaEst", garageLlegadaEst);
+            model.put("garageLlegada", garageLlegada);
             model.put("cliente", usuario);
             model.put("alquiler", alquilerActivo);
             model.put("auto", auto);

@@ -31,7 +31,7 @@
                             <form action="seleccionNuevoGarageSeleccionado">
                                     <select class="form-select" name="nuevoGarage">
                                         <c:forEach var="garages" items="${garages}">
-                                            <option value="${garages.id}">${garages.direccion}</option>
+                                            <option name="nuevoGarage" value="${garages.id}">${garages.direccion}</option>
                                         </c:forEach>
                                     </select>
                                 <input type="hidden" name="alquilerID" value='${alquiler.id}'>

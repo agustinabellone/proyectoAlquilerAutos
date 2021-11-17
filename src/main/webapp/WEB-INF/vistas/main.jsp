@@ -43,7 +43,14 @@
             <div class="card col-sm-3">
                 <img class="card-img-top mt-3" src="img/alquilarAuto.jpg" alt="Mujer en un auto">
                 <div class="d-flex justify-content-center">
+                <c:choose>
+                    <c:when test="${tieneSuscripcion==false}">
+                        <button type="button" class="btn btn-dark mt-3 mb-3" data-toggle="modal" data-target="#modalAlquilerAuto">Alquilar auto</button>
+                    </c:when>
+                    <c:otherwise>
                     <a href="alquilar-auto" class="btn btn-dark mt-3 mb-3">Alquilar auto</a>
+                    </c:otherwise>
+                </c:choose>
                 </div>
             </div>
 
@@ -101,10 +108,10 @@
                                     <td><span class="font-weight-bold">Auto: </span> ${alquiler.auto.marca.descripcion} ${alquiler.auto.modelo.descripcion}</td>
                                 </div>
                                 <div>
-                                    <td><span class="font-weight-bold">Retiro del auto: </span> ${alquiler.f_egreso}</td>
+                                    <td><span class="font-weight-bold">Retiro del auto: </span> ${alquiler.f_egreso.plusDays(1)}</td>
                                 </div>
                                 <div>
-                                    <td><span class="font-weight-bold">Devolución del auto: </span> ${alquiler.f_ingreso}</td>
+                                    <td><span class="font-weight-bold">Devolución del auto: </span> ${alquiler.f_ingreso.plusDays(1)}</td>
                                 </div>
                                 <div class="col-sm-12 d-flex justify-content-center mt-2">
                                     <a class="btn btn-danger" href='finalizar-alquiler?alquilerID=${alquiler.id}'>Finalizar alquiler</a>
@@ -119,6 +126,29 @@
         <caption><p class="text-center text-danger">${mensaje}</p></caption>
         <br>
     </c:if>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalAlquilerAuto" tabindex="-1" role="dialog" aria-labelledby="modalAlquilerAutoLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>¡Uy!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        No puedes alquilar un auto sin una suscripción activa.
+                    </div>
+                    <div class="modal-footer">
+                        <a href="ir-a-suscribir"><button type="button" class="btn btn-success">Suscribirme</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Fin del modal-->
+
+
 </section>
 <jsp:include page="footer.jsp" />
 </body>

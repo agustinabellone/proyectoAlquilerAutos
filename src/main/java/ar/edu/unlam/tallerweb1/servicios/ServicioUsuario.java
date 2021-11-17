@@ -1,5 +1,4 @@
 package ar.edu.unlam.tallerweb1.servicios;
-
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
 import ar.edu.unlam.tallerweb1.modelo.Solicitud;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
@@ -20,4 +19,7 @@ public interface ServicioUsuario {
     List<Usuario> obtenerUsuariosSuscriptosAlPlanBasico() throws NoHayClientesSuscriptosAlPlanBasico;
 
     List <Solicitud> obtenerSolicitudesPendientesDeUnEncargado(Usuario usuario);
+
+    List<Usuario> obtenerListaDeUsuariosPorRol(String rol);
+
 }
