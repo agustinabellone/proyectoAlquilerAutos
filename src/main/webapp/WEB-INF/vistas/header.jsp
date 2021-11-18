@@ -4,6 +4,10 @@
 
 <header class = "p-3">
   <div class = "d-flex col-md-12 justify-content-around align-items-center">
+    <div class="d-flex align-items-center">
+      <h5 class="font-weight-bold">TALLER</h5>
+      <img style="height: 70px; width: 70px" src="img/logoNegro.svg" alt="logo">
+    </div>
 
     <c:if test = "${id != null}">
       <a href="home" type="button" class="btn btn-secondary">Inicio</a>
