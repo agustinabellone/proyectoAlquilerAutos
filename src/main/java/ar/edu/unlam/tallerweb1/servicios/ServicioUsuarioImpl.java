@@ -1,10 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
-import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
@@ -53,6 +50,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     @Override
     public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) {
         return null;
+    }
+
+    @Override
+    public List<Notificacion> getNotificacionesPorId(Usuario buscado) {
+        return repositorioUsuario.getNotificacionesPorId(buscado);
     }
 
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {

@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -63,6 +66,7 @@ public class ControladorLogin {
         if (request.getSession().getAttribute("id") != null) {
             request.getSession().setAttribute("id", null);
             request.getSession().setAttribute("rol", null);
+            request.getSession().setAttribute("notificaciones", null);
         }
 
         return new ModelAndView("redirect:/home");
@@ -75,6 +79,14 @@ public class ControladorLogin {
         request.getSession().setAttribute("id", buscado.getId());
         request.getSession().setAttribute("nombre", buscado.getNombre());
         request.getSession().setAttribute("tieneSuscripcion", servicioSuscripcion.existeSuscripcionPorUsuario(servicioUsuario.buscarPorId(buscado.getId())));
+
+        List<Notificacion> notificaciones= servicioUsuario.getNotificacionesPorId(buscado);
+
+        if(notificaciones.size() > 0){
+            request.getSession().setAttribute("notificaciones", notificaciones);
+        }else{
+            request.getSession().setAttribute("notificaciones", null);
+        }
 
     }
 

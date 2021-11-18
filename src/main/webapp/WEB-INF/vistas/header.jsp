@@ -9,6 +9,25 @@
       <img style="height: 70px; width: 70px" src="img/logoNegro.svg" alt="logo">
     </div>
 
+    <div class="text-secondary avatar dropdown" >
+      <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <c:if test="${notificaciones !=null}">
+          <span class="badge badge-danger ml-2">${notificaciones.size()}</span>
+        </c:if>
+        <i class="fas fa-bell"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+        <c:forEach items="${notificaciones}" var="noti">
+          <div class="alert alert-${noti.getColor()} alert-dismissible fade show" style="margin-bottom: 5px" role="alert">
+            <strong>${noti.getDescripcion()}</strong>
+            <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button> -->
+          </div>
+        </c:forEach>
+      </div>
+    </div>
+
     <c:if test = "${id != null}">
       <a href="home" type="button" class="btn btn-secondary">Inicio</a>
       <a href="main" type="button" class="btn btn-secondary">Mi Cuenta</a>

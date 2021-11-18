@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ServicioUsuario {
     void actualizarUsuario(Long id_usuario, String nombre, String contraseña);
 
     List<Usuario> obtenerListaDeUsuariosPorRol(String rol);
+
+    List<Notificacion> getNotificacionesPorId(Usuario buscado);
 }
