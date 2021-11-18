@@ -9,16 +9,16 @@
 
         <div class="row">
 
-            <div class="col-md-4 mx-auto">
+            <div class="col-md-3 mx-auto">
 
                 <h5 class="text-info font-weight-bold text-uppercase mt-3 mb-4">¡Somos Taller!</h5>
                 <p>Disfrutá tener un auto cuando quieras y olvidate de todos los problemas.</p>
-                <img src="img/logoBlanco.svg"/>
+                <img style="width: 100%;" src="img/logoBlanco.svg"/>
             </div>
 
             <hr class="clearfix w-100 d-md-none">
 
-            <div class="col-md-2 mx-auto  text-center">
+            <div class="col-md-3 mx-auto  text-center">
 
                 <h5 class="text-info font-weight-bold text-uppercase mt-3 mb-4">Atención telefonica</h5>
 
@@ -41,7 +41,7 @@
 
             <hr class="clearfix w-100 d-md-none">
 
-            <div class="col-md-2 mx-auto  text-center">
+            <div class="col-md-3 mx-auto  text-center">
 
                 <h5 class="text-info font-weight-bold text-uppercase mt-3 mb-4">CORREO ELECTRÓNICO</h5>
 
@@ -67,7 +67,7 @@
 
             <hr class="clearfix w-100 d-md-none">
 
-            <div class="col-md-2 mx-auto text-center">
+            <div class="col-md-3 mx-auto text-center">
 
                 <h5 class="text-info font-weight-bold text-uppercase mt-3 mb-4">CONSULTAS VÍA WHATSAPP</h5>
 
@@ -118,13 +118,14 @@
                 <i class="fab fa-linkedin-in"> </i>
             </a>
         </li>
+        <li class="list-inline-item">
+            <img src="img/data-fiscal.jpg"/>
+        </li>
 
     </ul>
 
     <div class="footer-copyright text-center py-3">
         © 2021 Todos los derechos reservados.
-        <img src="img/data_fiscal.png"/>
-        <img src="img/agencia_habilitada_ar.jpg"/>
     </div>
 
 
