@@ -83,11 +83,13 @@ public class ControladorAdministrador {
             return enviarALoginConMensajeDeError();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/emplados-encargados")
+    @RequestMapping(method = RequestMethod.GET, path = "/encargados-devolucion")
     public ModelAndView mostrarEmpleadosEncargadosDeDevolucion(HttpServletRequest administrador) {
         if (elRolEstaSeteadoYEsAdministrador(administrador)) {
-            return new ModelAndView("encargados-devolucion");
-        } else{
+            List<Usuario> usuariosEncargadosDeVolucion = this.obtenerListaDeUsuariosPorRol("encargadosDevolucion");
+            modelMap.put("encargados_devolucion", usuariosEncargadosDeVolucion);
+            return new ModelAndView("encargados-devolucion", modelMap);
+        } else {
             return enviarALoginConMensajeDeError();
         }
     }
@@ -257,5 +259,9 @@ public class ControladorAdministrador {
 
     public List<Suscripcion> obtenerListaDeClientesSinSuscripcion() throws NoHayClientesSuscriptos {
         return servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
+    }
+
+    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) {
+        return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
     }
 }
