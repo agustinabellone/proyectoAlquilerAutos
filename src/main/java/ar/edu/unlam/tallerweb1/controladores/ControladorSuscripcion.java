@@ -46,15 +46,6 @@ public class ControladorSuscripcion {
         return new ModelAndView("redirect:/main");
     }
 
-    @RequestMapping(path = "/confirmar-suscripcion", method = RequestMethod.GET)
-    private ModelAndView confirmarSuscripcion(HttpServletRequest request,
-                                               @RequestParam (value="id_tipo") Long id_tipo ){
-        ModelMap model= new ModelMap();
-        model.put("id_tipo", id_tipo);
-        model.put("id_usuario", request.getSession().getAttribute("id"));
-        return new ModelAndView("confirmar-suscripcion", model);
-    }
-
     @RequestMapping(path = "/suscribirse", method = RequestMethod.GET)
     public ModelAndView suscribirUsuario(@RequestParam(value = "id_tipo") Long id_tipo,
                                          @RequestParam(value = "id_usuario")Long id_usuario,
