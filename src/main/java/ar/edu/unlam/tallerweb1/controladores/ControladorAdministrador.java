@@ -83,6 +83,15 @@ public class ControladorAdministrador {
             return enviarALoginConMensajeDeError();
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/emplados-encargados")
+    public ModelAndView mostrarEmpleadosEncargadosDeDevolucion(HttpServletRequest administrador) {
+        if (elRolEstaSeteadoYEsAdministrador(administrador)) {
+            return new ModelAndView("encargados-devolucion");
+        } else{
+            return enviarALoginConMensajeDeError();
+        }
+    }
+
     private ModelAndView intentaMostrarLaVistaDeLosClientesSuscriptosConLaLista() {
         try {
             return enviaALaVistaDeLosClientesSuscriptosMotrandoUnaLista();
