@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptos;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -86,9 +83,7 @@ public class ControladorAdministrador {
     @RequestMapping(method = RequestMethod.GET, path = "/encargados-devolucion")
     public ModelAndView mostrarEmpleadosEncargadosDeDevolucion(HttpServletRequest administrador) {
         if (elRolEstaSeteadoYEsAdministrador(administrador)) {
-            List<Usuario> usuariosEncargadosDeVolucion = this.obtenerListaDeUsuariosPorRol("encargadosDevolucion");
-            modelMap.put("encargados_devolucion", usuariosEncargadosDeVolucion);
-            return new ModelAndView("encargados-devolucion", modelMap);
+            return intentaAccederALaVistaDeLosUsuariosEncargadosDeLaDevolucionYSiNoExistenLanzaUnaException();
         } else {
             return enviarALoginConMensajeDeError();
         }
@@ -261,7 +256,26 @@ public class ControladorAdministrador {
         return servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
     }
 
-    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) {
+    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEncargadosException {
         return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
+    }
+
+    private ModelAndView intentaAccederALaVistaDeLosUsuariosEncargadosDeLaDevolucionYSiNoExistenLanzaUnaException() {
+        try {
+            return enviaALaVistaDeUsuariosEncargadosDelaDevolucionMostrandoUnaLista();
+        } catch (NoHayEncargadosException e) {
+            return enviarAlaVistaDeUsuariosEncargadosDeLaDevolucionMostrandoUnMensajeDeError();
+        }
+    }
+
+    private ModelAndView enviarAlaVistaDeUsuariosEncargadosDeLaDevolucionMostrandoUnMensajeDeError() {
+        modelMap.put("error_no_hay_encargados", "no hay encargados de devolucion actualmente");
+        return new ModelAndView("encargados-devolucion", modelMap);
+    }
+
+    private ModelAndView enviaALaVistaDeUsuariosEncargadosDelaDevolucionMostrandoUnaLista() throws NoHayEncargadosException {
+        List<Usuario> usuariosEncargadosDeVolucion = this.obtenerListaDeUsuariosPorRol("encargadosDevolucion");
+        modelMap.put("encargados_devolucion", usuariosEncargadosDeVolucion);
+        return new ModelAndView("encargados-devolucion", modelMap);
     }
 }

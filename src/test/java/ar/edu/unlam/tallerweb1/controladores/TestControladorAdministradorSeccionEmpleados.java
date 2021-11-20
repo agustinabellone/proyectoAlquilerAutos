@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayEncargadosException;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -17,8 +18,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class TestControladorAdministradorSeccionEmpleados {
 
@@ -60,17 +60,27 @@ public class TestControladorAdministradorSeccionEmpleados {
         HttpServletRequest cliente = givenExisteUnUsuario(INVITADO);
         whenAccedeALaVistaDeEmpleados(cliente);
         thenSeMuestraLaVista("login", this.modelAndView);
-        thenSeMuestraUnMensajeDeError("No tienes los permisos necesarios para acceder a esta pagina", this.modelAndView);
+        thenSeMuestraUnMensajeDeError("No tienes los permisos necesarios para acceder a esta pagina", this.modelAndView, "errorSinPermisos");
     }
 
     @Test
-    public void queElUsuarioAdministradorPuedaVerUnaListaDeLosEmpleadosEncargados() {
+    public void queElUsuarioAdministradorPuedaVerUnaListaDeLosEmpleadosEncargados() throws NoHayEncargadosException {
         givenExisteUnaListaDeEmplados("encargadosDevolucion", 2);
         HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
         givenAccedeALaVistaDeEmpleados(administrador);
         whenObtieneUnaListaDeUsuarios("encargadosDevoluvion");
         thenSeMuestraLaVista("encargados-devolucion", this.modelAndView);
         thenSeMuestraLaLista(this.modelAndView);
+    }
+
+    @Test(expected = NoHayEncargadosException.class)
+    public void queElUsuarioAdministradorNoPuedaVeruUnaListaDeEncargadosPorqueNoExisten() throws NoHayEncargadosException {
+        givenNoExistenEncargadosDeLaDevolucionDeLosAutos();
+        HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
+        givenAccedeALaVistaDeEmpleados(administrador);
+        whenObtieneUnaListaDeUsuarios("encargadosDevoluvion");
+        thenSeMuestraLaVista("encargados-devolucion", this.modelAndView);
+        thenSeMuestraUnMensajeDeError("No hay encargardos de devolucion actualmente", this.modelAndView, "error_no_hay_encargados");
     }
 
     private HttpServletRequest givenExisteUnUsuario(String rol) {
@@ -83,7 +93,7 @@ public class TestControladorAdministradorSeccionEmpleados {
         this.whenAccedeALaVistaDeEmpleados(administrador);
     }
 
-    private void givenExisteUnaListaDeEmplados(String encargadosDevoluvion, int cantidad) {
+    private void givenExisteUnaListaDeEmplados(String encargadosDevoluvion, int cantidad) throws NoHayEncargadosException {
         List<Usuario> listaDeUsuariosEncargadosDeDevolucion = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
@@ -93,11 +103,15 @@ public class TestControladorAdministradorSeccionEmpleados {
         when(servicioUsuario.obtenerListaDeUsuariosPorRol(anyString())).thenReturn(listaDeUsuariosEncargadosDeDevolucion);
     }
 
+    private void givenNoExistenEncargadosDeLaDevolucionDeLosAutos() throws NoHayEncargadosException {
+        doThrow(NoHayEncargadosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(anyString());
+    }
+
     private void whenAccedeALaVistaDeEmpleados(HttpServletRequest administrador) {
         this.modelAndView = controlador.mostrarEmpleadosEncargadosDeDevolucion(administrador);
     }
 
-    private List<Usuario> whenObtieneUnaListaDeUsuarios(String rol) {
+    private List<Usuario> whenObtieneUnaListaDeUsuarios(String rol) throws NoHayEncargadosException {
         return controlador.obtenerListaDeUsuariosPorRol(rol);
     }
 
@@ -106,8 +120,8 @@ public class TestControladorAdministradorSeccionEmpleados {
     }
 
 
-    private void thenSeMuestraUnMensajeDeError(String error, ModelAndView modelAndView) {
-        assertThat(modelAndView.getModel().get("errorSinPermisos")).isEqualTo(error);
+    private void thenSeMuestraUnMensajeDeError(String error, ModelAndView modelAndView, String nombre_del_error) {
+        assertThat(modelAndView.getModel().get(nombre_del_error)).isEqualTo(error);
     }
 
     private void thenSeMuestraLaLista(ModelAndView modelAndView) {
