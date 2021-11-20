@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,18 +35,23 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
                     <h3 class="mb-3">Alquilá un auto a un precio accesible</h3>
-                    <h6 class="subtitle font-weight-normal">Contamos con 3 planes diferentes</h6>
+                    <h6 class="subtitle font-weight-normal">Contamos con 3 planes diferentes.</h6>
                 </div>
             </div>
             <div class="container mt-5">
-                <div class="row">
+                <div class="row d-flex align-items-center">
                     <div class="col-md-4">
                         <div class="card-box bg-secondary text-white text-center rounded">
                             <div class="card-title">
                                 <h2 class="mb-5 text-white">PLAN BÁSICO</h2>
                                 <p>50 Km de recorrido</p>
                                 <p>KM excedido: $350</p>
-                                <p> Cambio de tiempo/lugar estipulado: $1200</p>
+                                <p>Poca cantidad de vehiculos disponibles</p>
+                                <p>Permite reserva solo en el mismo día</p>
+                                <p>Cambio de tiempo/lugar estipulado: $1200</p>
+                            </div>
+                            <div>
+                                <img class="card-img-top rounded" src="img/plan1.jpg" alt="Card image cap">
                             </div>
                             <div>
                                 <div class="price-box my-3">
@@ -61,9 +67,12 @@
                                 <h2 class="mb-5 text-light">PLAN ORO</h2>
                                 <p>80 km de recorrido </p>
                                 <p>KM excedido: $300</p>
-                                <p> Permite eleccion de vehiculo</p>
+                                <p>Permite eleccion de vehiculo</p>
                                 <p>Permite reservas con 3 días de anticipación</p>
-                                <p> Cambio de tiempo/lugar estipulado: $800</p>
+                                <p>Cambio de tiempo/lugar estipulado: $800</p>
+                            </div>
+                            <div>
+                                <img class="card-img-top rounded" src="img/plan2.jpg" alt="Card image cap">
                             </div>
                             <div>
                                 <div class="price-box my-3">
@@ -78,10 +87,13 @@
                             <div class="card-title">
                                 <h2 class="mb-5 text-white">PLAN DIAMANTE</h2>
                                 <p>200 km de recorrido</p>
-                                <p> Km excedido: $500</p>
-                                <p> Eleccion de vehiculo (incluye gama alta)</p>
-                                <p> Reservar con cualquier anticipación</p>
+                                <p>Km excedido: $500</p>
+                                <p>Eleccion de vehiculo (incluye gama alta)</p>
+                                <p>Reservar con cualquier anticipación</p>
                                 <p>Cambio de tiempo/lugar estipulado SIN COSTO</p>
+                            </div>
+                            <div>
+                                <img class="card-img-top rounded" src="img/plan3.jpg" alt="Card image cap">
                             </div>
                             <div>
                                 <div class="price-box my-3">
@@ -96,33 +108,33 @@
             </div>
         </div>
     </div>
-    <div class="pricing6 py-5">
+    <div class="pricing6 py-2 mb-2">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
                     <h3 class="mb-3">Elegí el lugar que te quede mejor</h3>
-                    <h6 class="subtitle font-weight-normal mb-3">Contamos con 3 garages</h6>
+                    <h6 class="subtitle font-weight-normal mb-3">Contamos con 3 garages para que retires o devuelvas el vehiculo.</h6>
                 </div>
             </div>
-            <div class="d-flex justify-content-around">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="img/sedeMorón.jpg" alt="Card image cap">
+            <div class="row d-flex justify-content-around">
+                <div class="col-md-3 mb-2 bg-dark text-white rounded" >
+                    <img class="card-img-top mt-2 rounded"  src="img/sedeMorón.jpg" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="text-center">Sede Morón</h5>
+                        <h5 class="text-center text-white">Sede Morón</h5>
                         <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
                     </div>
                 </div>
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="img/sedeLaMatanza.jpg" alt="Card image cap">
+                <div class="col-md-3 mb-2 bg-dark text-white rounded">
+                    <img class="card-img-top mt-2 rounded" src="img/sedeLaMatanza.jpg" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="text-center">Sede La Matanza</h5>
+                        <h5 class="text-center text-white">Sede La Matanza</h5>
                         <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
                     </div>
                 </div>
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="img/sedeLiniers.jpg" alt="Card image cap">
+                <div class="col-md-3 mb-2 bg-dark text-white rounded" >
+                    <img class="card-img-top mt-2 rounded" src="img/sedeLiniers.jpg" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="text-center">Sede Liniers</h5>
+                        <h5 class="text-center text-white">Sede Liniers</h5>
                         <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
                     </div>
                 </div>
