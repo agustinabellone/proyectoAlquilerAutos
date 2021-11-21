@@ -17,11 +17,18 @@
         crossorigin="anonymous">
   <title>Proyecto - Alquiler de autos</title>
 </head>
-<body class="bg-dark">
-<section>
+<body class="bg-light">
+<header>
+  <div class = "d-flex col-md-12 justify-content-around align-items-center">
+    <div class="d-flex align-items-center">
+      <img style="height: 150px; width: 200px" src="img/nombreConLogo.svg" alt="logo">
+    </div>
+  </div>
+</header>
+<section class="mb-3">
   <div class="container">
-    <div class="justify-content-center mt-5">
-      <div class="card-wrapper mt-5">
+    <div class="justify-content-center">
+      <div class="card-wrapper mt-2">
         <div class="card">
           <div class="card-body">
             <h4 class="mb-3 text-center">Crear Cuenta</h4>
@@ -59,12 +66,13 @@
             </c:if>
         </div>
         <div class="mt-3 text-center">
-          <a href="home" class="text-white font-weight-medium">Volver</a>
+          <a href="home" class="text-dark font-weight-medium">Volver</a>
         </div>
       </div>
     </div>
   </div>
 </section>
+<jsp:include page="footer.jsp" />
 </body>
 
 <!-- Optional JavaScript -->

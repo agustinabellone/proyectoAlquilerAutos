@@ -5,8 +5,7 @@
 <header class = "p-3">
   <div class = "d-flex col-md-12 justify-content-around align-items-center">
     <div class="d-flex align-items-center">
-      <h5 class="font-weight-bold">TALLER</h5>
-      <img style="height: 70px; width: 70px" src="img/logoNegro.svg" alt="logo">
+      <img style="height: 50px; width: 100%" src="img/nombreConLogo.svg" alt="logo">
     </div>
 
     <c:if test = "${id != null}">
