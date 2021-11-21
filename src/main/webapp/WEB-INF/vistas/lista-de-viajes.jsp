@@ -23,7 +23,7 @@
         </div>
     </div>
 </section>
-<section>
+<section class="mb-5">
     <div class="pricing6 py-5 bg-light">
         <div class="container">
             <div class="col center-block">
@@ -74,7 +74,8 @@
     </div>
 </section>
 
-
+<jsp:include page="footer.jsp" />
+</body>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -86,7 +87,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-
-
-</body>
 </html>

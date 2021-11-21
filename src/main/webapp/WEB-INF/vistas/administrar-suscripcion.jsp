@@ -20,7 +20,7 @@
 <section>
     <div class="container">
         <div>
-            <h1 class="text-center mt-5">Administrá tu suscripción</h1>
+            <h1 class="text-center mt-5 mb-5">Administrá tu suscripción</h1>
             <c:if test="${not empty errorDarDeBaja}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>-Error-</strong> ${errorDarDeBaja}.
@@ -45,9 +45,6 @@
                     </button>
                 </div>
             </c:if>
-        </div>
-        <div>
-            <h6 class=" p-2 m-4 text-left">Administrá las distintas opciones de tu suscripcion:</h6>
         </div>
         <div class="card text-center " style="width: 50%; margin: auto;">
             <ul class="list-group list-group-flush">

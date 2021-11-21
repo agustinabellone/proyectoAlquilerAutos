@@ -21,7 +21,7 @@
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Suscribite a uno de nuestros planes</h1>
+            <h1 class="text-center mt-5 mb-5">Suscribite a uno de nuestros planes</h1>
         </div>
     </div>
 </section>

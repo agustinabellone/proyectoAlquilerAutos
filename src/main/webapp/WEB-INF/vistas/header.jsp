@@ -2,6 +2,17 @@
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 
+<header class="header" id="inicio">
+  <img src="Iconos/hamburguer.svg" alt="" class="hamburguer">
+  <nav class="menu-navegacion">
+    <a href="#inicio">Inicio</a>
+    <a href="#servicio">Servicios</a>
+    <a href="#galeria">Institución</a>
+    <a href="#expertos">Asignaturas</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
 <header class = "p-3">
   <div class = "d-flex col-md-12 justify-content-around align-items-center">
     <div class="d-flex align-items-center">
@@ -75,3 +86,4 @@
     <!--Fin del modal-->
   </div>
 </header>
+

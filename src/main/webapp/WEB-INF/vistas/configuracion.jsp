@@ -53,7 +53,7 @@
                         <button type="submit" class="btn btn-success" >Guardar cambios</button>
                     </div>
                     <div class="ml-3">
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminarCuentaModal">Eliminar cuenta</button>
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#eliminarCuentaModal">Eliminar cuenta</button>
                     </div>
                 </div>
             </form>
@@ -109,6 +109,9 @@
     <!--Fin del modal-->
 
 </section>
+<c:if test="${empty mensaje && empty cambiosActualizados && empty error}">
+<jsp:include page="footer.jsp" />
+</c:if>
 </body>
 
 <!-- Optional JavaScript -->
