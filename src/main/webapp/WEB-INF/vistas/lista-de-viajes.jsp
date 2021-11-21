@@ -16,15 +16,13 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light pb-5">
     <div class="container text-center">
         <div>
             <h1 class="display-4 p-4">Alquileres finalizados</h1>
         </div>
     </div>
-</section>
-<section class="mb-5">
-    <div class="pricing6 py-5 bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
             <div class="col center-block">
                 <div class="d-flex align-items-center">

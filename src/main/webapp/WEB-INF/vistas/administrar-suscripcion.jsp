@@ -17,10 +17,10 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
         <div>
-            <h1 class="text-center mt-5 mb-5">Administrá tu suscripción</h1>
+            <h1 class="text-center display-4 p-4">Administrá tu suscripción</h1>
             <c:if test="${not empty errorDarDeBaja}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>-Error-</strong> ${errorDarDeBaja}.
@@ -61,8 +61,8 @@
         </div>
     </div>
 </section>
-<section>
-    <div class="pricing6 py-5 bg-light">
+<section class="bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
             <!-- row  -->
             <c:if test="${tipoSuscripcion.getNombre()=='Basico'}">

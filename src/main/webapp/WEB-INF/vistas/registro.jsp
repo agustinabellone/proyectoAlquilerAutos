@@ -21,7 +21,7 @@
 <header>
   <div class = "d-flex col-md-12 justify-content-around align-items-center">
     <div class="d-flex align-items-center">
-      <img style="height: 150px; width: 200px" src="img/nombreConLogo.svg" alt="logo">
+      <img style="height: 120px; width: 200px" src="img/nombreConLogo.svg" alt="logo">
     </div>
   </div>
 </header>

@@ -18,7 +18,6 @@
 
     <title>Proyecto - Alquiler de autos</title>
 </head>
-
 <body class="bg-light">
 <header>
         <div class = "d-flex col-md-12 justify-content-around align-items-center">

@@ -112,7 +112,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
                     <h3 class="mb-3">Elegí el lugar que te quede mejor</h3>
-                    <h6 class="subtitle font-weight-normal mb-3">Contamos con 3 garages para que retires o devuelvas el vehiculo.</h6>
+                    <h6 class="subtitle font-weight-normal mb-5">Contamos con 3 garages para que retires o devuelvas el vehiculo.</h6>
                 </div>
             </div>
             <div class="row d-flex justify-content-around">
