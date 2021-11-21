@@ -23,7 +23,7 @@
 <section>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Opiniones sobre el auto </h1>
+            <h1 class="display-4 p-4">Opiniones sobre el auto </h1>
         </div>
         <section>
             <div class="row mt-3">

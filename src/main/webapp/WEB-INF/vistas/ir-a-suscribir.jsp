@@ -18,15 +18,15 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Suscribite a uno de nuestros planes</h1>
+            <h1 class="display-4 p-4">Suscribite a uno de nuestros planes</h1>
         </div>
     </div>
 </section>
-<section>
-    <div class="pricing6 py-5 bg-light">
+<section class="bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
             <!-- row  -->
             <div class="row mt-4">

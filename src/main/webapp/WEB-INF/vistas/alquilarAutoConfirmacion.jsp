@@ -18,10 +18,10 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Confirmación</h1>
+            <h1 class="display-4 p-4">Confirmación</h1>
         </div>
         <c:if test="${empty mensaje && empty mensajeFallido && empty errorFechas}" >
             <div id="contenido" class="container card col-md-6 my-4" >
@@ -31,7 +31,7 @@
                     <p class="card-text">Retiro el auto: ${formattedDateSalida} en ${lugarRetiro.direccion}</p>
                     <p class="card-text">Devuelvo el auto: ${formattedDateIngreso} en ${lugarDevolucion.direccion}</p>
                     <div class="col-sm-12 d-flex justify-content-center">
-                        <a href="validar-alquiler?id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}&lugarRetiro=${lugarRetiro.id}&lugarDevolucion=${lugarDevolucion.id}" class="btn btn-dark" >ALQUILAR</a>
+                        <a href="validar-alquiler?id_auto=${id_auto}&salida=${salida}&ingreso=${ingreso}&lugarRetiro=${lugarRetiro.id}&lugarDevolucion=${lugarDevolucion.id}" class="btn btn-info" >ALQUILAR</a>
                     </div>
                 </div>
             </div>
@@ -63,5 +63,8 @@
     </div>
 
 </section>
+<c:if test="${empty mensaje && empty mensajeFallido && empty errorFechas}" >
+<jsp:include page="footer.jsp" />
+</c:if>
 </body>
 </html>

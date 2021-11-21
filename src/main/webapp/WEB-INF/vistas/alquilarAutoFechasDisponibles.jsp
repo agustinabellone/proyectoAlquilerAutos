@@ -19,14 +19,12 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section class="pb-5">
-    <div class="container mt-5">
-        <div class="col-sm-12 d-flex flex-column justify-content-center">
-            <h1 class="text-center">Elegir fechas y lugares disponibles</h1>
-            <h4 class="text-center">Para retirar y devolver el auto</h4>
+<section class="pb-5 bg-light">
+    <div class="container mb-2">
+        <div class="col-sm-12 d-flex flex-column justify-content-center text-center">
+            <h1 class="display-4 p-4">Elegir fechas y lugares disponibles</h1>
         </div>
     </div>
-<br>
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-around">
             <form action="confirmacion?id_auto=${id_auto}&imagen_auto=${imagen_auto}" method="post">
@@ -68,7 +66,7 @@
                     </div>
                 </c:if>
                 <div class="col-sm-12 d-flex justify-content-around">
-                    <button class="btn btn-lg btn-dark btn-block" type="submit"/>Confirmar</button>
+                    <button class="btn btn-lg btn-info btn-block" type="submit"/>Confirmar</button>
                 </div>
             </form>
         </div>

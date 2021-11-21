@@ -25,15 +25,15 @@
 <header class="d-flex flex-row-reverse p-3">
 
 </header>
-<section>
+<section class="bg-light">
     <div class="container text-center">
         <div>
             <h1 class="display-4 p-4">Lista de Autos</h1>
         </div>
     </div>
 </section>
-<section>
-    <div class="pricing6 py-5 bg-light">
+<section class="bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
             <div class="col center-block">
                 <c:forEach items="${autosEnMantenimiento}" var="autos">

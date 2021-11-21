@@ -19,18 +19,18 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container text-center">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Valorar Vehiculo</h1>
+            <h1 class="display-4 p-4">Valorar Vehiculo</h1>
         </div>
     </div>
 </section>
-<section>
+<section class="bg-light pb-5">
     <div class="container">
             <div class="">
                 <div class="col-lg-12">
-                    <div class="d-flex ">
+                    <div class="d-flex bg-white rounded p-2">
                         <div class="col-lg-6">
                             <form class="valoracion" action="guardar-valoracion-Auto?autoID=${auto.id}&alquilerID=${alquilerID}" method="post">
                                 <input type="radio" id="uno" name="estrellasValoracion" value="5" required>
@@ -46,10 +46,15 @@
                                 <div>
                                     <p><textarea class="form-control mt-3" name="comentario" rows="5" required placeholder="Escribir comentario... "></textarea></p>
                                     <div class="col-sm-12 d-flex justify-content-center mb-3">
-                                        <button class="btn btn-lg btn-dark btn-block" Type="Submit" />Valorar</button>
+                                        <button class="btn btn-lg btn-info btn-block" Type="Submit" />Valorar</button>
                                     </div>
                                 </div>
                             </form>
+                            <c:if test="${not empty valorarLuego}">
+                                <div class="d-flex justify-content-center">
+                                    <a href="main" class="text-dark mt-3 mb-3">Valorar luego</a>
+                                </div>
+                            </c:if>
                         </div>
                         <div class="col-lg-6">
                             <div class="container">
@@ -57,11 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <c:if test="${not empty valorarLuego}">
-                    <div class="d-flex justify-content-center">
-                        <a href="main" class="btn btn-dark mt-3 mb-3">Valorar luego</a>
-                    </div>
-                </c:if>
+
 
                 </div>
 

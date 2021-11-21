@@ -19,21 +19,18 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Confirme su suscripción</h1>
+            <h1 class="display-4 p-4">Confirme su suscripción</h1>
         </div>
     </div>
 </section>
-<section>
-    <div class="pricing6 py-5 bg-light">
+<section class="bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
-
             <div class="card text-center">
-                <div class="card-header">
-
-                </div>
+                <div class="card-header"></div>
                 <div class="card-body">
                     <h5 class="card-title">Por favor <c:out value="${nombre}"/>, confirmá tu suscripción</h5>
                     <p class="card-text">¿Te suscribimos al plan número <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>

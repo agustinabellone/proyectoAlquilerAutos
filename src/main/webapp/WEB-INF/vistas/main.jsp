@@ -18,10 +18,9 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section class="bg-light p-5">
+<section class="bg-light pb-5 py-2">
     <div class="container">
-        <h1 class="mb-5">¡Hola <c:out value="${nombre}"/>!</h1>
-
+        <h1 class="display-4 p-4">¡Hola <c:out value="${nombre}"/>!</h1>
         <c:if test="${not empty confirmacionDarDeBaja}">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>-</strong> ${confirmacionDarDeBaja}<strong>-</strong>
@@ -39,55 +38,61 @@
             </div>
         </c:if>
 
-        <div class="d-flex justify-content-around">
-            <div class="card col-sm-3">
+        <div class="row d-flex justify-content-around">
+            <div class="card col-md-3 mb-2">
                 <img class="card-img-top mt-3" src="img/alquilarAuto.jpg" alt="Mujer en un auto">
                 <div class="d-flex justify-content-center">
-                <c:choose>
-                    <c:when test="${tieneSuscripcion==false}">
-                        <button type="button" class="btn btn-dark mt-3 mb-3" data-toggle="modal" data-target="#modalAlquilerAuto">Alquilar auto</button>
-                    </c:when>
-                    <c:otherwise>
-                    <a href="alquilar-auto" class="btn btn-dark mt-3 mb-3">Alquilar auto</a>
-                    </c:otherwise>
-                </c:choose>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-center">Alquiler</h5>
+                        <p class="card-text text-center">Reservá el auto que mas te guste.</p>
+                        <c:choose>
+                            <c:when test="${tieneSuscripcion==false}">
+                                <button type="button" class="btn btn-dark mt-3 mb-3" data-toggle="modal" data-target="#modalAlquilerAuto">Alquilar auto</button>
+                            </c:when>
+                            <c:otherwise>
+                            <a href="alquilar-auto" class="btn btn-dark mt-3 mb-3">Ver autos</a>
+                            </c:otherwise>
+                         </c:choose>
+                    </div>
                 </div>
             </div>
 
-            <div class="container col-sm-3 d-flex justify-content-center text-center">
                 <c:choose>
                     <c:when test="${tieneSuscripcion==false}">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="img/noTieneSuscripcion.png" alt="no tiene suscripcion">
-                            <div class="card-body">
+                        <div class="card col-md-3 text-center mb-2" >
+                            <img class="card-img-top mt-3" src="img/noTieneSuscripcion.png" alt="no tiene suscripcion">
+                            <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">Suscripción</h5>
                                 <p class="card-text">No se encuentra suscripto a ningun plan :(</p>
-                                <a href="ir-a-suscribir" class="btn btn-success">¡Suscribirme!</a>
+                                <a href="ir-a-suscribir" class="btn btn-info">¡Suscribirme!</a>
                             </div>
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="img/suscribirse.jpg" alt="tiene suscripcion">
-                            <div class="card-body">
+                        <div class="card col-md-3 text-center mb-2">
+                            <img class="card-img-top mt-3" src="img/suscribirse.jpg" alt="tiene suscripcion">
+                            <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">Suscripción</h5>
                                 <p class="card-text">Nivel: <span class="text-primary">${tipoSuscripcion.getNombre()}</span></p>
+                                <p>Finaliza el: ${suscripcion.getFechaFin()}</p>
                                 <c:if test="${suscripcion.getRenovacion() == false}">
                                     <p class="card-text text-danger"><strong>Su suscripcion acabara al finalizar el plazo</strong> </p>
                                     <p class="card-text text-danger"><strong>${suscripcion.getFechaFin()}</strong> </p>
                                 </c:if>
-                                <a href="administrar-suscripcion" class="btn btn-success">Administrar</a>
+                                <a href="administrar-suscripcion" class="btn btn-info">Administrar</a>
                             </div>
                         </div>
                     </c:otherwise>
                 </c:choose>
-            </div>
 
-            <div class="card col-sm-3">
+
+            <div class="card col-md-3 text-center mb-2">
                 <img class="card-img-top mt-3" src="img/verHistorialAlquileres.jpg" alt="Hombre con un auto">
-                <div class="d-flex justify-content-center">
-                    <a href="lista-viajes" class="btn btn-dark mt-4">Historial de alquileres</a>
-                </div>
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <h5 class="card-title text-center">Mis Alquileres</h5>
+                        <p class="card-text text-center">Podrás verlos una vez que finalicen.</p>
+                        <a href="lista-viajes" class="btn btn-dark ">Ver historial</a>
+                    </div>
             </div>
         </div>
         <c:if test = "${alquileres.size() > 0}">
@@ -136,7 +141,7 @@
                         No puedes alquilar un auto sin una suscripción activa.
                     </div>
                     <div class="modal-footer">
-                        <a href="ir-a-suscribir"><button type="button" class="btn btn-success">Suscribirme</button></a>
+                        <a href="ir-a-suscribir"><button type="button" class="btn btn-info">Suscribirme</button></a>
                     </div>
                 </div>
             </div>

@@ -16,15 +16,13 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light pb-5">
     <div class="container text-center">
         <div>
             <h1 class="display-4 p-4">Alquileres finalizados</h1>
         </div>
     </div>
-</section>
-<section>
-    <div class="pricing6 py-5 bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
             <div class="col center-block">
                 <div class="d-flex align-items-center">
@@ -74,7 +72,8 @@
     </div>
 </section>
 
-
+<jsp:include page="footer.jsp" />
+</body>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -86,7 +85,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-
-
-</body>
 </html>

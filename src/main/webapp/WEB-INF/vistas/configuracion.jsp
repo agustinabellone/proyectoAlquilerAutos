@@ -22,10 +22,10 @@
 <body>
 <jsp:include page="header.jsp" />
 <body>
-<section class="pb-5">
+<section class="pb-5 bg-light">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Configuración</h1>
+            <h1 class="display-4 p-4">Configuración</h1>
         </div>
         <c:if test="${empty mensaje && empty cambiosActualizados && empty error}">
         <h4>Editá tus datos personales</h4>
@@ -53,7 +53,7 @@
                         <button type="submit" class="btn btn-success" >Guardar cambios</button>
                     </div>
                     <div class="ml-3">
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminarCuentaModal">Eliminar cuenta</button>
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#eliminarCuentaModal">Eliminar cuenta</button>
                     </div>
                 </div>
             </form>
@@ -109,6 +109,9 @@
     <!--Fin del modal-->
 
 </section>
+<c:if test="${empty mensaje && empty cambiosActualizados && empty error}">
+<jsp:include page="footer.jsp" />
+</c:if>
 </body>
 
 <!-- Optional JavaScript -->

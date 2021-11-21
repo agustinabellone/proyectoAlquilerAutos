@@ -17,10 +17,10 @@
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Confirmación </h1>
+            <h1 class="display-4 p-4">Confirmación</h1>
         </div>
         <c:if test="${not empty mensaje}">
             <div class="alert alert-success text-center container mt-3" role="alert">

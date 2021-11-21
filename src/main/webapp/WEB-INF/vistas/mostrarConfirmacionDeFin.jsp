@@ -1,27 +1,31 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/planes.css"/>
-    <title>Document</title>
+    <title>Proyecto - Alquiler de autos</title>
 </head>
-<jsp:include page="header.jsp"/>
 <body>
+<jsp:include page="header.jsp"/>
 <section>
-    <div class="pricing6 py-5 bg-light">
+    <div class="pricing6 py-2 bg-light">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
-                    <h3 class="mb-3">${cliente.nombre} confirma los datos para finalizar el alquiler</h3>
+                    <h1 class="display-5 p-4">${cliente.nombre} confirma los datos para finalizar el alquiler</h1>
                 </div>
             </div>
             <!-- row  -->
@@ -57,14 +61,14 @@
                                         </c:if>
                                     </ul>
                                 </div>
-                            <div class="col-lg-12 text-left">
-                                <p style="color:black;padding-left:20px; margin-bottom: 2px; text-align: center" >En caso de no ser asi debe <a
+                            <div class="col-lg-12">
+                                <p class="text-center">En caso de no ser asi debe <a
                                     href='modificar-garage-llegada?alquilerID=${alquiler.id}'>MODIFICAR GARAGE
                                 DE LLEGADA</a></p>
                                 <h6 class="subtitle font-weight-normal" style="text-align: center">Recordar que se cobrara una tarifa por la modificacion</h6>
                             </div>
-                            <div class="col-lg-12 text-center" style="margin: 12px">
-                                <h3 class="btn btn-outline-success btn-lg" style="margin: 20px"><a href='confirmacion-fin-alquiler?alquilerID=${alquiler.id}'>CONFIRMAR FINALIZACION DE ALQUILER</a></h3>
+                            <div class="col-lg-12 text-center mt-2" >
+                                <a class="btn btn-success" href='confirmacion-fin-alquiler?alquilerID=${alquiler.id}'>CONFIRMAR FINALIZACION DE ALQUILER</a>
                             </div>
                             </div>
                         </div>
