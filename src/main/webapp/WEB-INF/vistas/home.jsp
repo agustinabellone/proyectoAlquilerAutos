@@ -16,7 +16,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/home.css"/>
     <link rel="stylesheet" type="text/css" href="css/planes.css"/>
-
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <jsp:include page="header.jsp" />
@@ -108,6 +108,140 @@
             </div>
         </div>
     </div>
+
+    <!--Carrousel de autos -->
+
+    <div class="container pricing6 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h3 class="mb-3">Conocé nuestros autos</h3>
+                <h6 class="subtitle font-weight-normal">Contamos con más de 60 autos y seguimos sumando.</h6>
+            </div>
+        </div>
+
+    <!--Carousel-->
+    <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+        <!--Controless-->
+        <div class="controls-top d-flex justify-content-between">
+            <a class="btn-floating ml-3 mb-2" href="#multi-item-example" data-slide="prev">
+                <i class="fa fa-chevron-left"></i>
+            </a>
+            <a class="btn-floating mr-3 mb-2" href="#multi-item-example" data-slide="next">
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+        <!--Controless-->
+
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <!--Primer slide-->
+            <div class="carousel-item active">
+
+                <div class="col-md-3" style="float:left">
+                    <div class="card mb-2">
+                        <img class="card-img-top"
+                             src="img/1.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Mercedes-benz Vito</h4>
+                            <p class="card-text text-center">48.000 Km</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="float:left">
+                    <div class="card mb-2">
+                        <img class="card-img-top"
+                             src="img/2.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Volkswagen Saveiro</h4>
+                            <p class="card-text text-center">80.000 Km</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="float:left">
+                    <div class="card mb-2">
+                        <img class="card-img-top"
+                             src="img/3.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Chevrolet Cruze</h4>
+                            <p class="card-text text-center">123.000 Km</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="float:left">
+                    <div class="card mb-2">
+                        <img class="card-img-top"
+                             src="img/4.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Chevrolet Cruze</h4>
+                            <p class="card-text text-center">123.000 Km</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--Primer slide-->
+
+            <!--Segundo slide-->
+            <div class="carousel-item">
+
+                <div class="col-md-3" style="float:left">
+                    <div class="card mb-2">
+                        <img class="card-img-top"
+                             src="img/1.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Mercedes-benz Vito</h4>
+                            <p class="card-text text-center">48.000 Km</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="float:left">
+                    <div class="card mb-2">
+                        <img class="card-img-top"
+                             src="img/2.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Volkswagen Saveiro</h4>
+                            <p class="card-text text-center">80.000 Km</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="float:left">
+                    <div class="card mb-2">
+                        <img class="card-img-top"
+                             src="img/3.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Chevrolet Cruze</h4>
+                            <p class="card-text text-center">123.000 Km</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="float:left">
+                    <div class="card mb-2">
+                        <img class="card-img-top"
+                             src="img/4.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Chevrolet Captiva Sport</h4>
+                            <p class="card-text text-center">98.000 Km</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--Segundo slide-->
+        </div>
+        <!--Slides-->
+    </div>
+    <!--/.Carousel-->
+
+    </div>
+
+
     <div class="pricing6 py-2 mb-2">
         <div class="container">
             <div class="row justify-content-center">

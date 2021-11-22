@@ -14,6 +14,7 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
@@ -43,7 +44,7 @@
                 <img class="card-img-top mt-3" src="img/alquilarAuto.jpg" alt="Mujer en un auto">
                 <div class="d-flex justify-content-center">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-center">Alquiler</h5>
+                        <h5 class="card-title text-center">Alquilar</h5>
                         <p class="card-text text-center">Reservá el auto que mas te guste.</p>
                         <c:choose>
                             <c:when test="${tieneSuscripcion==false}">

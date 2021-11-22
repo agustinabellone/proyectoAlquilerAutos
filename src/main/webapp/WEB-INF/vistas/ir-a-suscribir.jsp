@@ -14,67 +14,60 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/planes.css"/>
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
 <jsp:include page="header.jsp" />
 <section class="bg-light">
     <div class="container">
-        <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="display-4 p-4">Suscribite a uno de nuestros planes</h1>
+        <div class="d-flex justify-content-center">
+            <h1 class="display-4 p-4 text-center">Suscribite a uno de nuestros planes</h1>
         </div>
     </div>
 </section>
 <section class="bg-light">
-    <div class="pricing6 py-5">
+    <div class="pricing6 py-3">
         <div class="container">
             <!-- row  -->
-            <div class="row mt-4">
+            <div class="row d-flex align-content-center justify-content-center mt-4">
                 <!-- column  -->
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card card-shadow border-0 mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center">
                                 <h5 class="font-weight-medium mb-0">Plan Básico</h5>
                                 <div class="ml-auto"><span class="badge badge-success font-weight-normal p-2">Más Económico</span></div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5 text-center">
-                                    <div class="price-box my-3">
-                                        <sup>$</sup><span class="text-dark display-5">10.000</span>
-                                        <h6 class="font-weight-light">1 MES</h6>
-                                        <a class="btn btn-dark font-14 border-0 text-white p-3 btn-block mt-3" href="confirmar-suscripcion?id_tipo=1">SUSCRIBIRME</a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 align-self-center">
-                                    <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
+                            <div class="d-flex flex-column p-3">
+                                <div class="col-lg-12 align-self-center mt-3">
+                                    <ul class="list-inline text-center pl-3 font-14 font-weight-medium text-dark">
                                         <li><i class="icon-check text-info "></i><p>50 Km de recorrido</p></li>
                                         <li><i class="icon-check text-info "></i><p>KM excedido: $350</p></li>
                                         <li><i class="icon-check text-info "></i><p> Cambio de tiempo/lugar estipulado: $1200</p></li>
                                     </ul>
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    <div class="price-box ">
+                                        <sup>$</sup><span class="text-dark display-5">10.000</span>
+                                        <h6 class="font-weight-light">1 MES</h6>
+                                        <a class="btn btn-dark font-14 border-0 text-white p-3 btn-block mt-3" href="confirmar-suscripcion?id_tipo=1">SUSCRIBIRME</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- column  -->
-                <!-- column  -->
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card card-shadow border-0 mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center">
                                 <h5 class="font-medium m-b-0">Plan Oro</h5>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5 text-center">
-                                    <div class="price-box my-3">
-                                        <sup>$</sup><span class="text-dark display-5">15.000</span>
-                                        <h6 class="font-weight-light">1 MES</h6>
-                                        <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-5" href="confirmar-suscripcion?id_tipo=2">SUSCRIBIRME</a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 align-self-center">
-                                    <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
+                            <div class="d-flex flex-column">
+                                <div class="col-lg-12 align-self-center mt-3">
+                                    <ul class="list-inline pl-3 font-14 text-center font-weight-medium text-dark">
                                         <li><i class="icon-check text-info "></i><p>80 km de recorrido </p></li>
                                         <li><i class="icon-check text-info "></i><p>KM excedido: $300</p></li>
                                         <li><i class="icon-check text-info "></i><p>Permite eleccion de vehiculo</p></li>
@@ -82,32 +75,29 @@
                                         <li><i class="icon-check text-info "></i><p>Cambio de tiempo/lugar estipulado: $800</p></li>
                                     </ul>
                                 </div>
+                                <div class="col-lg-12 text-center">
+                                    <div class="price-box">
+                                        <sup>$</sup><span class="text-dark display-5">15.000</span>
+                                        <h6 class="font-weight-light">1 MES</h6>
+                                        <a class="btn btn-dark border-0 font-14 text-white p-3 btn-block mt-3" href="confirmar-suscripcion?id_tipo=2">SUSCRIBIRME</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- column  -->
-            </div>
-            <!-- row  -->
-            <div class="row mt-4 ">
                 <!-- column  -->
-                <div class="col">
+                <div class="col-md-4">
                     <div class="card card-shadow border-0 mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center">
                                 <h5 class="font-weight-medium mb-0">Plan Diamante</h5>
                                 <div class="ml-auto"><span class="badge badge-info font-weight-normal p-2">Popular</span></div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5 text-center">
-                                    <div class="price-box my-3">
-                                        <sup>$</sup><span class="text-dark display-5">20.000</span>
-                                        <h6 class="font-weight-light">1 MES</h6>
-                                        <a class="btn btn-dark font-18 border-0 text-white p-3 btn-block mt-3" href="confirmar-suscripcion?id_tipo=3">SUSCRIBIRME</a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 align-self-center">
-                                    <ul class="list-inline pl-3 font-14 font-weight-medium text-dark">
+                            <div class="d-flex flex-column">
+                                <div class="col-lg-12 align-self-center">
+                                    <ul class="list-inline mt-3 pl-3 font-14 text-center font-weight-medium text-dark">
                                         <li><i class="icon-check text-info "></i><p>200 km de recorrido</p></li>
                                         <li><i class="icon-check text-info "></i><p>Km excedido: $500</p></li>
                                         <li><i class="icon-check text-info "></i><p>Eleccion de vehiculo (incluye gama alta)</p></li>
@@ -115,11 +105,19 @@
                                         <li><i class="icon-check text-info "></i><p>Cambio de tiempo/lugar estipulado SIN COSTO</p></li>
                                     </ul>
                                 </div>
+                                <div class="col-lg-12 text-center">
+                                    <div class="price-box my-3">
+                                        <sup>$</sup><span class="text-dark display-5">20.000</span>
+                                        <h6 class="font-weight-light">1 MES</h6>
+                                        <a class="btn btn-dark font-18 border-0 text-white p-3 btn-block mt-3" href="confirmar-suscripcion?id_tipo=3">SUSCRIBIRME</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
