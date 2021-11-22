@@ -16,7 +16,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/home.css"/>
     <link rel="stylesheet" type="text/css" href="css/planes.css"/>
-
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <jsp:include page="header.jsp" />
