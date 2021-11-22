@@ -43,7 +43,7 @@
                 <img class="card-img-top mt-3" src="img/alquilarAuto.jpg" alt="Mujer en un auto">
                 <div class="d-flex justify-content-center">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-center">Alquiler</h5>
+                        <h5 class="card-title text-center">Alquilar</h5>
                         <p class="card-text text-center">Reservá el auto que mas te guste.</p>
                         <c:choose>
                             <c:when test="${tieneSuscripcion==false}">

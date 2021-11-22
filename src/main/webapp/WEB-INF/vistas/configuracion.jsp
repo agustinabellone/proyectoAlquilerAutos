@@ -37,7 +37,7 @@
                 </div>
                 <div>
                     <input type="email" class="form-control"  value="${usuario.email}" disabled>
-                    <span  style="font-size: 10px">Tu email no se puede cambiar ya que tu cuenta depende de este.</span>
+                    <span  style="font-size: 10px">Tu email no se puede cambiar ya que tu cuenta depende del mismo.</span>
                 </div>
                 <div>
                     <label>Contraseña</label>
