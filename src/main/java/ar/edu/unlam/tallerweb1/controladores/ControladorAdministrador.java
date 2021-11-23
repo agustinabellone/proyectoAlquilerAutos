@@ -92,7 +92,13 @@ public class ControladorAdministrador {
     @RequestMapping(method = RequestMethod.GET, path = "/mecanicos")
     public ModelAndView mostrarEmpleadosMecanicos(HttpServletRequest usuario_de_request) {
         if (elRolEstaSeteadoYEsAdministrador(usuario_de_request)) {
-            return new ModelAndView("mecanicos");
+            try {
+                List<Usuario> usuariosMecanicos = this.obtenerListaDeUsuariosPorRol("mecanico");
+                modelMap.put("mecanicos", usuariosMecanicos);
+                return new ModelAndView("mecanicos", modelMap);
+            } catch (NoHayEmpladosException e) {
+                return null;
+            }
         } else {
             return enviarALoginConMensajeDeError();
         }
@@ -265,14 +271,14 @@ public class ControladorAdministrador {
         return servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
     }
 
-    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEncargadosException {
+    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException {
         return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
     }
 
     private ModelAndView intentaAccederALaVistaDeLosUsuariosEncargadosDeLaDevolucionYSiNoExistenLanzaUnaException() {
         try {
             return enviaALaVistaDeUsuariosEncargadosDelaDevolucionMostrandoUnaLista();
-        } catch (NoHayEncargadosException e) {
+        } catch (NoHayEmpladosException e) {
             return enviarAlaVistaDeUsuariosEncargadosDeLaDevolucionMostrandoUnMensajeDeError();
         }
     }
@@ -282,7 +288,7 @@ public class ControladorAdministrador {
         return new ModelAndView("encargados-devolucion", modelMap);
     }
 
-    private ModelAndView enviaALaVistaDeUsuariosEncargadosDelaDevolucionMostrandoUnaLista() throws NoHayEncargadosException {
+    private ModelAndView enviaALaVistaDeUsuariosEncargadosDelaDevolucionMostrandoUnaLista() throws NoHayEmpladosException {
         List<Usuario> usuariosEncargadosDeVolucion = this.obtenerListaDeUsuariosPorRol("encargadosDevolucion");
         modelMap.put("encargados_devolucion", usuariosEncargadosDeVolucion);
         return new ModelAndView("encargados-devolucion", modelMap);

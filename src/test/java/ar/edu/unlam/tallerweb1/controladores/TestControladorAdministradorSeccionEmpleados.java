@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayEncargadosException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -64,17 +64,17 @@ public class TestControladorAdministradorSeccionEmpleados {
     }
 
     @Test
-    public void queElUsuarioAdministradorPuedaVerUnaListaDeLosEmpleadosEncargadosDeLaDevolucion() throws NoHayEncargadosException {
+    public void queElUsuarioAdministradorPuedaVerUnaListaDeLosEmpleadosEncargadosDeLaDevolucion() throws NoHayEmpladosException {
         givenExisteUnaListaDeEmplados("encargadosDevolucion", 2);
         HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
         givenAccedeALaVistaDeEmpleados(administrador);
         whenObtieneUnaListaDeUsuarios("encargadosDevoluvion");
         thenSeMuestraLaVista("encargados-devolucion", this.modelAndView);
-        thenSeMuestraLaLista(this.modelAndView);
+        thenSeMuestraLaLista(this.modelAndView, "encargados_devolucion", 2);
     }
 
-    @Test(expected = NoHayEncargadosException.class)
-    public void queElUsuarioAdministradorNoPuedaVeruUnaListaDeEncargadosDeLaDevolucionPorqueNoExisten() throws NoHayEncargadosException {
+    @Test(expected = NoHayEmpladosException.class)
+    public void queElUsuarioAdministradorNoPuedaVeruUnaListaDeEncargadosDeLaDevolucionPorqueNoExisten() throws NoHayEmpladosException {
         givenNoExistenEncargadosDeLaDevolucionDeLosAutos();
         HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
         givenAccedeALaVistaDeEmpleados(administrador);
@@ -98,6 +98,16 @@ public class TestControladorAdministradorSeccionEmpleados {
         thenSeMuestraUnMensajeDeError("No tienes los permisos necesarios para acceder a esta pagina", this.modelAndView, "errorSinPermisos");
     }
 
+    @Test
+    public void queElUsuarioAdministradorPuedaVerUnaListaDeLosEmpladosMecanicos() throws NoHayEmpladosException {
+        givenExisteUnaListaDeEmplados("mecanico", 3);
+        HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
+        givenAccedeALaVistaDeEmpleadosMecanicos(administrador);
+        whenObtieneUnaListaDeUsuarios("mecanico");
+        thenSeMuestraLaVista("mecanicos", this.modelAndView);
+        thenSeMuestraLaLista(this.modelAndView, "mecanicos", 3);
+    }
+
     private HttpServletRequest givenExisteUnUsuario(String rol) {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("rol")).thenReturn(rol);
@@ -108,25 +118,29 @@ public class TestControladorAdministradorSeccionEmpleados {
         this.whenAccedeALaVistaDeEmpleados(administrador);
     }
 
-    private void givenExisteUnaListaDeEmplados(String encargadosDevoluvion, int cantidad) throws NoHayEncargadosException {
+    private void givenExisteUnaListaDeEmplados(String empleado, int cantidad) throws NoHayEmpladosException {
         List<Usuario> listaDeUsuariosEncargadosDeDevolucion = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setRol(encargadosDevoluvion);
+            usuario.setRol(empleado);
             listaDeUsuariosEncargadosDeDevolucion.add(usuario);
         }
         when(servicioUsuario.obtenerListaDeUsuariosPorRol(anyString())).thenReturn(listaDeUsuariosEncargadosDeDevolucion);
     }
 
-    private void givenNoExistenEncargadosDeLaDevolucionDeLosAutos() throws NoHayEncargadosException {
-        doThrow(NoHayEncargadosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(anyString());
+    private void givenNoExistenEncargadosDeLaDevolucionDeLosAutos() throws NoHayEmpladosException {
+        doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(anyString());
+    }
+
+    private void givenAccedeALaVistaDeEmpleadosMecanicos(HttpServletRequest administrador) {
+        whenAccedeALaVistaDeEmpleadosMecanicos(administrador);
     }
 
     private void whenAccedeALaVistaDeEmpleados(HttpServletRequest administrador) {
         this.modelAndView = controlador.mostrarEmpleadosEncargadosDeDevolucion(administrador);
     }
 
-    private List<Usuario> whenObtieneUnaListaDeUsuarios(String rol) throws NoHayEncargadosException {
+    private List<Usuario> whenObtieneUnaListaDeUsuarios(String rol) throws NoHayEmpladosException {
         return controlador.obtenerListaDeUsuariosPorRol(rol);
     }
 
@@ -143,10 +157,10 @@ public class TestControladorAdministradorSeccionEmpleados {
         assertThat(modelAndView.getModel().get(nombre_del_error)).isEqualTo(error);
     }
 
-    private void thenSeMuestraLaLista(ModelAndView modelAndView) {
-        assertThat(modelAndView.getModel().get("encargados_devolucion")).isNotNull();
-        assertThat(modelAndView.getModel().get("encargados_devolucion")).isInstanceOf(List.class);
-        List<Usuario> usuariosEncargados = (List<Usuario>) modelAndView.getModel().get("encargados_devolucion");
-        assertThat(usuariosEncargados).hasSize(2);
+    private void thenSeMuestraLaLista(ModelAndView modelAndView, String nombre_lista_modelo, int cantidad_esperada) {
+        assertThat(modelAndView.getModel().get(nombre_lista_modelo)).isNotNull();
+        assertThat(modelAndView.getModel().get(nombre_lista_modelo)).isInstanceOf(List.class);
+        List<Usuario> usuariosEncargados = (List<Usuario>) modelAndView.getModel().get(nombre_lista_modelo);
+        assertThat(usuariosEncargados).hasSize(cantidad_esperada);
     }
 }
