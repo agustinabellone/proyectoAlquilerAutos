@@ -97,7 +97,8 @@ public class ControladorAdministrador {
                 modelMap.put("mecanicos", usuariosMecanicos);
                 return new ModelAndView("mecanicos", modelMap);
             } catch (NoHayEmpladosException e) {
-                return null;
+                modelMap.put("error_no_hay_mecanicos", "No hay mecanicos actualmente");
+                return new ModelAndView("mecanicos", modelMap);
             }
         } else {
             return enviarALoginConMensajeDeError();

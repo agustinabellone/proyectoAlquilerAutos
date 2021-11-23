@@ -108,6 +108,16 @@ public class TestControladorAdministradorSeccionEmpleados {
         thenSeMuestraLaLista(this.modelAndView, "mecanicos", 3);
     }
 
+    @Test(expected = NoHayEmpladosException.class)
+    public void queElUsuarioAdminstradorVeaUnMensajeDeErrorQueNoExistenEmpleadosMecanicosAlAccederALaVistaDeLosMecanicos() throws NoHayEmpladosException {
+        givenNoExistenEmpladosMecanicos();
+        HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
+        givenAccedeALaVistaDeEmpleadosMecanicos(administrador);
+        whenObtieneUnaListaDeUsuarios("mecanico");
+        thenSeMuestraLaVista("mecanicos", this.modelAndView);
+        thenSeMuestraUnMensajeDeError("No hay mecanicos actualmente", this.modelAndView, "error_no_hay_mecanicos");
+    }
+
     private HttpServletRequest givenExisteUnUsuario(String rol) {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("rol")).thenReturn(rol);
@@ -136,6 +146,10 @@ public class TestControladorAdministradorSeccionEmpleados {
         whenAccedeALaVistaDeEmpleadosMecanicos(administrador);
     }
 
+    private void givenNoExistenEmpladosMecanicos() throws NoHayEmpladosException {
+        doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(anyString());
+    }
+
     private void whenAccedeALaVistaDeEmpleados(HttpServletRequest administrador) {
         this.modelAndView = controlador.mostrarEmpleadosEncargadosDeDevolucion(administrador);
     }
@@ -151,7 +165,6 @@ public class TestControladorAdministradorSeccionEmpleados {
     private void thenSeMuestraLaVista(String vista, ModelAndView modelAndView) {
         assertThat(modelAndView.getViewName()).isEqualTo(vista);
     }
-
 
     private void thenSeMuestraUnMensajeDeError(String error, ModelAndView modelAndView, String nombre_del_error) {
         assertThat(modelAndView.getModel().get(nombre_del_error)).isEqualTo(error);
