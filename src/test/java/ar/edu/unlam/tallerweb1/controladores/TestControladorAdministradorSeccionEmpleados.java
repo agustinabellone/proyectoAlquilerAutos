@@ -49,14 +49,14 @@ public class TestControladorAdministradorSeccionEmpleados {
     }
 
     @Test
-    public void queElUsuarioAdministradroPuedaAccederALaVistaDeEmpleados() {
+    public void queElUsuarioAdministradroPuedaAccederALaVistaDeEmpleadosEncargadosDeLaDevolucion() {
         HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
         whenAccedeALaVistaDeEmpleados(administrador);
         thenSeMuestraLaVista("encargados-devolucion", this.modelAndView);
     }
 
     @Test
-    public void queElUsuarioInvitadoNoPuedaAccederALaVistaDeEmpleados() {
+    public void queElUsuarioInvitadoNoPuedaAccederALaVistaDeEmpleadosEncargadosDeLaDevolucion() {
         HttpServletRequest cliente = givenExisteUnUsuario(INVITADO);
         whenAccedeALaVistaDeEmpleados(cliente);
         thenSeMuestraLaVista("login", this.modelAndView);
@@ -64,7 +64,7 @@ public class TestControladorAdministradorSeccionEmpleados {
     }
 
     @Test
-    public void queElUsuarioAdministradorPuedaVerUnaListaDeLosEmpleadosEncargados() throws NoHayEncargadosException {
+    public void queElUsuarioAdministradorPuedaVerUnaListaDeLosEmpleadosEncargadosDeLaDevolucion() throws NoHayEncargadosException {
         givenExisteUnaListaDeEmplados("encargadosDevolucion", 2);
         HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
         givenAccedeALaVistaDeEmpleados(administrador);
@@ -74,13 +74,20 @@ public class TestControladorAdministradorSeccionEmpleados {
     }
 
     @Test(expected = NoHayEncargadosException.class)
-    public void queElUsuarioAdministradorNoPuedaVeruUnaListaDeEncargadosPorqueNoExisten() throws NoHayEncargadosException {
+    public void queElUsuarioAdministradorNoPuedaVeruUnaListaDeEncargadosDeLaDevolucionPorqueNoExisten() throws NoHayEncargadosException {
         givenNoExistenEncargadosDeLaDevolucionDeLosAutos();
         HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
         givenAccedeALaVistaDeEmpleados(administrador);
         whenObtieneUnaListaDeUsuarios("encargadosDevoluvion");
         thenSeMuestraLaVista("encargados-devolucion", this.modelAndView);
         thenSeMuestraUnMensajeDeError("No hay encargardos de devolucion actualmente", this.modelAndView, "error_no_hay_encargados");
+    }
+
+    @Test
+    public void queElUsuarioAdministradorPuedaAccederALaVistaDeEmpleadosMecanicos() {
+        HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
+        whenAccedeALaVistaDeEmpleadosMecanicos(administrador);
+        thenSeMuestraLaVista("mecanicos",this.modelAndView);
     }
 
     private HttpServletRequest givenExisteUnUsuario(String rol) {
@@ -113,6 +120,10 @@ public class TestControladorAdministradorSeccionEmpleados {
 
     private List<Usuario> whenObtieneUnaListaDeUsuarios(String rol) throws NoHayEncargadosException {
         return controlador.obtenerListaDeUsuariosPorRol(rol);
+    }
+
+    private void whenAccedeALaVistaDeEmpleadosMecanicos(HttpServletRequest administrador) {
+        this.modelAndView = controlador.mostrarEmpleadosMecanicos(administrador);
     }
 
     private void thenSeMuestraLaVista(String vista, ModelAndView modelAndView) {

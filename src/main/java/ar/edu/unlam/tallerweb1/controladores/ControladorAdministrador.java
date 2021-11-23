@@ -89,6 +89,11 @@ public class ControladorAdministrador {
         }
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/mecanicos")
+    public ModelAndView mostrarEmpleadosMecanicos(HttpServletRequest administrador) {
+        return new ModelAndView("mecanicos");
+    }
+
     private ModelAndView intentaMostrarLaVistaDeLosClientesSuscriptosConLaLista() {
         try {
             return enviaALaVistaDeLosClientesSuscriptosMotrandoUnaLista();
