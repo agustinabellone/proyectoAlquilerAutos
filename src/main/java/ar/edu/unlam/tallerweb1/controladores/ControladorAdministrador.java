@@ -90,8 +90,12 @@ public class ControladorAdministrador {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/mecanicos")
-    public ModelAndView mostrarEmpleadosMecanicos(HttpServletRequest administrador) {
-        return new ModelAndView("mecanicos");
+    public ModelAndView mostrarEmpleadosMecanicos(HttpServletRequest usuario_de_request) {
+        if (elRolEstaSeteadoYEsAdministrador(usuario_de_request)) {
+            return new ModelAndView("mecanicos");
+        } else {
+            return enviarALoginConMensajeDeError();
+        }
     }
 
     private ModelAndView intentaMostrarLaVistaDeLosClientesSuscriptosConLaLista() {

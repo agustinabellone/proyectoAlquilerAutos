@@ -87,7 +87,15 @@ public class TestControladorAdministradorSeccionEmpleados {
     public void queElUsuarioAdministradorPuedaAccederALaVistaDeEmpleadosMecanicos() {
         HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
         whenAccedeALaVistaDeEmpleadosMecanicos(administrador);
-        thenSeMuestraLaVista("mecanicos",this.modelAndView);
+        thenSeMuestraLaVista("mecanicos", this.modelAndView);
+    }
+
+    @Test
+    public void queUnUsuarioInvitadoNoPuedaAccederALaVistaDeEmpladosMecanicos() {
+        HttpServletRequest cliente = givenExisteUnUsuario(INVITADO);
+        whenAccedeALaVistaDeEmpleadosMecanicos(cliente);
+        thenSeMuestraLaVista("login", this.modelAndView);
+        thenSeMuestraUnMensajeDeError("No tienes los permisos necesarios para acceder a esta pagina", this.modelAndView, "errorSinPermisos");
     }
 
     private HttpServletRequest givenExisteUnUsuario(String rol) {
