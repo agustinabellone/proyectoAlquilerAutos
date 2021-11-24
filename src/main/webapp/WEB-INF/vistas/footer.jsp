@@ -127,4 +127,6 @@
 
 </footer>
 
+<script src="https://kit.fontawesome.com/7eeebb2597.js" crossorigin="anonymous"></script>
+
 </html>

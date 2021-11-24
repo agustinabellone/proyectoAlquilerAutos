@@ -12,6 +12,26 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ">
+        <li class="nav-item">
+          <div class="text-secondary avatar dropdown" >
+            <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <c:if test="${notificaciones !=null}">
+                <span class="badge badge-danger ml-2">${notificaciones.size()}</span>
+              </c:if>
+              <i class="fas fa-bell"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+              <c:forEach items="${notificaciones}" var="noti">
+                <div class="alert alert-${noti.getColor()} alert-dismissible fade show" style="margin-bottom: 5px" role="alert">
+                  <strong>${noti.getDescripcion()}</strong>
+                  <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                    <span aria-hidden="true">&times;</span>
+                  </button> -->
+                </div>
+              </c:forEach>
+            </div>
+          </div>
+        </li>
         <c:if test = "${id != null}">
         <li class="nav-item">
           <a class="nav-link" href="home">Inicio</a>
@@ -19,6 +39,8 @@
         <li class="nav-item">
           <a class="nav-link" href="main">Mi Cuenta</a>
         </li>
+
+
 
           <c:choose>
           <c:when test = "${rol == 'admin' }">
@@ -29,6 +51,7 @@
           <c:when test = "${rol == 'encargado' }">
             <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>
           </c:when>
+
 
           <c:when test = "${rol == 'mecanico' }">
             <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>

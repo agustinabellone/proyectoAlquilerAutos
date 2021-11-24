@@ -1,7 +1,11 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
+
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
+
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
+
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
@@ -52,6 +56,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         throw new NoHayEmpladosException();
     }
 
+
+    @Override
+    public List<Notificacion> getNotificacionesPorId(Usuario buscado) {
+        return repositorioUsuario.getNotificacionesPorId(buscado);
+    }
 
 
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {

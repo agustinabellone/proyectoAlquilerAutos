@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.SessionFactory;
@@ -66,8 +67,17 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
+
+    public List<Notificacion> getNotificacionesPorId(Usuario buscado) {
+        return this.sessionFactory.getCurrentSession()
+                .createCriteria(Notificacion.class)
+                .add(Restrictions.eq("Usuario", buscado))
+                .list();
+    }
+
     public List<Usuario> buscarUsuariosPorRol(String rol) {
         return null;
+
     }
 
 
