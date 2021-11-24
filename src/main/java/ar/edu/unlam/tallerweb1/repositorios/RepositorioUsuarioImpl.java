@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +63,11 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     public List<Usuario> buscarUsuariosPorSuscripcion(Suscripcion suscripcion) {
         return sessionFactory.getCurrentSession().createCriteria(Usuario.class).
                 add(Restrictions.eq("usuario",suscripcion.getUsuario())).list();
+    }
+
+    @Override
+    public List<Usuario> buscarUsuariosPorRol(String rol) {
+        return null;
     }
 
 

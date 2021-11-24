@@ -124,10 +124,11 @@ public class TestControladorAdministradorSeccionClientes {
     }
 
     private void givenExistenClientesNoSuscriptos(int cantidad) throws NoHayClientesNoSuscriptos {
-        List<Suscripcion> listaDeClientesNoSuscriptos = new ArrayList<>();
+        List<Usuario> listaDeClientesNoSuscriptos = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
-            suscripcion.setUsuario(null);
-            listaDeClientesNoSuscriptos.add(suscripcion);
+            Usuario usuario = new Usuario();
+            usuario.setRol("cliente");
+            listaDeClientesNoSuscriptos.add(usuario);
         }
         when(servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos()).thenReturn(listaDeClientesNoSuscriptos);
     }
@@ -148,7 +149,7 @@ public class TestControladorAdministradorSeccionClientes {
         return controlador.obtenerClientesSuscriptos();
     }
 
-    private List<Suscripcion> whenObtieneLaListaDeLosClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
+    private List<Usuario> whenObtieneLaListaDeLosClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
         return controlador.obtenerListaDeClientesNoSuscriptos();
     }
 

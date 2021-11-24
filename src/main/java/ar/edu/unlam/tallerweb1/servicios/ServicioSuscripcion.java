@@ -28,5 +28,5 @@ public interface ServicioSuscripcion {
 
     List<Suscripcion> obtenerClientesSuscriptos() throws NoHayClientesSuscriptos;
 
-    List<Suscripcion> obtenerListaDeUsuariosNoSuscriptos()throws NoHayClientesNoSuscriptos;
+    List<Usuario> obtenerListaDeUsuariosNoSuscriptos()throws NoHayClientesNoSuscriptos;
 }

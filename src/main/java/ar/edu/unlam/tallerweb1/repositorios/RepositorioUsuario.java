@@ -20,4 +20,6 @@ public interface RepositorioUsuario {
     void actualizarUsuario(Long id_usuario, String nombre, String contraseña);
 
     List<Usuario> buscarUsuariosPorSuscripcion(Suscripcion suscripcion);
+
+    List<Usuario> buscarUsuariosPorRol(String rol);
 }

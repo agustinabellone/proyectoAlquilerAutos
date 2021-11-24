@@ -154,7 +154,7 @@ public class ControladorAdministrador {
         if (elRolEstaSeteadoYEsAdministrador(administrador)) {
             try {
                 vista = "clientes-no-suscriptos";
-                List<Suscripcion> clientesNoSuscriptos = obtenerListaDeClientesNoSuscriptos();
+                List<Usuario> clientesNoSuscriptos = obtenerListaDeClientesNoSuscriptos();
                 model.put("clientes_no_suscriptos", clientesNoSuscriptos);
             } catch (NoHayClientesNoSuscriptos e) {
                 vista = "clientes-no-suscriptos";
@@ -240,7 +240,7 @@ public class ControladorAdministrador {
         return servicioSuscripcion.obtenerClientesSuscriptos();
     }
 
-    public List<Suscripcion> obtenerListaDeClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
+    public List<Usuario> obtenerListaDeClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
         return servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
     }
 

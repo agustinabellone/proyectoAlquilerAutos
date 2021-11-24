@@ -16,4 +16,6 @@ public interface ServicioUsuario {
     void actualizarUsuario(Long id_usuario, String nombre, String contraseña);
 
     List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException;
+
+
 }

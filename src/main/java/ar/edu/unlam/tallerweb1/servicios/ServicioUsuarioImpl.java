@@ -52,6 +52,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         throw new NoHayEmpladosException();
     }
 
+
+
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {
         return contraseña.length() < 8;
     }
