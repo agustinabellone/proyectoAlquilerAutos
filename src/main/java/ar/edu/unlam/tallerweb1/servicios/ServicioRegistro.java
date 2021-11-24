@@ -8,4 +8,5 @@ public interface ServicioRegistro {
 
     Usuario registrar(DatosRegistro datosRegistro);
 
+
 }

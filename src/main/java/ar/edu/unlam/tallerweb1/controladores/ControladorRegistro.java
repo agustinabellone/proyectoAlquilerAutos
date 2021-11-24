@@ -7,10 +7,15 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+
+import static java.lang.Integer.parseInt;
 
 
 @Controller
@@ -46,11 +51,60 @@ public class ControladorRegistro {
             return registroFallido(modelo, "El usuario ya se encuentra registrado");
         }
 
+
+        return registroBasicoExitoso(datosRegistro,modelo);
+    }
+
+    @RequestMapping(path = "/cargar-documentacion", method = RequestMethod.POST)
+    public ModelAndView cargarDocumentacion(HttpServletRequest request,
+                                            @RequestParam("licenciaFrente") MultipartFile licenciaFrente,
+                                            @RequestParam("licenciaDorso") MultipartFile licenciaDorso) {
+
+        ModelMap modelo=new ModelMap();
+
+
+      /*  if(!licenciaFrente.isEmpty() && !licenciaDorso.isEmpty()) {
+            // Subir ruta de archivo
+            String path = request.getRealPath("/images/");
+            // Subir nombre de archivo
+            String filename = licenciaFrente.getOriginalFilename();
+            File filepath = new File(path,filename);
+
+            String filename2 = licenciaDorso.getOriginalFilename();
+            File filepath2 = new File(path,filename2);
+            // Juzga si la ruta existe, crea una si no existe
+            if (!filepath.getParentFile().exists() && !filepath2.getParentFile().exists()) {
+                filepath.getParentFile().mkdirs();
+                filepath2.getParentFile().mkdirs();
+            }
+            // Guardar el archivo cargado en un archivo de destino
+            try {
+                licenciaFrente.transferTo(new File(path + File.separator + filename));
+                licenciaFrente.transferTo(new File(path + File.separator + filename2));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }*/
+
+
+
         return registroExitoso();
     }
 
+
+
+
+
+    private ModelAndView registroBasicoExitoso(DatosRegistro datosRegistro, ModelMap modelo) {
+        modelo.put("datos", datosRegistro);
+        return new ModelAndView("cargarRegistro",modelo);
+    }
+
+
+
     private ModelAndView registroExitoso() {
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/enviarMail");
     }
 
     private ModelAndView registroFallido(ModelMap modelo, String mensaje) {

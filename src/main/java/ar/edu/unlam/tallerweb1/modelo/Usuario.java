@@ -19,6 +19,12 @@ public class Usuario {
     private String nombre;
 
     @Column
+    private String dni;
+
+    @Column
+    private String telefono;
+
+    @Column
     private String email;
 
     @Column
@@ -82,5 +88,21 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }

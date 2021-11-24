@@ -40,6 +40,9 @@ public class ServicioRegistroImpl implements ServicioRegistro{
         return nuevoUsuario;
     }
 
+
+
+
     private boolean LasClavesSonDistintas(DatosRegistro datosRegistro) {
         return !datosRegistro.getClave().equals(datosRegistro.getRepiteClave());
     }
