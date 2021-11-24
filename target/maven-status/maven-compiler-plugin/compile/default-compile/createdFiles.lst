@@ -57,6 +57,7 @@ ar/edu/unlam/tallerweb1/Exceptions/NoHayAutosEnMantenientoException.class
 ar/edu/unlam/tallerweb1/Exceptions/NoHayClientesSuscriptos.class
 ar/edu/unlam/tallerweb1/Exceptions/ClienteYaSuscriptoException.class
 ar/edu/unlam/tallerweb1/Exceptions/AutoYaAlquiladoException.class
+ar/edu/unlam/tallerweb1/modelo/Notificacion.class
 ar/edu/unlam/tallerweb1/Exceptions/AutoYaExistente.class
 ar/edu/unlam/tallerweb1/Exceptions/NoHayClientesNoSuscriptos.class
 ar/edu/unlam/tallerweb1/modelo/Auto.class
@@ -78,6 +79,7 @@ ar/edu/unlam/tallerweb1/modelo/TipoSuscripcion.class
 ar/edu/unlam/tallerweb1/controladores/ControladorConfiguracion.class
 ar/edu/unlam/tallerweb1/Exceptions/ClavesDistintasException.class
 ar/edu/unlam/tallerweb1/controladores/ControladorLogin.class
+ar/edu/unlam/tallerweb1/controladores/ControladorMercadoPago.class
 ar/edu/unlam/tallerweb1/servicios/ServicioUsuario.class
 ar/edu/unlam/tallerweb1/modelo/Plan.class
 ar/edu/unlam/tallerweb1/modelo/Modelo.class

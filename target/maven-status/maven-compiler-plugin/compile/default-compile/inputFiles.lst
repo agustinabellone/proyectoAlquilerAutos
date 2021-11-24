@@ -27,6 +27,7 @@
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/ControladorConfiguracion.java
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/servicios/ServicioValoracionImpls.java
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/servicios/ServicioEncargadoImpl.java
+/home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/modelo/Notificacion.java
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/AutoNoValorado.java
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorios/RepositorioUsuario.java
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/SuscripcionYaCanceladaException.java
@@ -74,6 +75,7 @@
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/Exceptions/ClienteNoExisteException.java
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/servicios/ServicioGarage.java
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/modelo/ValoracionAuto.java
+/home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/controladores/ControladorMercadoPago.java
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/modelo/Usuario.java
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorios/RepositorioAuto.java
 /home/ezequiel/proyectoAlquilerAutos/src/main/java/ar/edu/unlam/tallerweb1/repositorios/RepositorioTipoSuscripcionImpl.java
