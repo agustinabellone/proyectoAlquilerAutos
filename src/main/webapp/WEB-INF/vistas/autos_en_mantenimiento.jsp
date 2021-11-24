@@ -83,7 +83,7 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="utilities-border.html">Suscriptos</a>
-                    <a class="collapse-item" href="utilities-color.html">Nuevos</a>
+                    <a class="collapse-item" href="utilities-color.html">No Suscriptos</a>
                 </div>
             </div>
         </li>
@@ -98,10 +98,8 @@
             <div id="collapseEmpleados" class="collapse" aria-labelledby="headingEmpleados"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="utilities-color.html">Administradores</a>
-                    <a class="collapse-item" href="utilities-border.html">Encargado Service</a>
-                    <a class="collapse-item" href="utilities-animation.html">Encargado Suscripcion</a>
-                    <a class="collapse-item" href="utilities-color.html">Encargado Mantenimiento</a>
+                    <a class="collapse-item" href="utilities-color.html">Encargados de Devolcion</a>
+                    <a class="collapse-item" href="utilities-border.html">Mecanicos</a>
                 </div>
             </div>
         </li>
@@ -398,9 +396,9 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Estas seguro de cerrar la sesion?</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                 <a class="btn btn-primary" href="logout">Cerrar Sesion</a>
             </div>
         </div>

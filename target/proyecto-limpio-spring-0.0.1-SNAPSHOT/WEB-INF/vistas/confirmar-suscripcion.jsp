@@ -1,4 +1,6 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ page language="java" contentType="text/html;charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,30 +15,28 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/planes.css"/>
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
-        <div>
-            <h1 class=" display-4 p-4">Confirme su suscripcion</h1>
+        <div class="col-sm-12 d-flex justify-content-center">
+            <h1 class="display-4 p-4">Confirme su suscripción</h1>
         </div>
     </div>
 </section>
-<section>
-    <div class="pricing6 py-5 bg-light">
+<section class="bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
-
             <div class="card text-center">
-                <div class="card-header">
-
-                </div>
+                <div class="card-header"></div>
                 <div class="card-body">
-                    <h5 class="card-title">Porfavor <c:out value="${nombre}"/>, confirme su suscripcion</h5>
-                    <p class="card-text">Suscribirse al plan numero <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>
-                    <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id}" class="btn btn-primary">Confirmar</a>
-                    <a href="ir-a-suscribir" class="btn btn-primary">Volver</a>
+                    <h5 class="card-title">Por favor <c:out value="${nombre}"/>, confirmá tu suscripción</h5>
+                    <p class="card-text">¿Te suscribimos al plan número <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>
+                    <a href="suscribirse?id_tipo=${id_tipo}&id_usuario=${id}" class="btn btn-success">Confirmar</a>
+                    <a href="ir-a-suscribir" class="btn btn-secondary">Volver</a>
                 </div>
                 <div class="card-footer text-muted">
                     <c:if test="${not empty error}">
@@ -70,4 +70,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 </body>
+
+<jsp:include page="footer.jsp" />
+
 </html>

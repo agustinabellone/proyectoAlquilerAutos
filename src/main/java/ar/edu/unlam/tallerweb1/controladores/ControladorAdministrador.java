@@ -204,7 +204,7 @@ public class ControladorAdministrador {
 
     private ModelAndView enviaALaVistaDeAutosDisponiblesConMensajeDeError() {
         guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
-        this.viewName = "disponibles";
+        this.viewName = "autos_disponibles";
         return this.getModelAndView(this.modelMap, this.viewName);
     }
 
@@ -212,7 +212,7 @@ public class ControladorAdministrador {
             NoHayAutosDisponiblesException {
         List<Auto> autosDisponibles = this.obtenerListaDeAutosDisponibles();
         guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("autosDisponibles", autosDisponibles);
-        this.viewName = "disponibles";
+        this.viewName = "autos_disponibles";
         return this.getModelAndView(this.modelMap, this.viewName);
     }
 

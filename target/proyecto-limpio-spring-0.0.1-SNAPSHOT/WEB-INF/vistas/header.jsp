@@ -1,95 +1,71 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page language="java" contentType="text/html;charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
-<<<<<<< HEAD
 
-<header class = "p-3">
-  <div class = " d-flex  col-md-12 justify-content-end ">
-=======
-<<<<<<< HEAD
->>>>>>> develop
-=======
->>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
->>>>>>> develop
-
-<header class = "mt-3 mb-3">
-  <div class = "d-flex col-md-12 justify-content-around align-items-center">
-
-<<<<<<< HEAD
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Cerrar sesion</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              ¿Estás seguro? Tendrás que iniciar sesión de nuevo.
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <a href="logout"><button type="button" class="btn btn-danger">Cerrar</button></a>
-            </div>
-          </div>
-        </div>
-      </div>
-=======
-    <c:if test = "${id != null}">
-      <a href="home" type="button" class="btn btn-secondary">Inicio</a>
-      <a href="main" type="button" class="btn btn-secondary">Mi Cuenta</a>
-<<<<<<< HEAD
->>>>>>> develop
-=======
->>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
->>>>>>> develop
-
-      <c:choose>
-
-        <c:when test = "${rol == 'admin' }">
-          <a href="admin-suscripcion" type="button" class="btn btn-warning">Manejo de suscripciones</a>
-        </c:when>
-
-        <c:when test = "${rol == 'encargado' }">
-          <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>
-        </c:when>
-
-        <c:when test = "${rol == 'mecanico' }">
-          <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>
-        </c:when>
-
-        <c:otherwise>
-          <a href="ir-a-suscribir" type="button" class="btn btn-secondary">Suscribirse a un plan</a>
-        </c:otherwise>
-
-
-      </c:choose>
-<<<<<<< HEAD
-      <a href="home" type="button" class="btn btn-info">Inicio</a>
-    </c:if>
-    <div class="d-flex justify-content-around align-items-center col-lg-3">
-      <c:if test = "${id == null}">
-        <a href="registro" type="button" class="btn btn-outline-primary">Crear cuenta</a>
-        <a href="login" type="button" class="btn btn-primary">Iniciar sesion</a>
-      </c:if>
+<header class="p-3">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="d-flex align-items-center">
+      <img style="height: 50px; width: 100%" src="img/nombreConLogo.svg" alt="logo">
     </div>
-=======
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ">
+        <c:if test = "${id != null}">
+        <li class="nav-item">
+          <a class="nav-link" href="home">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="main">Mi Cuenta</a>
+        </li>
 
-      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-        Cerrar sesion
-      </button>
+          <c:choose>
+          <c:when test = "${rol == 'admin' }">
+            <li class="nav-item">
+              <a class="nav-link" href="admin-suscripcion">Manejo de suscripciones</a>
+            </li>
+          </c:when>
+          <c:when test = "${rol == 'encargado' }">
+            <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>
+          </c:when>
 
-    </c:if>
-
-      <c:if test = "${id == null}">
-      <div class="d-flex justify-content-around align-items-center col-lg-3">
-          <a href="registro" type="button" class="btn btn-outline-dark">Crear cuenta</a>
-          <a href="login" type="button" class="btn btn-dark">Iniciar sesion</a>
-      </div>
-      </c:if>
-
+          <c:when test = "${rol == 'mecanico' }">
+            <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>
+          </c:when>
+            <c:otherwise>
+              <c:if test = "${tieneSuscripcion==false}">
+                <li class="nav-item">
+                  <a class="nav-link" href="ir-a-suscribir">Suscribirse a un plan</a>
+                </li>
+              </c:if>
+              <c:if test = "${tieneSuscripcion==true}">
+                <li class="nav-item">
+                  <a class="nav-link" href="administrar-suscripcion">Administrar Suscripcion</a>
+                </li>
+              </c:if>
+              <li class="nav-item">
+                <a class="nav-link" href="configuracion">Configuración</a>
+              </li>
+            </c:otherwise>
+          </c:choose>
+          <li class="nav-item">
+            <a type="button" class="nav-link text-danger" data-toggle="modal" data-target="#exampleModal">
+              Cerrar sesion
+            </a>
+          </li>
+        </c:if>
+        <c:if test = "${id == null}">
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="registro">Crear cuenta</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-info" href="login">Iniciar sesión</a>
+          </li>
+        </c:if>
+      </ul>
+    </div>
+  </nav>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -112,10 +88,11 @@
       </div>
     </div>
     <!--Fin del modal-->
-<<<<<<< HEAD
->>>>>>> develop
-=======
->>>>>>> b2f47b5548e4b4711722330193a559044c67d4cf
->>>>>>> develop
-  </div>
 </header>
+
+<style>
+  .navbar-nav {
+    margin-left: auto;
+  }
+</style>
+
