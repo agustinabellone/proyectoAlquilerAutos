@@ -46,8 +46,12 @@
 
                 </div>
             </div>
+            <input type="button" id="checkout-open-radio" onclick="checkout.open()" value="MERCADO PAGO">
+
+            <div>-${preferencia.getId()}-</div>
 
         </div>
+
     </div>
 </section>
 
@@ -69,6 +73,22 @@
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+    <!-- SDK MercadoPago.js V2 -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>
+
+        const mp = new MercadoPago('TEST-c3be8274-b159-4139-8c8a-c8393fc98065', {
+            locale: 'es-AR'
+        });
+
+        const checkout = mp.checkout({
+            preference: {
+                id: '1020789785-62a08fb7-a0db-4931-b495-48c7f5780d06'
+            }
+        });
+    </script>
+
 </body>
 
 <jsp:include page="footer.jsp" />
