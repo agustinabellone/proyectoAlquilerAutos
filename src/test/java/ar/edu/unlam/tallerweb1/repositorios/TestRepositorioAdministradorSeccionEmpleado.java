@@ -13,6 +13,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class TestRepositorioAdministradorSeccionEmpleado extends SpringTest {
 
+    private static final String MECANICO = "mecanico";
     @Autowired
     private RepositorioUsuario repositorioUsuario;
     private static final String ENCARGADO = "encargado";
@@ -20,7 +21,7 @@ public class TestRepositorioAdministradorSeccionEmpleado extends SpringTest {
     @Test
     @Rollback
     @Transactional
-    public void queSePuedaObtenerUnEmpleadoEncargadoDeDevolucion() {
+    public void queSePuedaObtenerUnaListaDeEmpleadosEncargadoDeDevolucion() {
         givenExisteUnEmpleado(ENCARGADO, 5);
         List<Usuario> usuarioList = whenBuscoPorRolDe(ENCARGADO);
         thenObtengoUnaListaDeTodosLosEncargados(usuarioList, 5);
@@ -40,5 +41,25 @@ public class TestRepositorioAdministradorSeccionEmpleado extends SpringTest {
 
     private void thenObtengoUnaListaDeTodosLosEncargados(List<Usuario> usuarioList, int cantidad_esperada) {
         assertThat(usuarioList).hasSize(cantidad_esperada);
+        for (Usuario usuario : usuarioList) {
+            assertThat(usuario.getRol()).isEqualTo("encargado");
+        }
+    }
+
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaObtenerUnaListaDeEmpleadosMecanicos() {
+        givenExisteUnEmpleado(MECANICO, 5);
+        List<Usuario> usuarioList = whenBuscoPorRolDe(MECANICO);
+        thenObtengoUnaListaDeTodosLosMecanicos(usuarioList, 5);
+    }
+
+    private void thenObtengoUnaListaDeTodosLosMecanicos(List<Usuario> usuarioList, int cantidad_esperada) {
+        assertThat(usuarioList).hasSize(cantidad_esperada);
+        for (Usuario usuario : usuarioList) {
+            assertThat(usuario.getRol()).isEqualTo("mecanico");
+        }
     }
 }
