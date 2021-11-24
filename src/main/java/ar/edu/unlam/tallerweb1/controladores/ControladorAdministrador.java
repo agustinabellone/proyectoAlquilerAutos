@@ -40,14 +40,16 @@ public class ControladorAdministrador {
     public ModelAndView irALaVistaPrincipal(HttpServletRequest request) {
         if (elRolEstaSeteadoYEsAdministrador(request))
             return enviarAlPanelPrincipal();
-        else return enviarALoginConMensajeDeError();
+        else
+            return enviarALoginConMensajeDeError();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/panel-principal")
     public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request) {
         if (this.elRolEstaSeteadoYEsAdministrador(request))
             return this.intentaMostrarLaVistaDelPanelPrincipalSiNoLanzaUnException(request);
-        else return this.enviarALoginConMensajeDeError();
+        else
+            return enviarALoginConMensajeDeError();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/autos-alquilados")
@@ -78,6 +80,22 @@ public class ControladorAdministrador {
             return intentaMostrarLaVistaDeLosClientesSuscriptosConLaLista();
         else
             return enviarALoginConMensajeDeError();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/clientes-no-suscriptos")
+    public ModelAndView mostrarClientesNoSuscriptos(HttpServletRequest administrador) {
+        if (elRolEstaSeteadoYEsAdministrador(administrador)) {
+            try {
+                List<Suscripcion> clientesNoSuscriptos = this.obtenerListaDeClientesSinSuscripcion();
+                modelMap.put("clientes_no_suscriptos", clientesNoSuscriptos);
+                return new ModelAndView("clientes-no-suscriptos", modelMap);
+            } catch (NoHayClientesNoSuscriptos e) {
+                modelMap.put("error_no_hay_clientes_no_suscriptos", "Al parecer todos los clientes estan suscriptos");
+                return new ModelAndView("clientes-no-suscriptos", modelMap);
+            }
+        } else {
+            return enviarALoginConMensajeDeError();
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/encargados-devolucion")
@@ -138,7 +156,7 @@ public class ControladorAdministrador {
     private ModelAndView intentaMostrarLaVistaDelPanelPrincipalSiNoLanzaUnException(HttpServletRequest request) {
         try {
             return enviaAlPanelPrincipalMostrandoListaDeAutosAlquilados(request);
-        } catch (NoHayAutosAlquiladosException e) {
+        } catch (NoHayAutosAlquiladosException | NoHayClientesSuscriptos e) {
             return enviaAlPanelPrincipalConMensajeDeError();
         }
     }
@@ -150,9 +168,10 @@ public class ControladorAdministrador {
     }
 
     private ModelAndView enviaAlPanelPrincipalMostrandoListaDeAutosAlquilados(HttpServletRequest request) throws
-            NoHayAutosAlquiladosException {
+            NoHayAutosAlquiladosException, NoHayClientesSuscriptos {
         List<Auto> autosAlquilados = this.obtenerListaDeAutosAlquilados();
         this.guardaElNombreDelUsuarioQueIniciaSesionYLaListaDeAutosAlquilados(request, autosAlquilados);
+        this.modelMap.put("cantidad_suscriptos",this.obtenerListaDeClientesSuscriptos().size());
         this.viewName = "panel-principal";
         return this.getModelAndView(this.modelMap, this.viewName);
     }
@@ -252,23 +271,7 @@ public class ControladorAdministrador {
         return new ModelAndView(viewName, modelMap);
     }
 
-    public ModelAndView mostrarClientesNoSuscriptos(HttpServletRequest administrador) {
-        if (elRolEstaSeteadoYEsAdministrador(administrador)) {
-            List<Suscripcion> clientesNoSuscriptos = null;
-            try {
-                clientesNoSuscriptos = this.obtenerListaDeClientesSinSuscripcion();
-                modelMap.put("clientes_no_suscriptos", clientesNoSuscriptos);
-                return new ModelAndView("clientes-no-suscriptos", modelMap);
-            } catch (NoHayClientesSuscriptos e) {
-                modelMap.put("error_no_hay_clientes_no_suscriptos", "Al parecer todos los clientes estan suscriptos");
-                return new ModelAndView("clientes-no-suscriptos", modelMap);
-            }
-        } else {
-            return enviarALoginConMensajeDeError();
-        }
-    }
-
-    public List<Suscripcion> obtenerListaDeClientesSinSuscripcion() throws NoHayClientesSuscriptos {
+    public List<Suscripcion> obtenerListaDeClientesSinSuscripcion() throws NoHayClientesNoSuscriptos {
         return servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
     }
 

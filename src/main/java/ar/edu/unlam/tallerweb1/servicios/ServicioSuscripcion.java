@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesNoSuscriptos;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptos;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
@@ -27,5 +28,5 @@ public interface ServicioSuscripcion {
 
     List<Suscripcion> obtenerClientesSuscriptos() throws NoHayClientesSuscriptos;
 
-    List<Suscripcion> obtenerListaDeUsuariosNoSuscriptos()throws NoHayClientesSuscriptos;
+    List<Suscripcion> obtenerListaDeUsuariosNoSuscriptos()throws NoHayClientesNoSuscriptos;
 }

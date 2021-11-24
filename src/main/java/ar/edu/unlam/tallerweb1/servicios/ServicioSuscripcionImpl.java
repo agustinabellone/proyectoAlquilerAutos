@@ -122,7 +122,7 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion{
     }
 
     @Override
-    public List<Suscripcion> obtenerListaDeUsuariosNoSuscriptos() {
-        return null;
+    public List<Suscripcion> obtenerListaDeUsuariosNoSuscriptos() throws NoHayClientesNoSuscriptos {
+        throw new NoHayClientesNoSuscriptos();
     }
 }
