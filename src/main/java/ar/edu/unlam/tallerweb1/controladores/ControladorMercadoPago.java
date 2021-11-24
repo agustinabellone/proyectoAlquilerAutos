@@ -61,7 +61,7 @@ public class ControladorMercadoPago {
         BackUrls backUrls = new BackUrls(
                 "http://localhost:8080/proyecto_limpio_spring_war_exploded/pagoRealizado?id_tipo="+tipoSuscripcion.getId(),
                 "http://www.tu-sitio/pending",
-                "http://localhost:8080/proyecto_limpio_spring_war_exploded/pagoRealizado");
+                "http://localhost:8080/proyecto_limpio_spring_war_exploded/pagoRealizado?id_tipo=1");
 
         preference.setBackUrls(backUrls);
 
