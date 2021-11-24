@@ -36,6 +36,9 @@ public class ControladorAdministrador {
         this.servicioUsuario = servicioUsuario;
     }
 
+    public ControladorAdministrador() {
+    }
+
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
     public ModelAndView irALaVistaPrincipal(HttpServletRequest request) {
         ModelMap model = getModelMap();
@@ -246,5 +249,18 @@ public class ControladorAdministrador {
 
     public List<Usuario> obtenerListaDeUsuariosConRol(String rol) throws NoHayEmpladosException {
         return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/asignacion-de-rol")
+    public ModelAndView mostrarAsignacionDeRol(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
+            vista = "asignacion-de-rol";
+            return new ModelAndView(vista);
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
     }
 }
