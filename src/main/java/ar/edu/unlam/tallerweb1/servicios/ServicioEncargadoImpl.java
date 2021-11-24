@@ -4,8 +4,10 @@ import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioDevolucion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class ServicioEncargadoImpl implements ServicioEncargado{
 
     private RepositorioDevolucion repositorioDevolucion;

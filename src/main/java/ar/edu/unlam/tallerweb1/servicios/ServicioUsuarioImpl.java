@@ -28,6 +28,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         this.repositorioSuscripcion = repositorioSuscripcion;
     }
 
+    public ServicioUsuarioImpl() {
+    }
+
     @Override
     public Usuario buscarPorId(Long id) {
         return this.repositorioUsuario.buscarPorId(id);
@@ -53,6 +56,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 
     @Override
     public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException {
+        List<Usuario> buscados = repositorioUsuario.buscarUsuariosPorRol(rol);
+        if (buscados.size() > 0) {
+            return buscados;
+        }
         throw new NoHayEmpladosException();
     }
 
