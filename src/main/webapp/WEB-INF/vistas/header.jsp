@@ -12,14 +12,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ">
-        <c:if test = "${id != null}">
         <li class="nav-item">
-          <a class="nav-link" href="home">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="main">Mi Cuenta</a>
-        </li>
-
           <div class="text-secondary avatar dropdown" >
             <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               <c:if test="${notificaciones !=null}">
@@ -38,6 +31,15 @@
               </c:forEach>
             </div>
           </div>
+        </li>
+        <c:if test = "${id != null}">
+        <li class="nav-item">
+          <a class="nav-link" href="home">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="main">Mi Cuenta</a>
+        </li>
+
 
 
           <c:choose>
