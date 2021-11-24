@@ -38,199 +38,202 @@ public class ControladorAdministrador {
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
     public ModelAndView irALaVistaPrincipal(HttpServletRequest request) {
+        ModelMap model = getModelMap();
+        String vista;
         if (elRolEstaSeteadoYEsAdministrador(request)) {
-            this.viewName = "redirect:/panel-principal";
-            return new ModelAndView(viewName);
+            vista = "redirect:/panel-principal";
+            return new ModelAndView(vista);
         } else {
-            this.modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            this.modelMap.put("datosLogin", new DatosLogin());
-            this.viewName = "login";
-            return new ModelAndView(this.viewName, this.modelMap);
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+            return setModelAndView(model, vista);
         }
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/panel-principal")
     public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request) {
         ModelMap model = getModelMap();
-        if (this.elRolEstaSeteadoYEsAdministrador(request))
+        String vista;
+        if (this.elRolEstaSeteadoYEsAdministrador(request)) {
             try {
+                vista = "panel-principal";
                 List<Auto> autosAlquilados = obtenerListaDeAutosAlquilados();
-                this.modelMap.put("nombre", request.getSession().getAttribute("nombre"));
-                this.modelMap.put("autosAlquilados", autosAlquilados);
-                this.viewName = "panel-principal";
-                return new ModelAndView(this.viewName, this.modelMap);
+                model.put("autosAlquilados", autosAlquilados);
+                model.put("nombre", request.getSession().getAttribute("nombre"));
             } catch (NoHayAutosAlquiladosException e) {
-                this.modelMap.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
-                this.viewName = "panel-principal";
-                return new ModelAndView(this.viewName, this.modelMap);
+                vista = "panel-principal";
+                model.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
             }
-        else {
-            this.modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            this.modelMap.put("datosLogin", new DatosLogin());
-            this.viewName = "login";
-            return new ModelAndView(this.viewName, this.modelMap);
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
-    }
-
-    private ModelMap getModelMap() {
-        return new ModelMap();
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/autos-alquilados")
     public ModelAndView mostrarAutosAlquilados(HttpServletRequest request) {
-        if (elRolEstaSeteadoYEsAdministrador(request))
+        ModelMap model = getModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
             try {
+                vista = "panel-principal";
                 List<Auto> autosAlquilados = obtenerListaDeAutosAlquilados();
-                this.modelMap.put("nombre", request.getSession().getAttribute("nombre"));
-                this.modelMap.put("autosAlquilados", autosAlquilados);
-                this.viewName = "panel-principal";
-                return new ModelAndView(this.viewName, this.modelMap);
+                model.put("nombre", request.getSession().getAttribute("nombre"));
+                model.put("autosAlquilados", autosAlquilados);
+                return setModelAndView(model, vista);
             } catch (NoHayAutosAlquiladosException e) {
-                this.modelMap.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
-                this.viewName = "panel-principal";
-                return new ModelAndView(this.viewName, this.modelMap);
+                vista = "panel-principal";
+                model.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
             }
-        else {
-            this.modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            this.modelMap.put("datosLogin", new DatosLogin());
-            this.viewName = "login";
-            return new ModelAndView(this.viewName, this.modelMap);
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/autos-disponibles")
     public ModelAndView mostrarAutosDisponibles(HttpServletRequest usuarioConRol) {
-        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol))
+        ModelMap model = getModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
             try {
+                vista = "autos_disponibles";
                 List<Auto> autosDisponibles = obtenerListaDeAutosDisponibles();
-                this.modelMap.put("autosDisponibles", autosDisponibles);
-                this.viewName = "autos_disponibles";
-                return new ModelAndView(this.viewName, this.modelMap);
+                model.put("autosDisponibles", autosDisponibles);
             } catch (NoHayAutosDisponiblesException e) {
-                this.modelMap.put("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
-                this.viewName = "autos_disponibles";
-                return new ModelAndView(this.viewName, this.modelMap);
+                vista = "autos_disponibles";
+                model.put("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
             }
-        else {
-            this.modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            this.modelMap.put("datosLogin", new DatosLogin());
-            this.viewName = "login";
-            return new ModelAndView(this.viewName, this.modelMap);
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
-
-    }
-
-    public List<Auto> obtenerListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
-        return servicioAlquiler.obtenerAutosDisponibles();
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/autos-en-mantenimiento")
     public ModelAndView mostrarAutosEnMantenimiento(HttpServletRequest usuarioConRol) {
-        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol))
+        ModelMap model = getModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
             try {
-                List<Auto> autosEnMantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
-                this.modelMap.put("en_mantenimiento", autosEnMantenimiento);
-                this.viewName = "autos_en_mantenimiento";
-                return new ModelAndView(this.viewName, this.modelMap);
+                vista = "autos_en_mantenimiento";
+                List<Auto> autosEnMantenimiento = obtenerListaDeAutosEnMantenimiento();
+                model.put("en_mantenimiento", autosEnMantenimiento);
             } catch (NoHayAutosEnMantenientoException e) {
-                this.modelMap.put("error_no_hay_autos_en_mantenimiento", "No hay autos en mantenimiento actualmente");
-                this.viewName = "autos_en_mantenimiento";
-                return new ModelAndView(this.viewName, this.modelMap);
+                model.put("error_no_hay_autos_en_mantenimiento", "No hay autos en mantenimiento actualmente");
+                vista = "autos_en_mantenimiento";
             }
-        else {
-            this.modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            this.modelMap.put("datosLogin", new DatosLogin());
-            this.viewName = "login";
-            return new ModelAndView(this.viewName, this.modelMap);
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/clientes-suscriptos")
     public ModelAndView mostrarClientesSuscriptos(HttpServletRequest elUsuarioQueVienePorLaSesion) {
-        if (elRolEstaSeteadoYEsAdministrador(elUsuarioQueVienePorLaSesion))
+        ModelMap model = getModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(elUsuarioQueVienePorLaSesion)) {
             try {
+                vista = "clientes-suscriptos";
                 List<Suscripcion> usuariosSuscriptos = obtenerClientesSuscriptos();
-                this.modelMap.put("lista_de_suscriptos", usuariosSuscriptos);
-                return new ModelAndView("clientes-suscriptos", modelMap);
+                model.put("lista_de_suscriptos", usuariosSuscriptos);
             } catch (NoHayClientesSuscriptos e) {
-                this.modelMap.put("error_no_hay_clientes_suscriptos", "No hay clientes suscriptos actualmente");
-                return new ModelAndView("clientes-suscriptos", modelMap);
+                vista = "clientes-suscriptos";
+                model.put("error_no_hay_clientes_suscriptos", "No hay clientes suscriptos actualmente");
             }
-        else {
-            this.modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            this.modelMap.put("datosLogin", new DatosLogin());
-            this.viewName = "login";
-            return new ModelAndView(this.viewName, this.modelMap);
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/clientes-no-suscriptos")
     public ModelAndView mostrarClientesNoSuscriptos(HttpServletRequest administrador) {
+        ModelMap model = getModelMap();
+        String vista;
         if (elRolEstaSeteadoYEsAdministrador(administrador)) {
             try {
+                vista = "clientes-no-suscriptos";
                 List<Suscripcion> clientesNoSuscriptos = obtenerListaDeClientesNoSuscriptos();
-                modelMap.put("clientes_no_suscriptos", clientesNoSuscriptos);
-                return new ModelAndView("clientes-no-suscriptos", modelMap);
+                model.put("clientes_no_suscriptos", clientesNoSuscriptos);
             } catch (NoHayClientesNoSuscriptos e) {
-                modelMap.put("error_no_hay_clientes_no_suscriptos", "Al parecer todos los clientes estan suscriptos");
-                return new ModelAndView("clientes-no-suscriptos", modelMap);
+                vista = "clientes-no-suscriptos";
+                model.put("error_no_hay_clientes_no_suscriptos", "Al parecer todos los clientes estan suscriptos");
             }
         } else {
-            this.modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            this.modelMap.put("datosLogin", new DatosLogin());
-            this.viewName = "login";
-            return new ModelAndView(this.viewName, this.modelMap);
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/encargados-devolucion")
     public ModelAndView mostrarEmpleadosEncargadosDeDevolucion(HttpServletRequest administrador) {
+        ModelMap model = getModelMap();
+        String vista;
         if (elRolEstaSeteadoYEsAdministrador(administrador)) {
             try {
+                vista = "encargados-devolucion";
                 List<Usuario> usuariosEncargadosDeVolucion = obtenerListaDeUsuariosConRol("encargadosDevolucion");
-                modelMap.put("encargados_devolucion", usuariosEncargadosDeVolucion);
-                return new ModelAndView("encargados-devolucion", modelMap);
+                model.put("encargados_devolucion", usuariosEncargadosDeVolucion);
             } catch (NoHayEmpladosException e) {
-                modelMap.put("error_no_hay_encargados", "no hay encargados de devolucion actualmente");
-                return new ModelAndView("encargados-devolucion", modelMap);
+                vista = "encargados-devolucion";
+                model.put("error_no_hay_encargados", "no hay encargados de devolucion actualmente");
             }
         } else {
-            this.modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            this.modelMap.put("datosLogin", new DatosLogin());
-            this.viewName = "login";
-            return new ModelAndView(this.viewName, this.modelMap);
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/mecanicos")
     public ModelAndView mostrarEmpleadosMecanicos(HttpServletRequest usuario_de_request) {
+        ModelMap model = getModelMap();
+        String vista;
         if (elRolEstaSeteadoYEsAdministrador(usuario_de_request)) {
             try {
+                vista = "mecanicos";
                 List<Usuario> usuariosMecanicos = obtenerListaDeUsuariosConRol("mecanico");
-                modelMap.put("mecanicos", usuariosMecanicos);
-                return new ModelAndView("mecanicos", modelMap);
+                model.put("mecanicos", usuariosMecanicos);
             } catch (NoHayEmpladosException e) {
-                modelMap.put("error_no_hay_mecanicos", "No hay mecanicos actualmente");
-                return new ModelAndView("mecanicos", modelMap);
+                vista = "mecanicos";
+                model.put("error_no_hay_mecanicos", "No hay mecanicos actualmente");
             }
         } else {
-            this.modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            this.modelMap.put("datosLogin", new DatosLogin());
-            this.viewName = "login";
-            return new ModelAndView(this.viewName, this.modelMap);
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
+        return setModelAndView(model, vista);
     }
 
     private boolean elRolEstaSeteadoYEsAdministrador(HttpServletRequest request) {
         return request.getSession().getAttribute("rol") != null && request.getSession().getAttribute("rol").equals("admin");
     }
 
-    public List<Auto> obtenerListaDeAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
-        return servicioDeAuto.obtenerAutosEnMantenimiento();
+    private ModelMap getModelMap() {
+        return new ModelMap();
+    }
+
+    private ModelAndView setModelAndView(ModelMap model, String vista) {
+        return new ModelAndView(vista, model);
+    }
+
+    private String enviaAlaVistaDeLoginConMensajeDeError(ModelMap model) {
+        String vista;
+        model.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
+        model.put("datosLogin", new DatosLogin());
+        vista = "login";
+        return vista;
     }
 
     public List<Auto> obtenerListaDeAutosAlquilados() throws NoHayAutosAlquiladosException {
         return servicioAlquiler.obtenerAutosAlquilados();
+    }
+
+    public List<Auto> obtenerListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
+        return servicioAlquiler.obtenerAutosDisponibles();
+    }
+
+    public List<Auto> obtenerListaDeAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        return servicioDeAuto.obtenerAutosEnMantenimiento();
     }
 
     public List<Suscripcion> obtenerClientesSuscriptos() throws NoHayClientesSuscriptos {
@@ -244,5 +247,4 @@ public class ControladorAdministrador {
     public List<Usuario> obtenerListaDeUsuariosConRol(String rol) throws NoHayEmpladosException {
         return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
     }
-
 }
