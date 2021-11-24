@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesNoSuscriptos;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptos;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
@@ -146,11 +145,11 @@ public class TestControladorAdministradorSeccionClientes {
     }
 
     private List<Suscripcion> whenObtieneLaListaDeLosClientesSuscriptos() throws NoHayClientesSuscriptos {
-        return controlador.obtenerListaDeClientesSuscriptos();
+        return controlador.obtenerClientesSuscriptos();
     }
 
     private List<Suscripcion> whenObtieneLaListaDeLosClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
-        return controlador.obtenerListaDeClientesSinSuscripcion();
+        return controlador.obtenerListaDeClientesNoSuscriptos();
     }
 
     private void thenSeMuestraLaVistaDeLosClientesSuscritos(ModelAndView modelAndView) {
