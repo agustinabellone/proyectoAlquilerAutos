@@ -15,25 +15,23 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/planes.css"/>
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Confirme su suscripción</h1>
+            <h1 class="display-4 p-4">Confirme su suscripción</h1>
         </div>
     </div>
 </section>
-<section>
-    <div class="pricing6 py-5 bg-light">
+<section class="bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
-
             <div class="card text-center">
-                <div class="card-header">
-
-                </div>
+                <div class="card-header"></div>
                 <div class="card-body">
                     <h5 class="card-title">Por favor <c:out value="${nombre}"/>, confirmá tu suscripción</h5>
                     <p class="card-text">¿Te suscribimos al plan número <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>

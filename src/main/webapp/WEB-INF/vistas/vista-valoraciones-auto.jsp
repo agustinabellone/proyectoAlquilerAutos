@@ -16,16 +16,17 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Opiniones sobre el auto </h1>
+            <h1 class=" text-center display-4 p-4">Opiniones sobre el auto </h1>
         </div>
-        <section>
+        <section class="bg-white">
             <div class="row mt-3">
                 <div class="col-lg-6 align-self-center">
                     <div class="d-flex align-items-center justify-content-around">
@@ -76,65 +77,67 @@
                         <img src="${auto.imagen}" alt="" style="width: 100%; height: auto;">
                     </div>
                 </div>
-
+            </div>
+        </section>
+        <section>
             <c:forEach var="valoracion" items= "${listadoValoracionesAuto}" >
-                <div class="col-md-12">
-                    <div class="card card-shadow border-0">
-                        <div class="card-body">
-                            <div class="col">
-                                <div class="col-lg-12">
-                                    <div class="row">
-                                        <div class="col-lg-6 d-flex flex-column align-content-center bg-dark rounded">
-                                            <ul class="list-inline font-16 font-weight-medium text-white mt-3">
-                                                <li class=""><i class="icon-check text-info"></i> <span> Puntuación: ${valoracion.valoracion} </span></li>
+            <div class="col-lg-12">
+                <div class="card border-0 bg-light">
+                    <div class="card-body">
+                        <div>
+                            <div class="col-lg-12">
+                                    <div class="col-lg-12 d-flex flex-column align-content-center bg-dark rounded">
+                                        <div class="list-inline font-16 font-weight-medium p-3">
+                                            <div class="d-flex justify-content-around mb-3">
+                                            <div class="text-warning"><i class="icon-check "></i> <span> Puntuación: ${valoracion.valoracion} </span></div>
+                                            <div class="text-warning">
                                                 <c:choose>
 
-                                                    <c:when test = "${valoracion.valoracion == 1 }">
-                                                        <i class="fa fa-star"></i>
-                                                    </c:when>
+                                                <c:when test = "${valoracion.valoracion == 1 }">
+                                                    <i class="fa fa-star"></i>
+                                                </c:when>
 
-                                                    <c:when test = "${valoracion.valoracion == 2 }">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </c:when>
+                                                <c:when test = "${valoracion.valoracion == 2 }">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </c:when>
 
-                                                    <c:when test = "${valoracion.valoracion == 3 }">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </c:when>
+                                                <c:when test = "${valoracion.valoracion == 3 }">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </c:when>
 
-                                                    <c:when test = "${valoracion.valoracion == 4}">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </c:when>
-                                                    <c:when test = "${valoracion.valoracion == 5}">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </c:when>
+                                                <c:when test = "${valoracion.valoracion == 4}">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </c:when>
+                                                <c:when test = "${valoracion.valoracion == 5}">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </c:when>
 
-                                                    <c:otherwise>
-                                                    </c:otherwise>
+                                                <c:otherwise>
+                                                </c:otherwise>
 
-                                                </c:choose>
+                                            </c:choose>
+                                            </div>
+                                            </div>
+                                            <div class="text-center text-white p-2"><span class="font-italic">"${valoracion.comentarios}"</span></div>
 
-                                                <li class=""><span class="font-italic ">"${valoracion.comentarios}"</span></li>
-
-                                            </ul>
                                         </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            </c:forEach>
+    </div>
+    </c:forEach>
         </section>
         <c:if test="${not empty mensaje}">
             <div class="alert alert-danger text-center container mt-3" role="alert">
@@ -146,6 +149,9 @@
         </c:if>
     </div>
 </section>
+<c:if test="${empty mensaje}">
+    <jsp:include page="footer.jsp" />
+</c:if>
 </body>
 
 <!-- Optional JavaScript -->

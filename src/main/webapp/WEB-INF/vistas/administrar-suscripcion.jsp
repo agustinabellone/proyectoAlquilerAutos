@@ -13,14 +13,15 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
         <div>
-            <h1 class="text-center mt-5">Administrá tu suscripción</h1>
+            <h1 class="text-center display-4 p-4">Administrá tu suscripción</h1>
             <c:if test="${not empty errorDarDeBaja}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>-Error-</strong> ${errorDarDeBaja}.
@@ -46,9 +47,6 @@
                 </div>
             </c:if>
         </div>
-        <div>
-            <h6 class=" p-2 m-4 text-left">Administrá las distintas opciones de tu suscripcion:</h6>
-        </div>
         <div class="card text-center " style="width: 50%; margin: auto;">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Estas suscripto/a al nivel: <span class="text-primary">${tipoSuscripcion.getNombre()}</span></li>
@@ -64,8 +62,8 @@
         </div>
     </div>
 </section>
-<section>
-    <div class="pricing6 py-5 bg-light">
+<section class="bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
             <!-- row  -->
             <c:if test="${tipoSuscripcion.getNombre()=='Basico'}">

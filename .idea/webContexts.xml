@@ -3,8 +3,9 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
-        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/vistas/prueba.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/vistas" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/vistas/admin-heading.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/vistas" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/vistas/home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/vistas" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/vistas/prueba.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/vistas" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/vistas/vista-admin.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/vistas" />
       </map>
     </option>

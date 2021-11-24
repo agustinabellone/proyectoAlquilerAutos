@@ -15,17 +15,18 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<section>
+<section class="bg-light">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Nuestros autos</h1>
+            <h1 class="display-4 p-4">Nuestros autos</h1>
         </div>
         <section>
-            <div class="pricing6 py-5 bg-light my-4">
+            <div class="pricing6 py-5 my-4">
                 <div class="container col-md-9">
                     <div class="col">
                         <c:forEach items="${autosDisponibles}" var="auto">
@@ -57,8 +58,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12 d-flex justify-content-around">
-                                                    <a href="elegir-fechas?id_auto=${auto.id}&imagen_auto=${auto.imagen}" class="btn btn-dark mt-5">ALQUILAR AUTO</a>
-                                                    <a href="valoraciones-auto?id_auto=${auto.id}" class="btn btn-dark mt-5">VER VALORACIONES</a>
+                                                    <a href="elegir-fechas?id_auto=${auto.id}&imagen_auto=${auto.imagen}" class="btn btn-info mt-5">ALQUILAR AUTO</a>
+                                                    <a href="valoraciones-auto?id_auto=${auto.id}" class="btn btn-outline-dark mt-5">VER VALORACIONES</a>
                                                 </div>
                                             </div>
                                         </div>

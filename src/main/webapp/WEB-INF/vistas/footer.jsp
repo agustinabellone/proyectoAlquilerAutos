@@ -109,13 +109,9 @@
                 <i class="fa fa-twitter"> </i>
             </a>
         </li>
+        <li class="list-inline-item">
          <a class="btn-floating btn-gplus mx-1">
                 <i class="fa fa-instagram"> </i>
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a class="btn-floating btn-li mx-1">
-                <i class="fab fa-linkedin-in"> </i>
             </a>
         </li>
         <li class="list-inline-item">
@@ -125,11 +121,12 @@
     </ul>
 
     <div class="footer-copyright text-center py-3">
-        © 2021 Todos los derechos reservados.
+       <p style="font-size: 12px!important;">© 2021 Todos los derechos reservados.</p>
     </div>
 
 
 </footer>
+
 <script src="https://kit.fontawesome.com/7eeebb2597.js" crossorigin="anonymous"></script>
 
 </html>

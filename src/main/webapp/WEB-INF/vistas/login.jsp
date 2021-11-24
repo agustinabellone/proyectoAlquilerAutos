@@ -15,15 +15,21 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
-
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
-
-<body class="bg-dark">
-<section>
+<body class="bg-light">
+<header>
+        <div class = "d-flex col-md-12 justify-content-around align-items-center">
+            <div class="d-flex align-items-center">
+                <img style="height: 120px; width: 200px" src="img/nombreConLogo.svg" alt="logo">
+            </div>
+        </div>
+</header>
+<section class="mb-3">
     <div class="container">
-        <div class="mt-5 justify-content-center">
-            <div class="card-wrapper mt-5">
+        <div class="justify-content-center">
+            <div class="card-wrapper mt-2">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="mb-3 text-center">Iniciar Sesión</h4>
@@ -42,7 +48,7 @@
                                 <button class="btn btn-lg btn-dark btn-block" Type="Submit"/>Ingresar</button>
                             </div>
                             <div class="mt-4 text-center">
-                                ¿No tienes una cuenta? <a class="text-primary" href="registro">Crear una</a>
+                                ¿No tienes una cuenta? <a class="text-info" href="registro">Crear una</a>
                             </div>
                         </form:form>
                     </div>
@@ -60,12 +66,13 @@
                     </div>
                 </c:if>
                 <div class="mt-3 text-center">
-                    <a href="home" class="text-white col font-weight-medium">Volver</a>
+                    <a href="home" class="text-dark col font-weight-medium">Volver</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<jsp:include page="footer.jsp" />
 </body>
 
 <!-- Optional JavaScript -->

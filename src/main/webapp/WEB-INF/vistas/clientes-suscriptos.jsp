@@ -6,23 +6,20 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title><%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-        <!DOCTYPE html>
-        <html lang="en">
 
-        <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-
-        <title>Administracion</title>
+    <title>Administracion</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -93,7 +90,7 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="utilities-border.html">Suscriptos</a>
-                    <a class="collapse-item" href="utilities-color.html">Nuevos</a>
+                    <a class="collapse-item" href="utilities-color.html">No Suscriptos</a>
                 </div>
             </div>
         </li>
@@ -108,10 +105,8 @@
             <div id="collapseEmpleados" class="collapse" aria-labelledby="headingEmpleados"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="utilities-color.html">Administradores</a>
-                    <a class="collapse-item" href="utilities-border.html">Encargado Service</a>
-                    <a class="collapse-item" href="utilities-animation.html">Encargado Suscripcion</a>
-                    <a class="collapse-item" href="utilities-color.html">Encargado Mantenimiento</a>
+                    <a class="collapse-item" href="utilities-color.html">Encargados de Devolucion</a>
+                    <a class="collapse-item" href="utilities-border.html">Mecanicos</a>
                 </div>
             </div>
         </li>
@@ -299,7 +294,8 @@
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="font-weight-medium mb-0">Tipo Suscripcion: ${usuarios.tipoSuscripcion}</h5>
+                                    <h5 class="font-weight-medium mb-0">Tipo
+                                        Suscripcion: ${usuarios.tipoSuscripcion}</h5>
                                 </div>
                                 <div class="col">
                                     <div class="col-lg-12">
@@ -381,9 +377,9 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Estas seguro de cerrar la sesion?</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                 <a class="btn btn-primary" href="logout">Cerrar Sesion</a>
             </div>
         </div>
@@ -408,10 +404,5 @@
 <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
-
-</html></title>
-</head>
-<body>
-
-</body>
 </html>
+

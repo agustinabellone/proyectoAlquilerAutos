@@ -22,7 +22,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class testControladorAdministradorSeccionClientes {
+public class TestControladorAdministradorSeccionClientes {
 
     private static final String ADMIN = "admin";
     private static final String INVITADO = "invitado";
