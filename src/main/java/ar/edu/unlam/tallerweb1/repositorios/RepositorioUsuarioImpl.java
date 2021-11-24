@@ -67,7 +67,8 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
     @Override
     public List<Usuario> buscarUsuariosPorRol(String rol) {
-        return null;
+        return sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+                .add(Restrictions.eq("rol",rol)).list();
     }
 
 
