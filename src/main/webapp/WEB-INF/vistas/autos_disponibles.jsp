@@ -82,8 +82,8 @@
             <div id="collapseClientes" class="collapse" aria-labelledby="headingClientes"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="utilities-border.html">Suscriptos</a>
-                    <a class="collapse-item" href="utilities-color.html">Nuevos</a>
+                    <a class="collapse-item" href="clientes-suscriptos">Suscriptos</a>
+                    <a class="collapse-item" href="clientes-no-suscriptos">Nuevos</a>
                 </div>
             </div>
         </li>
@@ -98,10 +98,8 @@
             <div id="collapseEmpleados" class="collapse" aria-labelledby="headingEmpleados"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="utilities-color.html">Administradores</a>
-                    <a class="collapse-item" href="utilities-border.html">Encargado Service</a>
-                    <a class="collapse-item" href="utilities-animation.html">Encargado Suscripcion</a>
-                    <a class="collapse-item" href="utilities-color.html">Encargado Mantenimiento</a>
+                    <a class="collapse-item" href="utilities-color.html">Encargados de Devolucion</a>
+                    <a class="collapse-item" href="utilities-border.html">Mecanicos</a>
                 </div>
             </div>
         </li>

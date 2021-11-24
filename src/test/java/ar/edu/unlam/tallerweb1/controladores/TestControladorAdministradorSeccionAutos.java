@@ -96,7 +96,12 @@ public class TestControladorAdministradorSeccionAutos {
         givenExistenAutosDisponibles(Situacion.DISPONIBLE, 10);
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         whenAccedeALaVistaDeAutosDisponibles(usuarioConRol);
+        whenObtieneLaListaDeAutosDisponibles();
         thenSeMuestraLaVistaConLaListaDeLosAutosDisponibles(this.modelAndView);
+    }
+
+    private List<Auto> whenObtieneLaListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
+        return controlador.obtenerListaDeAutosDisponibles();
     }
 
     @Test(expected = NoHayAutosDisponiblesException.class)
@@ -136,7 +141,7 @@ public class TestControladorAdministradorSeccionAutos {
     }
 
     private void givenNoExistenAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
-        when(servicioDeAuto.obtenerAutosEnMantenimiento()).thenThrow(NoHayAutosEnMantenientoException.class);
+        doThrow(NoHayAutosEnMantenientoException.class).when(servicioDeAuto).obtenerAutosEnMantenimiento();
     }
 
     private void thenSeMuestraLaVistaConLaListaDeLosAutosEnMantenimiento(ModelAndView modelAndView) {
@@ -274,7 +279,7 @@ public class TestControladorAdministradorSeccionAutos {
 
 
     private void thenSeMuestraLaVistaConLaListaDeLosAutosDisponibles(ModelAndView modelAndView) {
-        assertThat(modelAndView.getViewName()).isEqualTo("disponibles");
+        assertThat(modelAndView.getViewName()).isEqualTo("autos_disponibles");
         assertThat(modelAndView.getModel().get("autosDisponibles")).isNotNull();
         assertThat(modelAndView.getModel().get("autosDisponibles")).isInstanceOf(List.class);
         List<Auto> autosDisponibles = (List<Auto>) modelAndView.getModel().get("autosDisponibles");

@@ -155,7 +155,7 @@ public class TestControladorAdministradorSeccionEmpleados {
     }
 
     private List<Usuario> whenObtieneUnaListaDeUsuarios(String rol) throws NoHayEmpladosException {
-        return controlador.obtenerListaDeUsuariosPorRol(rol);
+        return controlador.obtenerListaDeUsuariosConRol(rol);
     }
 
     private void whenAccedeALaVistaDeEmpleadosMecanicos(HttpServletRequest administrador) {

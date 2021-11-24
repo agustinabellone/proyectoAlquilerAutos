@@ -22,5 +22,9 @@ public interface RepositorioUsuario {
 
     List<Usuario> buscarUsuariosPorSuscripcion(Suscripcion suscripcion);
 
+
     List<Notificacion> getNotificacionesPorId(Usuario buscado);
+
+    List<Usuario> buscarUsuariosPorRol(String rol);
+
 }

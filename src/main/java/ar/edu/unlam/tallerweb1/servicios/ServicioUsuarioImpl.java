@@ -56,10 +56,12 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         throw new NoHayEmpladosException();
     }
 
+
     @Override
     public List<Notificacion> getNotificacionesPorId(Usuario buscado) {
         return repositorioUsuario.getNotificacionesPorId(buscado);
     }
+
 
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {
         return contraseña.length() < 8;

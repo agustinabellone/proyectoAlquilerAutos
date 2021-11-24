@@ -232,7 +232,7 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             Clientes Suscriptos
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">1
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -289,7 +289,7 @@
                 </div>
 
                 <!-- Empieza FOR-EAH-->
-                <c:forEach items="${usuarios_suscriptos}" var="usuarios">
+                <c:forEach items="${clientes_no_suscriptos}" var="usuarios">
                     <div class="col-md-12">
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
@@ -302,9 +302,6 @@
                                         <div class="row mt-3">
                                             <div class="col-lg-6 align-self-center">
                                                 <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                    <li>
-                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio: ${usuarios.fechaInicio}</span>
-                                                    </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
                                                         Nombre: <span>${usuarios.usuario.nombre}</span>
                                                     </li>
@@ -313,8 +310,6 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
-                                            >Fecha Fin Suscripcion: ${usuarios.fechaFin}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -325,9 +320,9 @@
                 </c:forEach>
                 <!-- termina FOR-EACH -->
                 <!-- Content Row -->
-                <c:if test="${not empty error_no_hay_clientes_suscriptos}">
+                <c:if test="${not empty error_no_hay_clientes_no_suscriptos}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                            ${error_no_hay_clientes_suscriptos}
+                            ${error_no_hay_clientes_no_suscriptos}
                     </div>
                 </c:if>
                 <div class="row">
@@ -405,4 +400,5 @@
 
 </body>
 </html>
+
 

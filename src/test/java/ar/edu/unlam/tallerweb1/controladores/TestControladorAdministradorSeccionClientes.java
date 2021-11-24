@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesNoSuscriptos;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptos;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
@@ -83,7 +83,7 @@ public class TestControladorAdministradorSeccionClientes {
     }
 
     @Test
-    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos {
+    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos, NoHayClientesNoSuscriptos {
         givenExistenClientesNoSuscriptos(5);
         HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
         givenIngresaALaVistaDeLosCLientesNoSuscriptos(administrador);
@@ -91,8 +91,8 @@ public class TestControladorAdministradorSeccionClientes {
         thenSeMuestraLaVistaConLaListaDeLosClientesSuscriptos(this.modelAndView);
     }
 
-    @Test(expected = NoHayClientesSuscriptos.class)
-    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosNoVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos {
+    @Test(expected = NoHayClientesNoSuscriptos.class)
+    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosNoVeaUnaListaDeLosMismos() throws NoHayClientesNoSuscriptos {
         givenNoExistenClientesNoSuscriptos();
         HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
         givenIngresaALaVistaDeLosCLientesNoSuscriptos(administrador);
@@ -123,11 +123,12 @@ public class TestControladorAdministradorSeccionClientes {
         when(servicioSuscripcion.obtenerClientesSuscriptos()).thenReturn(listaDeUsuariosSuscriptos);
     }
 
-    private void givenExistenClientesNoSuscriptos(int cantidad) throws NoHayClientesSuscriptos {
-        List<Suscripcion> listaDeClientesNoSuscriptos = new ArrayList<>();
+    private void givenExistenClientesNoSuscriptos(int cantidad) throws NoHayClientesNoSuscriptos {
+        List<Usuario> listaDeClientesNoSuscriptos = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
-            suscripcion.setUsuario(null);
-            listaDeClientesNoSuscriptos.add(suscripcion);
+            Usuario usuario = new Usuario();
+            usuario.setRol("cliente");
+            listaDeClientesNoSuscriptos.add(usuario);
         }
         when(servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos()).thenReturn(listaDeClientesNoSuscriptos);
     }
@@ -136,8 +137,8 @@ public class TestControladorAdministradorSeccionClientes {
         this.modelAndView = controlador.mostrarClientesNoSuscriptos(administrador);
     }
 
-    private void givenNoExistenClientesNoSuscriptos() throws NoHayClientesSuscriptos {
-        doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerListaDeUsuariosNoSuscriptos();
+    private void givenNoExistenClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
+        doThrow(NoHayClientesNoSuscriptos.class).when(servicioSuscripcion).obtenerListaDeUsuariosNoSuscriptos();
     }
 
     private void whenIngresaALaSeccionDeClienteSuscriptosEl(HttpServletRequest administrador) {
@@ -145,11 +146,11 @@ public class TestControladorAdministradorSeccionClientes {
     }
 
     private List<Suscripcion> whenObtieneLaListaDeLosClientesSuscriptos() throws NoHayClientesSuscriptos {
-        return controlador.obtenerListaDeClientesSuscriptos();
+        return controlador.obtenerClientesSuscriptos();
     }
 
-    private List<Suscripcion> whenObtieneLaListaDeLosClientesNoSuscriptos() throws NoHayClientesSuscriptos {
-        return controlador.obtenerListaDeClientesSinSuscripcion();
+    private List<Usuario> whenObtieneLaListaDeLosClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
+        return controlador.obtenerListaDeClientesNoSuscriptos();
     }
 
     private void thenSeMuestraLaVistaDeLosClientesSuscritos(ModelAndView modelAndView) {

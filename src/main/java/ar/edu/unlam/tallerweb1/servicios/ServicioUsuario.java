@@ -21,4 +21,5 @@ public interface ServicioUsuario {
 
     List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException;
 
+
 }

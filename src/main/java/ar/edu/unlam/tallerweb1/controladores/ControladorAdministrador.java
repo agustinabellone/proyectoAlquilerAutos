@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 public class ControladorAdministrador {
 
-    private ModelMap modelMap = new ModelMap();
+    private ModelMap modelMap = getModelMap();
     private String viewName;
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
@@ -38,194 +38,190 @@ public class ControladorAdministrador {
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
     public ModelAndView irALaVistaPrincipal(HttpServletRequest request) {
-        if (elRolEstaSeteadoYEsAdministrador(request))
-            return enviarAlPanelPrincipal();
-        else return enviarALoginConMensajeDeError();
+        ModelMap model = getModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
+            vista = "redirect:/panel-principal";
+            return new ModelAndView(vista);
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+            return setModelAndView(model, vista);
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/panel-principal")
     public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request) {
-        if (this.elRolEstaSeteadoYEsAdministrador(request))
-            return this.intentaMostrarLaVistaDelPanelPrincipalSiNoLanzaUnException(request);
-        else return this.enviarALoginConMensajeDeError();
+        ModelMap model = getModelMap();
+        String vista;
+        if (this.elRolEstaSeteadoYEsAdministrador(request)) {
+            try {
+                vista = "panel-principal";
+                List<Auto> autosAlquilados = obtenerListaDeAutosAlquilados();
+                model.put("autosAlquilados", autosAlquilados);
+                model.put("nombre", request.getSession().getAttribute("nombre"));
+            } catch (NoHayAutosAlquiladosException e) {
+                vista = "panel-principal";
+                model.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/autos-alquilados")
     public ModelAndView mostrarAutosAlquilados(HttpServletRequest request) {
-        if (elRolEstaSeteadoYEsAdministrador(request))
-            return this.intentaMostrarLaVistaDelPanelPrincipalSiNoLanzaUnException(request);
-        else return this.enviarALoginConMensajeDeError();
+        ModelMap model = getModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
+            try {
+                vista = "panel-principal";
+                List<Auto> autosAlquilados = obtenerListaDeAutosAlquilados();
+                model.put("nombre", request.getSession().getAttribute("nombre"));
+                model.put("autosAlquilados", autosAlquilados);
+                return setModelAndView(model, vista);
+            } catch (NoHayAutosAlquiladosException e) {
+                vista = "panel-principal";
+                model.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/autos-disponibles")
     public ModelAndView mostrarAutosDisponibles(HttpServletRequest usuarioConRol) {
-        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol))
-            return intentaMostrarLaVistaDeLosAutosDisponiblesSiNoLanzaUnaException();
-        else return enviarALoginConMensajeDeError();
-
+        ModelMap model = getModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
+            try {
+                vista = "autos_disponibles";
+                List<Auto> autosDisponibles = obtenerListaDeAutosDisponibles();
+                model.put("autosDisponibles", autosDisponibles);
+            } catch (NoHayAutosDisponiblesException e) {
+                vista = "autos_disponibles";
+                model.put("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/autos-en-mantenimiento")
     public ModelAndView mostrarAutosEnMantenimiento(HttpServletRequest usuarioConRol) {
-        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol))
-            return intentaMostrarLaVistaDeLosAutosEnMantenimientoSiNoLanzaUnaException();
-        else return enviarALoginConMensajeDeError();
+        ModelMap model = getModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(usuarioConRol)) {
+            try {
+                vista = "autos_en_mantenimiento";
+                List<Auto> autosEnMantenimiento = obtenerListaDeAutosEnMantenimiento();
+                model.put("en_mantenimiento", autosEnMantenimiento);
+            } catch (NoHayAutosEnMantenientoException e) {
+                model.put("error_no_hay_autos_en_mantenimiento", "No hay autos en mantenimiento actualmente");
+                vista = "autos_en_mantenimiento";
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/clientes-suscriptos")
     public ModelAndView mostrarClientesSuscriptos(HttpServletRequest elUsuarioQueVienePorLaSesion) {
-        if (elRolEstaSeteadoYEsAdministrador(elUsuarioQueVienePorLaSesion))
-            return intentaMostrarLaVistaDeLosClientesSuscriptosConLaLista();
-        else
-            return enviarALoginConMensajeDeError();
+        ModelMap model = getModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(elUsuarioQueVienePorLaSesion)) {
+            try {
+                vista = "clientes-suscriptos";
+                List<Suscripcion> usuariosSuscriptos = obtenerClientesSuscriptos();
+                model.put("lista_de_suscriptos", usuariosSuscriptos);
+            } catch (NoHayClientesSuscriptos e) {
+                vista = "clientes-suscriptos";
+                model.put("error_no_hay_clientes_suscriptos", "No hay clientes suscriptos actualmente");
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/clientes-no-suscriptos")
+    public ModelAndView mostrarClientesNoSuscriptos(HttpServletRequest administrador) {
+        ModelMap model = getModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(administrador)) {
+            try {
+                vista = "clientes-no-suscriptos";
+                List<Usuario> clientesNoSuscriptos = obtenerListaDeClientesNoSuscriptos();
+                model.put("clientes_no_suscriptos", clientesNoSuscriptos);
+            } catch (NoHayClientesNoSuscriptos e) {
+                vista = "clientes-no-suscriptos";
+                model.put("error_no_hay_clientes_no_suscriptos", "Al parecer todos los clientes estan suscriptos");
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/encargados-devolucion")
     public ModelAndView mostrarEmpleadosEncargadosDeDevolucion(HttpServletRequest administrador) {
+        ModelMap model = getModelMap();
+        String vista;
         if (elRolEstaSeteadoYEsAdministrador(administrador)) {
-            return intentaAccederALaVistaDeLosUsuariosEncargadosDeLaDevolucionYSiNoExistenLanzaUnaException();
+            try {
+                vista = "encargados-devolucion";
+                List<Usuario> usuariosEncargadosDeVolucion = obtenerListaDeUsuariosConRol("encargadosDevolucion");
+                model.put("encargados_devolucion", usuariosEncargadosDeVolucion);
+            } catch (NoHayEmpladosException e) {
+                vista = "encargados-devolucion";
+                model.put("error_no_hay_encargados", "no hay encargados de devolucion actualmente");
+            }
         } else {
-            return enviarALoginConMensajeDeError();
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
+        return setModelAndView(model, vista);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/mecanicos")
     public ModelAndView mostrarEmpleadosMecanicos(HttpServletRequest usuario_de_request) {
+        ModelMap model = getModelMap();
+        String vista;
         if (elRolEstaSeteadoYEsAdministrador(usuario_de_request)) {
             try {
-                List<Usuario> usuariosMecanicos = this.obtenerListaDeUsuariosPorRol("mecanico");
-                modelMap.put("mecanicos", usuariosMecanicos);
-                return new ModelAndView("mecanicos", modelMap);
+                vista = "mecanicos";
+                List<Usuario> usuariosMecanicos = obtenerListaDeUsuariosConRol("mecanico");
+                model.put("mecanicos", usuariosMecanicos);
             } catch (NoHayEmpladosException e) {
-                modelMap.put("error_no_hay_mecanicos", "No hay mecanicos actualmente");
-                return new ModelAndView("mecanicos", modelMap);
+                vista = "mecanicos";
+                model.put("error_no_hay_mecanicos", "No hay mecanicos actualmente");
             }
         } else {
-            return enviarALoginConMensajeDeError();
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
-    }
-
-    private ModelAndView intentaMostrarLaVistaDeLosClientesSuscriptosConLaLista() {
-        try {
-            return enviaALaVistaDeLosClientesSuscriptosMotrandoUnaLista();
-        } catch (NoHayClientesSuscriptos e) {
-            return enviaALaVistaDeLosClientesSuscriptosConMensajeDeError();
-        }
-    }
-
-    private ModelAndView enviaALaVistaDeLosClientesSuscriptosConMensajeDeError() {
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("error_no_hay_clientes_suscriptos", "No hay clientes suscriptos actualmente");
-        return new ModelAndView("clientes-suscriptos", modelMap);
-    }
-
-    private ModelAndView enviaALaVistaDeLosClientesSuscriptosMotrandoUnaLista() throws NoHayClientesSuscriptos {
-        List<Suscripcion> usuariosSuscriptos = this.obtenerListaDeClientesSuscriptos();
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("lista_de_suscriptos", usuariosSuscriptos);
-        return new ModelAndView("clientes-suscriptos", modelMap);
-    }
-
-    private ModelAndView enviarAlPanelPrincipal() {
-        this.viewName = "redirect:/panel-principal";
-        return getView(viewName);
-    }
-
-    private ModelAndView enviarALoginConMensajeDeError() {
-        guardaElMensajeParaPasarloALaVista(this.modelMap);
-        this.viewName = "login";
-        return getModelAndView(this.modelMap, this.viewName);
-    }
-
-    private ModelAndView intentaMostrarLaVistaDelPanelPrincipalSiNoLanzaUnException(HttpServletRequest request) {
-        try {
-            return enviaAlPanelPrincipalMostrandoListaDeAutosAlquilados(request);
-        } catch (NoHayAutosAlquiladosException e) {
-            return enviaAlPanelPrincipalConMensajeDeError();
-        }
-    }
-
-    private ModelAndView enviaAlPanelPrincipalConMensajeDeError() {
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
-        this.viewName = "panel-principal";
-        return this.getModelAndView(this.modelMap, this.viewName);
-    }
-
-    private ModelAndView enviaAlPanelPrincipalMostrandoListaDeAutosAlquilados(HttpServletRequest request) throws
-            NoHayAutosAlquiladosException {
-        List<Auto> autosAlquilados = this.obtenerListaDeAutosAlquilados();
-        this.guardaElNombreDelUsuarioQueIniciaSesionYLaListaDeAutosAlquilados(request, autosAlquilados);
-        this.viewName = "panel-principal";
-        return this.getModelAndView(this.modelMap, this.viewName);
-    }
-
-    private void guardaElMensajeParaPasarloALaVista(ModelMap modelMap) {
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("datosLogin", new DatosLogin());
-    }
-
-    private void guardaElNombreDelUsuarioQueIniciaSesionYLaListaDeAutosAlquilados(HttpServletRequest
-                                                                                          request, List<Auto> autosAlquilados) {
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("nombre", request.getSession().getAttribute("nombre"));
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("autosAlquilados", autosAlquilados);
-    }
-
-    private void guardaLaClaveYElValorEnElMapQueSePasaEnLaVista(String nombreDeLaClave, Object valor) {
-        this.modelMap.put(nombreDeLaClave, valor);
-    }
-
-    private ModelAndView intentaMostrarLaVistaDeLosAutosEnMantenimientoSiNoLanzaUnaException() {
-        try {
-            return enviarALaVistaDeLosAutosEnMantenimientoMostrandoUnaLista();
-        } catch (NoHayAutosEnMantenientoException e) {
-            return enviaALaVistaDeLosAutosEnMantenimientoConMensajeDeError();
-        }
-    }
-
-    private ModelAndView enviaALaVistaDeLosAutosEnMantenimientoConMensajeDeError() {
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("error_no_hay_autos_en_mantenimiento", "No hay autos en mantenimiento actualmente");
-        this.viewName = "autos_en_mantenimiento";
-        return this.getModelAndView(this.modelMap, this.viewName);
-    }
-
-    private ModelAndView enviarALaVistaDeLosAutosEnMantenimientoMostrandoUnaLista() throws
-            NoHayAutosEnMantenientoException {
-        List<Auto> autosEnMantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("en_mantenimiento", autosEnMantenimiento);
-        this.viewName = "autos_en_mantenimiento";
-        return this.getModelAndView(this.modelMap, this.viewName);
-    }
-
-    private ModelAndView intentaMostrarLaVistaDeLosAutosDisponiblesSiNoLanzaUnaException() {
-        try {
-            return enviarALaVistaDeAutosDisponiblesMostrandolaListaDeAutosDisponibles();
-        } catch (NoHayAutosDisponiblesException e) {
-            return enviaALaVistaDeAutosDisponiblesConMensajeDeError();
-        }
-    }
-
-    private ModelAndView enviaALaVistaDeAutosDisponiblesConMensajeDeError() {
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("error_sin_autos_disponibles", "No hay autos disponibles actualmente");
-        this.viewName = "autos_disponibles";
-        return this.getModelAndView(this.modelMap, this.viewName);
-    }
-
-    private ModelAndView enviarALaVistaDeAutosDisponiblesMostrandolaListaDeAutosDisponibles() throws
-            NoHayAutosDisponiblesException {
-        List<Auto> autosDisponibles = this.obtenerListaDeAutosDisponibles();
-        guardaLaClaveYElValorEnElMapQueSePasaEnLaVista("autosDisponibles", autosDisponibles);
-        this.viewName = "autos_disponibles";
-        return this.getModelAndView(this.modelMap, this.viewName);
+        return setModelAndView(model, vista);
     }
 
     private boolean elRolEstaSeteadoYEsAdministrador(HttpServletRequest request) {
-        return elRolEstaSeteado(request) && elRolEsAdministrador(request);
+        return request.getSession().getAttribute("rol") != null && request.getSession().getAttribute("rol").equals("admin");
     }
 
-    private boolean elRolEstaSeteado(HttpServletRequest request) {
-        return request.getSession().getAttribute("rol") != null;
+    private ModelMap getModelMap() {
+        return new ModelMap();
     }
 
-    private boolean elRolEsAdministrador(HttpServletRequest request) {
-        return request.getSession().getAttribute("rol").equals("admin");
+    private ModelAndView setModelAndView(ModelMap model, String vista) {
+        return new ModelAndView(vista, model);
+    }
+
+    private String enviaAlaVistaDeLoginConMensajeDeError(ModelMap model) {
+        String vista;
+        model.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
+        model.put("datosLogin", new DatosLogin());
+        vista = "login";
+        return vista;
     }
 
     public List<Auto> obtenerListaDeAutosAlquilados() throws NoHayAutosAlquiladosException {
@@ -240,58 +236,15 @@ public class ControladorAdministrador {
         return servicioDeAuto.obtenerAutosEnMantenimiento();
     }
 
-    public List<Suscripcion> obtenerListaDeClientesSuscriptos() throws NoHayClientesSuscriptos {
+    public List<Suscripcion> obtenerClientesSuscriptos() throws NoHayClientesSuscriptos {
         return servicioSuscripcion.obtenerClientesSuscriptos();
     }
 
-    private ModelAndView getView(String viewName) {
-        return new ModelAndView(viewName);
-    }
-
-    private ModelAndView getModelAndView(ModelMap modelMap, String viewName) {
-        return new ModelAndView(viewName, modelMap);
-    }
-
-    public ModelAndView mostrarClientesNoSuscriptos(HttpServletRequest administrador) {
-        if (elRolEstaSeteadoYEsAdministrador(administrador)) {
-            List<Suscripcion> clientesNoSuscriptos = null;
-            try {
-                clientesNoSuscriptos = this.obtenerListaDeClientesSinSuscripcion();
-                modelMap.put("clientes_no_suscriptos", clientesNoSuscriptos);
-                return new ModelAndView("clientes-no-suscriptos", modelMap);
-            } catch (NoHayClientesSuscriptos e) {
-                modelMap.put("error_no_hay_clientes_no_suscriptos", "Al parecer todos los clientes estan suscriptos");
-                return new ModelAndView("clientes-no-suscriptos", modelMap);
-            }
-        } else {
-            return enviarALoginConMensajeDeError();
-        }
-    }
-
-    public List<Suscripcion> obtenerListaDeClientesSinSuscripcion() throws NoHayClientesSuscriptos {
+    public List<Usuario> obtenerListaDeClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
         return servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
     }
 
-    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException {
+    public List<Usuario> obtenerListaDeUsuariosConRol(String rol) throws NoHayEmpladosException {
         return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
-    }
-
-    private ModelAndView intentaAccederALaVistaDeLosUsuariosEncargadosDeLaDevolucionYSiNoExistenLanzaUnaException() {
-        try {
-            return enviaALaVistaDeUsuariosEncargadosDelaDevolucionMostrandoUnaLista();
-        } catch (NoHayEmpladosException e) {
-            return enviarAlaVistaDeUsuariosEncargadosDeLaDevolucionMostrandoUnMensajeDeError();
-        }
-    }
-
-    private ModelAndView enviarAlaVistaDeUsuariosEncargadosDeLaDevolucionMostrandoUnMensajeDeError() {
-        modelMap.put("error_no_hay_encargados", "no hay encargados de devolucion actualmente");
-        return new ModelAndView("encargados-devolucion", modelMap);
-    }
-
-    private ModelAndView enviaALaVistaDeUsuariosEncargadosDelaDevolucionMostrandoUnaLista() throws NoHayEmpladosException {
-        List<Usuario> usuariosEncargadosDeVolucion = this.obtenerListaDeUsuariosPorRol("encargadosDevolucion");
-        modelMap.put("encargados_devolucion", usuariosEncargadosDeVolucion);
-        return new ModelAndView("encargados-devolucion", modelMap);
     }
 }

@@ -82,8 +82,8 @@
             <div id="collapseClientes" class="collapse" aria-labelledby="headingClientes"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="utilities-border.html">Suscriptos</a>
-                    <a class="collapse-item" href="utilities-color.html">No Suscriptos</a>
+                    <a class="collapse-item" href="clientes-suscriptos">Suscriptos</a>
+                    <a class="collapse-item" href="clientes-no-suscriptos">No Suscriptos</a>
                 </div>
             </div>
         </li>
@@ -225,7 +225,7 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             Clientes Suscriptos
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">1
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${cantidad_suscriptos}
                                         </div>
                                     </div>
                                     <div class="col-auto">
