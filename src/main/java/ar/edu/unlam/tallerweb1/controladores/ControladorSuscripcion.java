@@ -46,7 +46,7 @@ public class ControladorSuscripcion {
         return new ModelAndView("redirect:/main");
     }
 
-    @RequestMapping(path = "/suscribirse", method = RequestMethod.GET)
+    /*@RequestMapping(path = "/suscribirse", method = RequestMethod.GET)
     public ModelAndView suscribirUsuario(@RequestParam(value = "id_tipo") Long id_tipo,
                                          @RequestParam(value = "id_usuario")Long id_usuario,
                                          HttpServletRequest request) {
@@ -62,9 +62,9 @@ public class ControladorSuscripcion {
         }
         request.getSession().setAttribute("tieneSuscripcion",true);
         return new ModelAndView("redirect:/main");
-    }
+    }*/
 
-    @RequestMapping(path = "/suscribirseMejora", method = RequestMethod.GET)
+    /*@RequestMapping(path = "/suscribirseMejora", method = RequestMethod.GET)
     public ModelAndView mejorarSuscripcion(@RequestParam(value = "id_tipo") Long id_tipo,
                                          @RequestParam(value = "id_usuario")Long id_usuario,
                                          HttpServletRequest request) {
@@ -80,7 +80,7 @@ public class ControladorSuscripcion {
         request.getSession().setAttribute("tieneSuscripcion",true);
 
         return new ModelAndView("redirect:/main");
-    }
+    }*/
 
     @RequestMapping(path = "/darDeBajaSuscripcion")
     public ModelAndView darDeBajaSuscripcion(HttpServletRequest request) {
@@ -125,20 +125,6 @@ public class ControladorSuscripcion {
         return new ModelAndView("redirect:/main");
     }
 
-    @RequestMapping(path = "/mejorar-suscripcion")
-    private ModelAndView mejorarSuscripcion(Long id_mejora, String nombre_mejora, HttpServletRequest request){
-
-        ModelMap model = new ModelMap();
-
-        model.put("id_mejora", id_mejora);
-        model.put("id_usuarioMejora", request.getSession().getAttribute("id"));
-        model.put("nombre_mejora", nombre_mejora);
-
-        return new ModelAndView("mejorar-suscripcion", model);
-
-    }
-
-
     //@Scheduled(fixedRate = 10000)
     @Scheduled(cron = "0 29 19 ? * *")
     public void controlDeFechaDeSuscripciones(){
@@ -152,18 +138,5 @@ public class ControladorSuscripcion {
             request.getSession().setAttribute("tipoSuscripcion", servicioSuscripcion.buscarPorIdUsuario(id).getTipoSuscripcion());
         }
     }
-
-/* @RequestMapping(path = "/admin-suscripcion", method = RequestMethod.GET)
-    private ModelAndView vistaAdminSuscripcion(HttpServletRequest request){
-
-
-        if(null != request.getSession().getAttribute("rol")){
-            if(request.getSession().getAttribute("rol").equals("admin")){
-                return new ModelAndView("admin-suscripcion");
-            }
-        }
-        return new ModelAndView("redirect:/home");
-    }
-*/
 
 }

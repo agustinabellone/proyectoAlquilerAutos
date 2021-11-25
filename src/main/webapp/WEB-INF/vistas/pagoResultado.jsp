@@ -35,7 +35,7 @@
                 <c:if test="${resultado == 'rejected'}">
                     <div class="card-body bg-danger text-white">
                         <h5 class="card-title text-white">Su pago fue rechazado, por favor intentelo de nuevo</h5>
-                        <p class="card-text"><a class="btn btn-primary" href="ir-a-suscribir">Volver a suscribir</a></p>
+                        <p class="card-text"><a class="btn btn-primary" href="main">Volver a Mi Cuenta</a></p>
                     </div>
                 </c:if>
                 <c:if test="${resultado == 'approved'}">
