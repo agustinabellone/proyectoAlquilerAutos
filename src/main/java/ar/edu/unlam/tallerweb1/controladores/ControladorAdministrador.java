@@ -178,7 +178,7 @@ public class ControladorAdministrador {
                 vista = "encargados-devolucion";
                 List<Usuario> usuariosEncargadosDeVolucion = obtenerListaDeUsuariosConRol("encargadosDevolucion");
                 model.put("encargados_devolucion", usuariosEncargadosDeVolucion);
-            } catch (NoHayEmpladosException e) {
+            } catch (NoHayEmpladosException | NoHayUsuariosPendientesDeRol e) {
                 vista = "encargados-devolucion";
                 model.put("error_no_hay_encargados", "no hay encargados de devolucion actualmente");
             }
@@ -197,7 +197,7 @@ public class ControladorAdministrador {
                 vista = "mecanicos";
                 List<Usuario> usuariosMecanicos = obtenerListaDeUsuariosConRol("mecanico");
                 model.put("mecanicos", usuariosMecanicos);
-            } catch (NoHayEmpladosException e) {
+            } catch (NoHayEmpladosException | NoHayUsuariosPendientesDeRol e) {
                 vista = "mecanicos";
                 model.put("error_no_hay_mecanicos", "No hay mecanicos actualmente");
             }
@@ -247,7 +247,7 @@ public class ControladorAdministrador {
         return servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
     }
 
-    public List<Usuario> obtenerListaDeUsuariosConRol(String rol) throws NoHayEmpladosException {
+    public List<Usuario> obtenerListaDeUsuariosConRol(String rol) throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
         return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
     }
 
@@ -256,11 +256,21 @@ public class ControladorAdministrador {
         ModelMap model = new ModelMap();
         String vista;
         if (elRolEstaSeteadoYEsAdministrador(request)) {
-            vista = "asignacion-de-rol";
-            return new ModelAndView(vista);
+            try {
+                vista = "asignacion-de-rol";
+                List<Usuario> pendientesDeRol = obtenerListaDeUsuariosConRolPendiente();
+                model.put("pendientes_de_rol",pendientesDeRol);
+            } catch (NoHayEmpladosException | NoHayUsuariosPendientesDeRol e) {
+                vista = "asignacion-de-rol";
+                model.put("error_no_hay_pendientes_de_rol","No hay usuarios pendientes de rol");
+            }
         } else {
             vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
         return setModelAndView(model, vista);
+    }
+
+    public List<Usuario> obtenerListaDeUsuariosConRolPendiente() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
+        return servicioUsuario.obtenerListaDeUsuariosPorRol("pendiente");
     }
 }

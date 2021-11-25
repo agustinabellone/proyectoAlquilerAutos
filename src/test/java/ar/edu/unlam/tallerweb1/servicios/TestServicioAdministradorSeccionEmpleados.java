@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
@@ -20,7 +21,7 @@ public class TestServicioAdministradorSeccionEmpleados {
     private ServicioUsuario servicioUsuario = new ServicioUsuarioImpl(repositorioUsuario,repositorioSuscripcion);
 
     @Test(expected = NoHayEmpladosException.class)
-    public void lanzarUnaExceptionCuandoNoHyaClientesConRolDeEncargadoDeDevolucion() throws NoHayEmpladosException {
+    public void lanzarUnaExceptionCuandoNoHyaClientesConRolDeEncargadoDeDevolucion() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
         givenNoExistenEncargadosDeDevolucion();
         whenObtengoLaListaDeLosEncargados();
     }
@@ -28,12 +29,12 @@ public class TestServicioAdministradorSeccionEmpleados {
     private void givenNoExistenEncargadosDeDevolucion() {
     }
 
-    private List<Usuario> whenObtengoLaListaDeLosEncargados() throws NoHayEmpladosException {
+    private List<Usuario> whenObtengoLaListaDeLosEncargados() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
         return servicioUsuario.obtenerListaDeUsuariosPorRol("encargado");
     }
 
     @Test
-    public void queSePuedaObtenerUnaListaDeLosClientesConRolDeEncargadoDeDevolucion() throws NoHayEmpladosException {
+    public void queSePuedaObtenerUnaListaDeLosClientesConRolDeEncargadoDeDevolucion() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
         givenExistenEncargadosDeDevolucion(5);
         List<Usuario> usuarios = whenObtengoLaListaDeLosEncargados();
         thenObtengoUnaListaConLosEncargados(usuarios, 5);
@@ -57,7 +58,7 @@ public class TestServicioAdministradorSeccionEmpleados {
     }
 
     @Test(expected = NoHayEmpladosException.class)
-    public void lanzarUnaExceptionCuandoNoHayEmpleadosMecanicos() throws NoHayEmpladosException {
+    public void lanzarUnaExceptionCuandoNoHayEmpleadosMecanicos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
         givenNoExistenUsuariosMecanicos();
         whenObtengoLaListaDeLosMecanicos();
     }
@@ -66,12 +67,12 @@ public class TestServicioAdministradorSeccionEmpleados {
 
     }
 
-    private List<Usuario> whenObtengoLaListaDeLosMecanicos() throws NoHayEmpladosException {
+    private List<Usuario> whenObtengoLaListaDeLosMecanicos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
         return servicioUsuario.obtenerListaDeUsuariosPorRol("mecanico");
     }
 
     @Test
-    public void queSePuedaObtenerUnaListaDeMecanicos() throws NoHayEmpladosException {
+    public void queSePuedaObtenerUnaListaDeMecanicos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
         givenExistenMecanicos(5);
         List<Usuario> usuarioList = whenObtengoLaListaDeLosMecanicos();
         thenObtengoLaListaDeLosMecanicos(usuarioList,5);
