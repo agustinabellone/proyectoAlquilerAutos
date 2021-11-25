@@ -93,12 +93,12 @@ public class TestControladorAsignacionDeRol {
         thenSeMuestraLaVistaConMensajeDeError(this.modelAndView, "No hay usuarios pendientes de rol");
     }
 
+    private void givenNoExistenUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
+        doThrow(NoHayUsuariosPendientesDeRol.class).when(servicioUsuario).obtenerListaDeUsuariosPendienteDeRol();
+    }
+
     private void thenSeMuestraLaVistaConMensajeDeError(ModelAndView modelAndView, String error) {
         assertThat(modelAndView.getViewName()).isEqualTo("asignacion-de-rol");
         assertThat(modelAndView.getModel().get("error_no_hay_pendientes_de_rol")).isEqualTo(error);
-    }
-
-    private void givenNoExistenUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
-        doThrow(NoHayUsuariosPendientesDeRol.class).when(servicioUsuario).obtenerListaDeUsuariosPendienteDeRol();
     }
 }

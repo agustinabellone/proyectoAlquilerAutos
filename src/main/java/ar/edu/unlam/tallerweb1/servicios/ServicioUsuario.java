@@ -20,7 +20,7 @@ public interface ServicioUsuario {
 
     List<Notificacion> getNotificacionesPorId(Usuario buscado);
 
-    List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol;
+    List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException;
 
 
     List<Usuario> obtenerListaDeUsuariosPendienteDeRol() throws NoHayUsuariosPendientesDeRol;

@@ -84,8 +84,8 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     @Override
     public List<Usuario> buscarUsuariosPendientesDeRol() {
         return sessionFactory.getCurrentSession().createCriteria(Usuario.class)
-                .add(Restrictions.eq("rol","pendiente"))
-                .add(Restrictions.like("email","%@tallerweb%")).list();
+                .add(Restrictions.like("email","%@tallerweb%"))
+                .add(Restrictions.isNull("rol")).list();
     }
 
 
