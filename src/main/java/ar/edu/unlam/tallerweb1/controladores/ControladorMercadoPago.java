@@ -38,6 +38,25 @@ public class ControladorMercadoPago {
     private ModelAndView confirmarSuscripcion(HttpServletRequest request,
                                               @RequestParam(value="id_tipo") Long id_tipo ) throws MPException {
 
+        ModelMap model = obtenerPreferencia(id_tipo, request, 0);
+
+        return new ModelAndView("confirmar-suscripcion", model);
+    }
+
+    @RequestMapping(path = "/mejorar-suscripcion")
+    private ModelAndView mejorarSuscripcion(Long id_mejora, String nombre_mejora, HttpServletRequest request) throws MPException {
+
+        ModelMap model = obtenerPreferencia(id_mejora, request, 1);
+
+        model.put("id_mejora", id_mejora);
+        model.put("id_usuarioMejora", request.getSession().getAttribute("id"));
+        model.put("nombre_mejora", nombre_mejora);
+
+        return new ModelAndView("mejorar-suscripcion", model);
+
+    }
+
+    private ModelMap obtenerPreferencia(Long id_tipo, HttpServletRequest request, int opcion) throws MPException {
         TipoSuscripcion tipoSuscripcion= this.servicioSuscripcion.getTipoPorid(id_tipo);
 
         ModelMap model= new ModelMap();
@@ -58,10 +77,19 @@ public class ControladorMercadoPago {
                 .setUnitPrice(tipoSuscripcion.getPrecio());
         preference.appendItem(item);
 
-        BackUrls backUrls = new BackUrls(
-                "http://localhost:8080/proyecto_limpio_spring_war_exploded/pagoRealizado?id_tipo="+tipoSuscripcion.getId(),
-                "http://www.tu-sitio/pending",
-                "http://localhost:8080/proyecto_limpio_spring_war_exploded/pagoRealizado?id_tipo=1");
+        BackUrls backUrls = new BackUrls();
+
+        if(opcion==0){
+            backUrls = new BackUrls(
+                    "http://localhost:8080/proyecto_limpio_spring_war_exploded/pagoRealizado?opcion=0&id_tipo="+tipoSuscripcion.getId(),
+                    "http://www.tu-sitio/pending",
+                    "http://localhost:8080/proyecto_limpio_spring_war_exploded/pagoRealizado?opcion=0&id_tipo=1");
+        }else{
+            backUrls = new BackUrls(
+                    "http://localhost:8080/proyecto_limpio_spring_war_exploded/pagoRealizado?opcion=1&id_tipo="+tipoSuscripcion.getId(),
+                    "http://www.tu-sitio/pending",
+                    "http://localhost:8080/proyecto_limpio_spring_war_exploded/pagoRealizado?opcion=1&id_tipo=1");
+        }
 
         preference.setBackUrls(backUrls);
 
@@ -70,16 +98,16 @@ public class ControladorMercadoPago {
 
         model.put("preferencia", preference);
 
-
-        return new ModelAndView("confirmar-suscripcion", model);
+        return model;
     }
 
     @RequestMapping(path = "/pagoRealizado", method = RequestMethod.GET)
     private ModelAndView pagoRealizado(HttpServletRequest request,
                                               @RequestParam(value="collection_status") String resultado,
-                                              @RequestParam(value="id_tipo") Long id_tipo)  {
+                                              @RequestParam(value="id_tipo") Long id_tipo,
+                                              @RequestParam(value="opcion") int opcion)  {
 
-        if(resultado.equals("approved")){
+        if(resultado.equals("approved") && opcion == 0){
             Long id_usuario= (Long)request.getSession().getAttribute("id");
             Usuario usuario = this.servicioUsuario.buscarPorId(id_usuario);
             TipoSuscripcion tipoSuscripcion= this.servicioSuscripcion.getTipoPorid(id_tipo);
@@ -88,11 +116,24 @@ public class ControladorMercadoPago {
             request.getSession().setAttribute("tieneSuscripcion",true);
         }
 
+        if(resultado.equals("approved") && opcion == 1){
+            Usuario usuario = new Usuario((Long)request.getSession().getAttribute("id"));
+            TipoSuscripcion tipoSuscripcion = servicioSuscripcion.getTipoPorid(id_tipo);
+
+            servicioSuscripcion.cancelarSuscripcionForzada(usuario);
+
+            servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
+
+            request.getSession().setAttribute("tieneSuscripcion",true);
+        }
+
         ModelMap model = new ModelMap();
         model.put("resultado", resultado);
 
         return new ModelAndView("pagoResultado", model);
     }
+
+
 
 
 }
