@@ -1,12 +1,55 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TestServicioAsignacionDeRol {
 
-    private ServicioUsuario servicioUsuario = new ServicioUsuarioImpl();
+    private RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    private RepositorioSuscripcion repositorioSuscripcion = mock(RepositorioSuscripcion.class);
+    private ServicioUsuario servicioUsuario = new ServicioUsuarioImpl(repositorioUsuario, repositorioSuscripcion);
+
+    @Test(expected = NoHayUsuariosPendientesDeRol.class)
+    public void lanzarUnaExceptionSiNoHayUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
+        givenNoExistenUsuariosPendientesDeRol();
+        whenObtengoUnaListaDeLosUsuariosPendientesDeRol();
+    }
+
+    private List<Usuario> whenObtengoUnaListaDeLosUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
+        return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol("pendiente");
+    }
+
+    private void givenNoExistenUsuariosPendientesDeRol() {
+    }
 
     @Test
-    public void lanzarUnaExceptionSiNoHayUsuariosPendientesDeRol() {
+    public void queSePuedaObtenerUnaListaDeUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
+        givenExistenUsuariosPendientesDeRol(5);
+        List<Usuario> usuarioList = whenObtengoUnaListaDeLosUsuariosPendientesDeRol();
+        thenObtengoLaListaDeUsuariosConRolPendiente(usuarioList);
+    }
+
+    private void givenExistenUsuariosPendientesDeRol(int cantidad) {
+        List<Usuario> usuarioList = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Usuario usuario = new Usuario();
+            usuario.setRol("pendiente");
+            usuarioList.add(usuario);
+        }
+        when(repositorioUsuario.buscarUsuariosPorRol("pendiente")).thenReturn(usuarioList);
+    }
+
+    private void thenObtengoLaListaDeUsuariosConRolPendiente(List<Usuario> usuarioList) {
+        assertThat(usuarioList).hasSize(5);
     }
 }

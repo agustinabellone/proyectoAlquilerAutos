@@ -259,10 +259,10 @@ public class ControladorAdministrador {
             try {
                 vista = "asignacion-de-rol";
                 List<Usuario> pendientesDeRol = obtenerListaDeUsuariosConRolPendiente();
-                model.put("pendientes_de_rol",pendientesDeRol);
-            } catch (NoHayEmpladosException | NoHayUsuariosPendientesDeRol e) {
+                model.put("pendientes_de_rol", pendientesDeRol);
+            } catch (NoHayUsuariosPendientesDeRol e) {
                 vista = "asignacion-de-rol";
-                model.put("error_no_hay_pendientes_de_rol","No hay usuarios pendientes de rol");
+                model.put("error_no_hay_pendientes_de_rol", "No hay usuarios pendientes de rol");
             }
         } else {
             vista = enviaAlaVistaDeLoginConMensajeDeError(model);
@@ -270,7 +270,7 @@ public class ControladorAdministrador {
         return setModelAndView(model, vista);
     }
 
-    public List<Usuario> obtenerListaDeUsuariosConRolPendiente() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
-        return servicioUsuario.obtenerListaDeUsuariosPorRol("pendiente");
+    public List<Usuario> obtenerListaDeUsuariosConRolPendiente() throws NoHayUsuariosPendientesDeRol {
+        return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol("pendiente");
     }
 }

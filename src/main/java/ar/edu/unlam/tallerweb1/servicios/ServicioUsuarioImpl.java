@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
@@ -61,6 +62,15 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
             return buscados;
         }
         throw new NoHayEmpladosException();
+    }
+
+    @Override
+    public List<Usuario> obtenerListaDeUsuariosPendienteDeRol(String pendiente) throws NoHayUsuariosPendientesDeRol {
+        List<Usuario> buscados = repositorioUsuario.buscarUsuariosPorRol(pendiente);
+        if (buscados.size() > 0) {
+            return buscados;
+        }
+        throw new NoHayUsuariosPendientesDeRol();
     }
 
 

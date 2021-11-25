@@ -23,4 +23,5 @@ public interface ServicioUsuario {
     List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol;
 
 
+    List<Usuario> obtenerListaDeUsuariosPendienteDeRol(String pendiente) throws NoHayUsuariosPendientesDeRol;
 }

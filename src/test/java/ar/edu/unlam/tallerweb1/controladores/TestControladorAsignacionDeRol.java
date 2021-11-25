@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
@@ -54,7 +53,7 @@ public class TestControladorAsignacionDeRol {
     }
 
     @Test
-    public void queSePuedaVerUnaListaDeLosUsuariosQueRequierenAsignacionDeRol() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
+    public void queSePuedaVerUnaListaDeLosUsuariosQueRequierenAsignacionDeRol() throws NoHayUsuariosPendientesDeRol {
         givenExistenUsuariosPendientesDeRol(5);
         HttpServletRequest request = givenExisteUnUsuarioConRolDe(ADMIN);
         whenAccedeALaVistaDeAsignacionDeRoles(request);
@@ -63,17 +62,17 @@ public class TestControladorAsignacionDeRol {
         thenSeMuestraLaListaConLosUsuariosPendientesDeRol(this.modelAndView);
     }
 
-    private void givenExistenUsuariosPendientesDeRol(int cantidad) throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
+    private void givenExistenUsuariosPendientesDeRol(int cantidad) throws NoHayUsuariosPendientesDeRol {
         List<Usuario> usuarioList = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
             usuario.setNombre("Humano" + i);
             usuarioList.add(usuario);
         }
-        when(servicioUsuario.obtenerListaDeUsuariosPorRol("pendiente")).thenReturn(usuarioList);
+        when(servicioUsuario.obtenerListaDeUsuariosPendienteDeRol("pendiente")).thenReturn(usuarioList);
     }
 
-    private List<Usuario> whenObtieneLaListaDeLosUsuariosPendientesDeRol() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
+    private List<Usuario> whenObtieneLaListaDeLosUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
         return controladorAdministrador.obtenerListaDeUsuariosConRolPendiente();
     }
 
@@ -86,12 +85,12 @@ public class TestControladorAsignacionDeRol {
     }
 
     @Test(expected = NoHayUsuariosPendientesDeRol.class)
-    public void queEnvieALaVistaDeAsignacionDeRolConUnMensajeDeErrorPorqueNoHayUsuariosPendientesDeRol() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
+    public void queEnvieALaVistaDeAsignacionDeRolConUnMensajeDeErrorPorqueNoHayUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
         givenNoExistenUsuariosPendientesDeRol();
         HttpServletRequest request = givenExisteUnUsuarioConRolDe(ADMIN);
         whenAccedeALaVistaDeAsignacionDeRoles(request);
         whenObtieneLaListaDeLosUsuariosPendientesDeRol();
-        thenSeMuestraLaVistaConMensajeDeError(this.modelAndView,"No hay usuarios pendientes de rol");
+        thenSeMuestraLaVistaConMensajeDeError(this.modelAndView, "No hay usuarios pendientes de rol");
     }
 
     private void thenSeMuestraLaVistaConMensajeDeError(ModelAndView modelAndView, String error) {
@@ -99,7 +98,7 @@ public class TestControladorAsignacionDeRol {
         assertThat(modelAndView.getModel().get("error_no_hay_pendientes_de_rol")).isEqualTo(error);
     }
 
-    private void givenNoExistenUsuariosPendientesDeRol() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
-        doThrow(NoHayUsuariosPendientesDeRol.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol("pendiente");
+    private void givenNoExistenUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
+        doThrow(NoHayUsuariosPendientesDeRol.class).when(servicioUsuario).obtenerListaDeUsuariosPendienteDeRol("pendiente");
     }
 }
