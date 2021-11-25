@@ -15,6 +15,8 @@ public class TipoSuscripcion {
     private String nombre;
     @Column
     private Long duracion;
+    @Column
+    private Float precio;
 
     public TipoSuscripcion(Long id, String descripcion, String nombre) {
         this.id = id;
@@ -58,5 +60,13 @@ public class TipoSuscripcion {
 
     public void setDuracion(Long duracion) {
         this.duracion = duracion;
+    }
+
+    public Float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Float precio) {
+        this.precio = precio;
     }
 }

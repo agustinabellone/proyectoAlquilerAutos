@@ -23,7 +23,7 @@
 <section class="bg-light">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="display-4 p-4">Confirme su suscripción</h1>
+            <h1 class="display-4 p-4">Resultado del Pago</h1>
         </div>
     </div>
 </section>
@@ -32,23 +32,21 @@
         <div class="container">
             <div class="card text-center">
                 <div class="card-header"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Por favor <c:out value="${nombre}"/>, confirmá tu suscripción</h5>
-                    <p class="card-text">¿Te suscribimos al plan número <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>
-                    <a href="${preferencia.initPoint}" class="btn btn-success">Pagar</a>
-                    <a href="ir-a-suscribir" class="btn btn-secondary">Volver</a>
-                </div>
+                <c:if test="${resultado == 'rejected'}">
+                    <div class="card-body bg-danger text-white">
+                        <h5 class="card-title text-white">Su pago fue rechazado, por favor intentelo de nuevo</h5>
+                        <p class="card-text"><a class="btn btn-primary" href="main">Volver a Mi Cuenta</a></p>
+                    </div>
+                </c:if>
+                <c:if test="${resultado == 'approved'}">
+                    <div class="card-body bg-success text-white">
+                        <h5 class="card-title text-white">¡Felicidades, su pago fue realizado con exito!</h5>
+                        <p class="card-text"><a class="btn btn-primary" href="main">Volver a Mi Cuenta</a></p>
+                    </div>
+                </c:if>
                 <div class="card-footer text-muted">
-                    <c:if test="${not empty error}">
-                        <caption><p class="text-center text-danger">${error}</p></caption>
-                        <br>
-                    </c:if>
 
                 </div>
-            </div>
-            <a href="${preferencia.initPoint}">MERCADO PAGO</a>
-
-            <div>-${preferencia.getId()}-</div>
 
         </div>
 
@@ -73,26 +71,6 @@
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-
-    <!-- SDK MercadoPago.js V2 -->
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
-        <script>
-            // Agrega credenciales de SDK
-            const mp = new MercadoPago('TEST-c3be8274-b159-4139-8c8a-c8393fc98065', {
-            locale: 'es-AR'
-        });
-
-            // Inicializa el checkout
-            mp.checkout({
-            preference: {
-            id: '${preferencia.getId()}'
-        },
-            render: {
-            container: '.pago-container', // Indica el nombre de la clase donde se mostrará el botón de pago
-            label: 'Pagar', // Cambia el texto del botón de pago (opcional)
-        }
-        });
-    </script>
 
 
 </body>
