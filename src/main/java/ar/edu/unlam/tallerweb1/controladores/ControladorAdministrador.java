@@ -271,6 +271,6 @@ public class ControladorAdministrador {
     }
 
     public List<Usuario> obtenerListaDeUsuariosConRolPendiente() throws NoHayUsuariosPendientesDeRol {
-        return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol("pendiente");
+        return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol();
     }
 }

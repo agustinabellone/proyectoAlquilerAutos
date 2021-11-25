@@ -27,4 +27,5 @@ public interface RepositorioUsuario {
 
     List<Usuario> buscarUsuariosPorRol(String rol);
 
+    List<Usuario> buscarUsuariosPendientesDeRol();
 }

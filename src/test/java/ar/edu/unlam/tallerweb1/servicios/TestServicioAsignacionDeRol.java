@@ -26,7 +26,7 @@ public class TestServicioAsignacionDeRol {
     }
 
     private List<Usuario> whenObtengoUnaListaDeLosUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
-        return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol("pendiente");
+        return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol();
     }
 
     private void givenNoExistenUsuariosPendientesDeRol() {
@@ -43,13 +43,19 @@ public class TestServicioAsignacionDeRol {
         List<Usuario> usuarioList = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
+            usuario.setEmail("eze@tallerweb"+i+".com");
             usuario.setRol("pendiente");
             usuarioList.add(usuario);
         }
-        when(repositorioUsuario.buscarUsuariosPorRol("pendiente")).thenReturn(usuarioList);
+        when(repositorioUsuario.buscarUsuariosPendientesDeRol()).thenReturn(usuarioList);
     }
 
     private void thenObtengoLaListaDeUsuariosConRolPendiente(List<Usuario> usuarioList) {
         assertThat(usuarioList).hasSize(5);
+        for (Usuario usuario :
+                usuarioList) {
+            assertThat(usuario.getEmail()).contains("@tallerweb");
+            assertThat(usuario.getRol()).isEqualTo("pendiente");
+        }
     }
 }

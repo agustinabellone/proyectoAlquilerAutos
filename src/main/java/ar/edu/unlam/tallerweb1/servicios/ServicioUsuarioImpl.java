@@ -65,10 +65,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public List<Usuario> obtenerListaDeUsuariosPendienteDeRol(String pendiente) throws NoHayUsuariosPendientesDeRol {
-        List<Usuario> buscados = repositorioUsuario.buscarUsuariosPorRol(pendiente);
-        if (buscados.size() > 0) {
-            return buscados;
+    public List<Usuario> obtenerListaDeUsuariosPendienteDeRol() throws NoHayUsuariosPendientesDeRol {
+        List<Usuario> pendientesDeRol = repositorioUsuario.buscarUsuariosPendientesDeRol();
+        if (pendientesDeRol.size() > 0){
+            return pendientesDeRol;
         }
         throw new NoHayUsuariosPendientesDeRol();
     }

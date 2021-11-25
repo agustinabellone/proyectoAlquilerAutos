@@ -69,7 +69,7 @@ public class TestControladorAsignacionDeRol {
             usuario.setNombre("Humano" + i);
             usuarioList.add(usuario);
         }
-        when(servicioUsuario.obtenerListaDeUsuariosPendienteDeRol("pendiente")).thenReturn(usuarioList);
+        when(servicioUsuario.obtenerListaDeUsuariosPendienteDeRol()).thenReturn(usuarioList);
     }
 
     private List<Usuario> whenObtieneLaListaDeLosUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
@@ -99,6 +99,6 @@ public class TestControladorAsignacionDeRol {
     }
 
     private void givenNoExistenUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
-        doThrow(NoHayUsuariosPendientesDeRol.class).when(servicioUsuario).obtenerListaDeUsuariosPendienteDeRol("pendiente");
+        doThrow(NoHayUsuariosPendientesDeRol.class).when(servicioUsuario).obtenerListaDeUsuariosPendienteDeRol();
     }
 }

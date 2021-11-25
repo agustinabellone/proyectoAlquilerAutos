@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -78,6 +79,13 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     public List<Usuario> buscarUsuariosPorRol(String rol) {
         return sessionFactory.getCurrentSession().createCriteria(Usuario.class)
                 .add(Restrictions.eq("rol",rol)).list();
+    }
+
+    @Override
+    public List<Usuario> buscarUsuariosPendientesDeRol() {
+        return sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+                .add(Restrictions.eq("rol","pendiente"))
+                .add(Restrictions.like("email","%@tallerweb%")).list();
     }
 
 

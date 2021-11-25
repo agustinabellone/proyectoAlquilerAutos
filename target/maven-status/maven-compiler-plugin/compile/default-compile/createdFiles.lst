@@ -8,6 +8,7 @@ ar/edu/unlam/tallerweb1/controladores/DatosAlquiler.class
 ar/edu/unlam/tallerweb1/servicios/ServicioDevolucionImpl.class
 ar/edu/unlam/tallerweb1/controladores/ControladorSuscripcion.class
 ar/edu/unlam/tallerweb1/servicios/ServicioGarage.class
+ar/edu/unlam/tallerweb1/modelo/Rol.class
 ar/edu/unlam/tallerweb1/Exceptions/AutoNoValorado.class
 ar/edu/unlam/tallerweb1/repositorios/RepositorioGarageImpl.class
 ar/edu/unlam/tallerweb1/servicios/ServicioDevolucion.class
@@ -35,6 +36,7 @@ ar/edu/unlam/tallerweb1/servicios/ServicioSuscripcion.class
 ar/edu/unlam/tallerweb1/modelo/Marca.class
 ar/edu/unlam/tallerweb1/controladores/DatosEnvioAMantenimiento.class
 ar/edu/unlam/tallerweb1/servicios/ServicioHomeImpl.class
+ar/edu/unlam/tallerweb1/Exceptions/NoHayUsuariosPendientesDeRol.class
 ar/edu/unlam/tallerweb1/modelo/Encargado.class
 ar/edu/unlam/tallerweb1/controladores/DatosLogin.class
 ar/edu/unlam/tallerweb1/servicios/ServicioHome.class
