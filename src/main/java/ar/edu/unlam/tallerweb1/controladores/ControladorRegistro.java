@@ -7,9 +7,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -46,16 +44,17 @@ public class ControladorRegistro {
             return registroFallido(modelo, "El usuario ya se encuentra registrado");
         }
 
+
         return registroExitoso();
     }
 
+
     private ModelAndView registroExitoso() {
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/enviarMail");
     }
 
     private ModelAndView registroFallido(ModelMap modelo, String mensaje) {
         modelo.put("error", mensaje);
         return new ModelAndView("registro", modelo);
     }
-
 }
