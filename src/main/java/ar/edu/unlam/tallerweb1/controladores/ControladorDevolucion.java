@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioSinSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ControladorDevolucion {
         this.servicioDevolucion = servicioDevolucion;
         this.servicioGarage = servicioGarage;
         this.servicioUsuario = servicioUsuario;
-        this.servicioSolicitud=servicioSolicitud;
+        this.servicioSolicitud = servicioSolicitud;
     }
 
     public ControladorDevolucion() {
@@ -69,12 +70,15 @@ public class ControladorDevolucion {
 
     @RequestMapping("/seleccionNuevoGarageSeleccionado")
     public ModelAndView procesarSeleccionNuevoGarageLlegada(@RequestParam(value = "nuevoGarage") Long garageID, @RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
+        ModelMap model = new ModelMap();
         Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
         Garage garage = servicioGarage.obtenerGaragePorID(garageID);
         alquiler.setGarageLlegada(garage);
         servicioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
-        return new ModelAndView("redirect:/finalizar-alquiler?alquilerID=" + alquilerID);
+        return new ModelAndView("mostrarConfirmacionDeFin");
     }
+
+    //return new ModelAndView("redirect:/confirmacion-fin-alquiler?alquilerID=" + alquilerID);
 
     @RequestMapping("/confirmacion-fin-alquiler")
     public ModelAndView procesarConfirmacionFinDeAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
@@ -87,9 +91,18 @@ public class ControladorDevolucion {
         modelo.put("auto", alquiler.getAuto());
         modelo.put("solicitud", "Espere la confirmacion de devolución...");
         modelo.put("valorarLuego", "valorarLuego");
-        //servicioDevolucion.finalizarAlquilerCliente(alquiler);
         return new ModelAndView("valorar-auto", modelo);
     }
+
+    @RequestMapping("/cierreDevolucion")
+    public ModelAndView datosDevolucionAlquiler(@RequestParam(value = "solicitud") Long solicitudID) {
+        ModelMap modelo = new ModelMap();
+        Solicitud solicitud = servicioSolicitud.obtenerSolicitudPorId(solicitudID);
+
+        return new ModelAndView("cierreDevolucionEncargado", modelo);
+    }
+
+
 
     @RequestMapping("/finalizarAlquiler")
     public ModelAndView darPorFinalizadoElAlquiler(@RequestParam(value = "solicitud") Long solicitudID) {

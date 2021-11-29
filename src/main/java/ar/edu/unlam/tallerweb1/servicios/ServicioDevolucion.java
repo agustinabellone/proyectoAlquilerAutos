@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioSinSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Solicitud;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;

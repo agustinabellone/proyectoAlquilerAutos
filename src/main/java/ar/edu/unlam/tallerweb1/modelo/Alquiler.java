@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class Alquiler {
     private LocalDate f_ingreso;
     private Float adicionalCambioLugarFecha = 0.0f;
     private Float adicionalInfraccionesOtro = 0.0f;
-    private Boolean estadoValoracionAuto=Boolean.FALSE;
+    private Boolean estadoValoracionAuto = Boolean.FALSE;
     @ManyToOne
     private Auto auto;
     @ManyToOne
@@ -35,8 +36,6 @@ public class Alquiler {
     @ManyToOne
     private Usuario encargado;
     private Estado estado; //ACTIVO O FINALIZADO
-
-
 
     public Alquiler() {
         this.estado = Estado.ACTIVO;
@@ -57,7 +56,7 @@ public class Alquiler {
 
     public Alquiler(DatosAlquiler datosAlquiler) {
         this.auto = datosAlquiler.getAuto();
-        this.encargado= datosAlquiler.getLugarDevolucion().getEncargado();
+        this.encargado = datosAlquiler.getLugarDevolucion().getEncargado();
         this.usuario = datosAlquiler.getUsuario();
         this.f_ingreso = datosAlquiler.getF_ingreso();
         this.f_egreso = datosAlquiler.getF_salida();
@@ -65,7 +64,7 @@ public class Alquiler {
         this.garageLlegada = datosAlquiler.getLugarDevolucion();
         this.garageLlegadaEst = datosAlquiler.getLugarDevolucion();
         this.estado = Estado.ACTIVO;
-        this.estadoValoracionAuto=Boolean.FALSE;
+        this.estadoValoracionAuto = Boolean.FALSE;
     }
 
     public Long getId() {
@@ -174,24 +173,22 @@ public class Alquiler {
     }
 
     public void setAdicionalCambioLugarFecha(Alquiler alquiler, Suscripcion suscripcion) {
-        Usuario usuario = suscripcion.getUsuario();
-        if (usuario.getRol().equalsIgnoreCase("cliente")) {
+            Usuario usuario = suscripcion.getUsuario();
             if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
                 String descripcion = suscripcion.getTipoSuscripcion().getDescripcion();
                 if (this.garageLlegadaEst != this.garageLlegada)
-                switch (descripcion) {
-                    case "standard":
-                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+500f;
-                        break;
-                    case "premium":
-                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+400f;
-                        break;
-                    case "golden":
-                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+0f; //CAMBIAR POR EXCEPTION
-                        break;
-                }
+                    switch (descripcion) {
+                        case "basico":
+                            adicionalCambioLugarFecha = adicionalCambioLugarFecha + 500f;
+                            break;
+                        case "oro":
+                            adicionalCambioLugarFecha = adicionalCambioLugarFecha + 400f;
+                            break;
+                        case "diamante":
+                            adicionalCambioLugarFecha = adicionalCambioLugarFecha + 0f; //CAMBIAR POR EXCEPTION
+                            break;
+                    }
             }
-        }
     }
 
 

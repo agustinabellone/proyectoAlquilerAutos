@@ -32,7 +32,7 @@
                <c:forEach items="${esperandoConfirmacion}" var="esperandoConfirmacion">
                     <h1 class="text-center">${esperandoConfirmacion.usuario.nombre} desea dar por finalizado el
                         alquiler.</h1>
-                    <a href="finalizarAlquiler?solicitud=${esperandoConfirmacion.id}" class="btn btn-success">CONFIRMAR</a>
+                    <a href="cierreDevolucion?solicitud=${esperandoConfirmacion.id}" class="btn btn-success">CONFIRMAR</a>
                 </c:forEach>
             </div>
         </c:if>
