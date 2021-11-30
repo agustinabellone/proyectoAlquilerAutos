@@ -12,7 +12,7 @@ public class Usuario {
     private Long id;
 
     @Column
-    private String rol;
+    private Rol rol;
 
 
     @Column
@@ -31,7 +31,7 @@ public class Usuario {
     private String hashCodigo;
 
 
-    public Usuario(String rol) {
+    public Usuario(Rol rol) {
         this.rol = rol;
     }
 
@@ -50,11 +50,11 @@ public class Usuario {
         this.id=id;
     }
 
-    public String getRol() {
+    public Rol getRol() {
         return this.rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 

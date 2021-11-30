@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
@@ -44,7 +45,7 @@ public class TestServicioAsignacionDeRol {
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
             usuario.setEmail("eze@tallerweb"+i+".com");
-            usuario.setRol("pendiente");
+            usuario.setRol(Rol.EMPLEADO);
             usuarioList.add(usuario);
         }
         when(repositorioUsuario.buscarUsuariosPendientesDeRol()).thenReturn(usuarioList);
@@ -55,7 +56,7 @@ public class TestServicioAsignacionDeRol {
         for (Usuario usuario :
                 usuarioList) {
             assertThat(usuario.getEmail()).contains("@tallerweb");
-            assertThat(usuario.getRol()).isEqualTo("pendiente");
+            assertThat(usuario.getRol()).isEqualTo(Rol.EMPLEADO);
         }
     }
 }

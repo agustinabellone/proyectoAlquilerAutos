@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.SessionFactory;
@@ -17,8 +18,8 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public RepositorioUsuarioImpl(SessionFactory sessionFactory){
-        this.sessionFactory=sessionFactory;
+    public RepositorioUsuarioImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
@@ -75,7 +76,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     @Override
     public List<Usuario> buscarUsuariosPorSuscripcion(Suscripcion suscripcion) {
         return sessionFactory.getCurrentSession().createCriteria(Usuario.class).
-                add(Restrictions.eq("usuario",suscripcion.getUsuario())).list();
+                add(Restrictions.eq("usuario", suscripcion.getUsuario())).list();
     }
 
     @Override
@@ -87,16 +88,16 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .list();
     }
 
-    public List<Usuario> buscarUsuariosPorRol(String rol) {
+    public List<Usuario> buscarUsuariosPorRol(Rol rol) {
         return sessionFactory.getCurrentSession().createCriteria(Usuario.class)
-                .add(Restrictions.eq("rol",rol)).list();
+                .add(Restrictions.eq("rol", rol)).list();
     }
 
     @Override
     public List<Usuario> buscarUsuariosPendientesDeRol() {
         return sessionFactory.getCurrentSession().createCriteria(Usuario.class)
-                .add(Restrictions.like("email","%@tallerweb%"))
-                .add(Restrictions.isNull("rol")).list();
+                .add(Restrictions.like("email", "%@tallerweb%"))
+                .add(Restrictions.eq("rol", Rol.EMPLEADO)).list();
     }
 
 

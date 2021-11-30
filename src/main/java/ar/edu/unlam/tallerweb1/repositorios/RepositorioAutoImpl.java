@@ -10,12 +10,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository("RepositorioAuto")
-public class RepositorioAutoImpl implements RepositorioAuto{
+public class RepositorioAutoImpl implements RepositorioAuto {
 
     private SessionFactory sessionFactory;
 
     @Autowired
-    public RepositorioAutoImpl(SessionFactory sessionFactory){
+    public RepositorioAutoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -32,8 +32,8 @@ public class RepositorioAutoImpl implements RepositorioAuto{
     @Override
     public List<Auto> buscarPorModelo(Modelo modelo) {
         return sessionFactory.getCurrentSession().createCriteria(Auto.class).
-                createAlias("modelo","modelo")
-                .add(Restrictions.eq("modelo.id",modelo.getId())).list();
+                createAlias("modelo", "modelo")
+                .add(Restrictions.eq("modelo.id", modelo.getId())).list();
     }
 
 
@@ -44,30 +44,19 @@ public class RepositorioAutoImpl implements RepositorioAuto{
                 .list();
     }
 
-    @Override
-    public void guardarEnMantenimiento(Auto buscado, LocalDate localDate) {
-        Mantenimiento mantenimiento = new Mantenimiento();
-        mantenimiento.setAuto(buscado);
-        mantenimiento.setFechaDeEnvio(localDate);
-        sessionFactory.getCurrentSession().save(mantenimiento);
-    }
-
-    @Override
-    public Auto buscarAutoEnMantenimientoPorIdYPorSituacion(Long id, Situacion situacion) {
-        return null;
-    }
 
     @Override
     public List<Auto> buscarPorMarca(Marca marca) {
         return sessionFactory.getCurrentSession().createCriteria(Auto.class)
-                .createAlias("marca","marca")
-                .add(Restrictions.eq("marca.id",marca.getId())).list();
+                .createAlias("marca", "marca")
+                .add(Restrictions.eq("marca.id", marca.getId())).list();
     }
 
     @Override
     public List<Auto> buscarAutosEnMantenimiento(Situacion enMantenimiento) {
-        return sessionFactory.getCurrentSession().createCriteria(Auto.class).
-                add(Restrictions.eq("situacion",enMantenimiento))
+        return sessionFactory.getCurrentSession().createCriteria(Auto.class)
+                .add(Restrictions.eq("situacion", enMantenimiento))
                 .list();
     }
+
 }

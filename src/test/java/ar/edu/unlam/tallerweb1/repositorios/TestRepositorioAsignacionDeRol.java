@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class TestRepositorioAsignacionDeRol extends SpringTest {
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
             usuario.setEmail("eze"+i+"@tallerweb.com");
+            usuario.setRol(Rol.EMPLEADO);
             session().save(usuario);
         }
     }
@@ -40,7 +42,7 @@ public class TestRepositorioAsignacionDeRol extends SpringTest {
     private void thenObtengoUnaListaDeLosUsuariosPendientesDeRol(List<Usuario> usuarioList) {
         assertThat(usuarioList).hasSize(5);
         for (Usuario usuario: usuarioList) {
-            assertThat(usuario.getRol()).isNull();
+            assertThat(usuario.getRol()).isEqualTo(Rol.EMPLEADO);
             assertThat(usuario.getEmail()).contains("@tallerweb");
         }
     }

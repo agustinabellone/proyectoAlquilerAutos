@@ -27,7 +27,7 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
     public List<Auto> obtenerAutosDisponibles() {
         return this.sessionFactory.getCurrentSession()
                 .createCriteria(Auto.class)
-                //.add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
+                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
                 .list();
     }
 

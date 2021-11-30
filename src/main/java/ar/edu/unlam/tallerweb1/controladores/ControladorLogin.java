@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoConfirmoEmail;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
@@ -93,7 +94,7 @@ public class ControladorLogin {
     }
 
     private ModelAndView registroExitoso(HttpServletRequest request) {
-        if (request.getSession().getAttribute("rol").equals("admin")){
+        if (request.getSession().getAttribute("rol").equals(Rol.ADMIN)){
             return new ModelAndView("redirect:/ir-a-panel-principal");
         }
         return new ModelAndView("redirect:/main");
