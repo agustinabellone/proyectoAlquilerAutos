@@ -24,6 +24,12 @@ public class Usuario {
     @Column
     private String clave;
 
+    @Column
+    private EstadoUsuario estado;
+
+    @Column
+    private String hashCodigo;
+
 
     public Usuario(String rol) {
         this.rol = rol;
@@ -37,6 +43,7 @@ public class Usuario {
         this.email = datosRegistro.getEmail();
         this.clave = datosRegistro.getClave();
         this.nombre = datosRegistro.getNombre();
+        this.estado=EstadoUsuario.PENDIENTE;
     }
 
     public Usuario(Long id){
@@ -82,5 +89,21 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public EstadoUsuario getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoUsuario estado) {
+        this.estado = estado;
+    }
+
+    public String getHashCodigo() {
+        return hashCodigo;
+    }
+
+    public void setHashCodigo(String hashCodigo) {
+        this.hashCodigo = hashCodigo;
     }
 }

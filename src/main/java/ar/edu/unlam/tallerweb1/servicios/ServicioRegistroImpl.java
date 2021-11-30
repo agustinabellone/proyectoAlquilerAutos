@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
+import ar.edu.unlam.tallerweb1.modelo.EstadoUsuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ServicioRegistroImpl implements ServicioRegistro{
     }
 
     @Override
-    public Usuario registrar(DatosRegistro datosRegistro) {
+    public Usuario registrar(DatosRegistro datosRegistro,String md5) {
         if(LasClavesSonDistintas(datosRegistro)){
             throw new ClavesDistintasException();
         }
@@ -35,6 +36,7 @@ public class ServicioRegistroImpl implements ServicioRegistro{
         Usuario nuevoUsuario = new Usuario(datosRegistro);
 
         nuevoUsuario.setRol("cliente");
+        nuevoUsuario.setHashCodigo(md5);
 
         repositorioUsuario.guardar(nuevoUsuario);
         return nuevoUsuario;

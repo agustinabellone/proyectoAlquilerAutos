@@ -16,6 +16,8 @@ public interface RepositorioUsuario {
 
     List<Usuario> buscarTodos();
 
+    Usuario buscarPorEmailYHash(String email, String hash);
+
     void eliminarUsuario(Long id);
 
     void actualizarUsuario(Long id_usuario, String nombre, String contraseña);

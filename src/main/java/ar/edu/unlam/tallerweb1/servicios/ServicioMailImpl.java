@@ -3,11 +3,14 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
+import ar.edu.unlam.tallerweb1.Exceptions.HashIncorrecto;
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
+import ar.edu.unlam.tallerweb1.modelo.EstadoUsuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.Message;
@@ -31,7 +34,8 @@ public class ServicioMailImpl implements ServicioMail {
         this.repositorioUsuario = repositorioUsuario;
     }
 
-    @Override
+
+
     public void enviarMail(String mensaje,String asunto, String email) {
         String username="infoalquilerautos";
         String password="Aa123456.";
@@ -53,8 +57,8 @@ public class ServicioMailImpl implements ServicioMail {
             MimeMessage msj=new MimeMessage(session);
             msj.setFrom(new InternetAddress(username));
             msj.addRecipient(Message.RecipientType.TO,new InternetAddress(email));
-            msj.setSubject("bienvenide");
-            msj.setText("confirmaBlda");
+            msj.setSubject(asunto);
+            msj.setText(mensaje,"text/html; charset=utf-8");
             Transport transport=session.getTransport("smtp");
             transport.connect("smtp.gmail.com",username,password);
             transport.sendMessage(msj,msj.getAllRecipients());
@@ -64,6 +68,34 @@ public class ServicioMailImpl implements ServicioMail {
         }
 
 
+
+    }
+
+    @Override
+    public void enviarMailRegistro(String email,String hash) {
+        String asunto="confirme su email";
+        String mensaje= "<h2>Gracias por registrarse!</h2>\n"
+                + "<p>------------------------</p>\n"
+                + "<h4>Su cuenta fue creada, puede confirmar su email en el link de abajo</h4><br>"
+                +"<p>Confirmar tu dirección de correo electrónico nos ayuda a mantener la seguridad de tu cuenta.</p><br>"
+                +"<p>Dedica un momento para avisarnos si esta es la dirección correcta: "+email+"</p><br>"
+                +"<a href='localhost/validar-mail?email="+email+ "&"+ "hash="+hash+"'> VERIFICA TU MAIL</a>";
+
+
+
+        enviarMail(mensaje,asunto,email);
+
+    }
+
+
+    @Override
+    public void verificarHash(String mail, String hash){
+        Usuario usuario=repositorioUsuario.buscarPorEmailYHash(mail,hash);
+        if (usuario==null) {
+            throw new HashIncorrecto();
+        }
+
+        usuario.setEstado(EstadoUsuario.ACTIVO);
 
     }
 
