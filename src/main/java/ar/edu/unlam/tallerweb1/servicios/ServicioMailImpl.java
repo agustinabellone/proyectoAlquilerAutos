@@ -58,7 +58,7 @@ public class ServicioMailImpl implements ServicioMail {
             msj.setFrom(new InternetAddress(username));
             msj.addRecipient(Message.RecipientType.TO,new InternetAddress(email));
             msj.setSubject(asunto);
-            msj.setText(mensaje,"text/html; charset=utf-8");
+            msj.setContent(mensaje, "text/html");
             Transport transport=session.getTransport("smtp");
             transport.connect("smtp.gmail.com",username,password);
             transport.sendMessage(msj,msj.getAllRecipients());
@@ -67,21 +67,17 @@ public class ServicioMailImpl implements ServicioMail {
             e.printStackTrace();
         }
 
-
-
     }
 
     @Override
     public void enviarMailRegistro(String email,String hash) {
         String asunto="confirme su email";
-        String mensaje= "<h2>Gracias por registrarse!</h2>\n"
+        String mensaje= "<h2>¡Gracias por registrarte!</h2>\n"
                 + "<p>------------------------</p>\n"
-                + "<h4>Su cuenta fue creada, puede confirmar su email en el link de abajo</h4><br>"
+                + "<h4>Su cuenta fue creada pero debe confirmar su email en el siguiente link</h4><br>"
                 +"<p>Confirmar tu dirección de correo electrónico nos ayuda a mantener la seguridad de tu cuenta.</p><br>"
-                +"<p>Dedica un momento para avisarnos si esta es la dirección correcta: "+email+"</p><br>"
-                +"<a href='localhost/validar-mail?email="+email+ "&"+ "hash="+hash+"'> VERIFICA TU MAIL</a>";
-
-
+                +"<p>Verifica si esta es la dirección correcta: "+email+"</p><br>"
+                +"<a href='http://localhost:8080/proyecto_limpio_spring_war_exploded/validar-mail?email="+email+ "&"+ "hash="+hash+"'> VERIFICAR EMAIL</a>";
 
         enviarMail(mensaje,asunto,email);
 

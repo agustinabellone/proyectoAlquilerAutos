@@ -68,7 +68,7 @@ public class ControladorRegistro {
     }
 
 
-    @RequestMapping(path = "/validar-mail", method = RequestMethod.POST)
+    @RequestMapping(path = "/validar-mail", method = RequestMethod.GET)
     public ModelAndView confirmarMail(@RequestParam(value = "email") String email,
                                       @RequestParam(value = "hash") String hash) {
 
@@ -78,7 +78,7 @@ public class ControladorRegistro {
             servicioMail.verificarHash(email, hash);
         }
         catch (HashIncorrecto e) {
-            modelo.put("error", "intente verificar mail nuevamente");
+            modelo.put("error", "Intente verificar el email nuevamente");
             return new ModelAndView("registro", modelo);
         }
 
