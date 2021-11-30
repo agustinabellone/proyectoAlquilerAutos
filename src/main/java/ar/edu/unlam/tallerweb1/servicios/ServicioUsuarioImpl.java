@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
@@ -56,7 +57,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException {
+    public List<Usuario> obtenerListaDeUsuariosPorRol(Rol rol) throws NoHayEmpladosException {
         List<Usuario> buscados = repositorioUsuario.buscarUsuariosPorRol(rol);
         if (buscados.size() > 0) {
             return buscados;

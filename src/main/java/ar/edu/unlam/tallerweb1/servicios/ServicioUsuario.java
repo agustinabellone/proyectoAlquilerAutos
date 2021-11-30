@@ -4,6 +4,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface ServicioUsuario {
 
     List<Notificacion> getNotificacionesPorId(Usuario buscado);
 
-    List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException;
+    List<Usuario> obtenerListaDeUsuariosPorRol(Rol rol) throws NoHayEmpladosException;
 
 
     List<Usuario> obtenerListaDeUsuariosPendienteDeRol() throws NoHayUsuariosPendientesDeRol;

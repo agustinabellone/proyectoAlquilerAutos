@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -32,12 +33,12 @@ public class TestControladorAsignacionDeRol {
 
     @Test
     public void queElUsuarioConRolDeAdministradorPuedaAccederAlASeccionDeAsignarRoles() {
-        HttpServletRequest request = givenExisteUnUsuarioConRolDe(ADMIN);
+        HttpServletRequest request = givenExisteUnUsuarioConRolDe(Rol.ADMIN);
         whenAccedeALaVistaDeAsignacionDeRoles(request);
         thenSeMuestraLaVistaCorrectamente(this.modelAndView, request);
     }
 
-    private HttpServletRequest givenExisteUnUsuarioConRolDe(String rol) {
+    private HttpServletRequest givenExisteUnUsuarioConRolDe(Rol rol) {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("rol")).thenReturn(rol);
         return request;
@@ -48,14 +49,14 @@ public class TestControladorAsignacionDeRol {
     }
 
     private void thenSeMuestraLaVistaCorrectamente(ModelAndView modelAndView, HttpServletRequest request) {
-        assertThat(this.modelAndView.getViewName()).isEqualTo("asignacion-de-rol");
-        assertThat(request.getSession().getAttribute("rol")).isEqualTo("admin");
+        assertThat(modelAndView.getViewName()).isEqualTo("asignacion-de-rol");
+        assertThat(request.getSession().getAttribute("rol")).isEqualTo(Rol.ADMIN);
     }
 
     @Test
     public void queSePuedaVerUnaListaDeLosUsuariosQueRequierenAsignacionDeRol() throws NoHayUsuariosPendientesDeRol {
         givenExistenUsuariosPendientesDeRol(5);
-        HttpServletRequest request = givenExisteUnUsuarioConRolDe(ADMIN);
+        HttpServletRequest request = givenExisteUnUsuarioConRolDe(Rol.ADMIN);
         whenAccedeALaVistaDeAsignacionDeRoles(request);
         whenObtieneLaListaDeLosUsuariosPendientesDeRol();
         thenSeMuestraLaVistaCorrectamente(this.modelAndView, request);
@@ -87,7 +88,7 @@ public class TestControladorAsignacionDeRol {
     @Test(expected = NoHayUsuariosPendientesDeRol.class)
     public void queEnvieALaVistaDeAsignacionDeRolConUnMensajeDeErrorPorqueNoHayUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
         givenNoExistenUsuariosPendientesDeRol();
-        HttpServletRequest request = givenExisteUnUsuarioConRolDe(ADMIN);
+        HttpServletRequest request = givenExisteUnUsuarioConRolDe(Rol.ADMIN);
         whenAccedeALaVistaDeAsignacionDeRoles(request);
         whenObtieneLaListaDeLosUsuariosPendientesDeRol();
         thenSeMuestraLaVistaConMensajeDeError(this.modelAndView, "No hay usuarios pendientes de rol");

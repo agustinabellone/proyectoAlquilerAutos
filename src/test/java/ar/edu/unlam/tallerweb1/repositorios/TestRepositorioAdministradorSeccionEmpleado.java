@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,10 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class TestRepositorioAdministradorSeccionEmpleado extends SpringTest {
 
-    private static final String MECANICO = "mecanico";
+    private static final Rol MECANICO = Rol.MECANICO;
     @Autowired
     private RepositorioUsuario repositorioUsuario;
-    private static final String ENCARGADO = "encargado";
+    private static final Rol ENCARGADO = Rol.ENCARGADO_DEVOLUCION;
 
     @Test
     @Rollback
@@ -27,7 +28,7 @@ public class TestRepositorioAdministradorSeccionEmpleado extends SpringTest {
         thenObtengoUnaListaDeTodosLosEncargados(usuarioList, 5);
     }
 
-    private void givenExisteUnEmpleado(String rol, int cantidad) {
+    private void givenExisteUnEmpleado(Rol rol, int cantidad) {
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
             usuario.setRol(rol);
@@ -35,14 +36,14 @@ public class TestRepositorioAdministradorSeccionEmpleado extends SpringTest {
         }
     }
 
-    private List<Usuario> whenBuscoPorRolDe(String rol) {
+    private List<Usuario> whenBuscoPorRolDe(Rol rol) {
         return repositorioUsuario.buscarUsuariosPorRol(rol);
     }
 
     private void thenObtengoUnaListaDeTodosLosEncargados(List<Usuario> usuarioList, int cantidad_esperada) {
         assertThat(usuarioList).hasSize(cantidad_esperada);
         for (Usuario usuario : usuarioList) {
-            assertThat(usuario.getRol()).isEqualTo("encargado");
+            assertThat(usuario.getRol()).isEqualTo(Rol.ENCARGADO_DEVOLUCION);
         }
     }
 
@@ -59,7 +60,7 @@ public class TestRepositorioAdministradorSeccionEmpleado extends SpringTest {
     private void thenObtengoUnaListaDeTodosLosMecanicos(List<Usuario> usuarioList, int cantidad_esperada) {
         assertThat(usuarioList).hasSize(cantidad_esperada);
         for (Usuario usuario : usuarioList) {
-            assertThat(usuario.getRol()).isEqualTo("mecanico");
+            assertThat(usuario.getRol()).isEqualTo(Rol.MECANICO);
         }
     }
 }

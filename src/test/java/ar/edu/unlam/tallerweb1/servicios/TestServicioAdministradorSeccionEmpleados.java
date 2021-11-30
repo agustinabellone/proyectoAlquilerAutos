@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
@@ -30,7 +31,7 @@ public class TestServicioAdministradorSeccionEmpleados {
     }
 
     private List<Usuario> whenObtengoLaListaDeLosEncargados() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
-        return servicioUsuario.obtenerListaDeUsuariosPorRol("encargado");
+        return servicioUsuario.obtenerListaDeUsuariosPorRol(Rol.ENCARGADO_DEVOLUCION);
     }
 
     @Test
@@ -44,16 +45,16 @@ public class TestServicioAdministradorSeccionEmpleados {
         List<Usuario> usuarios = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setRol("encargado");
+            usuario.setRol(Rol.ENCARGADO_DEVOLUCION);
             usuarios.add(usuario);
         }
-        when(repositorioUsuario.buscarUsuariosPorRol("encargado")).thenReturn(usuarios);
+        when(repositorioUsuario.buscarUsuariosPorRol(Rol.ENCARGADO_DEVOLUCION)).thenReturn(usuarios);
     }
 
     private void thenObtengoUnaListaConLosEncargados(List<Usuario> usuarios, int cantidad_esperada) {
         assertThat(usuarios).hasSize(cantidad_esperada);
         for (Usuario usuario: usuarios) {
-            assertThat(usuario.getRol()).isEqualTo("encargado");
+            assertThat(usuario.getRol()).isEqualTo(Rol.ENCARGADO_DEVOLUCION);
         }
     }
 
@@ -68,7 +69,7 @@ public class TestServicioAdministradorSeccionEmpleados {
     }
 
     private List<Usuario> whenObtengoLaListaDeLosMecanicos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
-        return servicioUsuario.obtenerListaDeUsuariosPorRol("mecanico");
+        return servicioUsuario.obtenerListaDeUsuariosPorRol(Rol.MECANICO);
     }
 
     @Test
@@ -82,16 +83,16 @@ public class TestServicioAdministradorSeccionEmpleados {
         List<Usuario> usuarioList = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setRol("mecanico");
+            usuario.setRol(Rol.MECANICO);
             usuarioList.add(usuario);
         }
-        when(repositorioUsuario.buscarUsuariosPorRol("mecanico")).thenReturn(usuarioList);
+        when(repositorioUsuario.buscarUsuariosPorRol(Rol.MECANICO)).thenReturn(usuarioList);
     }
 
     private void thenObtengoLaListaDeLosMecanicos(List<Usuario> usuarioList, int cantidad_esperada) {
         assertThat(usuarioList).hasSize(cantidad_esperada);
         for (Usuario usuario : usuarioList) {
-            assertThat(usuario.getRol()).isEqualTo("mecanico");
+            assertThat(usuario.getRol()).isEqualTo(Rol.MECANICO);
         }
     }
 }

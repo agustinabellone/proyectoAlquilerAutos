@@ -36,20 +36,9 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     }
 
     @Override
-    public Auto enviarAutoMantenimiento(Auto aEnviar) throws AutoYaExistente {
-        Auto buscado = repositorioAuto.buscarAutoEnMantenimientoPorIdYPorSituacion(aEnviar.getId(), aEnviar.getSituacion());
-        if (buscado != null) {
-            throw new AutoYaExistente();
-        }
-        aEnviar.setSituacion(Situacion.EN_MANTENIMIENTO);
-        repositorioAuto.guardarEnMantenimiento(aEnviar, localDate);
-        return aEnviar;
-    }
-
-    @Override
     public List<Auto> obtenerAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
         List<Auto> autosEnMantenimiento = repositorioAuto.buscarAutosEnMantenimiento(Situacion.EN_MANTENIMIENTO);
-        if (autosEnMantenimiento.size() == 0) {
+        if (autosEnMantenimiento.isEmpty()){
             throw new NoHayAutosEnMantenientoException();
         }
         return autosEnMantenimiento;

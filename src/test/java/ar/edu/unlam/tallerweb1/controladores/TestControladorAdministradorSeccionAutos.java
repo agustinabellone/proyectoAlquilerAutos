@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -185,13 +186,13 @@ public class TestControladorAdministradorSeccionAutos {
 
     private HttpServletRequest givenExisteUnUsuarioSinRolDeAdministrador() {
         when(request.getSession()).thenReturn(session);
-        when(request.getSession().getAttribute("rol")).thenReturn(null);
+        when(request.getSession().getAttribute("rol")).thenReturn(Rol.CLIENTE);
         return request;
     }
 
     private HttpServletRequest givenExisteUnUsuarioConRolDeAdministrador() {
         when(request.getSession()).thenReturn(session);
-        when(request.getSession().getAttribute("rol")).thenReturn("admin");
+        when(request.getSession().getAttribute("rol")).thenReturn(Rol.ADMIN);
         when(request.getSession().getAttribute("id")).thenReturn(1L);
         when(request.getSession().getAttribute("nombre")).thenReturn("admin");
         return request;
