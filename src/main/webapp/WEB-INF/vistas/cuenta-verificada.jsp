@@ -15,9 +15,10 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
-<body class="">
+<body class="bg-light">
 <header>
     <div class = "d-flex col-md-12 justify-content-around align-items-center">
         <div class="d-flex align-items-center">
@@ -25,21 +26,12 @@
         </div>
     </div>
 </header>
-<section>
-    <div class="container">
-        <div class="justify-content-center mt-5">
-            <div class="card-wrapper mt-5">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h4 class="mb-3 text-center">${datosRegistro.nombre} verificá tu mail para finalizar el registro </h4>
-                        <h5>Por favor confirmá que ${datosRegistro.email} es tu dirección de mail.</h5>
-                        <div class="d-flex justify-content-center mt-5">
-                            <a class="btn btn-lg btn-dark " Type="Submit" href="home"/>Volver al inicio</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class="mb-3 container">
+    <div class="col-sm-12 d-flex justify-content-center">
+        <h1 class="display-4 p-4">Cuenta verificada con éxito</h1>
+    </div>
+    <div class=" d-flex justify-content-center">
+        <a href="login" class="btn btn-lg btn-dark ">Iniciar sesión</a>
     </div>
 </section>
 </body>

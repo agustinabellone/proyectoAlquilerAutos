@@ -78,13 +78,17 @@ public class ControladorRegistro {
             servicioMail.verificarHash(email, hash);
         }
         catch (HashIncorrecto e) {
-            modelo.put("error", "Intente verificar el email nuevamente");
+            modelo.put("error", "Intentá verificar el email nuevamente");
             return new ModelAndView("registro", modelo);
         }
+        return new ModelAndView("cuenta-verificada");
 
-        return new ModelAndView("redirect:/login");
 
+    }
 
+    @RequestMapping(path = "/cuenta-verificada", method = RequestMethod.GET)
+    public ModelAndView mostrarCuentaVerificada() {
+        return new ModelAndView("cuenta-verificada");
     }
 
 

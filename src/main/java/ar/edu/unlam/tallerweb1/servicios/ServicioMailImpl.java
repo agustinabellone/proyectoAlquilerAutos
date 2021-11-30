@@ -75,9 +75,9 @@ public class ServicioMailImpl implements ServicioMail {
         String mensaje= "<h2>¡Gracias por registrarte!</h2>\n"
                 + "<p>------------------------</p>\n"
                 + "<h4>Su cuenta fue creada pero debe confirmar su email en el siguiente link</h4><br>"
+                +"<a href='http://localhost:8080/proyecto_limpio_spring_war_exploded/validar-mail?email="+email+ "&"+ "hash="+hash+"'> VERIFICAR EMAIL</a>"
                 +"<p>Confirmar tu dirección de correo electrónico nos ayuda a mantener la seguridad de tu cuenta.</p><br>"
-                +"<p>Verifica si esta es la dirección correcta: "+email+"</p><br>"
-                +"<a href='http://localhost:8080/proyecto_limpio_spring_war_exploded/validar-mail?email="+email+ "&"+ "hash="+hash+"'> VERIFICAR EMAIL</a>";
+                +"<p>Verifica si esta es la dirección correcta: "+email+"</p><br>";
 
         enviarMail(mensaje,asunto,email);
 
