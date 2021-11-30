@@ -43,17 +43,17 @@
 
 
           <c:choose>
-          <c:when test = "${rol == 'admin' }">
+          <c:when test = "${rol == Rol.ADMIN }">
             <li class="nav-item">
               <a class="nav-link" href="admin-suscripcion">Manejo de suscripciones</a>
             </li>
           </c:when>
-          <c:when test = "${rol == 'encargado' }">
+          <c:when test = "${rol == Rol.ENCARGADO_DEVOLUCION }">
             <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>
           </c:when>
 
 
-          <c:when test = "${rol == 'mecanico' }">
+          <c:when test = "${rol == Rol.MECANICO }">
             <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>
           </c:when>
             <c:otherwise>

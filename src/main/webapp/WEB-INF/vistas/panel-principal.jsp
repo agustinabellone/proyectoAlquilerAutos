@@ -100,6 +100,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="utilities-color.html">Encargados de Devolucion</a>
                     <a class="collapse-item" href="utilities-border.html">Mecanicos</a>
+                    <a class="collapse-item" href="asignacion-de-rol">Asignacion de Rol</a>
                 </div>
             </div>
         </li>
@@ -203,13 +204,19 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Clientes Nuevos
+                                            Clientes no Suscriptos
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">0
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <c:if test="${not empty clientes_no_suscriptos}">
+                                                ${clientes_no_suscriptos.size()}
+                                            </c:if>
+                                            <c:if test="${empty clientes_no_suscriptos}">
+                                                0
+                                            </c:if>
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="" class="text-primary font-weight-bold text-lg">Ver</a>
+                                        <a href="clientes-no-suscriptos" class="text-primary font-weight-bold text-lg">Ver</a>
                                     </div>
                                 </div>
                             </div>
@@ -225,35 +232,43 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             Clientes Suscriptos
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${cantidad_suscriptos}
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <c:if test="${not empty lista_de_suscripto}">
+                                                ${lista_de_suscripto.size()}
+                                            </c:if>
+                                            <c:if test="${empty lista_de_suscripto}">
+                                                0
+                                            </c:if>
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="" class="text-success font-weight-bold text-lg">Ver</a>
+                                        <a href="clientes-suscriptos" class="text-success font-weight-bold text-lg">Ver</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Alquilers nuevos -->
+                    <!-- alquilres nuevos -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-info shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Alquileres
-                                            Nuevos
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Alquilers Nuevos
                                         </div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0
-                                                </div>
-                                            </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <c:if test="${not empty autosAlquilados}">
+                                                ${autosAlquilados.size()}
+                                            </c:if>
+                                            <c:if test="${empty autosAlquilados}">
+                                                0
+                                            </c:if>
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="" class="text-info font-weight-bold text-lg">Ver</a>
+                                        <a href="autos-alquilados" class="text-info font-weight-bold text-lg">Ver</a>
                                     </div>
                                 </div>
                             </div>
@@ -269,11 +284,17 @@
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             Pendiente de Rol
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <c:if test="${not empty pendientes_de_rol}">
+                                                ${pendientes_de_rol.size()}
+                                            </c:if>
+                                            <c:if test="${empty pendientes_de_rol}">
+                                                0
+                                            </c:if>
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="" class="text-warning font-weight-bold text-lg">Ver</a>
+                                        <a href="asignacion-de-rol" class="text-warning font-weight-bold text-lg">Ver</a>
                                     </div>
                                 </div>
                             </div>

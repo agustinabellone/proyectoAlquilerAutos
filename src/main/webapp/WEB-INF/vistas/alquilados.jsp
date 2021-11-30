@@ -98,8 +98,9 @@
             <div id="collapseEmpleados" class="collapse" aria-labelledby="headingEmpleados"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="utilities-color.html">Encargados de Devolucion</a>
-                    <a class="collapse-item" href="utilities-border.html">Mecanicos</a>
+                    <a class="collapse-item" href="encargados-devolucion">Encargados de Devolucion</a>
+                    <a class="collapse-item" href="mecanicos">Mecanicos</a>
+                    <a class="collapse-item" href="asignacion-de-rol">Asignacion de Rol</a>
                 </div>
             </div>
         </li>
@@ -209,7 +210,7 @@
                 </div>
 
                 <!-- Empieza FOR-EAH-->
-                <c:forEach items="${autosDisponibles}" var="auto">
+                <c:forEach items="${autosAlquilados}" var="auto">
                     <div class="col-md-12">
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
@@ -256,9 +257,9 @@
                 </c:forEach>
                 <!-- termina FOR-EACH -->
                 <!-- Content Row -->
-                <c:if test="${not empty error_sin_autos_disponibles}">
+                <c:if test="${not empty error_no_hay_autos_alquilados}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                            ${error_sin_autos_disponibles}
+                            ${error_no_hay_autos_alquilados}
                     </div>
                 </c:if>
                 <div class="row">

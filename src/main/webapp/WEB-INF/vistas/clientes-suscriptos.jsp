@@ -200,102 +200,29 @@
                     <h1 class="h3 mb-0 text-gray-800 text-center">Bienvenido ${nombre}</h1>
                 </div>
 
-                <!-- Content Row -->
+                <!-- Topbar Search -->
                 <div class="row">
-
-                    <!-- Usuarios nuevos -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Clientes Nuevos
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">0
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-primary font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
+                    <form class="d-sm-inline-block form-inline col-12 mb-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-white border-0 small" placeholder="Buscar por..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Suscripciones nuevas -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Clientes Suscriptos
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-success font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Alquilers nuevos -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Alquileres
-                                            Nuevos
-                                        </div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-info font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Asignaciones de roles pendientes -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pendiente de Rol
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-warning font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
                 <!-- Empieza FOR-EAH-->
-                <c:forEach items="${usuarios_suscriptos}" var="usuarios">
+                <c:forEach items="${lista_de_suscriptos}" var="usuarios">
                     <div class="col-md-12">
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center">
                                     <h5 class="font-weight-medium mb-0">Tipo
-                                        Suscripcion: ${usuarios.tipoSuscripcion}</h5>
+                                        Suscripcion: ${usuarios.tipoSuscripcion.descripcion}</h5>
                                 </div>
                                 <div class="col">
                                     <div class="col-lg-12">

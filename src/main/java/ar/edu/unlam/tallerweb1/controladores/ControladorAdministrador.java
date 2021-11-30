@@ -54,15 +54,30 @@ public class ControladorAdministrador {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/panel-principal")
-    public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request) {
+    public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request){
         ModelMap model = getModelMap();
         String vista;
         if (this.elRolEstaSeteadoYEsAdministrador(request)) {
             try {
                 vista = "panel-principal";
+                try {
+                    model.put("pendientes_de_rol", obtenerListaDeUsuariosConRolPendiente());
+                } catch (NoHayUsuariosPendientesDeRol e) {
+
+                }
+                try {
+                    model.put("clientes_no_suscriptos",obtenerListaDeClientesNoSuscriptos());
+                } catch (NoHayClientesNoSuscriptos e) {
+
+                }
+                try {
+                    model.put("lista_de_suscripto",obtenerClientesSuscriptos());
+                } catch (NoHayClientesSuscriptos e) {
+
+                }
+                model.put("nombre", request.getSession().getAttribute("nombre"));
                 List<Auto> autosAlquilados = obtenerListaDeAutosAlquilados();
                 model.put("autosAlquilados", autosAlquilados);
-                model.put("nombre", request.getSession().getAttribute("nombre"));
             } catch (NoHayAutosAlquiladosException e) {
                 vista = "panel-principal";
                 model.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
@@ -79,13 +94,13 @@ public class ControladorAdministrador {
         String vista;
         if (elRolEstaSeteadoYEsAdministrador(request)) {
             try {
-                vista = "panel-principal";
+                vista = "aquilados";
                 List<Auto> autosAlquilados = obtenerListaDeAutosAlquilados();
                 model.put("nombre", request.getSession().getAttribute("nombre"));
                 model.put("autosAlquilados", autosAlquilados);
                 return setModelAndView(model, vista);
             } catch (NoHayAutosAlquiladosException e) {
-                vista = "panel-principal";
+                vista = "alquilados";
                 model.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");
             }
         } else {
