@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioMail;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import com.mercadopago.exceptions.MPException;
@@ -26,12 +27,14 @@ public class ControladorMercadoPago {
     private ServicioLogin servicioLogin;
     private ServicioUsuario servicioUsuario;
     private ServicioSuscripcion servicioSuscripcion;
+    private ServicioMail servicioMail;
 
     @Autowired
-    public ControladorMercadoPago(ServicioLogin servicioLogin, ServicioUsuario servicioUsuario, ServicioSuscripcion servicioSuscripcion) {
+    public ControladorMercadoPago(ServicioLogin servicioLogin, ServicioUsuario servicioUsuario, ServicioSuscripcion servicioSuscripcion,ServicioMail servicioMail) {
         this.servicioLogin = servicioLogin;
         this.servicioUsuario = servicioUsuario;
         this.servicioSuscripcion=servicioSuscripcion;
+        this.servicioMail=servicioMail;
     }
 
     @RequestMapping(path = "/confirmar-suscripcion", method = RequestMethod.GET)
@@ -39,6 +42,7 @@ public class ControladorMercadoPago {
                                               @RequestParam(value="id_tipo") Long id_tipo ) throws MPException {
 
         ModelMap model = obtenerPreferencia(id_tipo, request, 0);
+
 
         return new ModelAndView("confirmar-suscripcion", model);
     }
@@ -126,6 +130,14 @@ public class ControladorMercadoPago {
 
             request.getSession().setAttribute("tieneSuscripcion",true);
         }
+
+        if((Boolean) request.getSession().getAttribute("tieneSuscripcion")==true){
+            String mail = (String) request.getSession().getAttribute("email");
+            TipoSuscripcion tipoSuscripcion = servicioSuscripcion.getTipoPorid(id_tipo);
+            servicioMail.enviarMailSuscripcion(mail,tipoSuscripcion.getNombre());
+        }
+
+
 
         ModelMap model = new ModelMap();
         model.put("resultado", resultado);

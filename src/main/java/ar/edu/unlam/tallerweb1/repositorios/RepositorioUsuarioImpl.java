@@ -49,6 +49,17 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
+    public Usuario buscarPorEmailYHash(String email,String hash) {
+        return (Usuario) sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
+                .add(Restrictions.eq("email", email))
+                .add(Restrictions.eq("hashCodigo",hash))
+                .uniqueResult();
+    }
+
+
+
+    @Override
     public void eliminarUsuario(Long id) {
         Usuario usuario = buscarPorId(id);
         this.sessionFactory.getCurrentSession().delete(usuario);

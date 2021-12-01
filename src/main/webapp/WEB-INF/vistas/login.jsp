@@ -30,6 +30,10 @@
     <div class="container">
         <div class="justify-content-center">
             <div class="card-wrapper mt-2">
+                <c:if test="${not empty cuentaVerificada}">
+                    <div class="alert alert-success text-center container mt-3" role="alert">${cuentaVerificada}</div>>
+                    <br>
+                </c:if>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="mb-3 text-center">Iniciar Sesión</h4>
@@ -54,9 +58,9 @@
                     </div>
 
                     <c:if test="${not empty error}">
-                    <div class="alert alert-danger text-center container mt-3" role="alert">
-                            ${error}
-                    </div>
+                        <div class="alert alert-danger text-center container mt-3" role="alert">
+                                ${error}
+                        </div>
                     </c:if>
                 </div>
 

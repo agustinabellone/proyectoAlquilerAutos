@@ -62,7 +62,7 @@
 
           </div>
             <c:if test="${not empty error}">
-              <div class="alert alert-danger text-center container mt-3" role="alert">${error}</div>>
+              <div class="alert alert-danger text-center container mt-3" role="alert">${error}</div>
               <br>
             </c:if>
         </div>

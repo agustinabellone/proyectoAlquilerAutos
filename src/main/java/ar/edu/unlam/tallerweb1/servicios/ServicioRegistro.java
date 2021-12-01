@@ -6,6 +6,6 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface ServicioRegistro {
 
-    Usuario registrar(DatosRegistro datosRegistro);
+    Usuario registrar(DatosRegistro datosRegistro,String md5);
 
 }

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoConfirmoEmail;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
@@ -37,7 +38,6 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
     public ModelAndView mostrarFormularioDeLogin(HttpServletRequest request) {
-
         ModelMap modelo = new ModelMap();
         modelo.put("datosLogin", new DatosLogin());
         return new ModelAndView("login", modelo);
@@ -54,6 +54,8 @@ public class ControladorLogin {
             return registroFallido(modelo, "El usuario no existe");
         } catch (PasswordIncorrectaException e) {
             return registroFallido(modelo, "Datos incorrectos");
+        }catch(ClienteNoConfirmoEmail e){
+            return registroFallido(modelo, "Confirme su email");
         }
 
         iniciarSesion(servicioUsuario.buscarPorEmail(datosLogin.getEmail()), request);
@@ -79,6 +81,7 @@ public class ControladorLogin {
         request.getSession().setAttribute("rol", buscado.getRol());
         request.getSession().setAttribute("id", buscado.getId());
         request.getSession().setAttribute("nombre", buscado.getNombre());
+        request.getSession().setAttribute("email", buscado.getEmail());
         request.getSession().setAttribute("tieneSuscripcion", servicioSuscripcion.existeSuscripcionPorUsuario(servicioUsuario.buscarPorId(buscado.getId())));
 
         List<Notificacion> notificaciones= servicioUsuario.getNotificacionesPorId(buscado);
