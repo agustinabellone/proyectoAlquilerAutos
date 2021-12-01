@@ -4,3 +4,6 @@ out
 .travis.yml
 target
 
+.project
+.classpath
+.settings
