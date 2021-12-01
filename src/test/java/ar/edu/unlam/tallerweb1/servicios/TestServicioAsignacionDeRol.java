@@ -1,6 +1,10 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
+<<<<<<< HEAD
+=======
+import ar.edu.unlam.tallerweb1.Exceptions.NoSeAsignoElRol;
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
@@ -11,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+<<<<<<< HEAD
+=======
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -44,7 +53,11 @@ public class TestServicioAsignacionDeRol {
         List<Usuario> usuarioList = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
+<<<<<<< HEAD
             usuario.setEmail("eze@tallerweb"+i+".com");
+=======
+            usuario.setEmail("eze@tallerweb" + i + ".com");
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
             usuario.setRol(Rol.EMPLEADO);
             usuarioList.add(usuario);
         }
@@ -59,4 +72,43 @@ public class TestServicioAsignacionDeRol {
             assertThat(usuario.getRol()).isEqualTo(Rol.EMPLEADO);
         }
     }
+<<<<<<< HEAD
+=======
+
+    @Test
+    public void queElAdministradorPuedaConfirmarElRolSeleccionado() throws NoSeAsignoElRol {
+        Long id_usuario = givenExisteUnUsuarioPendienteDeRol();
+        Usuario actualizado = whenElAdministradorLeAsignaElRol(Rol.MECANICO, id_usuario);
+        thenObtengoElUsuario(actualizado, id_usuario);
+    }
+
+    private Long givenExisteUnUsuarioPendienteDeRol() {
+        Usuario usuario = new Usuario();
+        usuario.setRol(Rol.EMPLEADO);
+        usuario.setEmail("eze@tallerweb.com");
+        when(repositorioUsuario.buscarPorId(anyLong())).thenReturn(usuario);
+        usuario.setRol(Rol.MECANICO);
+        return usuario.getId();
+    }
+
+    private Usuario whenElAdministradorLeAsignaElRol(Rol mecanico, Long id_usuario) throws NoSeAsignoElRol {
+        return servicioUsuario.asignarRol(mecanico, id_usuario);
+    }
+
+    private void thenObtengoElUsuario(Usuario actualizado, Long id_usuario) {
+        assertThat(actualizado).isNotNull();
+        assertThat(actualizado.getRol()).isEqualTo(Rol.MECANICO);
+        assertThat(actualizado.getId()).isEqualTo(id_usuario);
+    }
+
+    @Test(expected = NoSeAsignoElRol.class)
+    public void queNoSePuedaAsignarRolAUnUsuarioQueNoExiste() throws NoSeAsignoElRol {
+        givenNoExisteUnUsuarioPendienteDeRol();
+        whenElAdministradorLeAsignaElRol(Rol.MECANICO, 1L);
+    }
+
+    private void givenNoExisteUnUsuarioPendienteDeRol() {
+        when(repositorioUsuario.buscarPorId(anyLong())).thenReturn(null);
+    }
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
 }

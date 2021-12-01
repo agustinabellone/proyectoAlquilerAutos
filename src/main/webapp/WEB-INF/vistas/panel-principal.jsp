@@ -98,8 +98,13 @@
             <div id="collapseEmpleados" class="collapse" aria-labelledby="headingEmpleados"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
+<<<<<<< HEAD
                     <a class="collapse-item" href="utilities-color.html">Encargados de Devolucion</a>
                     <a class="collapse-item" href="utilities-border.html">Mecanicos</a>
+=======
+                    <a class="collapse-item" href="encargados-devolucion">Encargados de Devolucion</a>
+                    <a class="collapse-item" href="mecanicos">Mecanicos</a>
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
                     <a class="collapse-item" href="asignacion-de-rol">Asignacion de Rol</a>
                 </div>
             </div>
@@ -242,7 +247,12 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
+<<<<<<< HEAD
                                         <a href="clientes-suscriptos" class="text-success font-weight-bold text-lg">Ver</a>
+=======
+                                        <a href="clientes-suscriptos"
+                                           class="text-success font-weight-bold text-lg">Ver</a>
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
                                     </div>
                                 </div>
                             </div>
@@ -294,7 +304,12 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
+<<<<<<< HEAD
                                         <a href="asignacion-de-rol" class="text-warning font-weight-bold text-lg">Ver</a>
+=======
+                                        <a href="asignacion-de-rol"
+                                           class="text-warning font-weight-bold text-lg">Ver</a>
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
                                     </div>
                                 </div>
                             </div>

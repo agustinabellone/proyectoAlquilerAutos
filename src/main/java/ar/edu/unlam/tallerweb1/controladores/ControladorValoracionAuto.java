@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioValoracion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class ControladorValoracionAuto {
     }
 
     private boolean elUsuarioEsCliente(HttpServletRequest request) {
-        return request.getSession().getAttribute("rol").equals("cliente");
+        return request.getSession().getAttribute("rol").equals(Rol.CLIENTE);
     }
 
 

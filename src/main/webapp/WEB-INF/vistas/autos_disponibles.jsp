@@ -98,8 +98,14 @@
             <div id="collapseEmpleados" class="collapse" aria-labelledby="headingEmpleados"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
+<<<<<<< HEAD:src/main/webapp/WEB-INF/vistas/autos_disponibles.jsp
                     <a class="collapse-item" href="utilities-color.html">Encargados de Devolucion</a>
                     <a class="collapse-item" href="utilities-border.html">Mecanicos</a>
+=======
+                    <a class="collapse-item" href="encargados-devolucion">Encargados de Devolucion</a>
+                    <a class="collapse-item" href="mecanicos">Mecanicos</a>
+                    <a class="collapse-item" href="asignacion-de-rol">Asignacion de Rol</a>
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa:src/main/webapp/WEB-INF/vistas/disponibles.jsp
                 </div>
             </div>
         </li>

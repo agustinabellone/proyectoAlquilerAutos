@@ -23,8 +23,35 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
         sessionFactory.getCurrentSession().save(alquiler);
     }
 
+
     @Override
     public List<Auto> obtenerAutosDisponibles() {
+        return this.sessionFactory.getCurrentSession()
+                .createCriteria(Auto.class)
+                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE)).list();
+    }
+
+
+    @Override
+    public List<Auto> obtenerAutosDisponiblesGamaBaja() {
+        return this.sessionFactory.getCurrentSession()
+                .createCriteria(Auto.class)
+                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
+                .add(Restrictions.eq("gama", Gama.BAJA))
+                .list();
+    }
+
+    @Override
+    public List<Auto> obtenerAutosDisponiblesGamaMedia() {
+        return this.sessionFactory.getCurrentSession()
+                .createCriteria(Auto.class)
+                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
+                .add(Restrictions.not(Restrictions.eq("gama",Gama.ALTA)))
+                .list();
+    }
+
+    @Override
+    public List<Auto> obtenerAutosDisponiblesGamaAlta() {
         return this.sessionFactory.getCurrentSession()
                 .createCriteria(Auto.class)
                 .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))

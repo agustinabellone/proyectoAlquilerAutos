@@ -4,3 +4,18 @@ out
 .travis.yml
 target
 
+.project
+.classpath
+.settings
+target/classes/ar/edu/unlam/tallerweb1/controladores/ControladorAlquiler.class
+target/classes/ar/edu/unlam/tallerweb1/controladores/ControladorAlquiler.class
+target/classes/ar/edu/unlam/tallerweb1/controladores/ControladorLogin.class
+target/classes/ar/edu/unlam/tallerweb1/controladores/ControladorRegistro.class
+target/classes/ar/edu/unlam/tallerweb1/controladores/ControladorSuscripcion.class
+target/classes/ar/edu/unlam/tallerweb1/modelo/Usuario.class
+target/classes/ar/edu/unlam/tallerweb1/repositorios/RepositorioUsuario.class
+target/classes/ar/edu/unlam/tallerweb1/repositorios/RepositorioUsuarioImpl.class
+target/classes/ar/edu/unlam/tallerweb1/servicios/ServicioLoginImpl.class
+target/classes/ar/edu/unlam/tallerweb1/servicios/ServicioRegistro.class
+target/classes/ar/edu/unlam/tallerweb1/servicios/ServicioRegistroImpl.class
+mi script.sql

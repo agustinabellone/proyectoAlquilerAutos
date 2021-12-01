@@ -6,7 +6,9 @@ import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-
+import ar.edu.unlam.tallerweb1.Exceptions.NoSeAsignoElRol;
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 import java.util.List;
@@ -30,5 +32,7 @@ public interface ServicioUsuario {
     List<Usuario> obtenerListaDeUsuariosPorRol(String rol);
 
     Suscripcion obtenerSuscripcionDeUsuario(Usuario clienteID);
+
+    Usuario asignarRol(Rol mecanico, Long id_usuario) throws NoSeAsignoElRol;
 
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -282,6 +283,7 @@ public class ControladorAdministrador {
         return servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
     }
 
+
     public List<Usuario> obtenerListaDeUsuariosConRol(Rol rol) throws NoHayEmpladosException{
         return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
     }
@@ -289,4 +291,42 @@ public class ControladorAdministrador {
     public List<Usuario> obtenerListaDeUsuariosConRolPendiente() throws NoHayUsuariosPendientesDeRol {
         return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol();
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/confirmar-rol")
+    public ModelAndView asignarRolAlEmpleado(@RequestParam(value = "rol") Integer rol, @RequestParam(value = "id_usuario") Long id_usuario, HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
+            vista = "asignacion-de-rol";
+            Rol obtenido = obtenerRol(rol);
+            Usuario pendienteDeRol = servicioUsuario.buscarPorId(id_usuario);
+            if (obtenido != null && pendienteDeRol != null) {
+                try {
+                    Usuario actualizado = servicioUsuario.asignarRol(obtenido, pendienteDeRol.getId());
+                    model.put("usuario", actualizado);
+                    model.put("rol", obtenido);
+                    model.put("mensaje_exito","Al usuario "+actualizado.getEmail()+" se le asigno el rol de "+obtenido);
+                } catch (NoSeAsignoElRol e) {
+                    model.put("error", "No se pudo asignar el rol correctamente");
+                }
+            } else {
+                model.put("error", "No se pudo asignar el rol correctamente");
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
+    }
+
+    private Rol obtenerRol(Integer rol) {
+        Rol[] buscado = Rol.values();
+        for (int i = 0; i < Rol.values().length; i++) {
+            if (buscado[i].ordinal() == rol) {
+                return buscado[i];
+            }
+        }
+        return null;
+    }
+
+
 }

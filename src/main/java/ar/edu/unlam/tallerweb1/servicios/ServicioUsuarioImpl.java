@@ -1,12 +1,10 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
-
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
+import ar.edu.unlam.tallerweb1.Exceptions.NoSeAsignoElRol;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
-
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
-
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -69,7 +67,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     @Override
     public List<Usuario> obtenerListaDeUsuariosPendienteDeRol() throws NoHayUsuariosPendientesDeRol {
         List<Usuario> pendientesDeRol = repositorioUsuario.buscarUsuariosPendientesDeRol();
-        if (pendientesDeRol.size() > 0){
+        if (pendientesDeRol.size() > 0) {
             return pendientesDeRol;
         }
         throw new NoHayUsuariosPendientesDeRol();
@@ -87,9 +85,20 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
 
-
     public Suscripcion obtenerSuscripcionDeUsuario(Usuario cliente) {
         return repositorioSuscripcion.buscarPorUsuario(cliente);
+    }
+
+    @Override
+    public Usuario asignarRol(Rol rol, Long id_usuario) throws NoSeAsignoElRol {
+        Usuario buscado = repositorioUsuario.buscarPorId(id_usuario);
+        if (buscado != null) {
+            repositorioUsuario.actualizarRol(rol, buscado.getId());
+            Usuario actualizado = new Usuario();
+            actualizado = buscarPorId(buscado.getId());
+            return actualizado;
+        }
+        throw new NoSeAsignoElRol();
     }
 
 

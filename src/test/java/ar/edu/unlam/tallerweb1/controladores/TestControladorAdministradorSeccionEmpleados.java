@@ -107,7 +107,11 @@ public class TestControladorAdministradorSeccionEmpleados {
         givenAccedeALaVistaDeEmpleadosMecanicos(administrador);
         whenObtieneUnaListaDeUsuarios(Rol.MECANICO);
         thenSeMuestraLaVista("mecanicos", this.modelAndView);
+<<<<<<< HEAD
         thenSeMuestraLaLista(this.modelAndView, "lista_mecanicos", 3);
+=======
+        thenSeMuestraLaLista(this.modelAndView, "mecanicos", 3);
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
     }
 
     @Test(expected = NoHayEmpladosException.class)
@@ -137,11 +141,19 @@ public class TestControladorAdministradorSeccionEmpleados {
             usuario.setRol(empleado);
             listaDeUsuariosEncargadosDeDevolucion.add(usuario);
         }
+<<<<<<< HEAD
         when(servicioUsuario.obtenerListaDeUsuariosPorRol((Rol) any())).thenReturn(listaDeUsuariosEncargadosDeDevolucion);
     }
 
     private void givenNoExistenEncargadosDeLaDevolucionDeLosAutos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
       doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol((Rol) any());
+=======
+        when(servicioUsuario.obtenerListaDeUsuariosPorRol(any())).thenReturn(listaDeUsuariosEncargadosDeDevolucion);
+    }
+
+    private void givenNoExistenEncargadosDeLaDevolucionDeLosAutos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
+        doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(any());
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
     }
 
     private void givenAccedeALaVistaDeEmpleadosMecanicos(HttpServletRequest administrador) {
@@ -149,7 +161,11 @@ public class TestControladorAdministradorSeccionEmpleados {
     }
 
     private void givenNoExistenEmpladosMecanicos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
+<<<<<<< HEAD
        doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol((Rol) any());
+=======
+        doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(any());
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
     }
 
     private void whenAccedeALaVistaDeEmpleados(HttpServletRequest administrador) {

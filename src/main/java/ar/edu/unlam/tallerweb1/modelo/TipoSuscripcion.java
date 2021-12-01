@@ -28,7 +28,6 @@ public class TipoSuscripcion {
     @Column
     private Float valorIncumplimientoHoraLugar;
 
-
     public TipoSuscripcion(Long id, String descripcion, String nombre) {
         this.id = id;
         this.descripcion = descripcion;
@@ -74,7 +73,6 @@ public class TipoSuscripcion {
         this.duracion = duracion;
     }
 
-
     public Float getPrecio() {
         return precio;
     }
@@ -83,44 +81,44 @@ public class TipoSuscripcion {
         this.precio = precio;
     }
 
-        public Float getLimiteKilometraje () {
-            return limiteKilometraje;
-        }
+    public Float getLimiteKilometraje() {
+        return limiteKilometraje;
+    }
 
-        public void setLimiteKilometraje (Float limiteKilometraje){
-            this.limiteKilometraje = limiteKilometraje;
-        }
+    public void setLimiteKilometraje(Float limiteKilometraje) {
+        this.limiteKilometraje = limiteKilometraje;
+    }
 
-        public Float getValorPorKmAdicional () {
-            return valorPorKmAdicional;
-        }
+    public Float getValorPorKmAdicional() {
+        return valorPorKmAdicional;
+    }
 
-        public void setValorPorKmAdicional (Float valorPorKmAdicional){
-            this.valorPorKmAdicional = valorPorKmAdicional;
-        }
+    public void setValorPorKmAdicional(Float valorPorKmAdicional) {
+        this.valorPorKmAdicional = valorPorKmAdicional;
+    }
 
-        public Boolean getEleccionVehiculo () {
-            return eleccionVehiculo;
-        }
+    public Boolean getEleccionVehiculo() {
+        return eleccionVehiculo;
+    }
 
-        public void setEleccionVehiculo (Boolean eleccionVehiculo){
-            this.eleccionVehiculo = eleccionVehiculo;
-        }
+    public void setEleccionVehiculo(Boolean eleccionVehiculo) {
+        this.eleccionVehiculo = eleccionVehiculo;
+    }
 
-        public Boolean getPermiteReserva () {
-            return permiteReserva;
-        }
+    public Boolean getPermiteReserva() {
+        return permiteReserva;
+    }
 
-        public void setPermiteReserva (Boolean permiteReserva){
-            this.permiteReserva = permiteReserva;
-        }
+    public void setPermiteReserva(Boolean permiteReserva) {
+        this.permiteReserva = permiteReserva;
+    }
 
-        public Float getValorIncumplimientoHoraLugar () {
-            return valorIncumplimientoHoraLugar;
-        }
+    public Float getValorIncumplimientoHoraLugar() {
+        return valorIncumplimientoHoraLugar;
+    }
 
-        public void setValorIncumplimientoHoraLugar (Float valorIncumplimientoHoraLugar){
-            this.valorIncumplimientoHoraLugar = valorIncumplimientoHoraLugar;
-        }
+    public void setValorIncumplimientoHoraLugar(Float valorIncumplimientoHoraLugar) {
+        this.valorIncumplimientoHoraLugar = valorIncumplimientoHoraLugar;
+    }
 
 }
