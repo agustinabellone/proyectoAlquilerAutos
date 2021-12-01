@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -290,15 +291,35 @@ public class ControladorAdministrador {
         return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol();
     }
 
-    @RequestMapping(method = RequestMethod.GET,path = "/confirmar")
-    public ModelAndView asignarRolAlEmpleado(Rol mecanico, HttpServletRequest request) {
+    @RequestMapping(method = RequestMethod.GET, path = "/confirmar")
+    public ModelAndView asignarRolAlEmpleado(@RequestParam(value = "rol") Integer rol, @RequestParam(value = "id_usuario") Long id_usuario, HttpServletRequest request) {
         ModelMap model = new ModelMap();
         String vista;
         if (elRolEstaSeteadoYEsAdministrador(request)) {
-            return new ModelAndView("asignacion-de-rol",model );
+            vista = "asignacion-de-rol";
+            Rol obtenido = obtenerRol(rol);
+            Usuario pendienteDeRol = servicioUsuario.buscarPorId(id_usuario);
+            if (obtenido != null && pendienteDeRol != null) {
+                model.put("usuario", pendienteDeRol);
+                model.put("rol", obtenido);
+            }else {
+                model.put("error","No se pudo asignar el rol correctamente");
+            }
         } else {
             vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
-        return setModelAndView(model,vista);
+        return setModelAndView(model, vista);
     }
+
+    private Rol obtenerRol(Integer rol) {
+        Rol[] buscado = Rol.values();
+        for (int i = 0; i < Rol.values().length; i++) {
+            if (buscado[i].ordinal() == rol) {
+                return buscado[i];
+            }
+        }
+        return null;
+    }
+
+
 }
