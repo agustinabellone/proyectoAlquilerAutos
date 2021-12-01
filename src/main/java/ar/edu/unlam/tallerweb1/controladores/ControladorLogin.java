@@ -81,6 +81,7 @@ public class ControladorLogin {
         request.getSession().setAttribute("rol", buscado.getRol());
         request.getSession().setAttribute("id", buscado.getId());
         request.getSession().setAttribute("nombre", buscado.getNombre());
+        request.getSession().setAttribute("email", buscado.getEmail());
         request.getSession().setAttribute("tieneSuscripcion", servicioSuscripcion.existeSuscripcionPorUsuario(servicioUsuario.buscarPorId(buscado.getId())));
 
         List<Notificacion> notificaciones= servicioUsuario.getNotificacionesPorId(buscado);
