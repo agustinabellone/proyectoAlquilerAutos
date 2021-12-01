@@ -213,7 +213,7 @@ public class ControladorAdministrador {
             try {
                 vista = "mecanicos";
                 List<Usuario> usuariosMecanicos = obtenerListaDeUsuariosConRol(Rol.MECANICO);
-                model.put("mecanicos", usuariosMecanicos);
+                model.put("lista_mecanicos", usuariosMecanicos);
             } catch (NoHayEmpladosException e) {
                 vista = "mecanicos";
                 model.put("error_no_hay_mecanicos", "No hay mecanicos actualmente");

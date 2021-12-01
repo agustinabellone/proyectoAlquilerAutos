@@ -194,154 +194,43 @@
                     <h1 class="h3 mb-0 text-gray-800 text-center">Bienvenido ${nombre}</h1>
                 </div>
 
-                <!-- Content Row -->
+                <!-- Topbar Search -->
                 <div class="row">
-
-                    <!-- Usuarios nuevos -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Clientes no Suscriptos
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <c:if test="${not empty clientes_no_suscriptos}">
-                                                ${clientes_no_suscriptos.size()}
-                                            </c:if>
-                                            <c:if test="${empty clientes_no_suscriptos}">
-                                                0
-                                            </c:if>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="clientes-no-suscriptos" class="text-primary font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
+                    <form class="d-sm-inline-block form-inline col-12 mb-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-white border-0 small" placeholder="Buscar por..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Suscripciones nuevas -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Clientes Suscriptos
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <c:if test="${not empty lista_de_suscripto}">
-                                                ${lista_de_suscripto.size()}
-                                            </c:if>
-                                            <c:if test="${empty lista_de_suscripto}">
-                                                0
-                                            </c:if>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="clientes-suscriptos"
-                                           class="text-success font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- alquilres nuevos -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                            Alquilers Nuevos
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <c:if test="${not empty autosAlquilados}">
-                                                ${autosAlquilados.size()}
-                                            </c:if>
-                                            <c:if test="${empty autosAlquilados}">
-                                                0
-                                            </c:if>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="autos-alquilados" class="text-info font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Asignaciones de roles pendientes -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pendiente de Rol
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <c:if test="${not empty pendientes_de_rol}">
-                                                ${pendientes_de_rol.size()}
-                                            </c:if>
-                                            <c:if test="${empty pendientes_de_rol}">
-                                                0
-                                            </c:if>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="asignacion-de-rol"
-                                           class="text-warning font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
+
                 <!-- Empieza FOR-EAH-->
-                <c:forEach items="${autosAlquilados}" var="auto">
+                <c:forEach items="${lista_mecanicos}" var="mecanico">
                     <div class="col-md-12">
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="font-weight-medium mb-0">Situacion: ${auto.situacion}</h5>
+                                    <h5 class="font-weight-medium mb-0">Rol: ${mecanico.rol}</h5>
                                 </div>
                                 <div class="col">
                                     <div class="col-lg-12">
                                         <div class="row mt-3">
                                             <div class="col-lg-6 align-self-center">
                                                 <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                    <li>
-                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio: dd/mm/yy</span>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Nombre: <span>${mecanico.nombre}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Patente: <span>${auto.patente}</span>
-                                                    </li>
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Marca: <span>${auto.marca.descripcion}</span>
-                                                    </li>
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Modelo: <span>${auto.modelo.descripcion}</span>
-                                                    </li>
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Kilometraje: <span>${auto.km}</span>
+                                                        Mail: <span>${mecanico.nombre}</span>
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="container">
-                                                    <img src="${auto.imagen}"
-                                                         alt="" style="width: 100%; height: auto;">
-                                                </div>
-                                            </div>
-                                            <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
-                                            >Fecha Retorno: dd/mm/yy</p>
                                         </div>
                                     </div>
                                 </div>
@@ -352,9 +241,9 @@
                 </c:forEach>
                 <!-- termina FOR-EACH -->
                 <!-- Content Row -->
-                <c:if test="${not empty error_no_hay_autos_alquilados}">
+                <c:if test="${not empty error_no_hay_mecanicos}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                            ${error_no_hay_autos_alquilados}
+                            ${error_no_hay_mecanicos}
                     </div>
                 </c:if>
                 <div class="row">
