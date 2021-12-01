@@ -28,4 +28,6 @@ public interface ServicioUsuario {
     List<Usuario> obtenerListaDeUsuariosPendienteDeRol() throws NoHayUsuariosPendientesDeRol;
 
     Usuario asignarRol(Rol mecanico, Long id_usuario) throws NoSeAsignoElRol;
+
+    void actualizarPuntaje(int puntaje, Usuario usuario);
 }

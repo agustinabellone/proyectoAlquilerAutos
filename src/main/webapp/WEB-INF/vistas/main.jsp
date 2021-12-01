@@ -22,6 +22,7 @@
 <section class="bg-light pb-5 py-2">
     <div class="container">
         <h1 class="display-4 p-4">¡Hola <c:out value="${nombre}"/>!</h1>
+        <p>Tu puntaje actual es: ${puntaje}</p>
         <c:if test="${not empty confirmacionDarDeBaja}">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>-</strong> ${confirmacionDarDeBaja}<strong>-</strong>

@@ -30,6 +30,9 @@ public class Usuario {
     @Column
     private String hashCodigo;
 
+    @Column
+    private Integer puntaje;
+
 
     public Usuario(Rol rol) {
         this.rol = rol;
@@ -105,5 +108,13 @@ public class Usuario {
 
     public void setHashCodigo(String hashCodigo) {
         this.hashCodigo = hashCodigo;
+    }
+
+    public Integer getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(Integer puntaje) {
+        this.puntaje = puntaje;
     }
 }

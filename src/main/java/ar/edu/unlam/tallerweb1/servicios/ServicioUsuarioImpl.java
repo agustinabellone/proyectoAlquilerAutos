@@ -93,6 +93,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         return repositorioUsuario.getNotificacionesPorId(buscado);
     }
 
+    @Override
+    public void actualizarPuntaje(int puntaje, Usuario usuario) {
+        repositorioUsuario.actualizarPuntaje(puntaje, usuario);
+    }
 
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {
         return contraseña.length() < 8;
