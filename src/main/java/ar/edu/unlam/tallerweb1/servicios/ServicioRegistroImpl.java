@@ -24,8 +24,8 @@ public class ServicioRegistroImpl implements ServicioRegistro {
     }
 
     @Override
-    public Usuario registrar(DatosRegistro datosRegistro) {
-        if (LasClavesSonDistintas(datosRegistro)) {
+    public Usuario registrar(DatosRegistro datosRegistro,String md5) {
+        if(LasClavesSonDistintas(datosRegistro)){
             throw new ClavesDistintasException();
         }
         if (LaClaveTieneLongitudIncorrecta(datosRegistro)) {
@@ -41,6 +41,8 @@ public class ServicioRegistroImpl implements ServicioRegistro {
         }
         Usuario nuevoUsuario = new Usuario(datosRegistro);
 
+
+        nuevoUsuario.setHashCodigo(md5);
         nuevoUsuario.setRol(Rol.CLIENTE);
 
         repositorioUsuario.guardar(nuevoUsuario);
