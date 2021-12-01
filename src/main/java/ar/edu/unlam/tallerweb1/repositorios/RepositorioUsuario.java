@@ -30,5 +30,5 @@ public interface RepositorioUsuario {
 
     List<Usuario> buscarUsuariosPendientesDeRol();
 
-    Usuario actualizarRol(Rol rol, Long id_usuario);
+    void actualizarRol(Rol rol, Long id_usuario);
 }

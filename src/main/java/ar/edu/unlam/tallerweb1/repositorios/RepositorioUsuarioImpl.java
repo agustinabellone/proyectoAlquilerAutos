@@ -90,8 +90,10 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
-    public Usuario actualizarRol(Rol rol, Long id_usuario) {
-        return null;
+    public void actualizarRol(Rol rol, Long id_usuario) {
+        Usuario buscado = buscarPorId(id_usuario);
+        buscado.setRol(Rol.MECANICO);
+        sessionFactory.getCurrentSession().update(buscado);
     }
 
 

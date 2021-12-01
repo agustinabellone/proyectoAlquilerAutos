@@ -79,8 +79,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     public Usuario asignarRol(Rol rol, Long id_usuario) throws NoSeAsignoElRol {
         Usuario buscado = repositorioUsuario.buscarPorId(id_usuario);
         if (buscado != null){
-         buscado = repositorioUsuario.actualizarRol(rol,buscado.getId());
-         return buscado;
+         repositorioUsuario.actualizarRol(rol,buscado.getId());
+         Usuario actualizado = new Usuario();
+         actualizado = buscarPorId(buscado.getId());
+         return actualizado;
         }
         throw new NoSeAsignoElRol();
     }

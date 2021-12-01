@@ -76,7 +76,6 @@ public class TestServicioAsignacionDeRol {
         usuario.setEmail("eze@tallerweb.com");
         when(repositorioUsuario.buscarPorId(anyLong())).thenReturn(usuario);
         usuario.setRol(Rol.MECANICO);
-        when(repositorioUsuario.actualizarRol(Rol.MECANICO, usuario.getId())).thenReturn(usuario);
         return usuario.getId();
     }
 
