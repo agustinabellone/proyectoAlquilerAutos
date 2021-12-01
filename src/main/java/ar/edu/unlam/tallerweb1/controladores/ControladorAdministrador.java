@@ -23,8 +23,6 @@ import java.util.List;
 @Controller
 public class ControladorAdministrador {
 
-    private ModelMap modelMap = getModelMap();
-    private String viewName;
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
     private ServicioSuscripcion servicioSuscripcion;
@@ -243,6 +241,45 @@ public class ControladorAdministrador {
         return setModelAndView(model, vista);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/confirmar-rol")
+    public ModelAndView asignarRolAlEmpleado(@RequestParam(value = "rol") Integer rol, @RequestParam(value = "id_usuario") Long id_usuario, HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
+            vista = "asignacion-de-rol";
+            Rol obtenido = obtenerRol(rol);
+            Usuario pendienteDeRol = servicioUsuario.buscarPorId(id_usuario);
+            if (obtenido != null && pendienteDeRol != null) {
+                try {
+                    Usuario actualizado = servicioUsuario.asignarRol(obtenido, pendienteDeRol.getId());
+                    model.put("usuario", actualizado);
+                    model.put("rol", obtenido);
+                    model.put("mensaje_exito", "Al usuario " + actualizado.getEmail() + " se le asigno el rol de " + obtenido);
+                } catch (NoSeAsignoElRol e) {
+                    model.put("error", "No se pudo asignar el rol correctamente");
+                }
+            } else {
+                model.put("error", "No se pudo asignar el rol correctamente");
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/enviar-a-matenimiento")
+    public ModelAndView enviarAMantenimiento(@RequestParam(value = "id_auto") Long id_auto, HttpServletRequest administrador) {
+        ModelMap model = new ModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(administrador)) {
+            vista = "autos_disponibles";
+            model.put("mensaje_exito", "Se envio un auto correctamente a mantenimiento");
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
+    }
+
     private boolean elRolEstaSeteadoYEsAdministrador(HttpServletRequest request) {
         return request.getSession().getAttribute("rol") != null && request.getSession().getAttribute("rol").equals(Rol.ADMIN);
     }
@@ -291,32 +328,6 @@ public class ControladorAdministrador {
         return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/confirmar-rol")
-    public ModelAndView asignarRolAlEmpleado(@RequestParam(value = "rol") Integer rol, @RequestParam(value = "id_usuario") Long id_usuario, HttpServletRequest request) {
-        ModelMap model = new ModelMap();
-        String vista;
-        if (elRolEstaSeteadoYEsAdministrador(request)) {
-            vista = "asignacion-de-rol";
-            Rol obtenido = obtenerRol(rol);
-            Usuario pendienteDeRol = servicioUsuario.buscarPorId(id_usuario);
-            if (obtenido != null && pendienteDeRol != null) {
-                try {
-                    Usuario actualizado = servicioUsuario.asignarRol(obtenido, pendienteDeRol.getId());
-                    model.put("usuario", actualizado);
-                    model.put("rol", obtenido);
-                    model.put("mensaje_exito","Al usuario "+actualizado.getEmail()+" se le asigno el rol de "+obtenido);
-                } catch (NoSeAsignoElRol e) {
-                    model.put("error", "No se pudo asignar el rol correctamente");
-                }
-            } else {
-                model.put("error", "No se pudo asignar el rol correctamente");
-            }
-        } else {
-            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
-        }
-        return setModelAndView(model, vista);
-    }
-
     private Rol obtenerRol(Integer rol) {
         Rol[] buscado = Rol.values();
         for (int i = 0; i < Rol.values().length; i++) {
@@ -326,6 +337,4 @@ public class ControladorAdministrador {
         }
         return null;
     }
-
-
 }
