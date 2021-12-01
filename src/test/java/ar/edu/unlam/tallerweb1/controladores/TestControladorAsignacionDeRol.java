@@ -94,6 +94,24 @@ public class TestControladorAsignacionDeRol {
         thenSeMuestraLaVistaConMensajeDeError(this.modelAndView, "No hay usuarios pendientes de rol");
     }
 
+
+    @Test
+    public void queUnAdministradorPuedaConfirmarLaSeleccionDelRolDeUnEmpleado() throws NoHayUsuariosPendientesDeRol {
+        givenNoExistenUsuariosPendientesDeRol();
+        HttpServletRequest request = givenExisteUnUsuarioConRolDe(Rol.ADMIN);
+        givenAccedeAlaVistaDeAsignacionDeRol(request);
+        whenSeleccionaElRolDelEmpleado(Rol.MECANICO,request);
+        thenSeMuestraLaVistaCorrectamente(this.modelAndView, request);
+    }
+
+    private void whenSeleccionaElRolDelEmpleado(Rol mecanico, HttpServletRequest request) {
+        this.modelAndView = controladorAdministrador.asignarRolAlEmpleado(mecanico,request);
+    }
+
+    private void givenAccedeAlaVistaDeAsignacionDeRol(HttpServletRequest request) {
+        whenAccedeALaVistaDeAsignacionDeRoles(request);
+    }
+
     private void givenNoExistenUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
         doThrow(NoHayUsuariosPendientesDeRol.class).when(servicioUsuario).obtenerListaDeUsuariosPendienteDeRol();
     }
