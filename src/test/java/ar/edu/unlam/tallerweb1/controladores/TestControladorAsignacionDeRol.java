@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
+import ar.edu.unlam.tallerweb1.Exceptions.NoSeAsignoElRol;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
@@ -105,7 +106,7 @@ public class TestControladorAsignacionDeRol {
     }
 
     @Test
-    public void queUnAdministradorPuedaConfirmarLaSeleccionDelRolDeUnEmpleado() throws NoHayUsuariosPendientesDeRol {
+    public void queUnAdministradorPuedaConfirmarLaSeleccionDelRolDeUnEmpleado() throws NoHayUsuariosPendientesDeRol, NoSeAsignoElRol {
         Long pendienteDeRol = givenExisteUnUsuarioPendienteDeRol();
         HttpServletRequest request = givenExisteUnUsuarioConRolDe(Rol.ADMIN);
         givenAccedeAlaVistaDeAsignacionDeRol(request);
@@ -114,13 +115,16 @@ public class TestControladorAsignacionDeRol {
         thenObtieneElRolCorrectamente(this.modelAndView, Rol.MECANICO, pendienteDeRol);
     }
 
-    private Long givenExisteUnUsuarioPendienteDeRol() {
+    private Long givenExisteUnUsuarioPendienteDeRol() throws NoSeAsignoElRol {
         Usuario usuario = new Usuario();
         usuario.setRol(Rol.EMPLEADO);
+        usuario.setId(1l);
         usuario.setEmail("eze@tallerweb.com");
         usuario.setClave("12345678");
         usuario.setNombre("eze");
         when(servicioUsuario.buscarPorId(usuario.getId())).thenReturn(usuario);
+        usuario.setRol(Rol.MECANICO);
+        when(servicioUsuario.asignarRol(any(),anyLong())).thenReturn(usuario);
         return usuario.getId();
     }
 
@@ -140,23 +144,42 @@ public class TestControladorAsignacionDeRol {
         assertThat(modelAndView.getModel().get("usuario")).isInstanceOf(Usuario.class);
         Usuario usuario = (Usuario) modelAndView.getModel().get("usuario");
         assertThat(usuario.getId()).isEqualTo(pendienteDeRol);
+        assertThat(usuario.getRol()).isEqualTo(mecanico);
+
     }
 
     @Test
-    public void queElAdministradorVeaUnMensajeDeErrorPoequeNoPudoAsignarElRolCorrectamente() {
+    public void queElAdministradorVeaUnMensajeDeErrorPoequeNoPudoAsignarElRolCorrectamente() throws NoSeAsignoElRol {
         givenNoExisteUnUsuarioPendienteDeRol();
         HttpServletRequest request = givenExisteUnUsuarioConRolDe(Rol.ADMIN);
         givenAccedeAlaVistaDeAsignacionDeRol(request);
         whenSeleccionaElRolDelEmpleado(Rol.MECANICO.ordinal(), null, request);
-        thenSeMuestraUnMensajeDeError(this.modelAndView,"No se pudo asignar el rol correctamente");
+        thenSeMuestraUnMensajeDeError(this.modelAndView, "No se pudo asignar el rol correctamente");
     }
 
-    private void givenNoExisteUnUsuarioPendienteDeRol() {
+    private void givenNoExisteUnUsuarioPendienteDeRol() throws NoSeAsignoElRol {
         when(servicioUsuario.buscarPorId(anyLong())).thenReturn(null);
+        Usuario usuario = new Usuario();
+        usuario.setRol(Rol.MECANICO);
+        when(servicioUsuario.asignarRol(any(), anyLong())).thenReturn(usuario);
     }
 
     private void thenSeMuestraUnMensajeDeError(ModelAndView modelAndView, String error) {
         assertThat(modelAndView.getModel().get("error")).isEqualTo(error);
         assertThat(modelAndView.getViewName()).isEqualTo("asignacion-de-rol");
+    }
+
+    @Test(expected = NoSeAsignoElRol.class)
+    public void queElAdministradorNoPuedaAsignarUnRolYSeMuestreUnMensajeDeError() throws NoSeAsignoElRol {
+        givenNoSeAsignaElRolCorrectamente();
+        Long usuario = givenExisteUnUsuarioPendienteDeRol();
+        HttpServletRequest request = givenExisteUnUsuarioConRolDe(Rol.ADMIN);
+        givenAccedeAlaVistaDeAsignacionDeRol(request);
+        whenSeleccionaElRolDelEmpleado(Rol.MECANICO.ordinal(), usuario, request);
+        thenSeMuestraUnMensajeDeError(this.modelAndView, "No se pudo asignar el rol correctamente");
+    }
+
+    private void givenNoSeAsignaElRolCorrectamente() throws NoSeAsignoElRol {
+        doThrow(NoSeAsignoElRol.class).when(servicioUsuario).asignarRol(any(), anyLong());
     }
 }

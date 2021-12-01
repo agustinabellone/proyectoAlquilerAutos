@@ -300,10 +300,15 @@ public class ControladorAdministrador {
             Rol obtenido = obtenerRol(rol);
             Usuario pendienteDeRol = servicioUsuario.buscarPorId(id_usuario);
             if (obtenido != null && pendienteDeRol != null) {
-                model.put("usuario", pendienteDeRol);
-                model.put("rol", obtenido);
-            }else {
-                model.put("error","No se pudo asignar el rol correctamente");
+                try {
+                    Usuario actualizado = servicioUsuario.asignarRol(obtenido, pendienteDeRol.getId());
+                    model.put("usuario", actualizado);
+                    model.put("rol", obtenido);
+                } catch (NoSeAsignoElRol e) {
+                    model.put("error", "No se pudo asignar el rol correctamente");
+                }
+            } else {
+                model.put("error", "No se pudo asignar el rol correctamente");
             }
         } else {
             vista = enviaAlaVistaDeLoginConMensajeDeError(model);
