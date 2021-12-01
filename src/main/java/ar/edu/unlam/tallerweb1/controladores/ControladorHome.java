@@ -54,6 +54,7 @@ public class ControladorHome {
                 model.put("marcas", autosMarca);
                 Long id=(Long) request.getSession().getAttribute("id");
                 model=obtenerDatosDeSuscripcion(request, model, id);
+
                 return new ModelAndView("main", model);
             }
 

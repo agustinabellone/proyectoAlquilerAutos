@@ -11,7 +11,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content:flex-start;
 }
 .portada:before {
     content:'';
@@ -32,7 +32,7 @@
 
 .portada h2 {
     padding: 5px;
-    font-size: 20px;
+    font-size: 18px !important;
     color: white;
     position: relative
 }
@@ -46,7 +46,7 @@ h3 {
     background: #FAFAFA;
     min-height: 300px;
     position: relative;
-    padding: 30px 30px 20px;
+    padding: 20px;
     margin-bottom: 20px;
     display: -ms-flexbox;
     display: flex;
@@ -56,5 +56,3 @@ h3 {
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
-
-

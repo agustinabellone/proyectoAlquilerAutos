@@ -33,9 +33,11 @@ public class Alquiler {
     @ManyToOne
     private Garage garageLlegada;
 
+    private Estado estado; //ACTIVO O FINALIZADO
+
     @ManyToOne
     private Usuario encargado;
-    private Estado estado; //ACTIVO O FINALIZADO
+
 
     public Alquiler() {
         this.estado = Estado.ACTIVO;
@@ -173,26 +175,16 @@ public class Alquiler {
     }
 
     public void setAdicionalCambioLugarFecha(Alquiler alquiler, Suscripcion suscripcion) {
-            Usuario usuario = suscripcion.getUsuario();
+        Usuario usuario = alquiler.getUsuario();
+        if (usuario.getRol().equals(Rol.CLIENTE)) {
             if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
-                String descripcion = suscripcion.getTipoSuscripcion().getDescripcion();
-                if (this.garageLlegadaEst != this.garageLlegada)
-                    switch (descripcion) {
-                        case "basico":
-                            adicionalCambioLugarFecha = adicionalCambioLugarFecha + 500f;
-                            break;
-                        case "oro":
-                            adicionalCambioLugarFecha = adicionalCambioLugarFecha + 400f;
-                            break;
-                        case "diamante":
-                            adicionalCambioLugarFecha = adicionalCambioLugarFecha + 0f; //CAMBIAR POR EXCEPTION
-                            break;
-                    }
+                if (this.garageLlegadaEst != this.garageLlegada) //SI NO HUBO CAMBIO DE GARAGE GARAGE LLEGADA == NULL
+                    adicionalCambioLugarFecha = adicionalCambioLugarFecha + suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar();
             }
+        }
     }
-
-
 }
+
 
 
 

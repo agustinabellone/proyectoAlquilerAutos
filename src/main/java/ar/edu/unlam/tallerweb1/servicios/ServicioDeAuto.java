@@ -10,7 +10,5 @@ import java.util.List;
 public interface ServicioDeAuto {
     Auto buscarAutoPorId(Long idDelAuto) throws AutoNoExistente;
 
-    Auto enviarAutoMantenimiento(Auto aEnviar) throws AutoYaExistente;
-
     List<Auto> obtenerAutosEnMantenimiento() throws NoHayAutosEnMantenientoException;
 }

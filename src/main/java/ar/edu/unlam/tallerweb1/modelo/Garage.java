@@ -11,6 +11,8 @@ public class Garage {
     @Id
     private Long id;
     private String direccion;
+    @ManyToOne
+    private Localidad localidad;
     private Integer capacidad;
     private Integer cantAutosActual;
     @OneToOne

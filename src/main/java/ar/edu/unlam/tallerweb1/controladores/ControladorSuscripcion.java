@@ -4,6 +4,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaActivadaException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaCanceladaException;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
@@ -37,7 +38,7 @@ public class ControladorSuscripcion {
     private ModelAndView mostrarFormularioSuscripcion(HttpServletRequest request){
 
         if(null != request.getSession().getAttribute("rol")){
-            if(request.getSession().getAttribute("rol").equals("cliente")){
+            if(request.getSession().getAttribute("rol").equals(Rol.CLIENTE)){
                 if(!(Boolean)request.getSession().getAttribute("tieneSuscripcion")){
                     return new ModelAndView("ir-a-suscribir");
                 }
@@ -46,16 +47,7 @@ public class ControladorSuscripcion {
         return new ModelAndView("redirect:/main");
     }
 
-    @RequestMapping(path = "/confirmar-suscripcion", method = RequestMethod.GET)
-    private ModelAndView confirmarSuscripcion(HttpServletRequest request,
-                                               @RequestParam (value="id_tipo") Long id_tipo ){
-        ModelMap model= new ModelMap();
-        model.put("id_tipo", id_tipo);
-        model.put("id_usuario", request.getSession().getAttribute("id"));
-        return new ModelAndView("confirmar-suscripcion", model);
-    }
-
-    @RequestMapping(path = "/suscribirse", method = RequestMethod.GET)
+    /*@RequestMapping(path = "/suscribirse", method = RequestMethod.GET)
     public ModelAndView suscribirUsuario(@RequestParam(value = "id_tipo") Long id_tipo,
                                          @RequestParam(value = "id_usuario")Long id_usuario,
                                          HttpServletRequest request) {
@@ -71,9 +63,9 @@ public class ControladorSuscripcion {
         }
         request.getSession().setAttribute("tieneSuscripcion",true);
         return new ModelAndView("redirect:/main");
-    }
+    }*/
 
-    @RequestMapping(path = "/suscribirseMejora", method = RequestMethod.GET)
+    /*@RequestMapping(path = "/suscribirseMejora", method = RequestMethod.GET)
     public ModelAndView mejorarSuscripcion(@RequestParam(value = "id_tipo") Long id_tipo,
                                          @RequestParam(value = "id_usuario")Long id_usuario,
                                          HttpServletRequest request) {
@@ -89,7 +81,7 @@ public class ControladorSuscripcion {
         request.getSession().setAttribute("tieneSuscripcion",true);
 
         return new ModelAndView("redirect:/main");
-    }
+    }*/
 
     @RequestMapping(path = "/darDeBajaSuscripcion")
     public ModelAndView darDeBajaSuscripcion(HttpServletRequest request) {
@@ -126,27 +118,13 @@ public class ControladorSuscripcion {
 
 
         if(null != request.getSession().getAttribute("rol")){
-            if(request.getSession().getAttribute("rol").equals("cliente")){
+            if(request.getSession().getAttribute("rol").equals(Rol.CLIENTE)){
                 obtenerDatosDeSuscripcion(request, (Long)request.getSession().getAttribute("id"));
                 return new ModelAndView("administrar-suscripcion");
             }
         }
         return new ModelAndView("redirect:/main");
     }
-
-    @RequestMapping(path = "/mejorar-suscripcion")
-    private ModelAndView mejorarSuscripcion(Long id_mejora, String nombre_mejora, HttpServletRequest request){
-
-        ModelMap model = new ModelMap();
-
-        model.put("id_mejora", id_mejora);
-        model.put("id_usuarioMejora", request.getSession().getAttribute("id"));
-        model.put("nombre_mejora", nombre_mejora);
-
-        return new ModelAndView("mejorar-suscripcion", model);
-
-    }
-
 
     //@Scheduled(fixedRate = 10000)
     @Scheduled(cron = "0 29 19 ? * *")
@@ -161,18 +139,5 @@ public class ControladorSuscripcion {
             request.getSession().setAttribute("tipoSuscripcion", servicioSuscripcion.buscarPorIdUsuario(id).getTipoSuscripcion());
         }
     }
-
-/* @RequestMapping(path = "/admin-suscripcion", method = RequestMethod.GET)
-    private ModelAndView vistaAdminSuscripcion(HttpServletRequest request){
-
-
-        if(null != request.getSession().getAttribute("rol")){
-            if(request.getSession().getAttribute("rol").equals("admin")){
-                return new ModelAndView("admin-suscripcion");
-            }
-        }
-        return new ModelAndView("redirect:/home");
-    }
-*/
 
 }

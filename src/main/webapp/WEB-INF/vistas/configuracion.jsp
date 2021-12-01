@@ -17,15 +17,16 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
 <jsp:include page="header.jsp" />
 <body>
-<section class="pb-5">
+<section class="pb-5 bg-light">
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Configuración</h1>
+            <h1 class="display-4 p-4">Configuración</h1>
         </div>
         <c:if test="${empty mensaje && empty cambiosActualizados && empty error}">
         <h4>Editá tus datos personales</h4>
@@ -37,7 +38,7 @@
                 </div>
                 <div>
                     <input type="email" class="form-control"  value="${usuario.email}" disabled>
-                    <span  style="font-size: 10px">Tu email no se puede cambiar ya que tu cuenta depende de este.</span>
+                    <span  style="font-size: 10px">Tu email no se puede cambiar ya que tu cuenta depende del mismo.</span>
                 </div>
                 <div>
                     <label>Contraseña</label>
@@ -53,7 +54,7 @@
                         <button type="submit" class="btn btn-success" >Guardar cambios</button>
                     </div>
                     <div class="ml-3">
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#eliminarCuentaModal">Eliminar cuenta</button>
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#eliminarCuentaModal">Eliminar cuenta</button>
                     </div>
                 </div>
             </form>
@@ -109,6 +110,9 @@
     <!--Fin del modal-->
 
 </section>
+<c:if test="${empty mensaje && empty cambiosActualizados && empty error}">
+<jsp:include page="footer.jsp" />
+</c:if>
 </body>
 
 <!-- Optional JavaScript -->

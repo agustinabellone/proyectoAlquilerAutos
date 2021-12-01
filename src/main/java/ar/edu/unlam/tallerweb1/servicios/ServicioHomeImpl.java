@@ -5,11 +5,13 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Marca;
 import ar.edu.unlam.tallerweb1.modelo.Modelo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class ServicioHomeImpl implements  ServicioHome{
 
 

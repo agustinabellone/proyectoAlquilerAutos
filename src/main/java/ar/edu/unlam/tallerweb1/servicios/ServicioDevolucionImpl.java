@@ -45,11 +45,17 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
         repositorioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
     }
 
+    @Override
+    public void finalizarAlquilerCliente(Alquiler alquiler, Suscripcion suscripcion) {
+        //
+    }
+
     private Suscripcion obtenerSuscripcionDeUsuario(Usuario usuario) {
         return repositorioDevolucion.obtenerSuscripcionDeUnUsuario(usuario);
     }
 
     @Override
+
     public void finalizarAlquilerCliente(Solicitud solicitud) {
         solicitud.setEstadoSolicitud(EstadoSolicitud.ACEPTADA);
         solicitud.getAlquiler().getAuto().setSituacion(Situacion.DISPONIBLE);
@@ -57,6 +63,7 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
         Float adicional = solicitud.getAlquiler().getAdicionalCambioLugarFecha();
         solicitud.getAlquiler().setAdicionalCambioLugarFecha(adicional);
         repositorioDevolucion.finalizarAlquilerCliente(solicitud.getAlquiler()); //UPDATE
+
     }
 
 }

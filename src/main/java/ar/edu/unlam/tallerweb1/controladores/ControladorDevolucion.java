@@ -3,6 +3,11 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.UsuarioSinSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
+import ar.edu.unlam.tallerweb1.modelo.*;
+import ar.edu.unlam.tallerweb1.servicios.ServicioDevolucion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioEncargado;
+import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -70,12 +75,11 @@ public class ControladorDevolucion {
 
     @RequestMapping("/seleccionNuevoGarageSeleccionado")
     public ModelAndView procesarSeleccionNuevoGarageLlegada(@RequestParam(value = "nuevoGarage") Long garageID, @RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
-        ModelMap model = new ModelMap();
         Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
         Garage garage = servicioGarage.obtenerGaragePorID(garageID);
         alquiler.setGarageLlegada(garage);
         servicioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
-        return new ModelAndView("mostrarConfirmacionDeFin");
+        return new ModelAndView("redirect:/finalizar-alquiler?alquilerID=" + alquilerID);
     }
 
     //return new ModelAndView("redirect:/confirmacion-fin-alquiler?alquilerID=" + alquilerID);
@@ -86,11 +90,11 @@ public class ControladorDevolucion {
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
         Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
-        servicioSolicitud.realizarPeticionDeDevolucion(alquiler);
+        Auto auto = alquiler.getAuto();
         modelo.put("alquilerID", alquiler.getId());
-        modelo.put("auto", alquiler.getAuto());
-        modelo.put("solicitud", "Espere la confirmacion de devolución...");
+        modelo.put("auto", auto);
         modelo.put("valorarLuego", "valorarLuego");
+        //servicioDevolucion.finalizarAlquilerCliente(alquiler);
         return new ModelAndView("valorar-auto", modelo);
     }
 

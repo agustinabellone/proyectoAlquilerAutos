@@ -18,10 +18,17 @@ public class Solicitud {
 
 
     public Solicitud(Alquiler alquiler) {
-        this.usuario= alquiler.getUsuario();
-        this.encargado= alquiler.getEncargado();
-        this.alquiler=alquiler;
-        this.estadoSolicitud=EstadoSolicitud.PENDIENTE;
+        this.usuario = alquiler.getUsuario();
+        this.encargado = alquiler.getEncargado();
+        this.alquiler = alquiler;
+        this.estadoSolicitud = EstadoSolicitud.PENDIENTE;
+    }
+
+
+    public Solicitud(Long id, Usuario usuario, Usuario encargado) {
+        this.id = id;
+        this.usuario = usuario;
+        this.encargado = encargado;
     }
 
     public Solicitud() {
