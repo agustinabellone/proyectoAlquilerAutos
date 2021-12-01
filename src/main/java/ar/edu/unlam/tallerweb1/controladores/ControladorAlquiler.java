@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
+import ar.edu.unlam.tallerweb1.servicios.ServicioMail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -25,10 +26,12 @@ import java.util.Locale;
 public class ControladorAlquiler {
 
     private ServicioAlquiler servicioAlquiler;
+    private ServicioMail servicioMail;
 
     @Autowired
-    public ControladorAlquiler(ServicioAlquiler servicioAlquiler) {
+    public ControladorAlquiler(ServicioAlquiler servicioAlquiler, ServicioMail servicioMail) {
         this.servicioAlquiler = servicioAlquiler;
+        this.servicioMail=servicioMail;
     }
 
     @RequestMapping(path = "/alquilar-auto", method = RequestMethod.GET)
@@ -103,10 +106,13 @@ public class ControladorAlquiler {
         Garage garageRetiro = servicioAlquiler.obtenerGaragePorId(lugarRetiro);
         Garage garageDevolucion = servicioAlquiler.obtenerGaragePorId(lugarDevolucion);
 
+        String mail = (String) request.getSession().getAttribute("email");
+
         DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, salida, ingreso, garageRetiro, garageDevolucion);
 
         try {
             servicioAlquiler.AlquilarAuto(datosAlquiler);
+            servicioMail.enviarMailAlquiler(mail,garageRetiro.getDireccion(),garageDevolucion.getDireccion(),salida,ingreso);
         }
         catch (AutoYaAlquiladoException e) {
             return alquilerFallido(modelo, "El auto ya fue alquilado en esas fechas.");

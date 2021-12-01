@@ -15,6 +15,7 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/planes.css"/>
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
@@ -31,21 +32,26 @@
         <div class="container">
 
             <div class="card text-center">
+
                 <div class="card-header">
 
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Al mejorar su suscripcion, cancela la actual por una nueva de mas alto nivel</h5>
                     <p class="card-text">¿Esta seguro, <c:out value="${nombre}"/>, de cambiar su plan por uno de nivel <span style="font-size: 120%; color: black"><c:out value="${nombre_mejora}"/></span> ?</p>
-                    <a href="suscribirseMejora?id_tipo=${id_mejora}&id_usuario=${id_usuarioMejora}" class="btn btn-primary">Confirmar</a>
+                    <a href="${preferencia.initPoint}" class="btn btn-success">Pagar</a>
                     <a href="administrar-suscripcion" class="btn btn-primary">Volver</a>
                 </div>
                 <div class="card-footer text-muted">
 
                 </div>
             </div>
+            <a href="${preferencia.initPoint}">MERCADO PAGO</a>
+
+            <div>-${preferencia.getId()}-</div>
 
         </div>
+
     </div>
 </section>
 
@@ -67,6 +73,28 @@
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+<!-- SDK MercadoPago.js V2 -->
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+<script>
+    // Agrega credenciales de SDK
+    const mp = new MercadoPago('TEST-c3be8274-b159-4139-8c8a-c8393fc98065', {
+        locale: 'es-AR'
+    });
+
+    // Inicializa el checkout
+    mp.checkout({
+        preference: {
+            id: '${preferencia.getId()}'
+        },
+        render: {
+            container: '.pago-container', // Indica el nombre de la clase donde se mostrará el botón de pago
+            label: 'Pagar', // Cambia el texto del botón de pago (opcional)
+        }
+    });
+</script>
+
+
 </body>
 
 <jsp:include page="footer.jsp" />

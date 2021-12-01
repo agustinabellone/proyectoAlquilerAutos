@@ -16,7 +16,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class testServicioAdministradorSeccionAutos {
+public class TestServicioAdministradorSeccionAutos {
 
     private RepositorioAlquiler repositorioAlquiler = mock(RepositorioAlquiler.class);
     private RepositorioAuto repositorioAuto = mock(RepositorioAuto.class);

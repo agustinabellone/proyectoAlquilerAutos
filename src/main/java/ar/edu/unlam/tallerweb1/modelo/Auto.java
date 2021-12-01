@@ -25,11 +25,14 @@ public class Auto {
 
     private Situacion situacion;
 
+    @Column
+    private Gama gama;
+
     public Auto() {
         this.km = 100;
     }
 
-    public Auto(Long id, Marca marca, Modelo modelo, String imagen, String patente, Tercero tercero, LocalDate añoFabricación, int kilometros, Situacion situacion) {
+    public Auto(Long id, Marca marca, Modelo modelo, String imagen, String patente, Tercero tercero, LocalDate añoFabricación, int kilometros, Situacion situacion, Gama gama) {
 
         this.id = id;
         this.marca = marca;
@@ -40,6 +43,7 @@ public class Auto {
         this.añoFabricación = añoFabricación;
         this.km = kilometros;
         this.situacion = situacion;
+        this.gama = gama;
     }
 
     public Long getId() {
@@ -116,4 +120,20 @@ public class Auto {
         this.situacion = estado;
     }
 
+
+    public Garage getGarage() {
+        return garage;
+    }
+
+    public void setGarage(Garage garage) {
+        this.garage = garage;
+    }
+
+    public Gama getGama() {
+        return gama;
+    }
+
+    public void setGama(Gama gama) {
+        this.gama = gama;
+    }
 }

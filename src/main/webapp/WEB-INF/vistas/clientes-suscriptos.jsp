@@ -6,23 +6,20 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title><%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-        <!DOCTYPE html>
-        <html lang="en">
 
-        <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-
-        <title>Administracion</title>
+    <title>Administracion</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -92,8 +89,8 @@
             <div id="collapseClientes" class="collapse" aria-labelledby="headingClientes"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="utilities-border.html">Suscriptos</a>
-                    <a class="collapse-item" href="utilities-color.html">Nuevos</a>
+                    <a class="collapse-item" href="clientes-suscriptos">Suscriptos</a>
+                    <a class="collapse-item" href="clientes-no-suscriptos">No Suscriptos</a>
                 </div>
             </div>
         </li>
@@ -108,10 +105,9 @@
             <div id="collapseEmpleados" class="collapse" aria-labelledby="headingEmpleados"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="utilities-color.html">Administradores</a>
-                    <a class="collapse-item" href="utilities-border.html">Encargado Service</a>
-                    <a class="collapse-item" href="utilities-animation.html">Encargado Suscripcion</a>
-                    <a class="collapse-item" href="utilities-color.html">Encargado Mantenimiento</a>
+                    <a class="collapse-item" href="encargados-devolucion">Encargados de Devolucion</a>
+                    <a class="collapse-item" href="mecanicos">Mecanicos</a>
+                    <a class="collapse-item" href="asignacion-de-rol">Asignacion de Rol</a>
                 </div>
             </div>
         </li>
@@ -205,101 +201,29 @@
                     <h1 class="h3 mb-0 text-gray-800 text-center">Bienvenido ${nombre}</h1>
                 </div>
 
-                <!-- Content Row -->
+                <!-- Topbar Search -->
                 <div class="row">
-
-                    <!-- Usuarios nuevos -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Clientes Nuevos
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">0
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-primary font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
+                    <form class="d-sm-inline-block form-inline col-12 mb-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-white border-0 small" placeholder="Buscar por..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Suscripciones nuevas -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Clientes Suscriptos
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">1
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-success font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Alquilers nuevos -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Alquileres
-                                            Nuevos
-                                        </div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-info font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Asignaciones de roles pendientes -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pendiente de Rol
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-warning font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
                 <!-- Empieza FOR-EAH-->
-                <c:forEach items="${usuarios_suscriptos}" var="usuarios">
+                <c:forEach items="${lista_de_suscriptos}" var="usuarios">
                     <div class="col-md-12">
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="font-weight-medium mb-0">Tipo Suscripcion: ${usuarios.tipoSuscripcion}</h5>
+                                    <h5 class="font-weight-medium mb-0">Tipo
+                                        Suscripcion: ${usuarios.tipoSuscripcion.descripcion}</h5>
                                 </div>
                                 <div class="col">
                                     <div class="col-lg-12">
@@ -329,9 +253,9 @@
                 </c:forEach>
                 <!-- termina FOR-EACH -->
                 <!-- Content Row -->
-                <c:if test="${not empty error_no_hay_clientes}">
+                <c:if test="${not empty error_no_hay_clientes_suscriptos}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                            ${error_no_hay_clientes}
+                            ${error_no_hay_clientes_suscriptos}
                     </div>
                 </c:if>
                 <div class="row">
@@ -381,9 +305,9 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Estas seguro de cerrar la sesion?</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                 <a class="btn btn-primary" href="logout">Cerrar Sesion</a>
             </div>
         </div>
@@ -408,10 +332,5 @@
 <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
-
-</html></title>
-</head>
-<body>
-
-</body>
 </html>
+

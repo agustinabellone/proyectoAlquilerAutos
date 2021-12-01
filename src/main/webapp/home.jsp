@@ -15,7 +15,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/home.css"/>
     <link rel="stylesheet" type="text/css" href="css/planes.css"/>
-
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <jsp:include page="WEB-INF/vistas/header.jsp"/>
@@ -28,24 +28,29 @@
         </div>
     </div>
 </section>
-<section>
-    <div class="pricing6 py-5 bg-light">
+<section class="bg-light">
+    <div class="pricing6 py-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
                     <h3 class="mb-3">Alquilá un auto a un precio accesible</h3>
-                    <h6 class="subtitle font-weight-normal">Contamos con 3 planes diferentes</h6>
+                    <h6 class="subtitle font-weight-normal">Contamos con 3 planes diferentes.</h6>
                 </div>
             </div>
             <div class="container mt-5">
-                <div class="row">
+                <div class="row d-flex align-items-center">
                     <div class="col-md-4">
                         <div class="card-box bg-secondary text-white text-center rounded">
                             <div class="card-title">
                                 <h2 class="mb-5 text-white">PLAN BÁSICO</h2>
                                 <p>50 Km de recorrido</p>
                                 <p>KM excedido: $350</p>
-                                <p> Cambio de tiempo/lugar estipulado: $1200</p>
+                                <p>Poca cantidad de vehiculos disponibles</p>
+                                <p>Permite reserva solo en el mismo día</p>
+                                <p>Cambio de tiempo/lugar estipulado: $1200</p>
+                            </div>
+                            <div>
+                                <img class="card-img-top rounded" src="img/plan1.jpg" alt="Card image cap">
                             </div>
                             <div>
                                 <div class="price-box my-3">
@@ -61,9 +66,12 @@
                                 <h2 class="mb-5 text-light">PLAN ORO</h2>
                                 <p>80 km de recorrido </p>
                                 <p>KM excedido: $300</p>
-                                <p> Permite eleccion de vehiculo</p>
+                                <p>Permite eleccion de vehiculo</p>
                                 <p>Permite reservas con 3 días de anticipación</p>
-                                <p> Cambio de tiempo/lugar estipulado: $800</p>
+                                <p>Cambio de tiempo/lugar estipulado: $800</p>
+                            </div>
+                            <div>
+                                <img class="card-img-top rounded" src="img/plan2.jpg" alt="Card image cap">
                             </div>
                             <div>
                                 <div class="price-box my-3">
@@ -78,10 +86,13 @@
                             <div class="card-title">
                                 <h2 class="mb-5 text-white">PLAN DIAMANTE</h2>
                                 <p>200 km de recorrido</p>
-                                <p> Km excedido: $500</p>
-                                <p> Eleccion de vehiculo (incluye gama alta)</p>
-                                <p> Reservar con cualquier anticipación</p>
+                                <p>Km excedido: $500</p>
+                                <p>Eleccion de vehiculo (incluye gama alta)</p>
+                                <p>Reservar con cualquier anticipación</p>
                                 <p>Cambio de tiempo/lugar estipulado SIN COSTO</p>
+                            </div>
+                            <div>
+                                <img class="card-img-top rounded" src="img/plan3.jpg" alt="Card image cap">
                             </div>
                             <div>
                                 <div class="price-box my-3">
@@ -92,6 +103,172 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Carrousel de autos -->
+
+    <div class="container pricing6 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h3 class="mb-3">Conocé nuestros autos</h3>
+                <h6 class="subtitle font-weight-normal">Contamos con más de 60 autos y seguimos sumando.</h6>
+            </div>
+        </div>
+
+        <!--Carousel-->
+        <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+            <!--Controless-->
+            <div class="controls-top d-flex justify-content-between">
+                <a class="btn-floating ml-3 mb-2" href="#multi-item-example" data-slide="prev">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+                <a class="btn-floating mr-3 mb-2" href="#multi-item-example" data-slide="next">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+            <!--Controless-->
+
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+                <!--Primer slide-->
+                <div class="carousel-item active">
+
+                    <div class="col-md-3" style="float:left">
+                        <div class="card mb-2">
+                            <img class="card-img-top"
+                                 src="img/1.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Mercedes-benz Vito</h4>
+                                <p class="card-text text-center">48.000 Km</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="float:left">
+                        <div class="card mb-2">
+                            <img class="card-img-top"
+                                 src="img/2.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Volkswagen Saveiro</h4>
+                                <p class="card-text text-center">80.000 Km</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="float:left">
+                        <div class="card mb-2">
+                            <img class="card-img-top"
+                                 src="img/3.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Chevrolet Cruze</h4>
+                                <p class="card-text text-center">123.000 Km</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="float:left">
+                        <div class="card mb-2">
+                            <img class="card-img-top"
+                                 src="img/4.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Chevrolet Cruze</h4>
+                                <p class="card-text text-center">123.000 Km</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--Primer slide-->
+
+                <!--Segundo slide-->
+                <div class="carousel-item">
+
+                    <div class="col-md-3" style="float:left">
+                        <div class="card mb-2">
+                            <img class="card-img-top"
+                                 src="img/1.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Mercedes-benz Vito</h4>
+                                <p class="card-text text-center">48.000 Km</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="float:left">
+                        <div class="card mb-2">
+                            <img class="card-img-top"
+                                 src="img/2.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Volkswagen Saveiro</h4>
+                                <p class="card-text text-center">80.000 Km</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="float:left">
+                        <div class="card mb-2">
+                            <img class="card-img-top"
+                                 src="img/3.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Chevrolet Cruze</h4>
+                                <p class="card-text text-center">123.000 Km</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="float:left">
+                        <div class="card mb-2">
+                            <img class="card-img-top"
+                                 src="img/4.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">Chevrolet Captiva Sport</h4>
+                                <p class="card-text text-center">98.000 Km</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--Segundo slide-->
+            </div>
+            <!--Slides-->
+        </div>
+        <!--/.Carousel-->
+
+    </div>
+    
+    <div class="pricing6 py-2 mb-2">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h3 class="mb-3">Elegí el lugar que te quede mejor</h3>
+                    <h6 class="subtitle font-weight-normal mb-5">Contamos con 3 garages para que retires o devuelvas el vehiculo.</h6>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around">
+                <div class="col-md-3 mb-2 bg-dark text-white rounded" >
+                    <img class="card-img-top mt-3 rounded"  src="img/sedeMorón.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="text-center text-white">Sede Morón</h5>
+                        <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2 bg-dark text-white rounded">
+                    <img class="card-img-top mt-3 rounded" src="img/sedeLaMatanza.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="text-center text-white">Sede La Matanza</h5>
+                        <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-2 bg-dark text-white rounded" >
+                    <img class="card-img-top mt-3 rounded" src="img/sedeLiniers.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="text-center text-white">Sede Liniers</h5>
+                        <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
+                    </div>
                 </div>
             </div>
         </div>

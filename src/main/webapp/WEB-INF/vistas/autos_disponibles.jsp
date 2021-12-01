@@ -82,8 +82,8 @@
             <div id="collapseClientes" class="collapse" aria-labelledby="headingClientes"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="utilities-border.html">Suscriptos</a>
-                    <a class="collapse-item" href="utilities-color.html">Nuevos</a>
+                    <a class="collapse-item" href="clientes-suscriptos">Suscriptos</a>
+                    <a class="collapse-item" href="clientes-no-suscriptos">Nuevos</a>
                 </div>
             </div>
         </li>
@@ -98,10 +98,9 @@
             <div id="collapseEmpleados" class="collapse" aria-labelledby="headingEmpleados"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="utilities-color.html">Administradores</a>
-                    <a class="collapse-item" href="utilities-border.html">Encargado Service</a>
-                    <a class="collapse-item" href="utilities-animation.html">Encargado Suscripcion</a>
-                    <a class="collapse-item" href="utilities-color.html">Encargado Mantenimiento</a>
+                    <a class="collapse-item" href="encargados-devolucion">Encargados de Devolucion</a>
+                    <a class="collapse-item" href="mecanicos">Mecanicos</a>
+                    <a class="collapse-item" href="asignacion-de-rol">Asignacion de Rol</a>
                 </div>
             </div>
         </li>
@@ -210,94 +209,6 @@
                     </form>
                 </div>
 
-                <!-- Content Row -->
-                <div class="row">
-
-                    <!-- Usuarios nuevos -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Clientes Nuevos
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">0
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-primary font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Suscripciones nuevas -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Clientes Suscriptos
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">1
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-success font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Alquilers nuevos -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Alquileres
-                                            Nuevos
-                                        </div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-info font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Asignaciones de roles pendientes -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pendiente de Rol
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">3
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="" class="text-warning font-weight-bold text-lg">Ver</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Empieza FOR-EAH-->
                 <c:forEach items="${autosDisponibles}" var="auto">
                     <div class="col-md-12">
@@ -398,9 +309,9 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Estas seguro de cerrar la sesion?</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                 <a class="btn btn-primary" href="logout">Cerrar Sesion</a>
             </div>
         </div>
