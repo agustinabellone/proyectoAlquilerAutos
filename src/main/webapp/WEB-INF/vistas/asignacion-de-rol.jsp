@@ -212,6 +212,15 @@
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
                                                         Mail: <span>${empleados.email}</span>
+                                                        <form action="confirmar-rol" method="get">
+                                                            <select name="rol" class="form-select" aria-label="Default select example">
+                                                                <option selected>Seleccionar Rol...</option>
+                                                                <option value="1">Administrador</option>
+                                                                <option value="2">Mecanico</option>
+                                                                <option value="3">Encargado de Devolucion</option>
+                                                            </select>
+                                                            <input type="submit" value="Enviar" class="btn-info"/>
+                                                        </form>
                                                     </li>
                                                 </ul>
                                             </div>
