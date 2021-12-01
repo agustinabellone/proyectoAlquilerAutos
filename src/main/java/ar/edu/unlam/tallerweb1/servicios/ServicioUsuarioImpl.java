@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
+import ar.edu.unlam.tallerweb1.Exceptions.NoSeAsignoElRol;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
@@ -72,6 +73,18 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
             return pendientesDeRol;
         }
         throw new NoHayUsuariosPendientesDeRol();
+    }
+
+    @Override
+    public Usuario asignarRol(Rol rol, Long id_usuario) throws NoSeAsignoElRol {
+        Usuario buscado = repositorioUsuario.buscarPorId(id_usuario);
+        if (buscado != null){
+         repositorioUsuario.actualizarRol(rol,buscado.getId());
+         Usuario actualizado = new Usuario();
+         actualizado = buscarPorId(buscado.getId());
+         return actualizado;
+        }
+        throw new NoSeAsignoElRol();
     }
 
 

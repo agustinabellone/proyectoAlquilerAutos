@@ -219,6 +219,7 @@
                                                                 <option value="2">Mecanico</option>
                                                                 <option value="3">Encargado de Devolucion</option>
                                                             </select>
+                                                            <input type="hidden" name="id_usuario" value="${empleados.id}">
                                                             <input type="submit" value="Enviar" class="btn-info"/>
                                                         </form>
                                                     </li>

@@ -89,5 +89,12 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .add(Restrictions.eq("rol", Rol.EMPLEADO)).list();
     }
 
+    @Override
+    public void actualizarRol(Rol rol, Long id_usuario) {
+        Usuario buscado = buscarPorId(id_usuario);
+        buscado.setRol(Rol.MECANICO);
+        sessionFactory.getCurrentSession().update(buscado);
+    }
+
 
 }
