@@ -1,7 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesNoSuscriptos;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptos;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
@@ -22,10 +23,10 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class testControladorAdministradorSeccionClientes {
+public class TestControladorAdministradorSeccionClientes {
 
-    private static final String ADMIN = "admin";
-    private static final String INVITADO = "invitado";
+    private static final Rol ADMIN = Rol.ADMIN;
+    private static final Rol INVITADO = Rol.CLIENTE;
     private HttpServletRequest request;
     private HttpSession session;
     private ModelAndView modelAndView;
@@ -83,16 +84,16 @@ public class testControladorAdministradorSeccionClientes {
     }
 
     @Test
-    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos {
+    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos, NoHayClientesNoSuscriptos {
         givenExistenClientesNoSuscriptos(5);
-        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(Rol.ADMIN);
         givenIngresaALaVistaDeLosCLientesNoSuscriptos(administrador);
         whenObtieneLaListaDeLosClientesNoSuscriptos();
         thenSeMuestraLaVistaConLaListaDeLosClientesSuscriptos(this.modelAndView);
     }
 
-    @Test(expected = NoHayClientesSuscriptos.class)
-    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosNoVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos {
+    @Test(expected = NoHayClientesNoSuscriptos.class)
+    public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosNoVeaUnaListaDeLosMismos() throws NoHayClientesNoSuscriptos {
         givenNoExistenClientesNoSuscriptos();
         HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(ADMIN);
         givenIngresaALaVistaDeLosCLientesNoSuscriptos(administrador);
@@ -104,7 +105,7 @@ public class testControladorAdministradorSeccionClientes {
         doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerClientesSuscriptos();
     }
 
-    private HttpServletRequest givenQueExisteUnUsuarioConRol(String rol) {
+    private HttpServletRequest givenQueExisteUnUsuarioConRol(Rol rol) {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute(anyString())).thenReturn(rol);
         return request;
@@ -123,11 +124,12 @@ public class testControladorAdministradorSeccionClientes {
         when(servicioSuscripcion.obtenerClientesSuscriptos()).thenReturn(listaDeUsuariosSuscriptos);
     }
 
-    private void givenExistenClientesNoSuscriptos(int cantidad) throws NoHayClientesSuscriptos {
-        List<Suscripcion> listaDeClientesNoSuscriptos = new ArrayList<>();
+    private void givenExistenClientesNoSuscriptos(int cantidad) throws NoHayClientesNoSuscriptos {
+        List<Usuario> listaDeClientesNoSuscriptos = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
-            suscripcion.setUsuario(null);
-            listaDeClientesNoSuscriptos.add(suscripcion);
+            Usuario usuario = new Usuario();
+            usuario.setRol(Rol.CLIENTE);
+            listaDeClientesNoSuscriptos.add(usuario);
         }
         when(servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos()).thenReturn(listaDeClientesNoSuscriptos);
     }
@@ -136,8 +138,8 @@ public class testControladorAdministradorSeccionClientes {
         this.modelAndView = controlador.mostrarClientesNoSuscriptos(administrador);
     }
 
-    private void givenNoExistenClientesNoSuscriptos() throws NoHayClientesSuscriptos {
-        doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerListaDeUsuariosNoSuscriptos();
+    private void givenNoExistenClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
+        doThrow(NoHayClientesNoSuscriptos.class).when(servicioSuscripcion).obtenerListaDeUsuariosNoSuscriptos();
     }
 
     private void whenIngresaALaSeccionDeClienteSuscriptosEl(HttpServletRequest administrador) {
@@ -145,11 +147,11 @@ public class testControladorAdministradorSeccionClientes {
     }
 
     private List<Suscripcion> whenObtieneLaListaDeLosClientesSuscriptos() throws NoHayClientesSuscriptos {
-        return controlador.obtenerListaDeClientesSuscriptos();
+        return controlador.obtenerClientesSuscriptos();
     }
 
-    private List<Suscripcion> whenObtieneLaListaDeLosClientesNoSuscriptos() throws NoHayClientesSuscriptos {
-        return controlador.obtenerListaDeClientesSinSuscripcion();
+    private List<Usuario> whenObtieneLaListaDeLosClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
+        return controlador.obtenerListaDeClientesNoSuscriptos();
     }
 
     private void thenSeMuestraLaVistaDeLosClientesSuscritos(ModelAndView modelAndView) {

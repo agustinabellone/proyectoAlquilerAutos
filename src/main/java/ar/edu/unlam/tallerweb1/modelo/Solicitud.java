@@ -12,10 +12,10 @@ public class Solicitud {
     @ManyToOne
     private Usuario usuario;
     @ManyToOne
-    private Encargado encargado;
+    private Usuario encargado;
 
 
-    public Solicitud(Long id, Usuario usuario, Encargado encargado) {
+    public Solicitud(Long id, Usuario usuario, Usuario encargado) {
         this.id = id;
         this.usuario = usuario;
         this.encargado = encargado;
@@ -41,11 +41,11 @@ public class Solicitud {
         this.usuario = usuario;
     }
 
-    public Encargado getEncargado() {
+    public Usuario getEncargado() {
         return encargado;
     }
 
-    public void setEncargado(Encargado encargado) {
+    public void setEncargado(Usuario encargado) {
         this.encargado = encargado;
     }
 }

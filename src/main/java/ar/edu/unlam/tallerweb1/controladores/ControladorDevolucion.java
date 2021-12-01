@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Garage;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDevolucion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEncargado;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
@@ -86,7 +83,7 @@ public class ControladorDevolucion {
     public ModelAndView procesarSeleccionNuevoGarageLlegada(@RequestParam(value = "nuevoGarage") Long garageID, @RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
         Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
         Garage garage = servicioGarage.obtenerGaragePorID(garageID);
-        alquiler.setGarageLlegada(garage);
+        alquiler.setGarageLlegada(garage); //SETEA EL GARAGE LLEGADA != GARAGE EST
         servicioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
         return new ModelAndView("redirect:/finalizar-alquiler?alquilerID=" + alquilerID);
     }
@@ -96,12 +93,14 @@ public class ControladorDevolucion {
         ModelMap modelo = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
-        Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
+        Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
+        Suscripcion suscripcion = servicioUsuario.obtenerSuscripcionDeUsuario(usuario);
+
         Auto auto = alquiler.getAuto();
         modelo.put("alquilerID", alquiler.getId());
         modelo.put("auto", auto);
         modelo.put("valorarLuego", "valorarLuego");
-        servicioDevolucion.finalizarAlquilerCliente(alquiler);
+        servicioDevolucion.finalizarAlquilerCliente(alquiler, suscripcion);
         return new ModelAndView("valorar-auto", modelo);
     }
 

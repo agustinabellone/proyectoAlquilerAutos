@@ -1,9 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -22,7 +21,7 @@ import java.util.List;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class testControladorAdministradorSeccionAutos {
+public class TestControladorAdministradorSeccionAutos {
     private ControladorAdministrador controlador;
     private ModelAndView modelAndView;
     private HttpServletRequest request;
@@ -59,7 +58,7 @@ public class testControladorAdministradorSeccionAutos {
     }
 
     @Test
-    public void queSePuedaMostrarElPanelPrincipalConInformarcionDelAdministrador() {
+    public void queSePuedaMostrarElPanelPrincipalConInformarcionDelAdministrador() throws NoHayClientesSuscriptos, NoHayClientesNoSuscriptos, NoHayUsuariosPendientesDeRol {
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         whenSeMuestraLaVistaPrincipalConLaInformacionDel(usuarioConRol);
         thenSeMuestraElPanelPrincipalConLaInformacionDelUsuario(this.modelAndView);
@@ -67,14 +66,14 @@ public class testControladorAdministradorSeccionAutos {
 
 
     @Test
-    public void queNoSePuedaMostrarelPanelPrincipalConLaInformacionPorqueIntentaAccederSinLoguearse() {
+    public void queNoSePuedaMostrarelPanelPrincipalConLaInformacionPorqueIntentaAccederSinLoguearse() throws NoHayClientesSuscriptos, NoHayClientesNoSuscriptos, NoHayUsuariosPendientesDeRol {
         HttpServletRequest usuarioSinRol = givenExisteUnUsuarioSinRolDeAdministrador();
         whenSeMuestraLaVistaPrincipalConLaInformacionDel(usuarioSinRol);
         thenloMandaAlLoginConMensajeDeError(this.modelAndView, "No tienes los permisos necesarios para acceder a esta pagina");
     }
 
     @Test
-    public void alMostrarLaVistaPrincipalConLaInformacionDelAdministradorTambienSeDebeMostrarLaListaDeAutosAlquilados() throws NoHayAutosAlquiladosException {
+    public void alMostrarLaVistaPrincipalConLaInformacionDelAdministradorTambienSeDebeMostrarLaListaDeAutosAlquilados() throws NoHayAutosAlquiladosException, NoHayClientesSuscriptos, NoHayClientesNoSuscriptos, NoHayUsuariosPendientesDeRol {
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         givenSeMuestraLaVistaPrincipalConLaInformacionDel(usuarioConRol);
         givenExisteUnaListaDeAutosAlquilados(10);
@@ -83,7 +82,7 @@ public class testControladorAdministradorSeccionAutos {
     }
 
     @Test(expected = NoHayAutosAlquiladosException.class)
-    public void alMostrarLaVistaPrincipalConLaInformacionDelAdministradorTambienNoSeDebeMostrarLaListaDeAutosYaQueNoHayAutosAlquilados() throws NoHayAutosAlquiladosException {
+    public void alMostrarLaVistaPrincipalConLaInformacionDelAdministradorTambienNoSeDebeMostrarLaListaDeAutosYaQueNoHayAutosAlquilados() throws NoHayAutosAlquiladosException, NoHayClientesSuscriptos, NoHayClientesNoSuscriptos, NoHayUsuariosPendientesDeRol {
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         givenSeMuestraLaVistaPrincipalConLaInformacion(usuarioConRol);
         givenNoExistenAutosAlquilados();
@@ -96,7 +95,12 @@ public class testControladorAdministradorSeccionAutos {
         givenExistenAutosDisponibles(Situacion.DISPONIBLE, 10);
         HttpServletRequest usuarioConRol = givenExisteUnUsuarioConRolDeAdministrador();
         whenAccedeALaVistaDeAutosDisponibles(usuarioConRol);
+        whenObtieneLaListaDeAutosDisponibles();
         thenSeMuestraLaVistaConLaListaDeLosAutosDisponibles(this.modelAndView);
+    }
+
+    private List<Auto> whenObtieneLaListaDeAutosDisponibles() throws NoHayAutosDisponiblesException {
+        return controlador.obtenerListaDeAutosDisponibles();
     }
 
     @Test(expected = NoHayAutosDisponiblesException.class)
@@ -136,7 +140,7 @@ public class testControladorAdministradorSeccionAutos {
     }
 
     private void givenNoExistenAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
-        when(servicioDeAuto.obtenerAutosEnMantenimiento()).thenThrow(NoHayAutosEnMantenientoException.class);
+        doThrow(NoHayAutosEnMantenientoException.class).when(servicioDeAuto).obtenerAutosEnMantenimiento();
     }
 
     private void thenSeMuestraLaVistaConLaListaDeLosAutosEnMantenimiento(ModelAndView modelAndView) {
@@ -180,19 +184,19 @@ public class testControladorAdministradorSeccionAutos {
 
     private HttpServletRequest givenExisteUnUsuarioSinRolDeAdministrador() {
         when(request.getSession()).thenReturn(session);
-        when(request.getSession().getAttribute("rol")).thenReturn(null);
+        when(request.getSession().getAttribute("rol")).thenReturn(Rol.CLIENTE);
         return request;
     }
 
     private HttpServletRequest givenExisteUnUsuarioConRolDeAdministrador() {
         when(request.getSession()).thenReturn(session);
-        when(request.getSession().getAttribute("rol")).thenReturn("admin");
+        when(request.getSession().getAttribute("rol")).thenReturn(Rol.ADMIN);
         when(request.getSession().getAttribute("id")).thenReturn(1L);
         when(request.getSession().getAttribute("nombre")).thenReturn("admin");
         return request;
     }
 
-    private void givenSeMuestraLaVistaPrincipalConLaInformacionDel(HttpServletRequest usuarioConRol) {
+    private void givenSeMuestraLaVistaPrincipalConLaInformacionDel(HttpServletRequest usuarioConRol) throws NoHayClientesSuscriptos, NoHayClientesNoSuscriptos, NoHayUsuariosPendientesDeRol {
         this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador(usuarioConRol);
     }
 
@@ -210,7 +214,7 @@ public class testControladorAdministradorSeccionAutos {
         doThrow(NoHayAutosAlquiladosException.class).when(servicioAlquiler).obtenerAutosAlquilados();
     }
 
-    private void givenSeMuestraLaVistaPrincipalConLaInformacion(HttpServletRequest usuarioConRol) {
+    private void givenSeMuestraLaVistaPrincipalConLaInformacion(HttpServletRequest usuarioConRol) throws NoHayClientesSuscriptos, NoHayClientesNoSuscriptos, NoHayUsuariosPendientesDeRol {
         this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador(usuarioConRol);
     }
 
@@ -232,11 +236,11 @@ public class testControladorAdministradorSeccionAutos {
         this.modelAndView = controlador.irALaVistaPrincipal(usuario);
     }
 
-    private void whenSeMuestraLaVistaPrincipalConLaInformacionDel(HttpServletRequest usuarioConRol) {
+    private void whenSeMuestraLaVistaPrincipalConLaInformacionDel(HttpServletRequest usuarioConRol) throws NoHayClientesSuscriptos, NoHayClientesNoSuscriptos, NoHayUsuariosPendientesDeRol {
         this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador(usuarioConRol);
     }
 
-    private void whenMuestroLaListaDeAutosAlquiladosAl(HttpServletRequest usuarioConRol) {
+    private void whenMuestroLaListaDeAutosAlquiladosAl(HttpServletRequest usuarioConRol) throws NoHayClientesSuscriptos, NoHayClientesNoSuscriptos, NoHayUsuariosPendientesDeRol {
         this.modelAndView = controlador.mostrarElPanelPrincipalConLaInformacionDelAdministrador(usuarioConRol);
     }
 
@@ -274,7 +278,7 @@ public class testControladorAdministradorSeccionAutos {
 
 
     private void thenSeMuestraLaVistaConLaListaDeLosAutosDisponibles(ModelAndView modelAndView) {
-        assertThat(modelAndView.getViewName()).isEqualTo("disponibles");
+        assertThat(modelAndView.getViewName()).isEqualTo("autos_disponibles");
         assertThat(modelAndView.getModel().get("autosDisponibles")).isNotNull();
         assertThat(modelAndView.getModel().get("autosDisponibles")).isInstanceOf(List.class);
         List<Auto> autosDisponibles = (List<Auto>) modelAndView.getModel().get("autosDisponibles");

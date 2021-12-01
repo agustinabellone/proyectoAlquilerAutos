@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
@@ -15,9 +17,18 @@ public interface RepositorioUsuario {
 
     List<Usuario> buscarTodos();
 
+    Usuario buscarPorEmailYHash(String email, String hash);
+
     void eliminarUsuario(Long id);
 
     void actualizarUsuario(Long id_usuario, String nombre, String contraseña);
 
     List<Usuario> buscarUsuariosPorSuscripcion(Suscripcion suscripcion);
+
+
+    List<Notificacion> getNotificacionesPorId(Usuario buscado);
+
+    List<Usuario> buscarUsuariosPorRol(Rol rol);
+
+    List<Usuario> buscarUsuariosPendientesDeRol();
 }

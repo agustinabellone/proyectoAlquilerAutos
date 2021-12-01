@@ -49,12 +49,11 @@ public class ServicioDevolucionImpl implements ServicioDevolucion{
     }
 
     @Override
-    public void finalizarAlquilerCliente(Alquiler alquiler) {
+    public void finalizarAlquilerCliente(Alquiler alquiler, Suscripcion suscripcion) {
         //CAMBIAR ESTADO AUTO, CAMBIAR ESTADO ALQUIER
         alquiler.getAuto().setSituacion(Situacion.DISPONIBLE);
         alquiler.setEstado(Estado.FINALIZADO);
-        Float adicional = alquiler.getAdicionalCambioLugarFecha();
-        alquiler.setAdicionalCambioLugarFecha(adicional);
+        alquiler.setAdicionalCambioLugarFecha(alquiler, suscripcion);
         repositorioDevolucion.finalizarAlquilerCliente(alquiler); //UPDATE
     }
 

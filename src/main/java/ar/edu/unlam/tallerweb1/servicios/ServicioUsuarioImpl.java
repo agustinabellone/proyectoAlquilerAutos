@@ -1,10 +1,14 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
-import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
+
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
+
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
+
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
@@ -25,6 +29,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     public ServicioUsuarioImpl(RepositorioUsuario repositorioUsuario, RepositorioSuscripcion repositorioSuscripcion) {
         this.repositorioUsuario = repositorioUsuario;
         this.repositorioSuscripcion = repositorioSuscripcion;
+    }
+
+    public ServicioUsuarioImpl() {
     }
 
     @Override
@@ -51,9 +58,40 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
+    public List<Usuario> obtenerListaDeUsuariosPorRol(Rol rol) throws NoHayEmpladosException {
+        List<Usuario> buscados = repositorioUsuario.buscarUsuariosPorRol(rol);
+        if (buscados.size() > 0) {
+            return buscados;
+        }
+        throw new NoHayEmpladosException();
+    }
+
+    @Override
+    public List<Usuario> obtenerListaDeUsuariosPendienteDeRol() throws NoHayUsuariosPendientesDeRol {
+        List<Usuario> pendientesDeRol = repositorioUsuario.buscarUsuariosPendientesDeRol();
+        if (pendientesDeRol.size() > 0){
+            return pendientesDeRol;
+        }
+        throw new NoHayUsuariosPendientesDeRol();
+    }
+
+    @Override
     public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) {
         return null;
     }
+
+
+    @Override
+    public List<Notificacion> getNotificacionesPorId(Usuario buscado) {
+        return repositorioUsuario.getNotificacionesPorId(buscado);
+    }
+
+
+
+    public Suscripcion obtenerSuscripcionDeUsuario(Usuario cliente) {
+        return repositorioSuscripcion.buscarPorUsuario(cliente);
+    }
+
 
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {
         return contraseña.length() < 8;
