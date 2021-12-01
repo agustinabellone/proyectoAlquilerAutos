@@ -137,11 +137,11 @@ public class TestControladorAdministradorSeccionEmpleados {
             usuario.setRol(empleado);
             listaDeUsuariosEncargadosDeDevolucion.add(usuario);
         }
-        when(servicioUsuario.obtenerListaDeUsuariosPorRol(any())).thenReturn(listaDeUsuariosEncargadosDeDevolucion);
+        when(servicioUsuario.obtenerListaDeUsuariosPorRol((Rol) any())).thenReturn(listaDeUsuariosEncargadosDeDevolucion);
     }
 
     private void givenNoExistenEncargadosDeLaDevolucionDeLosAutos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
-        doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(any());
+      doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol((Rol) any());
     }
 
     private void givenAccedeALaVistaDeEmpleadosMecanicos(HttpServletRequest administrador) {
@@ -149,7 +149,7 @@ public class TestControladorAdministradorSeccionEmpleados {
     }
 
     private void givenNoExistenEmpladosMecanicos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
-        doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(any());
+       doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol((Rol) any());
     }
 
     private void whenAccedeALaVistaDeEmpleados(HttpServletRequest administrador) {

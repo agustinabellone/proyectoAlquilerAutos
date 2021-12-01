@@ -14,6 +14,8 @@ public interface ServicioSuscripcion {
 
     Boolean existeSuscripcionPorUsuario(Usuario usuario);
 
+    Suscripcion suscripcionDeUsuario(Usuario usuario);
+
     void cancelarRenovacionAutomaticaDeSuscripcion(Long id);
 
     Suscripcion buscarPorIdUsuario(Long id);

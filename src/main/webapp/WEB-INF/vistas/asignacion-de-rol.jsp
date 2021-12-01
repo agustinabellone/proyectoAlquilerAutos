@@ -196,11 +196,15 @@
                 <div class="col-12 mb-4">
                     <h1 class="h3 mb-0 text-gray-800 text-center">Bienvenido ${nombre}</h1>
                 </div>
+<<<<<<< HEAD
+
+=======
                 <c:if test="${not empty mensaje_exito}">
                     <div class="alert alert-success text-center container mt-3 col-12" role="alert">
                             ${mensaje_exito}
                     </div>
                 </c:if>
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
                 <!-- Empieza FOR-EAH-->
                 <c:forEach items="${pendientes_de_rol}" var="empleados">
                     <div class="col-md-12">
@@ -223,8 +227,12 @@
                                                                 <option value="2">Mecanico</option>
                                                                 <option value="3">Encargado de Devolucion</option>
                                                             </select>
+<<<<<<< HEAD
+                                                            <input type="submit" value="Enviar" class="btn-info"/>
+=======
                                                             <input type="hidden" name="id_usuario" value="${empleados.id}">
                                                             <input type="submit" value="Confirmar" class="btn-info"/>
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
                                                         </form>
                                                     </li>
                                                 </ul>
@@ -239,9 +247,15 @@
                 </c:forEach>
                 <!-- termina FOR-EACH -->
                 <!-- Content Row -->
+<<<<<<< HEAD
+                <c:if test="${not empty error_no_hay_pendientes_de_rol}">
+                    <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
+                            ${error_no_hay_pendientes_de_rol}
+=======
                 <c:if test="${not empty error}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
                             ${error}
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
                     </div>
                 </c:if>
                 <div class="row">

@@ -47,7 +47,7 @@ public class TestServicioAsignacionDeRol {
         List<Usuario> usuarioList = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setEmail("eze@tallerweb" + i + ".com");
+            usuario.setEmail("eze@tallerweb"+i+".com");
             usuario.setRol(Rol.EMPLEADO);
             usuarioList.add(usuario);
         }
@@ -98,4 +98,5 @@ public class TestServicioAsignacionDeRol {
     private void givenNoExisteUnUsuarioPendienteDeRol() {
         when(repositorioUsuario.buscarPorId(anyLong())).thenReturn(null);
     }
+
 }

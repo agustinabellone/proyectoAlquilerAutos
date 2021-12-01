@@ -242,8 +242,12 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
+<<<<<<< HEAD
+                                        <a href="clientes-suscriptos" class="text-success font-weight-bold text-lg">Ver</a>
+=======
                                         <a href="clientes-suscriptos"
                                            class="text-success font-weight-bold text-lg">Ver</a>
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
                                     </div>
                                 </div>
                             </div>
@@ -295,8 +299,12 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
+<<<<<<< HEAD
+                                        <a href="asignacion-de-rol" class="text-warning font-weight-bold text-lg">Ver</a>
+=======
                                         <a href="asignacion-de-rol"
                                            class="text-warning font-weight-bold text-lg">Ver</a>
+>>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa
                                     </div>
                                 </div>
                             </div>

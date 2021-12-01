@@ -29,7 +29,7 @@ public class TestRepositorioAsignacionDeRol extends SpringTest {
     private void givenExitenUsuariosPendientesDeRol(int cantidad) {
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setEmail("eze" + i + "@tallerweb.com");
+            usuario.setEmail("eze"+i+"@tallerweb.com");
             usuario.setRol(Rol.EMPLEADO);
             session().save(usuario);
         }
@@ -41,7 +41,7 @@ public class TestRepositorioAsignacionDeRol extends SpringTest {
 
     private void thenObtengoUnaListaDeLosUsuariosPendientesDeRol(List<Usuario> usuarioList) {
         assertThat(usuarioList).hasSize(5);
-        for (Usuario usuario : usuarioList) {
+        for (Usuario usuario: usuarioList) {
             assertThat(usuario.getRol()).isEqualTo(Rol.EMPLEADO);
             assertThat(usuario.getEmail()).contains("@tallerweb");
         }
@@ -78,4 +78,5 @@ public class TestRepositorioAsignacionDeRol extends SpringTest {
         assertThat(actualizado).isInstanceOf(Usuario.class);
         assertThat(actualizado.getRol()).isEqualTo(Rol.MECANICO);
     }
+
 }

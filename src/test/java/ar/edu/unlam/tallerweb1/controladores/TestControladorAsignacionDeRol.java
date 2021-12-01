@@ -95,7 +95,6 @@ public class TestControladorAsignacionDeRol {
         thenSeMuestraLaVistaConMensajeDeError(this.modelAndView, "No hay usuarios pendientes de rol");
     }
 
-
     private void givenNoExistenUsuariosPendientesDeRol() throws NoHayUsuariosPendientesDeRol {
         doThrow(NoHayUsuariosPendientesDeRol.class).when(servicioUsuario).obtenerListaDeUsuariosPendienteDeRol();
     }
@@ -182,4 +181,5 @@ public class TestControladorAsignacionDeRol {
     private void givenNoSeAsignaElRolCorrectamente() throws NoSeAsignoElRol {
         doThrow(NoSeAsignoElRol.class).when(servicioUsuario).asignarRol(any(), anyLong());
     }
+
 }

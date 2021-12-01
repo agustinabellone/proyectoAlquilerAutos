@@ -11,15 +11,20 @@ public class Garage {
     @Id
     private Long id;
     private String direccion;
+    @ManyToOne
+    private Localidad localidad;
     private Integer capacidad;
     private Integer cantAutosActual;
+    @OneToOne
+    private Usuario encargado;
 
 
-    public Garage(Long id, String direccion, Integer capacidad, Integer cantAutosActual) {
+    public Garage(Long id, String direccion, Integer capacidad, Integer cantAutosActual, Usuario encargado) {
         this.id = id;
         this.direccion = direccion;
         this.capacidad = capacidad;
         this.cantAutosActual = cantAutosActual;
+        this.encargado=encargado;
     }
 
     public Garage() {
@@ -58,5 +63,11 @@ public class Garage {
         this.cantAutosActual = cantAutosActual;
     }
 
+    public Usuario getEncargado() {
+        return encargado;
+    }
 
+    public void setEncargado(Usuario encargado) {
+        this.encargado = encargado;
+    }
 }

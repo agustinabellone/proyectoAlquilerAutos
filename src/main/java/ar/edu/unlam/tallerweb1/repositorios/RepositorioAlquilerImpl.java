@@ -6,9 +6,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-@Repository("RepositorioAlquiler")
+@Transactional
+@Repository
 public class RepositorioAlquilerImpl implements RepositorioAlquiler {
 
     private SessionFactory sessionFactory;
@@ -23,8 +25,35 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
         sessionFactory.getCurrentSession().save(alquiler);
     }
 
+
     @Override
     public List<Auto> obtenerAutosDisponibles() {
+        return this.sessionFactory.getCurrentSession()
+                .createCriteria(Auto.class)
+                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE)).list();
+    }
+
+
+    @Override
+    public List<Auto> obtenerAutosDisponiblesGamaBaja() {
+        return this.sessionFactory.getCurrentSession()
+                .createCriteria(Auto.class)
+                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
+                .add(Restrictions.eq("gama", Gama.BAJA))
+                .list();
+    }
+
+    @Override
+    public List<Auto> obtenerAutosDisponiblesGamaMedia() {
+        return this.sessionFactory.getCurrentSession()
+                .createCriteria(Auto.class)
+                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
+                .add(Restrictions.not(Restrictions.eq("gama",Gama.ALTA)))
+                .list();
+    }
+
+    @Override
+    public List<Auto> obtenerAutosDisponiblesGamaAlta() {
         return this.sessionFactory.getCurrentSession()
                 .createCriteria(Auto.class)
                 .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
@@ -66,6 +95,20 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
         return sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
                 .add(Restrictions.eq("auto", id))
                 .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
+    }
+
+    @Override
+    public void actualizarAlquiler(Alquiler alquiler) {
+        //sessionFactory.getCurrentSession().update(alquiler);
+        alquiler = (Alquiler) sessionFactory.getCurrentSession().merge(alquiler);
+        sessionFactory.getCurrentSession().save(alquiler);
+    }
+
+    @Override
+    public Alquiler obtenerAlquileresPendientesDeUsuario(Usuario usuario) {
+        return (Alquiler) sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
+                .add(Restrictions.eq("usuario", usuario))
+                .add(Restrictions.eq("estado", Estado.PENDIENTE)).uniqueResult();
     }
 
 }

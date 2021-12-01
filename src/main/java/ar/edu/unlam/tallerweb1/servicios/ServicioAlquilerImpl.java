@@ -51,6 +51,11 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     }
 
     @Override
+    public Alquiler obtenerAlquilerPendienteDeUsuario(Usuario usuario) {
+        return repositorioAlquiler.obtenerAlquileresPendientesDeUsuario(usuario);
+    }
+
+    @Override
     public List<Auto> obtenerAutosDisponibles() throws NoHayAutosDisponiblesException {
         List<Auto> autosDisponibles = repositorioAlquiler.obtenerAutosDisponibles();
         if (autosDisponibles.size() == 0) {
@@ -58,6 +63,39 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
         }
         return autosDisponibles;
     }
+
+
+
+
+    @Override
+    public List<Auto> obtenerAutosDisponiblesGamaBaja() throws NoHayAutosDisponiblesException {
+        List<Auto> autosDisponibles = repositorioAlquiler.obtenerAutosDisponiblesGamaBaja();
+        if (autosDisponibles.size() == 0) {
+            throw new NoHayAutosDisponiblesException();
+        }
+        return autosDisponibles;
+    }
+
+    @Override
+    public List<Auto> obtenerAutosDisponiblesGamaMedia() throws NoHayAutosDisponiblesException {
+        List<Auto> autosDisponibles = repositorioAlquiler.obtenerAutosDisponiblesGamaMedia();
+        if (autosDisponibles.size() == 0) {
+            throw new NoHayAutosDisponiblesException();
+        }
+        return autosDisponibles;
+    }
+
+    @Override
+    public List<Auto> obtenerAutosDisponiblesGamaAlta() throws NoHayAutosDisponiblesException {
+        List<Auto> autosDisponibles = repositorioAlquiler.obtenerAutosDisponiblesGamaAlta();
+        if (autosDisponibles.size() == 0) {
+            throw new NoHayAutosDisponiblesException();
+        }
+        return autosDisponibles;
+    }
+
+
+
 
     @Override
     public Auto obtenerAutoPorId(Long id_auto) {

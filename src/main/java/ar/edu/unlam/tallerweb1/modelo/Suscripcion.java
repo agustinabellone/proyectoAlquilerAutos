@@ -17,7 +17,7 @@ public class Suscripcion {
     @OneToOne
     private Usuario Usuario;
 
-    @OneToOne
+    @ManyToOne
     private TipoSuscripcion TipoSuscripcion;
 
     @Column(nullable = true)

@@ -50,7 +50,7 @@ public class ControladorAdministrador {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/panel-principal")
-    public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request) {
+    public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request){
         ModelMap model = getModelMap();
         String vista;
         if (this.elRolEstaSeteadoYEsAdministrador(request)) {
@@ -62,12 +62,12 @@ public class ControladorAdministrador {
 
                 }
                 try {
-                    model.put("clientes_no_suscriptos", obtenerListaDeClientesNoSuscriptos());
+                    model.put("clientes_no_suscriptos",obtenerListaDeClientesNoSuscriptos());
                 } catch (NoHayClientesNoSuscriptos e) {
 
                 }
                 try {
-                    model.put("lista_de_suscripto", obtenerClientesSuscriptos());
+                    model.put("lista_de_suscripto",obtenerClientesSuscriptos());
                 } catch (NoHayClientesSuscriptos e) {
 
                 }
@@ -331,7 +331,8 @@ public class ControladorAdministrador {
         return servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
     }
 
-    public List<Usuario> obtenerListaDeUsuariosConRol(Rol rol) throws NoHayEmpladosException {
+
+    public List<Usuario> obtenerListaDeUsuariosConRol(Rol rol) throws NoHayEmpladosException{
         return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
     }
 

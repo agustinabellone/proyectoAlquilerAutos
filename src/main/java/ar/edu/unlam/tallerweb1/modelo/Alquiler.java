@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class Alquiler {
     private LocalDate f_ingreso;
     private Float adicionalCambioLugarFecha = 0.0f;
     private Float adicionalInfraccionesOtro = 0.0f;
-    private Boolean estadoValoracionAuto=Boolean.FALSE;
+    private Boolean estadoValoracionAuto = Boolean.FALSE;
     @ManyToOne
     private Auto auto;
     @ManyToOne
@@ -32,10 +33,10 @@ public class Alquiler {
     @ManyToOne
     private Garage garageLlegada;
 
-    @ManyToOne
-    private Encargado encargado;
     private Estado estado; //ACTIVO O FINALIZADO
 
+    @ManyToOne
+    private Usuario encargado;
 
 
     public Alquiler() {
@@ -57,6 +58,7 @@ public class Alquiler {
 
     public Alquiler(DatosAlquiler datosAlquiler) {
         this.auto = datosAlquiler.getAuto();
+        this.encargado = datosAlquiler.getLugarDevolucion().getEncargado();
         this.usuario = datosAlquiler.getUsuario();
         this.f_ingreso = datosAlquiler.getF_ingreso();
         this.f_egreso = datosAlquiler.getF_salida();
@@ -64,7 +66,7 @@ public class Alquiler {
         this.garageLlegada = datosAlquiler.getLugarDevolucion();
         this.garageLlegadaEst = datosAlquiler.getLugarDevolucion();
         this.estado = Estado.ACTIVO;
-        this.estadoValoracionAuto=Boolean.FALSE;
+        this.estadoValoracionAuto = Boolean.FALSE;
     }
 
     public Long getId() {
@@ -98,6 +100,15 @@ public class Alquiler {
     public void setAdicionalCambioLugarFecha(Float adicionalCambioLugarFecha) {
         this.adicionalCambioLugarFecha = adicionalCambioLugarFecha;
     }
+
+    public Usuario getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(Usuario encargado) {
+        this.encargado = encargado;
+    }
+
 
     public Float getAdicionalInfraccionesOtro() {
         return adicionalInfraccionesOtro;
@@ -155,14 +166,6 @@ public class Alquiler {
         this.garageLlegada = garageLlegada;
     }
 
-    public Encargado getEncargado() {
-        return encargado;
-    }
-
-    public void setEncargado(Encargado encargado) {
-        this.encargado = encargado;
-    }
-
     public Estado getEstado() {
         return estado;
     }
@@ -172,28 +175,16 @@ public class Alquiler {
     }
 
     public void setAdicionalCambioLugarFecha(Alquiler alquiler, Suscripcion suscripcion) {
-        Usuario usuario = suscripcion.getUsuario();
+        Usuario usuario = alquiler.getUsuario();
         if (usuario.getRol().equals(Rol.CLIENTE)) {
             if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
-                String descripcion = suscripcion.getTipoSuscripcion().getDescripcion();
-                if (this.garageLlegadaEst != this.garageLlegada)
-                switch (descripcion) {
-                    case "standard":
-                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+500f;
-                        break;
-                    case "premium":
-                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+400f;
-                        break;
-                    case "golden":
-                        adicionalCambioLugarFecha=adicionalCambioLugarFecha+0f; //CAMBIAR POR EXCEPTION
-                        break;
-                }
+                if (this.garageLlegadaEst != this.garageLlegada) //SI NO HUBO CAMBIO DE GARAGE GARAGE LLEGADA == NULL
+                    adicionalCambioLugarFecha = adicionalCambioLugarFecha + suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar();
             }
         }
     }
-
-
 }
+
 
 
 

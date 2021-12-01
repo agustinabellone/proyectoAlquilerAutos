@@ -101,6 +101,11 @@
                 <h1 class="text-center">Alquileres actuales: ${alquileres.size()}</h1>
             </div>
         </c:if>
+        <c:if test = "${not empty esperandoConfirmacion}">
+            <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
+                <h1 class="text-center">El alquiler aún no recibe confirmacion de finalizacion. Una vez terminado aparecera en el historia de tus alquileres.</h1>
+            </div>
+        </c:if>
         <div class="container d-flex justify-content-center text-center">
             <div class="col-sm-9">
                     <c:forEach items="${alquileres}" var="alquiler">
