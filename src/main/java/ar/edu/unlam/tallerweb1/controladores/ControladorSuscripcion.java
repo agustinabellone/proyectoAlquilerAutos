@@ -4,6 +4,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaActivadaException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaCanceladaException;
+import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
@@ -37,7 +38,7 @@ public class ControladorSuscripcion {
     private ModelAndView mostrarFormularioSuscripcion(HttpServletRequest request){
 
         if(null != request.getSession().getAttribute("rol")){
-            if(request.getSession().getAttribute("rol").equals("cliente")){
+            if(request.getSession().getAttribute("rol").equals(Rol.CLIENTE)){
                 if(!(Boolean)request.getSession().getAttribute("tieneSuscripcion")){
                     return new ModelAndView("ir-a-suscribir");
                 }
@@ -117,7 +118,7 @@ public class ControladorSuscripcion {
 
 
         if(null != request.getSession().getAttribute("rol")){
-            if(request.getSession().getAttribute("rol").equals("cliente")){
+            if(request.getSession().getAttribute("rol").equals(Rol.CLIENTE)){
                 obtenerDatosDeSuscripcion(request, (Long)request.getSession().getAttribute("id"));
                 return new ModelAndView("administrar-suscripcion");
             }
