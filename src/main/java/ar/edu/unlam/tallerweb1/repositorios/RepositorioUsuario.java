@@ -29,4 +29,6 @@ public interface RepositorioUsuario {
     List<Usuario> buscarUsuariosPorRol(Rol rol);
 
     List<Usuario> buscarUsuariosPendientesDeRol();
+
+    Usuario actualizarRol(Rol rol, Long id_usuario);
 }

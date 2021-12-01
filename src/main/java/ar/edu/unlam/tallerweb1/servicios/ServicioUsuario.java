@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
+import ar.edu.unlam.tallerweb1.Exceptions.NoSeAsignoElRol;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -25,4 +26,6 @@ public interface ServicioUsuario {
 
 
     List<Usuario> obtenerListaDeUsuariosPendienteDeRol() throws NoHayUsuariosPendientesDeRol;
+
+    Usuario asignarRol(Rol mecanico, Long id_usuario) throws NoSeAsignoElRol;
 }

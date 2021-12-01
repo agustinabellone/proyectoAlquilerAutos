@@ -89,5 +89,10 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .add(Restrictions.eq("rol", Rol.EMPLEADO)).list();
     }
 
+    @Override
+    public Usuario actualizarRol(Rol rol, Long id_usuario) {
+        return null;
+    }
+
 
 }
