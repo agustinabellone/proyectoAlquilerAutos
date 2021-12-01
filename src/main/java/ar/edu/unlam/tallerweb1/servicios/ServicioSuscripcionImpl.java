@@ -60,6 +60,12 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
     }
 
     @Override
+    public Suscripcion suscripcionDeUsuario(Usuario usuario) {
+        Suscripcion buscado = repositorioSuscripcion.buscarPorUsuario(usuario);
+        return buscado;
+    }
+
+    @Override
     public void cancelarRenovacionAutomaticaDeSuscripcion(Long id) {
 
         Suscripcion buscada = buscarPorIdUsuario(id);

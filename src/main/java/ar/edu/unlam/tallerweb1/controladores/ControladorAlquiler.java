@@ -1,11 +1,10 @@
 package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Garage;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMail;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -27,18 +26,30 @@ public class ControladorAlquiler {
 
     private ServicioAlquiler servicioAlquiler;
     private ServicioMail servicioMail;
+    private ServicioSuscripcion servicioSuscripcion;
 
     @Autowired
-    public ControladorAlquiler(ServicioAlquiler servicioAlquiler, ServicioMail servicioMail) {
+    public ControladorAlquiler(ServicioAlquiler servicioAlquiler, ServicioMail servicioMail,ServicioSuscripcion servicioSuscripcion) {
         this.servicioAlquiler = servicioAlquiler;
         this.servicioMail=servicioMail;
+        this.servicioSuscripcion=servicioSuscripcion;
     }
 
     @RequestMapping(path = "/alquilar-auto", method = RequestMethod.GET)
-    public ModelAndView mostrarListaDeAutos() throws NoHayAutosDisponiblesException {
+    public ModelAndView mostrarListaDeAutos(HttpServletRequest request) throws NoHayAutosDisponiblesException {
         ModelMap modelo = new ModelMap();
-            List<Auto> autosDisponibles = servicioAlquiler.obtenerAutosDisponibles();
+        Long id= (Long) request.getSession().getAttribute("id");
+       TipoSuscripcion tipoSuscripcion = servicioSuscripcion.buscarPorIdUsuario(id).getTipoSuscripcion();
+        if(tipoSuscripcion.getId()==1){
+            List<Auto> autosDisponibles = servicioAlquiler.obtenerAutosDisponiblesGamaBaja();
             modelo.put("autosDisponibles", autosDisponibles);
+        }if (tipoSuscripcion.getId()==2){
+            List<Auto> autosDisponibles = servicioAlquiler.obtenerAutosDisponiblesGamaMedia();
+            modelo.put("autosDisponibles", autosDisponibles);
+        }if (tipoSuscripcion.getId()==3){
+            List<Auto> autosDisponibles = servicioAlquiler.obtenerAutosDisponiblesGamaAlta();
+            modelo.put("autosDisponibles", autosDisponibles);
+        }
             return new ModelAndView("alquilarAuto", modelo);
     }
 
