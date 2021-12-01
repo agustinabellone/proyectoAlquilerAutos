@@ -1,10 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.*;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
@@ -268,16 +265,30 @@ public class ControladorAdministrador {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/enviar-a-matenimiento")
-    public ModelAndView enviarAMantenimiento(@RequestParam(value = "id_auto") Long id_auto, HttpServletRequest administrador) {
+    public ModelAndView enviarAMantenimiento(@RequestParam(value = "id_auto") Long id_auto, HttpServletRequest administrador) throws AutoNoExistente {
         ModelMap model = new ModelMap();
         String vista;
         if (elRolEstaSeteadoYEsAdministrador(administrador)) {
             vista = "autos_disponibles";
-            model.put("mensaje_exito", "Se envio un auto correctamente a mantenimiento");
+            Auto buscado = obtenerAuto(id_auto);
+            if (buscado != null) {
+                try {
+                    Auto actualizado = servicioDeAuto.enviarAMantenimiento(buscado.getId());
+                    model.put("autoAEnviar", actualizado);
+                    model.put("mensaje_exito", "Se envio un auto correctamente a mantenimiento");
+                } catch (NoEnviaAutoAMantenimiento e) {
+                    model.put("error","No se envio el auto a mantenimiento porque esta ocupado");
+                    model.put("auto",buscado);
+                }
+            }
         } else {
             vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
         return setModelAndView(model, vista);
+    }
+
+    private Auto obtenerAuto(Long id_auto) throws AutoNoExistente {
+        return servicioDeAuto.buscarAutoPorId(id_auto);
     }
 
     private boolean elRolEstaSeteadoYEsAdministrador(HttpServletRequest request) {

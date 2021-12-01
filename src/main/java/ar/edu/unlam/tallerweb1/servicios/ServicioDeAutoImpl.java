@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
@@ -42,5 +43,10 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
             throw new NoHayAutosEnMantenientoException();
         }
         return autosEnMantenimiento;
+    }
+
+    @Override
+    public Auto enviarAMantenimiento(Long buscado) throws NoEnviaAutoAMantenimiento {
+        throw new NoEnviaAutoAMantenimiento();
     }
 }

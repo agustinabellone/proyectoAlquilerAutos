@@ -107,7 +107,7 @@ public class TestControladorAdministradorSeccionEmpleados {
         givenAccedeALaVistaDeEmpleadosMecanicos(administrador);
         whenObtieneUnaListaDeUsuarios(Rol.MECANICO);
         thenSeMuestraLaVista("mecanicos", this.modelAndView);
-        thenSeMuestraLaLista(this.modelAndView, "mecanicos", 3);
+        thenSeMuestraLaLista(this.modelAndView, "lista_mecanicos", 3);
     }
 
     @Test(expected = NoHayEmpladosException.class)
