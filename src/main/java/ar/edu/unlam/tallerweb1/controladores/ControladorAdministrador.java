@@ -275,7 +275,12 @@ public class ControladorAdministrador {
                 try {
                     Auto actualizado = servicioDeAuto.enviarAMantenimiento(buscado.getId());
                     model.put("autoAEnviar", actualizado);
-                    model.put("mensaje_exito", "Se envio un auto correctamente a mantenimiento");
+                    model.put("mensaje_exito", "Se envio un auto correctamente el auto: " +
+                            "\n Patente: "+actualizado.getPatente()+"" +
+                            "\n Marca: "+actualizado.getMarca()+""+
+                            "\n Modelo: "+actualizado.getModelo()+""+
+                            "\n Kilomtraje: "+actualizado.getKm()+""+
+                            "\n Situacion: "+actualizado.getSituacion()+"");
                 } catch (NoEnviaAutoAMantenimiento e) {
                     model.put("error", "No se envio el auto a mantenimiento porque esta ocupado");
                     model.put("auto", buscado);
