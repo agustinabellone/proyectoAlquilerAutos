@@ -59,4 +59,9 @@ public class RepositorioAutoImpl implements RepositorioAuto {
                 .list();
     }
 
+    @Override
+    public Auto enviarAMantenimiento(Long id, Situacion enMantenimiento) {
+        return null;
+    }
+
 }

@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
-import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -26,6 +25,9 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         this.repositorioAuto = repositorioAuto;
     }
 
+    public ServicioDeAutoImpl() {
+    }
+
     @Override
     public Auto buscarAutoPorId(Long idDelAuto) throws AutoNoExistente {
         Auto buscado = repositorioAuto.buscarPor(idDelAuto);
@@ -39,7 +41,7 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     @Override
     public List<Auto> obtenerAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
         List<Auto> autosEnMantenimiento = repositorioAuto.buscarAutosEnMantenimiento(Situacion.EN_MANTENIMIENTO);
-        if (autosEnMantenimiento.isEmpty()){
+        if (autosEnMantenimiento.isEmpty()) {
             throw new NoHayAutosEnMantenientoException();
         }
         return autosEnMantenimiento;
@@ -47,6 +49,14 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
 
     @Override
     public Auto enviarAMantenimiento(Long buscado) throws NoEnviaAutoAMantenimiento {
+        Auto obtenido = repositorioAuto.buscarPor(buscado);
+        if (obtenido != null) {
+            if (obtenido.getSituacion().equals(Situacion.DISPONIBLE)){
+                Auto enMantenimiento = repositorioAuto.enviarAMantenimiento(obtenido.getId(),Situacion.EN_MANTENIMIENTO);
+                return enMantenimiento;
+            }
+            throw new NoEnviaAutoAMantenimiento();
+        }
         throw new NoEnviaAutoAMantenimiento();
     }
 }
