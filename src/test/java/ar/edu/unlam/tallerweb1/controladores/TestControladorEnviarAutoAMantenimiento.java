@@ -80,12 +80,17 @@ public class TestControladorEnviarAutoAMantenimiento {
 
     private void thenSeMuestrsUnMensajeDeExito(ModelAndView modelAndView, Long id_auto) {
         assertThat(modelAndView.getViewName()).isEqualTo("autos_disponibles");
-        assertThat(modelAndView.getModel().get("mensaje_exito")).isEqualTo("Se envio un auto correctamente a mantenimiento");
         assertThat(modelAndView.getModel().get("autoAEnviar")).isNotNull();
         assertThat(modelAndView.getModel().get("autoAEnviar")).isInstanceOf(Auto.class);
         Auto auto = (Auto) modelAndView.getModel().get("autoAEnviar");
         assertThat(auto.getId()).isEqualTo(id_auto);
         assertThat(auto.getSituacion()).isEqualTo(Situacion.EN_MANTENIMIENTO);
+        assertThat(modelAndView.getModel().get("mensaje_exito")).isEqualTo("Se envio un auto correctamente el auto: " +
+                "\n Patente: "+auto.getPatente()+"" +
+                "\n Marca: "+auto.getMarca()+""+
+                "\n Modelo: "+auto.getModelo()+""+
+                "\n Kilomtraje: "+auto.getKm()+""+
+                "\n Situacion: "+auto.getSituacion()+"");
     }
 
     @Test

@@ -245,6 +245,11 @@
                             ${error}
                     </div>
                 </c:if>
+                <c:if test="${not empty error_no_hay_pendientes_de_rol}">
+                    <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
+                            ${error_no_hay_pendientes_de_rol}
+                    </div>
+                </c:if>
                 <div class="row">
 
                 </div>

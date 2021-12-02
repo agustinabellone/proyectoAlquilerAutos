@@ -209,6 +209,11 @@
                     </form>
                 </div>
 
+                <c:if test="${not empty mensaje_exito}">
+                    <div class="alert alert-success text-center container mt-3 col-12" role="alert">
+                            ${mensaje_exito}
+                    </div>
+                </c:if>
                 <!-- Empieza FOR-EAH-->
                 <c:forEach items="${autosDisponibles}" var="auto">
                     <div class="col-md-12">
@@ -222,9 +227,6 @@
                                         <div class="row mt-3">
                                             <div class="col-lg-6 align-self-center">
                                                 <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                    <li>
-                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio: dd/mm/yy</span>
-                                                    </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
                                                         Patente: <span>${auto.patente}</span>
                                                     </li>
@@ -237,6 +239,9 @@
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
                                                         Kilometraje: <span>${auto.km}</span>
                                                     </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Gama: <span>${auto.gama}</span>
+                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="col-lg-6">
@@ -245,8 +250,8 @@
                                                          alt="" style="width: 100%; height: auto;">
                                                 </div>
                                             </div>
-                                            <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
-                                            >Fecha Retorno: dd/mm/yy</p>
+                                            <a class="btn btn-primary font-14 border-0 text-white p-3 btn-block mt-3"
+                                               href="enviar-a-matenimiento?id_auto=${auto.id}">ENVIAR A MANTENIMIENTO</a>
                                         </div>
                                     </div>
                                 </div>
