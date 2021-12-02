@@ -6,6 +6,7 @@ public class Puntaje {
     int valoracion = 20;
     int suscripcion = 100;
 
+
     public Puntaje() {}
 
     public int getAlquiler() {

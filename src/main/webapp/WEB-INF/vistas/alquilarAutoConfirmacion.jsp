@@ -49,6 +49,7 @@
             <div class="alert alert-success text-center container mt-3" role="alert">
                ${mensaje}
             </div>
+            <p class="text-center">¡Sumaste 50 puntos!</p>
             <div class="col-sm-12 d-flex justify-content-center">
                 <a href="main" class="btn btn-dark" >Volver a mi cuenta</a>
             </div>

@@ -1,11 +1,10 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.*;
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMail;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
+
 
 
 @Controller
@@ -23,11 +22,13 @@ public class ControladorRegistro {
 
     private ServicioRegistro servicioRegistro;
     private ServicioMail servicioMail;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorRegistro(ServicioRegistro servicioRegistro, ServicioMail servicioMail) {
+    public ControladorRegistro(ServicioRegistro servicioRegistro, ServicioMail servicioMail, ServicioUsuario servicioUsuario) {
         this.servicioRegistro = servicioRegistro;
         this.servicioMail=servicioMail;
+        this.servicioUsuario = servicioUsuario;
     }
 
     @RequestMapping(path = "/registro", method = RequestMethod.GET)
@@ -43,9 +44,12 @@ public class ControladorRegistro {
         ModelMap modelo = new ModelMap();
         String md5=crearMd5(datosRegistro.getEmail());
 
+        Usuario usuario = servicioUsuario.buscarPorEmail(datosRegistro.getEmail());
+
         try {
             servicioRegistro.registrar(datosRegistro,md5);
             servicioMail.enviarMailRegistro(datosRegistro.getEmail(),md5);
+            usuario.setPuntaje(0);
         }
         catch (ClavesDistintasException e){
             return registroFallido(modelo, "Las claves deben ser iguales");
