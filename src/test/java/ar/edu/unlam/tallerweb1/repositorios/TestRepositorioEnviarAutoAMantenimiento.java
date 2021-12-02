@@ -19,13 +19,8 @@ public class TestRepositorioEnviarAutoAMantenimiento extends SpringTest {
     @Test @Rollback @Transactional
     public void queSePuedaEnviarUnAutoDisponibleAMantenimiento() {
         Long id_auto = givenExisteUnAutoDisponible();
-        whenLoEnvioAMantenimiento(id_auto, Situacion.EN_MANTENIMIENTO);
-        Auto actualizado = whenObtengoElActualizado(id_auto);
+        Auto actualizado = whenLoEnvioAMantenimiento(id_auto, Situacion.EN_MANTENIMIENTO);
         thenObtengoElAuto(actualizado);
-    }
-
-    private Auto whenObtengoElActualizado(Long id_auto) {
-        return repositorioAuto.buscarPor(id_auto);
     }
 
     private Long givenExisteUnAutoDisponible() {
@@ -35,8 +30,8 @@ public class TestRepositorioEnviarAutoAMantenimiento extends SpringTest {
         return auto.getId();
     }
 
-    private void whenLoEnvioAMantenimiento(Long id_auto, Situacion enMantenimiento) {
-        repositorioAuto.enviarAMantenimiento(id_auto, enMantenimiento);
+    private Auto whenLoEnvioAMantenimiento(Long id_auto, Situacion enMantenimiento) {
+        return repositorioAuto.enviarAMantenimiento(id_auto, enMantenimiento);
     }
 
     private void thenObtengoElAuto(Auto actualizado) {

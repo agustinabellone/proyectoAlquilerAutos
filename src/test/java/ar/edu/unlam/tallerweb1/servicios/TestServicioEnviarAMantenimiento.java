@@ -8,6 +8,8 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
 import org.junit.Test;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,28 +37,29 @@ public class TestServicioEnviarAMantenimiento {
 
     @Test
     public void queSePuedaEnviarUnAutoDisponibleAMantenimiento() throws NoEnviaAutoAMantenimiento, AutoNoExistente {
-        Long id_auro = givenExisteUnAutoDisponible();
-        givenDevuelveUnAutoEnMantenimiento();
-        Auto auto = whenEnviaAMantenimiento(id_auro);
-        thenObtengoElAutoActualizado(auto);
+        Long id_auto = givenExisteUnAutoDisponible();
+        whenSeteaLaSituacion();
+        Auto enMantenimiento = whenEnviaAMantenimiento(id_auto);
+        thenObtengoElAuto(enMantenimiento);
     }
 
-    private void givenDevuelveUnAutoEnMantenimiento() {
-        Auto auto = new Auto();
+    private void whenSeteaLaSituacion() {
+        Auto auto  = new Auto();
         auto.setId(1l);
         auto.setSituacion(Situacion.EN_MANTENIMIENTO);
-        when(repositorioAuto.buscarPor(auto.getId())).thenReturn(auto);
+        when(repositorioAuto.enviarAMantenimiento(anyLong(),any())).thenReturn(auto);
     }
+
 
     private Long givenExisteUnAutoDisponible() {
         Auto auto = new Auto();
-        auto.setSituacion(Situacion.DISPONIBLE);
         auto.setId(1l);
-        when(repositorioAuto.buscarPor(auto.getId())).thenReturn(auto);
+        auto.setSituacion(Situacion.DISPONIBLE);
+        when(repositorioAuto.buscarPor(anyLong())).thenReturn(auto);
         return auto.getId();
     }
 
-    private void thenObtengoElAutoActualizado(Auto auto) {
-        assertThat(auto.getSituacion()).isEqualTo(Situacion.EN_MANTENIMIENTO);
+    private void thenObtengoElAuto(Auto enMantenimiento) {
+        assertThat(enMantenimiento.getSituacion()).isEqualTo(Situacion.EN_MANTENIMIENTO);
     }
 }
