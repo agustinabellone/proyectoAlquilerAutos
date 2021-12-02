@@ -30,10 +30,10 @@ public interface RepositorioUsuario {
 
     List<Notificacion> getNotificacionesPorId(Usuario buscado);
 
-    List<Usuario> buscarUsuariosPorRol(Rol rol);
+    List<Usuario> buscarUsuariosPorRol(String rol);
 
     List<Usuario> buscarUsuariosPendientesDeRol();
 
-    void actualizarRol(Rol rol, Long id_usuario);
+    void actualizarRol(String rol, Long id_usuario);
 
 }

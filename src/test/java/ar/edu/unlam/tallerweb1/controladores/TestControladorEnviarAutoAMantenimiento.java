@@ -48,7 +48,7 @@ public class TestControladorEnviarAutoAMantenimiento {
     @Test
     public void queUnUsuarioAdministradorPuedaEnviarUnAutoAMantenimientoSoloDesdeLaVistaDeAutosDisponibles() throws AutoNoExistente, NoEnviaAutoAMantenimiento {
         Long id_auto = givenExisteUnAuto(Situacion.DISPONIBLE);
-        HttpServletRequest administrador = givenExisteUnUsuarioConRol(Rol.ADMIN);
+        HttpServletRequest administrador = givenExisteUnUsuarioConRol("admin");
         givenAccedeALaVistaDeAutosDisponibles(administrador);
         whenEnviaUnAutoAMantenimiento(id_auto, administrador);
         thenSeMuestrsUnMensajeDeExito(this.modelAndView, id_auto);
@@ -58,7 +58,7 @@ public class TestControladorEnviarAutoAMantenimiento {
         controladorAdministrador.mostrarAutosDisponibles(administrador);
     }
 
-    private HttpServletRequest givenExisteUnUsuarioConRol(Rol admin) {
+    private HttpServletRequest givenExisteUnUsuarioConRol(String admin) {
         when(request.getSession()).thenReturn(httpSession);
         when(request.getSession().getAttribute("rol")).thenReturn(admin);
         return request;
@@ -91,7 +91,7 @@ public class TestControladorEnviarAutoAMantenimiento {
     @Test
     public void queElAdministradorVeaUnMensajeDeErrorAlEnviarUnAutoAMantenimientoQueNoEstaDisponible() throws AutoNoExistente, NoEnviaAutoAMantenimiento {
         Long id_auto = givenExisteUnAutoOcupado(Situacion.OCUPADO);
-        HttpServletRequest adminisrtrador = givenExisteUnUsuarioConRol(Rol.ADMIN);
+        HttpServletRequest adminisrtrador = givenExisteUnUsuarioConRol("admin");
         givenAccedeALaVistaDeAutosDisponibles(adminisrtrador);
         whenEnviaUnAutoAMantenimiento(id_auto,adminisrtrador);
         thenEnviaError(this.modelAndView);

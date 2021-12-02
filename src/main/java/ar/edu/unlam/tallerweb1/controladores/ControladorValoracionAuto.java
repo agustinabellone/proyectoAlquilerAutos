@@ -48,7 +48,7 @@ public class ControladorValoracionAuto {
     }
 
     private boolean elUsuarioEsCliente(HttpServletRequest request) {
-        return request.getSession().getAttribute("rol").equals(Rol.CLIENTE);
+        return request.getSession().getAttribute("rol").equals("cliente");
     }
 
 

@@ -216,7 +216,7 @@
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="font-weight-medium mb-0">Rol: ${mecanico.rol}</h5>
+                                    <h5 class="font-weight-medium mb-0">Rol: MECANICO</h5>
                                 </div>
                                 <div class="col">
                                     <div class="col-lg-12">
@@ -227,7 +227,7 @@
                                                         Nombre: <span>${mecanico.nombre}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Mail: <span>${mecanico.nombre}</span>
+                                                        Mail: <span>${mecanico.email}</span>
                                                     </li>
                                                 </ul>
                                             </div>

@@ -80,10 +80,10 @@ public class TestServicioAdministradorSeccionClientes {
         List<Usuario> listaUsuariosClientes = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setRol(Rol.CLIENTE);
+            usuario.setRol("cliente");
             listaUsuariosClientes.add(usuario);
         }
-        when(repositorioUsuario.buscarUsuariosPorRol(Rol.CLIENTE)).thenReturn(listaUsuariosClientes);
+        when(repositorioUsuario.buscarUsuariosPorRol("cliente")).thenReturn(listaUsuariosClientes);
     }
 
     private void thenObtengoLaListaDeUsuarios(List<Usuario> usuarios, int cantidad_esperada) {

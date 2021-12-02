@@ -29,16 +29,14 @@ public interface ServicioUsuario {
 
     List <Solicitud> obtenerSolicitudesPendientesDeUnEncargado(Usuario usuario);
 
-    List<Usuario> obtenerListaDeUsuariosPorRol(String rol);
-
     List<Notificacion> getNotificacionesPorId(Usuario buscado);
 
-    List<Usuario> obtenerListaDeUsuariosPorRol(Rol rol) throws NoHayEmpladosException;
+    List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException;
 
     List<Usuario> obtenerListaDeUsuariosPendienteDeRol() throws NoHayUsuariosPendientesDeRol;
 
     Suscripcion obtenerSuscripcionDeUsuario(Usuario clienteID);
 
-    Usuario asignarRol(Rol mecanico, Long id_usuario) throws NoSeAsignoElRol;
+    Usuario asignarRol(String mecanico, Long id_usuario) throws NoSeAsignoElRol;
 
 }

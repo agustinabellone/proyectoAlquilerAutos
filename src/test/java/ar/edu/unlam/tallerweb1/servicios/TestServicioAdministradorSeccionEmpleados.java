@@ -31,7 +31,7 @@ public class TestServicioAdministradorSeccionEmpleados {
     }
 
     private List<Usuario> whenObtengoLaListaDeLosEncargados() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
-        return servicioUsuario.obtenerListaDeUsuariosPorRol(Rol.ENCARGADO_DEVOLUCION);
+        return servicioUsuario.obtenerListaDeUsuariosPorRol("encargado");
     }
 
     @Test
@@ -45,16 +45,16 @@ public class TestServicioAdministradorSeccionEmpleados {
         List<Usuario> usuarios = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setRol(Rol.ENCARGADO_DEVOLUCION);
+            usuario.setRol("encargado");
             usuarios.add(usuario);
         }
-        when(repositorioUsuario.buscarUsuariosPorRol(Rol.ENCARGADO_DEVOLUCION)).thenReturn(usuarios);
+        when(repositorioUsuario.buscarUsuariosPorRol("encargado")).thenReturn(usuarios);
     }
 
     private void thenObtengoUnaListaConLosEncargados(List<Usuario> usuarios, int cantidad_esperada) {
         assertThat(usuarios).hasSize(cantidad_esperada);
         for (Usuario usuario: usuarios) {
-            assertThat(usuario.getRol()).isEqualTo(Rol.ENCARGADO_DEVOLUCION);
+            assertThat(usuario.getRol()).isEqualTo("encargado");
         }
     }
 
@@ -69,7 +69,7 @@ public class TestServicioAdministradorSeccionEmpleados {
     }
 
     private List<Usuario> whenObtengoLaListaDeLosMecanicos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
-        return servicioUsuario.obtenerListaDeUsuariosPorRol(Rol.MECANICO);
+        return servicioUsuario.obtenerListaDeUsuariosPorRol("mecanico");
     }
 
     @Test
@@ -83,16 +83,16 @@ public class TestServicioAdministradorSeccionEmpleados {
         List<Usuario> usuarioList = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setRol(Rol.MECANICO);
+            usuario.setRol("mecanico");
             usuarioList.add(usuario);
         }
-        when(repositorioUsuario.buscarUsuariosPorRol(Rol.MECANICO)).thenReturn(usuarioList);
+        when(repositorioUsuario.buscarUsuariosPorRol("mecanico")).thenReturn(usuarioList);
     }
 
     private void thenObtengoLaListaDeLosMecanicos(List<Usuario> usuarioList, int cantidad_esperada) {
         assertThat(usuarioList).hasSize(cantidad_esperada);
         for (Usuario usuario : usuarioList) {
-            assertThat(usuario.getRol()).isEqualTo(Rol.MECANICO);
+            assertThat(usuario.getRol()).isEqualTo("mecanico");
         }
     }
 }

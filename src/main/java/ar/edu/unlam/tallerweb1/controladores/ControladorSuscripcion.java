@@ -38,7 +38,7 @@ public class ControladorSuscripcion {
     private ModelAndView mostrarFormularioSuscripcion(HttpServletRequest request){
 
         if(null != request.getSession().getAttribute("rol")){
-            if(request.getSession().getAttribute("rol").equals(Rol.CLIENTE)){
+            if(request.getSession().getAttribute("rol").equals("cliente")){
                 if(!(Boolean)request.getSession().getAttribute("tieneSuscripcion")){
                     return new ModelAndView("ir-a-suscribir");
                 }
@@ -118,7 +118,7 @@ public class ControladorSuscripcion {
 
 
         if(null != request.getSession().getAttribute("rol")){
-            if(request.getSession().getAttribute("rol").equals(Rol.CLIENTE)){
+            if(request.getSession().getAttribute("rol").equals("cliente")){
                 obtenerDatosDeSuscripcion(request, (Long)request.getSession().getAttribute("id"));
                 return new ModelAndView("administrar-suscripcion");
             }

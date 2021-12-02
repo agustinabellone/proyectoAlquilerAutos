@@ -184,13 +184,13 @@ public class TestControladorAdministradorSeccionAutos {
 
     private HttpServletRequest givenExisteUnUsuarioSinRolDeAdministrador() {
         when(request.getSession()).thenReturn(session);
-        when(request.getSession().getAttribute("rol")).thenReturn(Rol.CLIENTE);
+        when(request.getSession().getAttribute("rol")).thenReturn("cliente");
         return request;
     }
 
     private HttpServletRequest givenExisteUnUsuarioConRolDeAdministrador() {
         when(request.getSession()).thenReturn(session);
-        when(request.getSession().getAttribute("rol")).thenReturn(Rol.ADMIN);
+        when(request.getSession().getAttribute("rol")).thenReturn("admin");
         when(request.getSession().getAttribute("id")).thenReturn(1L);
         when(request.getSession().getAttribute("nombre")).thenReturn("admin");
         return request;

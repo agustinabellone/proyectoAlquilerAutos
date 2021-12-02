@@ -36,14 +36,14 @@ public class ServicioRegistroImpl implements ServicioRegistro {
         }
         if (datosRegistro.getEmail().contains("@tallerweb")) {
             Usuario nuevoUsuario = new Usuario(datosRegistro);
-            nuevoUsuario.setRol(Rol.EMPLEADO);
+            nuevoUsuario.setRol("empleado");
             repositorioUsuario.guardar(nuevoUsuario);
         }
         Usuario nuevoUsuario = new Usuario(datosRegistro);
 
 
         nuevoUsuario.setHashCodigo(md5);
-        nuevoUsuario.setRol(Rol.CLIENTE);
+        nuevoUsuario.setRol("cliente");
 
         repositorioUsuario.guardar(nuevoUsuario);
         return nuevoUsuario;

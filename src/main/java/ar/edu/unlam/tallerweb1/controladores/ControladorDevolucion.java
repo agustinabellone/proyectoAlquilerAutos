@@ -90,11 +90,11 @@ public class ControladorDevolucion {
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
         Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
-        Auto auto = alquiler.getAuto();
+        servicioSolicitud.realizarPeticionDeDevolucion(alquiler);
         modelo.put("alquilerID", alquiler.getId());
-        modelo.put("auto", auto);
+        modelo.put("auto", alquiler.getAuto());
+        modelo.put("solicitud", "Espere la confirmacion de devolución...");
         modelo.put("valorarLuego", "valorarLuego");
-        //servicioDevolucion.finalizarAlquilerCliente(alquiler);
         return new ModelAndView("valorar-auto", modelo);
     }
 

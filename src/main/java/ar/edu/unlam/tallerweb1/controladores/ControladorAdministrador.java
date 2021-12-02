@@ -50,7 +50,7 @@ public class ControladorAdministrador {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/panel-principal")
-    public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request){
+    public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request) {
         ModelMap model = getModelMap();
         String vista;
         if (this.elRolEstaSeteadoYEsAdministrador(request)) {
@@ -62,12 +62,12 @@ public class ControladorAdministrador {
 
                 }
                 try {
-                    model.put("clientes_no_suscriptos",obtenerListaDeClientesNoSuscriptos());
+                    model.put("clientes_no_suscriptos", obtenerListaDeClientesNoSuscriptos());
                 } catch (NoHayClientesNoSuscriptos e) {
 
                 }
                 try {
-                    model.put("lista_de_suscripto",obtenerClientesSuscriptos());
+                    model.put("lista_de_suscripto", obtenerClientesSuscriptos());
                 } catch (NoHayClientesSuscriptos e) {
 
                 }
@@ -188,7 +188,7 @@ public class ControladorAdministrador {
         if (elRolEstaSeteadoYEsAdministrador(administrador)) {
             try {
                 vista = "encargados-devolucion";
-                List<Usuario> usuariosEncargadosDeVolucion = obtenerListaDeUsuariosConRol(Rol.ENCARGADO_DEVOLUCION);
+                List<Usuario> usuariosEncargadosDeVolucion = obtenerListaDeUsuariosConRol("encargado");
                 model.put("encargados_devolucion", usuariosEncargadosDeVolucion);
             } catch (NoHayEmpladosException e) {
                 vista = "encargados-devolucion";
@@ -207,7 +207,7 @@ public class ControladorAdministrador {
         if (elRolEstaSeteadoYEsAdministrador(usuario_de_request)) {
             try {
                 vista = "mecanicos";
-                List<Usuario> usuariosMecanicos = obtenerListaDeUsuariosConRol(Rol.MECANICO);
+                List<Usuario> usuariosMecanicos = obtenerListaDeUsuariosConRol("mecanico");
                 model.put("lista_mecanicos", usuariosMecanicos);
             } catch (NoHayEmpladosException e) {
                 vista = "mecanicos";
@@ -239,12 +239,12 @@ public class ControladorAdministrador {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/confirmar-rol")
-    public ModelAndView asignarRolAlEmpleado(@RequestParam(value = "rol") Integer rol, @RequestParam(value = "id_usuario") Long id_usuario, HttpServletRequest request) {
+    public ModelAndView asignarRolAlEmpleado(@RequestParam(value = "rol") String rol, @RequestParam(value = "id_usuario") Long id_usuario, HttpServletRequest request) {
         ModelMap model = new ModelMap();
         String vista;
         if (elRolEstaSeteadoYEsAdministrador(request)) {
             vista = "asignacion-de-rol";
-            Rol obtenido = obtenerRol(rol);
+            String obtenido = rol;
             Usuario pendienteDeRol = servicioUsuario.buscarPorId(id_usuario);
             if (obtenido != null && pendienteDeRol != null) {
                 try {
@@ -277,8 +277,8 @@ public class ControladorAdministrador {
                     model.put("autoAEnviar", actualizado);
                     model.put("mensaje_exito", "Se envio un auto correctamente a mantenimiento");
                 } catch (NoEnviaAutoAMantenimiento e) {
-                    model.put("error","No se envio el auto a mantenimiento porque esta ocupado");
-                    model.put("auto",buscado);
+                    model.put("error", "No se envio el auto a mantenimiento porque esta ocupado");
+                    model.put("auto", buscado);
                 }
             }
         } else {
@@ -292,7 +292,7 @@ public class ControladorAdministrador {
     }
 
     private boolean elRolEstaSeteadoYEsAdministrador(HttpServletRequest request) {
-        return request.getSession().getAttribute("rol") != null && request.getSession().getAttribute("rol").equals(Rol.ADMIN);
+        return request.getSession().getAttribute("rol") != null && request.getSession().getAttribute("rol").equals("admin");
     }
 
     private ModelMap getModelMap() {
@@ -332,7 +332,7 @@ public class ControladorAdministrador {
     }
 
 
-    public List<Usuario> obtenerListaDeUsuariosConRol(Rol rol) throws NoHayEmpladosException{
+    public List<Usuario> obtenerListaDeUsuariosConRol(String rol) throws NoHayEmpladosException {
         return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
     }
 
@@ -340,13 +340,4 @@ public class ControladorAdministrador {
         return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol();
     }
 
-    private Rol obtenerRol(Integer rol) {
-        Rol[] buscado = Rol.values();
-        for (int i = 0; i < Rol.values().length; i++) {
-            if (buscado[i].ordinal() == rol) {
-                return buscado[i];
-            }
-        }
-        return null;
-    }
 }
