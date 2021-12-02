@@ -22,6 +22,8 @@ public class TipoSuscripcion {
     @Column
     private Float valorPorKmAdicional;
     @Column
+    private Float valorPorMalasCondiciones;
+    @Column
     private Boolean eleccionVehiculo;
     @Column
     private Boolean permiteReserva;
@@ -121,4 +123,11 @@ public class TipoSuscripcion {
         this.valorIncumplimientoHoraLugar = valorIncumplimientoHoraLugar;
     }
 
+    public Float getValorPorMalasCondiciones() {
+        return valorPorMalasCondiciones;
+    }
+
+    public void setValorPorMalasCondiciones(Float valorPorMalasCondiciones) {
+        this.valorPorMalasCondiciones = valorPorMalasCondiciones;
+    }
 }

@@ -14,7 +14,6 @@ public class Usuario {
     @Column
     private String rol;
 
-
     @Column
     private String nombre;
 

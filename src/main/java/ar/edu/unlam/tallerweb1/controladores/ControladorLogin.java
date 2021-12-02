@@ -98,7 +98,7 @@ public class ControladorLogin {
         if (request.getSession().getAttribute("rol").equals("admin")){
             return new ModelAndView("redirect:/ir-a-panel-principal");
         }
-        if (request.getSession().getAttribute("rol").equals(Rol.ENCARGADO_DEVOLUCION)){
+        if (request.getSession().getAttribute("rol").equals("encargado")){
             return new ModelAndView("redirect:/ir-a-encargado-home");
         }
         return new ModelAndView("redirect:/main");

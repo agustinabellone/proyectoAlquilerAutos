@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Estado;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +37,9 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
     }
 
     @Override
-    public void finalizarAlquilerCliente(Alquiler alquiler) {
+    public void finalizarAlquilerCliente(Alquiler alquiler, Solicitud solAlquilerModificado) {
         sessionFactory.getCurrentSession().update(alquiler);
+        sessionFactory.getCurrentSession().update(solAlquilerModificado);
     }
 
     @Override

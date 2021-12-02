@@ -70,13 +70,6 @@
             </div>
         </div>
         </form>
-    </div>
-    <div class="col-lg-6">
-        <div class="container">
-            <img src="${auto.imagen}" alt="auto" style="width: 100%; height: auto;">
-        </div>
-    </div>
-    </div>
     <c:if test="${not empty solicitud}">
         <div class="d-flex justify-content-center">
             <h3>Espere a que la devolución se de por finalizada</h3>

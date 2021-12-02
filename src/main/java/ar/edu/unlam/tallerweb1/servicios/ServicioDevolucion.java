@@ -16,9 +16,9 @@ public interface ServicioDevolucion {
 
     void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler);
 
-    void finalizarAlquilerCliente(Solicitud alquiler);
+    void adicionarAumentoPorDevolucionEnMalascondiciones(Alquiler alquiler);
 
-    void finalizarAlquilerCliente(Alquiler alquiler, Suscripcion suscripcion);
+    void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario);
 
 
 }

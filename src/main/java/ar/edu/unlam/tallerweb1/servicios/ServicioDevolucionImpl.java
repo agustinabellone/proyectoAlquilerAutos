@@ -45,26 +45,40 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
         repositorioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
     }
 
+
+
     @Override
-    public void finalizarAlquilerCliente(Alquiler alquiler, Suscripcion suscripcion) {
-        //
+    public void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario) {
+        Solicitud solAlquilerModificado = modificarEstadosParaFinalizar(solicitud, enCondiciones, comentario);
+        repositorioDevolucion.finalizarAlquilerCliente(solAlquilerModificado.getAlquiler(), solAlquilerModificado); //UPDATE
     }
+
+    private Solicitud modificarEstadosParaFinalizar(Solicitud solicitud, String enCondiciones, String comentario) {
+        Alquiler alquiler = solicitud.getAlquiler();
+        if(enCondiciones==null) {
+            adicionarAumentoPorDevolucionEnMalascondiciones(alquiler);
+        }
+        solicitud.setEstadoSolicitud(EstadoSolicitud.ACEPTADA);
+        solicitud.getAlquiler().getAuto().setSituacion(Situacion.DISPONIBLE);
+        solicitud.getAlquiler().setComentario(comentario);
+        solicitud.getAlquiler().setEstado(Estado.FINALIZADO);
+        //solicitud.getAlquiler().setAdicionalKilometraje();
+        return solicitud;
+    }
+
+    @Override
+    public void adicionarAumentoPorDevolucionEnMalascondiciones(Alquiler alquiler) {
+        Suscripcion suscripcion = obtenerSuscripcionDeUsuario(alquiler.getUsuario());
+        alquiler.setAdicionalCondiciones(alquiler, suscripcion);
+    }
+
+
 
     private Suscripcion obtenerSuscripcionDeUsuario(Usuario usuario) {
         return repositorioDevolucion.obtenerSuscripcionDeUnUsuario(usuario);
     }
 
-    @Override
 
-    public void finalizarAlquilerCliente(Solicitud solicitud) {
-        solicitud.setEstadoSolicitud(EstadoSolicitud.ACEPTADA);
-        solicitud.getAlquiler().getAuto().setSituacion(Situacion.DISPONIBLE);
-        solicitud.getAlquiler().setEstado(Estado.FINALIZADO);
-        Float adicional = solicitud.getAlquiler().getAdicionalCambioLugarFecha();
-        solicitud.getAlquiler().setAdicionalCambioLugarFecha(adicional);
-        repositorioDevolucion.finalizarAlquilerCliente(solicitud.getAlquiler()); //UPDATE
-
-    }
 
 }
 
