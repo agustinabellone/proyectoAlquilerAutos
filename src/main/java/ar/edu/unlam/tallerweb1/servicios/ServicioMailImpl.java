@@ -51,6 +51,8 @@ public class ServicioMailImpl implements ServicioMail {
         props.put("mail.smtp.password",password);
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.mail.sender",username+"@gmail.com");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
 
 
 

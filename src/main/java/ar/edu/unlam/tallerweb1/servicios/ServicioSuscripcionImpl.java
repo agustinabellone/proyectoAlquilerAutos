@@ -60,6 +60,12 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
     }
 
     @Override
+    public Suscripcion suscripcionDeUsuario(Usuario usuario) {
+        Suscripcion buscado = repositorioSuscripcion.buscarPorUsuario(usuario);
+        return buscado;
+    }
+
+    @Override
     public void cancelarRenovacionAutomaticaDeSuscripcion(Long id) {
 
         Suscripcion buscada = buscarPorIdUsuario(id);
@@ -135,7 +141,7 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
     @Override
     public List<Usuario> obtenerListaDeUsuariosNoSuscriptos() throws NoHayClientesNoSuscriptos {
         List<Usuario> usuariosSinSuscripcion = new ArrayList<>();
-        List<Usuario> usuariosClientes = repositorioUsuario.buscarUsuariosPorRol(Rol.CLIENTE);
+        List<Usuario> usuariosClientes = repositorioUsuario.buscarUsuariosPorRol("cliente");
         if (usuariosClientes.size() > 0) {
             for (Usuario usuario : usuariosClientes) {
                 Suscripcion buscado = repositorioSuscripcion.buscarPorUsuario(usuario);

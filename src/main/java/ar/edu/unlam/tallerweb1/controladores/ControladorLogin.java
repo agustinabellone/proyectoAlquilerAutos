@@ -95,8 +95,11 @@ public class ControladorLogin {
     }
 
     private ModelAndView registroExitoso(HttpServletRequest request) {
-        if (request.getSession().getAttribute("rol").equals(Rol.ADMIN)){
+        if (request.getSession().getAttribute("rol").equals("admin")){
             return new ModelAndView("redirect:/ir-a-panel-principal");
+        }
+        if (request.getSession().getAttribute("rol").equals("encargado")){
+            return new ModelAndView("redirect:/ir-a-encargado-home");
         }
         return new ModelAndView("redirect:/main");
     }

@@ -17,6 +17,13 @@ public interface ServicioAlquiler {
 
     List<Auto> obtenerAutosDisponibles() throws NoHayAutosDisponiblesException;
 
+    List<Auto> obtenerAutosDisponiblesGamaBaja() throws NoHayAutosDisponiblesException;
+
+
+    List<Auto> obtenerAutosDisponiblesGamaMedia() throws NoHayAutosDisponiblesException;
+
+    List<Auto> obtenerAutosDisponiblesGamaAlta() throws NoHayAutosDisponiblesException;
+
     Auto obtenerAutoPorId(Long id_auto);
 
     Usuario obtenerUsuarioPorId(Long id_usuario);
@@ -30,4 +37,6 @@ public interface ServicioAlquiler {
     Garage obtenerGaragePorId(Long lugar);
 
     boolean buscarSiElAutoYaFueAlquiladoEnEsasFechas(Auto auto, LocalDate f_egreso, LocalDate f_ingreso);
+
+    Alquiler obtenerAlquilerPendienteDeUsuario(Usuario usuario);
 }

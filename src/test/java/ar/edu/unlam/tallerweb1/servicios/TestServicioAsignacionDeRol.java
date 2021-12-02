@@ -47,8 +47,8 @@ public class TestServicioAsignacionDeRol {
         List<Usuario> usuarioList = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setEmail("eze@tallerweb" + i + ".com");
-            usuario.setRol(Rol.EMPLEADO);
+            usuario.setEmail("eze@tallerweb"+i+".com");
+            usuario.setRol("empleado");
             usuarioList.add(usuario);
         }
         when(repositorioUsuario.buscarUsuariosPendientesDeRol()).thenReturn(usuarioList);
@@ -59,43 +59,44 @@ public class TestServicioAsignacionDeRol {
         for (Usuario usuario :
                 usuarioList) {
             assertThat(usuario.getEmail()).contains("@tallerweb");
-            assertThat(usuario.getRol()).isEqualTo(Rol.EMPLEADO);
+            assertThat(usuario.getRol()).isEqualTo("empleado");
         }
     }
 
     @Test
     public void queElAdministradorPuedaConfirmarElRolSeleccionado() throws NoSeAsignoElRol {
         Long id_usuario = givenExisteUnUsuarioPendienteDeRol();
-        Usuario actualizado = whenElAdministradorLeAsignaElRol(Rol.MECANICO, id_usuario);
+        Usuario actualizado = whenElAdministradorLeAsignaElRol("mecanico", id_usuario);
         thenObtengoElUsuario(actualizado, id_usuario);
     }
 
     private Long givenExisteUnUsuarioPendienteDeRol() {
         Usuario usuario = new Usuario();
-        usuario.setRol(Rol.EMPLEADO);
+        usuario.setRol("empleado");
         usuario.setEmail("eze@tallerweb.com");
         when(repositorioUsuario.buscarPorId(anyLong())).thenReturn(usuario);
-        usuario.setRol(Rol.MECANICO);
+        usuario.setRol("mecanico");
         return usuario.getId();
     }
 
-    private Usuario whenElAdministradorLeAsignaElRol(Rol mecanico, Long id_usuario) throws NoSeAsignoElRol {
+    private Usuario whenElAdministradorLeAsignaElRol(String mecanico, Long id_usuario) throws NoSeAsignoElRol {
         return servicioUsuario.asignarRol(mecanico, id_usuario);
     }
 
     private void thenObtengoElUsuario(Usuario actualizado, Long id_usuario) {
         assertThat(actualizado).isNotNull();
-        assertThat(actualizado.getRol()).isEqualTo(Rol.MECANICO);
+        assertThat(actualizado.getRol()).isEqualTo("mecanico");
         assertThat(actualizado.getId()).isEqualTo(id_usuario);
     }
 
     @Test(expected = NoSeAsignoElRol.class)
     public void queNoSePuedaAsignarRolAUnUsuarioQueNoExiste() throws NoSeAsignoElRol {
         givenNoExisteUnUsuarioPendienteDeRol();
-        whenElAdministradorLeAsignaElRol(Rol.MECANICO, 1L);
+        whenElAdministradorLeAsignaElRol("mecanico", 1L);
     }
 
     private void givenNoExisteUnUsuarioPendienteDeRol() {
         when(repositorioUsuario.buscarPorId(anyLong())).thenReturn(null);
     }
+
 }

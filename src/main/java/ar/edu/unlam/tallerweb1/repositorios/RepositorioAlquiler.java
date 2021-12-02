@@ -8,7 +8,14 @@ public interface RepositorioAlquiler {
 
     void guardar(Alquiler alquiler);
 
+
     List<Auto> obtenerAutosDisponibles();
+
+    List<Auto> obtenerAutosDisponiblesGamaBaja();
+
+    List<Auto> obtenerAutosDisponiblesGamaMedia();
+
+    List<Auto> obtenerAutosDisponiblesGamaAlta();
 
     Auto obtenerAutoPorId(Long id_auto);
 
@@ -22,4 +29,7 @@ public interface RepositorioAlquiler {
 
     List<Alquiler> obtenerAlquileresDelAuto(Auto id);
 
+    void actualizarAlquiler(Alquiler alquiler);
+
+    Alquiler obtenerAlquileresPendientesDeUsuario(Usuario usuario);
 }

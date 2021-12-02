@@ -12,7 +12,7 @@ public class Usuario {
     private Long id;
 
     @Column
-    private Rol rol;
+    private String rol;
 
 
     @Column
@@ -34,7 +34,7 @@ public class Usuario {
     private Integer puntaje;
 
 
-    public Usuario(Rol rol) {
+    public Usuario(String rol) {
         this.rol = rol;
     }
 
@@ -53,11 +53,11 @@ public class Usuario {
         this.id=id;
     }
 
-    public Rol getRol() {
+    public String getRol() {
         return this.rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 

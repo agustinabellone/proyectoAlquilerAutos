@@ -29,8 +29,8 @@ public class TestRepositorioAsignacionDeRol extends SpringTest {
     private void givenExitenUsuariosPendientesDeRol(int cantidad) {
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setEmail("eze" + i + "@tallerweb.com");
-            usuario.setRol(Rol.EMPLEADO);
+            usuario.setEmail("eze"+i+"@tallerweb.com");
+            usuario.setRol("empleado");
             session().save(usuario);
         }
     }
@@ -41,8 +41,8 @@ public class TestRepositorioAsignacionDeRol extends SpringTest {
 
     private void thenObtengoUnaListaDeLosUsuariosPendientesDeRol(List<Usuario> usuarioList) {
         assertThat(usuarioList).hasSize(5);
-        for (Usuario usuario : usuarioList) {
-            assertThat(usuario.getRol()).isEqualTo(Rol.EMPLEADO);
+        for (Usuario usuario: usuarioList) {
+            assertThat(usuario.getRol()).isEqualTo("empleado");
             assertThat(usuario.getEmail()).contains("@tallerweb");
         }
     }
@@ -52,7 +52,7 @@ public class TestRepositorioAsignacionDeRol extends SpringTest {
     @Transactional
     public void queSePuedaActualizarElRolDelUsuario() {
         Long usuario = givenExisteUnUsuarioPendienteDeRol();
-        whenActualizoElRol(usuario, Rol.MECANICO);
+        whenActualizoElRol(usuario, "mecanico");
         Usuario actualizado = whenObtengoElUsuarioActualizado(usuario);
         thenObtengoElUsuarioActualizado(actualizado);
     }
@@ -63,19 +63,20 @@ public class TestRepositorioAsignacionDeRol extends SpringTest {
 
     private Long givenExisteUnUsuarioPendienteDeRol() {
         Usuario usuario = new Usuario();
-        usuario.setRol(Rol.EMPLEADO);
+        usuario.setRol("empleado");
         usuario.setEmail("eze@tallerweb.comm");
         session().save(usuario);
         return usuario.getId();
     }
 
-    private void whenActualizoElRol(Long usuario, Rol rol) {
+    private void whenActualizoElRol(Long usuario, String rol) {
         repositorioUsuario.actualizarRol(rol, usuario);
     }
 
     private void thenObtengoElUsuarioActualizado(Usuario actualizado) {
         assertThat(actualizado).isNotNull();
         assertThat(actualizado).isInstanceOf(Usuario.class);
-        assertThat(actualizado.getRol()).isEqualTo(Rol.MECANICO);
+        assertThat(actualizado.getRol()).isEqualTo("mecanico");
     }
+
 }

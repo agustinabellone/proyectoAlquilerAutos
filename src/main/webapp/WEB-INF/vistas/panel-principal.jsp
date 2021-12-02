@@ -242,8 +242,10 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
+
                                         <a href="clientes-suscriptos"
                                            class="text-success font-weight-bold text-lg">Ver</a>
+
                                     </div>
                                 </div>
                             </div>
@@ -295,8 +297,10 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
+
                                         <a href="asignacion-de-rol"
                                            class="text-warning font-weight-bold text-lg">Ver</a>
+
                                     </div>
                                 </div>
                             </div>

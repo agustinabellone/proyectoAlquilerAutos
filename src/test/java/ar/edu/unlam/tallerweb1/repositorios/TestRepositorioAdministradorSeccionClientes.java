@@ -58,13 +58,13 @@ public class TestRepositorioAdministradorSeccionClientes extends SpringTest {
     private void givenExistenClientes(int cantidad) {
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setRol(Rol.CLIENTE);
+            usuario.setRol("cliente");
             session().save(usuario);
         }
     }
 
     private List<Usuario> whenObtengoLosClientesEnUnaLista() {
-        return repositorioUsuario.buscarUsuariosPorRol(Rol.CLIENTE);
+        return repositorioUsuario.buscarUsuariosPorRol("cliente");
     }
 
     private void thenObtengoLaListaDeClientes(List<Usuario> usuarios, int cantidad_esperada) {
@@ -106,7 +106,7 @@ public class TestRepositorioAdministradorSeccionClientes extends SpringTest {
     private Usuario givenExisteUnClienteSuscripto() {
         Usuario usuario = new Usuario();
         Suscripcion suscripcion = new Suscripcion();
-        usuario.setRol(Rol.CLIENTE);
+        usuario.setRol("cliente");
         suscripcion.setUsuario(usuario);
         suscripcion.setFechaInicio(LocalDate.now());
         suscripcion.setFechaFin(LocalDate.now().plusDays(3));
