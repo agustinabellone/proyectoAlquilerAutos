@@ -127,10 +127,12 @@ public class ControladorAlquiler {
 
         DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, salida, ingreso, garageRetiro, garageDevolucion);
 
+        Puntaje puntaje = new Puntaje();
+
         try {
             servicioAlquiler.AlquilarAuto(datosAlquiler);
             servicioMail.enviarMailAlquiler(mail,garageRetiro.getDireccion(),garageDevolucion.getDireccion(),salida,ingreso);
-            servicioUsuario.actualizarPuntaje(50, usuario);
+            servicioUsuario.actualizarPuntaje(puntaje.getAlquiler(), usuario);
         }
         catch (AutoYaAlquiladoException e) {
             return alquilerFallido(modelo, "El auto ya fue alquilado en esas fechas.");

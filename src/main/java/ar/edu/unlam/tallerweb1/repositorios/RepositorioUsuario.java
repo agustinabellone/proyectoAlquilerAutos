@@ -27,19 +27,14 @@ public interface RepositorioUsuario {
 
     List<Usuario> buscarUsuariosPorSuscripcion(Suscripcion suscripcion);
 
-
     List<Notificacion> getNotificacionesPorId(Usuario buscado);
 
     List<Usuario> buscarUsuariosPorRol(String rol);
 
     List<Usuario> buscarUsuariosPendientesDeRol();
 
-<<<<<<< HEAD
-    void actualizarRol(Rol rol, Long id_usuario);
-
     void actualizarPuntaje(int puntaje, Usuario usuario);
-=======
+
     void actualizarRol(String rol, Long id_usuario);
 
->>>>>>> develop
 }

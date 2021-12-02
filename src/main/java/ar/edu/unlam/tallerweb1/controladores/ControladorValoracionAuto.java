@@ -78,7 +78,10 @@ public class ControladorValoracionAuto {
 
         Long id_usuario = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(id_usuario);
-        servicioUsuario.actualizarPuntaje(20, usuario);
+
+        Puntaje puntaje = new Puntaje();
+
+        servicioUsuario.actualizarPuntaje(puntaje.getValoracion(), usuario);
 
         modelo.put("mensaje", "Auto valorado exitosamente");
         return new ModelAndView("valorar-auto-confirmacion", modelo);
