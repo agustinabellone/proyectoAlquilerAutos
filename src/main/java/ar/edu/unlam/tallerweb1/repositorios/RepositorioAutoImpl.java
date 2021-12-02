@@ -60,8 +60,11 @@ public class RepositorioAutoImpl implements RepositorioAuto {
     }
 
     @Override
-    public Auto enviarAMantenimiento(Long id, Situacion enMantenimiento) {
-        return null;
+    public void enviarAMantenimiento(Long id, Situacion enMantenimiento) {
+        Auto buscado = buscarPor(id);
+        buscado.setSituacion(enMantenimiento);
+        sessionFactory.getCurrentSession().update(buscado);
+
     }
 
 }

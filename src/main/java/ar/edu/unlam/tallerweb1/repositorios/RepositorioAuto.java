@@ -22,5 +22,5 @@ public interface RepositorioAuto {
 
     List<Auto> buscarAutosEnMantenimiento(Situacion enMantenimiento);
 
-    Auto enviarAMantenimiento(Long id, Situacion enMantenimiento);
+    void enviarAMantenimiento(Long id, Situacion enMantenimiento);
 }

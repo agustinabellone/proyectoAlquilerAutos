@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
@@ -16,12 +17,12 @@ public class TestServicioEnviarAMantenimiento {
     private ServicioDeAuto servicioDeAuto = new ServicioDeAutoImpl(repositorioAuto);
 
     @Test(expected = NoEnviaAutoAMantenimiento.class)
-    public void lanzarUnaExceptionCuandoElAdministradorEnviaUnAutoOcupadoAMantenimiento() throws NoEnviaAutoAMantenimiento {
+    public void lanzarUnaExceptionCuandoElAdministradorEnviaUnAutoOcupadoAMantenimiento() throws NoEnviaAutoAMantenimiento, AutoNoExistente {
         Long id_auto = givenExisteUnAutoOcupado();
         whenEnviaAMantenimiento(id_auto);
     }
 
-    private Auto whenEnviaAMantenimiento(Long id_auto) throws NoEnviaAutoAMantenimiento {
+    private Auto whenEnviaAMantenimiento(Long id_auto) throws NoEnviaAutoAMantenimiento, AutoNoExistente {
         return servicioDeAuto.enviarAMantenimiento(id_auto);
     }
 
@@ -33,7 +34,7 @@ public class TestServicioEnviarAMantenimiento {
     }
 
     @Test
-    public void queSePuedaEnviarUnAutoDisponibleAMantenimiento() throws NoEnviaAutoAMantenimiento {
+    public void queSePuedaEnviarUnAutoDisponibleAMantenimiento() throws NoEnviaAutoAMantenimiento, AutoNoExistente {
         Long id_auro = givenExisteUnAutoDisponible();
         givenDevuelveUnAutoEnMantenimiento();
         Auto auto = whenEnviaAMantenimiento(id_auro);
@@ -44,7 +45,7 @@ public class TestServicioEnviarAMantenimiento {
         Auto auto = new Auto();
         auto.setId(1l);
         auto.setSituacion(Situacion.EN_MANTENIMIENTO);
-        when(repositorioAuto.enviarAMantenimiento(auto.getId(),Situacion.EN_MANTENIMIENTO)).thenReturn(auto);
+        when(repositorioAuto.buscarPor(auto.getId())).thenReturn(auto);
     }
 
     private Long givenExisteUnAutoDisponible() {

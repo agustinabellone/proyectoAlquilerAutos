@@ -48,11 +48,12 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     }
 
     @Override
-    public Auto enviarAMantenimiento(Long buscado) throws NoEnviaAutoAMantenimiento {
+    public Auto enviarAMantenimiento(Long buscado) throws NoEnviaAutoAMantenimiento, AutoNoExistente {
         Auto obtenido = repositorioAuto.buscarPor(buscado);
         if (obtenido != null) {
             if (obtenido.getSituacion().equals(Situacion.DISPONIBLE)){
-                Auto enMantenimiento = repositorioAuto.enviarAMantenimiento(obtenido.getId(),Situacion.EN_MANTENIMIENTO);
+                repositorioAuto.enviarAMantenimiento(obtenido.getId(),Situacion.EN_MANTENIMIENTO);
+                Auto enMantenimiento = buscarAutoPorId(obtenido.getId());
                 return enMantenimiento;
             }
             throw new NoEnviaAutoAMantenimiento();
