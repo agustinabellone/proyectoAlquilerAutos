@@ -6,7 +6,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository("RepositorioAuto")
@@ -57,6 +56,14 @@ public class RepositorioAutoImpl implements RepositorioAuto {
         return sessionFactory.getCurrentSession().createCriteria(Auto.class)
                 .add(Restrictions.eq("situacion", enMantenimiento))
                 .list();
+    }
+
+    @Override
+    public Auto enviarAMantenimiento(Long id, Situacion enMantenimiento) {
+        Auto buscado = buscarPor(id);
+        buscado.setSituacion(enMantenimiento);
+        sessionFactory.getCurrentSession().update(buscado);
+        return sessionFactory.getCurrentSession().get(Auto.class,buscado.getId());
     }
 
 }

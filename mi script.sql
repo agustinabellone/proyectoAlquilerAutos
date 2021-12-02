@@ -1,6 +1,6 @@
 use alquiler;
 
-INSERT INTO usuario (clave, email, rol, nombre) VALUES ('clave', 'mail@enca', 3, 'Encargado Av Mayo 2525'), ('clave', 'mail@enca2', 3, 'Encargado 9 de Julio 922');
+INSERT INTO usuario (clave, email, rol, nombre, estado) VALUES ('clave', 'mail@tallerweb.com', 3, 'Encargado Av Mayo 2525', 1), ('clave', 'mail2@tallerweb.com', 3, 'Encargado 9 de Julio 922', 1);
 INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (1, 36, 85, 'Av. de Mayo 2525', 2);
 INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (2, 26, 40, '9 de Julio 922', 3);
 INSERT INTO tiposuscripcion (id, descripcion, eleccionVehiculo, limiteKilometraje, permiteReserva, valorIncumplimientoHoraLugar, valorPorKmAdicional, duracion, precio) VALUES (1, 'standard', 0, 50, 0, 900, 350, 31, 10000), (2, 'premium', 1, 80, 1, 500, 280, 31, 15000), (3, 'golden', 1, 200, 1, 0, 100, 31, 20000);
@@ -15,7 +15,7 @@ values (3, 0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/xl/RT_
 /*INSERT INTO alquiler (id,auto_id, usuario_id, estado, garageLlegadaEst_id, garagePartida_id, adicionalCambioLugarFecha, adicionalInfraccionesOtro, f_egreso, f_ingreso, garageLlegada_id, encargado_id) VALUES (8, 1, 1, 0, 2, 1, '0.0', '0.0', '20211027', '20211031', 2, 3);*/
 /*INSERT INTO suscripcion (Usuario_id, TipoSuscripcion_id) VALUES (1, 2); */
 -- script de eze no tocar pliss por ahora, luz si no te anda proba cambiando la 'U' por 'u'
-INSERT INTO Usuario (clave, email, rol, nombre) VALUES ('admin', 'admin@admin', 'admin', 'admin');
+/*INSERT INTO Usuario (clave, email, rol, nombre) VALUES ('admin', 'admin@admin', 'admin', 'admin');*/
 SET SQL_SAFE_UPDATES = 0;
 select * from alquiler;
 select * from suscripcion;
@@ -25,5 +25,4 @@ select * from auto;
 select * from valoracionauto;
 select * from solicitud;
 
-delete from auto;
 

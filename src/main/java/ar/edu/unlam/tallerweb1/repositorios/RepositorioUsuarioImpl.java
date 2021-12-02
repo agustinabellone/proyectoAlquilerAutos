@@ -95,7 +95,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
                 .list();
     }
 
-    public List<Usuario> buscarUsuariosPorRol(Rol rol) {
+    public List<Usuario> buscarUsuariosPorRol(String rol) {
         return sessionFactory.getCurrentSession().createCriteria(Usuario.class)
                 .add(Restrictions.eq("rol", rol)).list();
     }
@@ -104,13 +104,13 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     public List<Usuario> buscarUsuariosPendientesDeRol() {
         return sessionFactory.getCurrentSession().createCriteria(Usuario.class)
                 .add(Restrictions.like("email", "%@tallerweb%"))
-                .add(Restrictions.eq("rol", Rol.EMPLEADO)).list();
+                .add(Restrictions.eq("rol", "empleado")).list();
     }
 
     @Override
-    public void actualizarRol(Rol rol, Long id_usuario) {
+    public void actualizarRol(String rol, Long id_usuario) {
         Usuario buscado = buscarPorId(id_usuario);
-        buscado.setRol(Rol.MECANICO);
+        buscado.setRol("mecanico");
         sessionFactory.getCurrentSession().update(buscado);
     }
 

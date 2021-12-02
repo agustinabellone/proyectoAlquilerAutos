@@ -63,7 +63,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         return null;
     }
 
-    public List<Usuario> obtenerListaDeUsuariosPorRol(Rol rol) throws NoHayEmpladosException {
+    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException {
         List<Usuario> buscados = repositorioUsuario.buscarUsuariosPorRol(rol);
         if (buscados.size() > 0) {
             return buscados;
@@ -78,11 +78,6 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
             return pendientesDeRol;
         }
         throw new NoHayUsuariosPendientesDeRol();
-    }
-
-    @Override
-    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) {
-        return null;
     }
 
     @Override
@@ -102,12 +97,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public Usuario asignarRol(Rol rol, Long id_usuario) throws NoSeAsignoElRol {
+    public Usuario asignarRol(String rol, Long id_usuario) throws NoSeAsignoElRol {
         Usuario buscado = repositorioUsuario.buscarPorId(id_usuario);
         if (buscado != null) {
             repositorioUsuario.actualizarRol(rol, buscado.getId());
-            Usuario actualizado = new Usuario();
-            actualizado = buscarPorId(buscado.getId());
+            Usuario actualizado = buscarPorId(buscado.getId());
             return actualizado;
         }
         throw new NoSeAsignoElRol();

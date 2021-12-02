@@ -25,8 +25,8 @@ import static org.mockito.Mockito.*;
 
 public class TestControladorAdministradorSeccionClientes {
 
-    private static final Rol ADMIN = Rol.ADMIN;
-    private static final Rol INVITADO = Rol.CLIENTE;
+    private static final String ADMIN = "admin";
+    private static final String INVITADO = "cliente";
     private HttpServletRequest request;
     private HttpSession session;
     private ModelAndView modelAndView;
@@ -86,7 +86,7 @@ public class TestControladorAdministradorSeccionClientes {
     @Test
     public void queElAdministradorAlEntrarALaSeccionDeClientesNoSuscriptosVeaUnaListaDeLosMismos() throws NoHayClientesSuscriptos, NoHayClientesNoSuscriptos {
         givenExistenClientesNoSuscriptos(5);
-        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol(Rol.ADMIN);
+        HttpServletRequest administrador = givenQueExisteUnUsuarioConRol("admin");
         givenIngresaALaVistaDeLosCLientesNoSuscriptos(administrador);
         whenObtieneLaListaDeLosClientesNoSuscriptos();
         thenSeMuestraLaVistaConLaListaDeLosClientesSuscriptos(this.modelAndView);
@@ -105,7 +105,7 @@ public class TestControladorAdministradorSeccionClientes {
         doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerClientesSuscriptos();
     }
 
-    private HttpServletRequest givenQueExisteUnUsuarioConRol(Rol rol) {
+    private HttpServletRequest givenQueExisteUnUsuarioConRol(String rol) {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute(anyString())).thenReturn(rol);
         return request;
@@ -128,7 +128,7 @@ public class TestControladorAdministradorSeccionClientes {
         List<Usuario> listaDeClientesNoSuscriptos = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setRol(Rol.CLIENTE);
+            usuario.setRol("cliente");
             listaDeClientesNoSuscriptos.add(usuario);
         }
         when(servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos()).thenReturn(listaDeClientesNoSuscriptos);
