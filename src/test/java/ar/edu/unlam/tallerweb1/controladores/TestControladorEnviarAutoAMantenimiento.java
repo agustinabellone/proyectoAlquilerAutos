@@ -69,6 +69,7 @@ public class TestControladorEnviarAutoAMantenimiento {
         auto.setId(1l);
         auto.setSituacion(situacion);
         when(servicioDeAuto.buscarAutoPorId(anyLong())).thenReturn(auto);
+        auto.setSituacion(Situacion.EN_MANTENIMIENTO);
         when(servicioDeAuto.enviarAMantenimiento(auto.getId())).thenReturn(auto);
         return auto.getId();
     }
