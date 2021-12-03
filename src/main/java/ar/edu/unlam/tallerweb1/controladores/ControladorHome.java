@@ -85,7 +85,6 @@ public class ControladorHome {
             model.put("esperandoConfirmacion", solicitudesEsperandoConfirmacion);
             return new ModelAndView("mainEncargado", model);
         }
-
         return new ModelAndView("redirect:/home");
     }
 

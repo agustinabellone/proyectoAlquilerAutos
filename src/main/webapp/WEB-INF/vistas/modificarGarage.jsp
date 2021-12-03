@@ -36,11 +36,11 @@
                     <div class="card card-shadow border-0 mb-4">
                         <div class="card-body p-4">
                             <form action="seleccionNuevoGarageSeleccionado">
-                                    <select class="form-select" name="nuevoGarage">
-                                        <c:forEach var="garages" items="${garages}">
-                                            <option name="nuevoGarage" value="${garages.id}">${garages.direccion}</option>
-                                        </c:forEach>
-                                    </select>
+                                <select class="form-select" name="nuevoGarage">
+                                    <c:forEach var="garages" items="${garages}">
+                                        <option name="nuevoGarage" value="${garages.id}">${garages.direccion}</option>
+                                    </c:forEach>
+                                </select>
                                 <input type="hidden" name="alquilerID" value='${alquiler.id}'>
                                 <div class="col-lg-12 text-center" style="margin: 12px">
                                     <button class="btn btn-outline-success btn-lg mt-2" Type="Submit">Confirmar</button>

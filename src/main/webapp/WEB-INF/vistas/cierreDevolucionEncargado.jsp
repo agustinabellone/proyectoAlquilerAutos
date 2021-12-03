@@ -33,17 +33,20 @@
             <div class="col-lg-12">
                 <div class="d-flex ">
                     <div class="col-lg-6 justify-content-center">
-                            <form:form action="finalizarAlquiler?solicitud=${esperandoConfirmacion.id}" method="get" >
+                            <form:form action="finalizarAlquiler?solicitud=${solicitud.id}" method="get" >
+                                <input type="hidden" name="solicitud" value='${solicitud.id}'>
                                 <div class="form-group">
-                                    <input style="opacity:1;" type="number" name="kilometros" placeholder="Kilometros actuales">
+                                    <label>
+                                        <input style="opacity:1;" type="number" name="kilometros" placeholder="${solicitud.alquiler.auto.km}">
+                                    </label>
                                 </div>
                                 <div class="form-group">
-                                    <input style="opacity:1;" type="checkbox" data-required="1" name="terminos">
-                                    <label style="color:black;padding-left:20px;" name="terminos">Auto en condiciones</label>
+                                    <input style="opacity:1;" type="checkbox" data-required="1" name="condicion">
+                                    <label style="color:black;padding-left:20px;" name="terminos">Entregado en condiciones</label>
                                 </div>
                                 <div>
                                     <p><textarea class="form-control mt-3" name="comentario" rows="5" required
-                                                 placeholder="Agregar comentario... "></textarea></p>
+                                                 placeholder="Agregar observacion del estado del vehiculo devuelto... "></textarea></p>
                                 </div>
                                 <div class="form-group m-0">
                                     <button class="btn btn-lg btn-dark btn-block" Type="Submit"/>Finalizar</button>

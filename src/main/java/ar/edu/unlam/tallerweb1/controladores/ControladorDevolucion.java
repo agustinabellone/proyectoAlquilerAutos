@@ -102,20 +102,18 @@ public class ControladorDevolucion {
     public ModelAndView datosDevolucionAlquiler(@RequestParam(value = "solicitud") Long solicitudID) {
         ModelMap modelo = new ModelMap();
         Solicitud solicitud = servicioSolicitud.obtenerSolicitudPorId(solicitudID);
-
+        modelo.put("solicitud", solicitud);
         return new ModelAndView("cierreDevolucionEncargado", modelo);
     }
 
 
-
     @RequestMapping("/finalizarAlquiler")
-    public ModelAndView darPorFinalizadoElAlquiler(@RequestParam(value = "solicitud") Long solicitudID) {
+    public ModelAndView darPorFinalizadoElAlquiler(@RequestParam(value = "solicitud") Long solicitudID, @RequestParam(value = "condicion", required = false) String enCondiciones,@RequestParam(value = "comentario", required = false) String comentario) {
         ModelMap modelo = new ModelMap();
         Solicitud solicitud = servicioSolicitud.obtenerSolicitudPorId(solicitudID);
-        servicioDevolucion.finalizarAlquilerCliente(solicitud);
+        servicioDevolucion.finalizarAlquilerCliente(solicitud, enCondiciones, comentario);
         modelo.put("funciono", "Alquiler finalizado");
         return new ModelAndView("mainEncargado", modelo);
     }
 
 }
-
