@@ -35,7 +35,7 @@ public class TestControladorMecanico {
         servicioDeAuto = mock(ServicioDeAuto.class);
         controlador = new ControladorMecanico(servicioDeAuto);
         modelAndView = new ModelAndView();
-        mecanico = givenAccedeAlaVistaDeAutosParaMantenimiento(MECANICO);
+        mecanico = givenExisteUnUsuarioConRol(MECANICO);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class TestControladorMecanico {
         assertThat(modelAndView.getModel().get("error")).isEqualTo(error);
     }
 
-    private HttpServletRequest givenAccedeAlaVistaDeAutosParaMantenimiento(String mecanico) {
+    private HttpServletRequest givenExisteUnUsuarioConRol(String mecanico) {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("rol")).thenReturn(mecanico);
         return request;
