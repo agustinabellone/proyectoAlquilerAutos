@@ -95,7 +95,17 @@ public class ControladorRegistro {
         return new ModelAndView("cuenta-verificada");
     }
 
+    @RequestMapping(path = "/cuenta-reactivada", method = RequestMethod.GET)
+    public ModelAndView mostrarCuentaReactivada() {
+        return new ModelAndView("cuenta-reactivada");
+    }
 
+    @RequestMapping(path = "/reactivar-cuenta")
+    private ModelAndView reactivarCuenta( @RequestParam("emailUsuario") String email){
+        Usuario usuario = servicioUsuario.buscarPorEmail(email);
+        servicioUsuario.reactivarCuenta(usuario);
+        return new ModelAndView("cuenta-reactivada");
+    }
 
     private String crearMd5(String mail){
         try {
