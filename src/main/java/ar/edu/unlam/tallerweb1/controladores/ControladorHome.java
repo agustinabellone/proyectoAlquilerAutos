@@ -46,12 +46,17 @@ public class ControladorHome {
                 List <String> fechasAlquileresUsuario = servicioHome.obtenerFechasEnString(alquileresUsuario);
                 List <Marca> autosMarca = servicioHome.obtenerMarcaAutoAlquiler(alquileresUsuario);
                 List <Modelo> autosModelo = servicioHome.obtenerModeloAutoAlquiler(alquileresUsuario);
+
+                Integer puntajeUsuario = usuario.getPuntaje();
+
                 Alquiler alquileresEsperandoConfirmacion = servicioAlquiler.obtenerAlquilerPendienteDeUsuario(usuario);
                 model.put("esperandoConfirmacion", alquileresEsperandoConfirmacion);
+
                 model.put("alquileres", alquileresUsuario);
                 model.put("fechas", fechasAlquileresUsuario);
                 model.put("modelos", autosModelo);
                 model.put("marcas", autosMarca);
+                model.put("puntaje", puntajeUsuario);
                 Long id=(Long) request.getSession().getAttribute("id");
                 model=obtenerDatosDeSuscripcion(request, model, id);
 

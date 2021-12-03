@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
@@ -43,6 +44,10 @@ public class ControladorMercadoPago {
 
         ModelMap model = obtenerPreferencia(id_tipo, request, 0);
 
+        Long id= (Long)request.getSession().getAttribute("id");
+        Puntaje puntaje = new Puntaje();
+        Usuario usuario = servicioUsuario.buscarPorId(id);
+        servicioUsuario.actualizarPuntaje(puntaje.getSuscripcion(), usuario);
 
         return new ModelAndView("confirmar-suscripcion", model);
     }

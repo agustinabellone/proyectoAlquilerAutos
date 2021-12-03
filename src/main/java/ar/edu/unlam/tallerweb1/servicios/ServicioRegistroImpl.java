@@ -43,6 +43,7 @@ public class ServicioRegistroImpl implements ServicioRegistro {
 
 
         nuevoUsuario.setHashCodigo(md5);
+        nuevoUsuario.setPuntaje(0);
         nuevoUsuario.setRol("cliente");
 
         repositorioUsuario.guardar(nuevoUsuario);

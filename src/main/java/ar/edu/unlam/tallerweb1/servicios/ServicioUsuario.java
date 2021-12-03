@@ -35,8 +35,13 @@ public interface ServicioUsuario {
 
     List<Usuario> obtenerListaDeUsuariosPendienteDeRol() throws NoHayUsuariosPendientesDeRol;
 
+    void actualizarPuntaje(int puntaje, Usuario usuario);
+
+    void restarPuntaje(int i, Usuario usuario);
+
     Suscripcion obtenerSuscripcionDeUsuario(Usuario clienteID);
 
     Usuario asignarRol(String mecanico, Long id_usuario) throws NoSeAsignoElRol;
 
+    void reactivarCuenta(Usuario usuario);
 }

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.ClienteEstaInactivoException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoConfirmoEmail;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
@@ -52,7 +53,11 @@ public class ControladorLogin {
             servicioLogin.ingresar(datosLogin);
         } catch (ClienteNoExisteException e) {
             return registroFallido(modelo, "El usuario no existe");
-        } catch (PasswordIncorrectaException e) {
+        }catch (ClienteEstaInactivoException e) {
+            modelo.put("usuarioInactivo", "El usuario se encuentra inactivo.");
+            modelo.put("emailUsuario", datosLogin.getEmail());
+            return new ModelAndView("login", modelo);
+        }catch (PasswordIncorrectaException e) {
             return registroFallido(modelo, "Datos incorrectos");
         }catch(ClienteNoConfirmoEmail e){
             return registroFallido(modelo, "Confirme su email");
