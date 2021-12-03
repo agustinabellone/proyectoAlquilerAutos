@@ -38,4 +38,6 @@ public interface RepositorioUsuario {
     void actualizarRol(String rol, Long id_usuario);
 
     void restarPuntaje(int numero, Usuario usuario);
+
+    void reactivarUsuario(Usuario usuario);
 }

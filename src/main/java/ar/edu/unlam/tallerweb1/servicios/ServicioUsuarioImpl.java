@@ -114,6 +114,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         throw new NoSeAsignoElRol();
     }
 
+    @Override
+    public void reactivarCuenta(Usuario usuario) {
+         repositorioUsuario.reactivarUsuario(usuario);
+    }
+
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {
         return contraseña.length() < 8;
     }

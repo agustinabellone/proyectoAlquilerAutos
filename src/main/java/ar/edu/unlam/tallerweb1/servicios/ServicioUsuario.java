@@ -43,5 +43,5 @@ public interface ServicioUsuario {
 
     Usuario asignarRol(String mecanico, Long id_usuario) throws NoSeAsignoElRol;
 
-
+    void reactivarCuenta(Usuario usuario);
 }

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.ClienteEstaInactivoException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoConfirmoEmail;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
@@ -27,6 +28,8 @@ public class ServicioLoginImpl implements ServicioLogin {
             throw new ClienteNoExisteException();
         }else if(!repositorioUsuario.buscarPorEmail(datosLogin.getEmail()).getClave().equals(datosLogin.getClave())){
             throw new PasswordIncorrectaException();
+        }else if(repositorioUsuario.buscarPorEmail(datosLogin.getEmail()).getEstado().equals(EstadoUsuario.INACTIVO)){
+            throw new ClienteEstaInactivoException();
         }else if(repositorioUsuario.buscarPorEmail(datosLogin.getEmail()).getEstado()== EstadoUsuario.PENDIENTE){
             throw new ClienteNoConfirmoEmail();
         }

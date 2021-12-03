@@ -58,11 +58,11 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
 
-
     @Override
     public void eliminarUsuario(Long id) {
         Usuario usuario = buscarPorId(id);
-        this.sessionFactory.getCurrentSession().delete(usuario);
+        usuario.setEstado(EstadoUsuario.INACTIVO);
+        this.sessionFactory.getCurrentSession().update(usuario);
     }
 
     @Override
@@ -119,6 +119,12 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         int puntajeActual = usuario.getPuntaje();
         usuario.setPuntaje(puntajeActual - numero);
         sessionFactory.getCurrentSession().update(usuario);
+    }
+
+    @Override
+    public void reactivarUsuario(Usuario usuario) {
+        usuario.setEstado(EstadoUsuario.ACTIVO);
+        this.sessionFactory.getCurrentSession().update(usuario);
     }
 
     @Override
