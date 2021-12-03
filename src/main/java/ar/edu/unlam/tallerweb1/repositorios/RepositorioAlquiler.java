@@ -32,4 +32,6 @@ public interface RepositorioAlquiler {
     void actualizarAlquiler(Alquiler alquiler);
 
     Alquiler obtenerAlquileresPendientesDeUsuario(Usuario usuario);
+
+    List<Garage> obtenerGaragesDisponibles();
 }

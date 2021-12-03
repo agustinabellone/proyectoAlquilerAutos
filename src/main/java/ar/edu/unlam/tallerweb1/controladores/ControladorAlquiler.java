@@ -62,9 +62,11 @@ public class ControladorAlquiler {
     @RequestMapping(path = "/elegir-fechas", method = RequestMethod.GET)
     public ModelAndView mostrarFechasAlquiler(@RequestParam("id_auto") Long id_auto,
                                               @RequestParam("imagen_auto") String imagen_auto) {
+        List<Garage> garagesDisponibles = servicioAlquiler.obtenerGaragesDisponibles();
         ModelMap modelo = new ModelMap();
         modelo.put("id_auto", id_auto);
         modelo.put("imagen_auto", imagen_auto);
+        modelo.put("garages", garagesDisponibles);
         return new ModelAndView("alquilarAutoFechasDisponibles", modelo);
     }
 

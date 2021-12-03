@@ -57,6 +57,11 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     }
 
     @Override
+    public List<Garage> obtenerGaragesDisponibles() {
+        return repositorioAlquiler.obtenerGaragesDisponibles();
+    }
+
+    @Override
     public List<Auto> obtenerAutosDisponibles() throws NoHayAutosDisponiblesException {
         List<Auto> autosDisponibles = repositorioAlquiler.obtenerAutosDisponibles();
         if (autosDisponibles.size() == 0) {

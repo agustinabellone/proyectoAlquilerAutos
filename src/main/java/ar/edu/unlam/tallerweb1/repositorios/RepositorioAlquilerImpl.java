@@ -111,4 +111,10 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
                 .add(Restrictions.eq("estado", Estado.PENDIENTE)).uniqueResult();
     }
 
+    @Override
+    public List<Garage> obtenerGaragesDisponibles() {
+        return sessionFactory.getCurrentSession().createCriteria(Garage.class)
+                .list();
+    }
+
 }
