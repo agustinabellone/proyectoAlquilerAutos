@@ -5,7 +5,6 @@ import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoConfirmoEmail;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -105,6 +103,9 @@ public class ControladorLogin {
         }
         if (request.getSession().getAttribute("rol").equals("encargado")){
             return new ModelAndView("redirect:/ir-a-encargado-home");
+        }
+        if (request.getSession().getAttribute("rol").equals("mecanico")){
+            return new ModelAndView("redirect:/para-mantenimiento");
         }
         return new ModelAndView("redirect:/main");
     }

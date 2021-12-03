@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
