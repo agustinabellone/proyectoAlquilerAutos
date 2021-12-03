@@ -15,6 +15,8 @@ import java.util.Objects;
 
 public class ControladorMecanico {
 
+    private ModelMap modelMap = new ModelMap();
+    private String vista;
     private ServicioDeAuto servicioDeAuto;
 
     @Autowired
@@ -24,23 +26,10 @@ public class ControladorMecanico {
 
     @RequestMapping(method = RequestMethod.GET, path = "/para-mantenimiento")
     public ModelAndView mostrarListadoDeAutosParaMantenimiento(HttpServletRequest mecanico) {
-        ModelMap modelMap = new ModelMap();
-        String vista;
-        if (esMecaico(mecanico) && estaSeteadoElRol(mecanico)) {
-            vista = "en-mantenimiento";
-            try {
-                List<Auto> para_mantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
-                modelMap.put("para_mantenimiento", para_mantenimiento);
-            } catch (NoHayAutosEnMantenientoException e) {
-                modelMap.put("error","No hay autos para mantenimiento actualmente");
-            }
-            return new ModelAndView(vista, modelMap);
-        } else {
-            vista = "login";
-            modelMap.put("datosLogin", new DatosLogin());
-            modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
-            return new ModelAndView(vista, modelMap);
-        }
+        if (esMecaico(mecanico) && estaSeteadoElRol(mecanico))
+            accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje();
+        else siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
+        return new ModelAndView(vista, modelMap);
     }
 
     private boolean estaSeteadoElRol(HttpServletRequest mecanico) {
@@ -49,5 +38,21 @@ public class ControladorMecanico {
 
     private boolean esMecaico(HttpServletRequest mecanico) {
         return mecanico.getSession().getAttribute("rol").equals("mecanico");
+    }
+
+    private void accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje() {
+        vista = "en-mantenimiento";
+        try {
+            List<Auto> para_mantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
+            modelMap.put("para_mantenimiento", para_mantenimiento);
+        } catch (NoHayAutosEnMantenientoException e) {
+            modelMap.put("error", "No hay autos para mantenimiento actualmente");
+        }
+    }
+
+    private void siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError() {
+        vista = "login";
+        modelMap.put("datosLogin", new DatosLogin());
+        modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
     }
 }
