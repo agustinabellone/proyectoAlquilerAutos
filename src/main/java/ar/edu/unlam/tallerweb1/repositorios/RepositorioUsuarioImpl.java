@@ -115,6 +115,13 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
+    public void restarPuntaje(int numero, Usuario usuario) {
+        int puntajeActual = usuario.getPuntaje();
+        usuario.setPuntaje(puntajeActual - numero);
+        sessionFactory.getCurrentSession().update(usuario);
+    }
+
+    @Override
     public void actualizarPuntaje(int puntaje, Usuario usuario) {
         int puntajeActual = usuario.getPuntaje();
         usuario.setPuntaje(puntajeActual + puntaje);

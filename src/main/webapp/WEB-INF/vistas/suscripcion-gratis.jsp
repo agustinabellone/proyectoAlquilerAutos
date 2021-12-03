@@ -20,6 +20,7 @@
 <body>
 <jsp:include page="header.jsp" />
 
+<c:if test="${empty confirmacionSuscripcionGratuita}">
 <section class="bg-light">
     <div class="pricing6 py-3">
         <div class="container">
@@ -47,7 +48,7 @@
                                     <div class="price-box my-3">
                                         <sup>$</sup><span class="text-dark display-5">0</span>
                                         <h6 class="font-weight-light">1 MES</h6>
-                                        <a class="btn btn-dark font-18 border-0 text-white p-3 btn-block mt-3" href="#">SUSCRIBIRME</a>
+                                        <a class="btn btn-dark font-18 border-0 text-white p-3 btn-block mt-3" href="confirmar-suscripcion-gratis">SUSCRIBIRME</a>
                                     </div>
                                 </div>
                             </div>
@@ -55,11 +56,30 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 
+</c:if>
+
+<c:if test="${not empty confirmacionSuscripcionGratuita}">
+    <section class="bg-light">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <h1 class="display-4 p-4 text-center">Confirmación</h1>
+            </div>
+        </div>
+    <div class="alert alert-success text-center container mt-2" role="alert">
+            ${confirmacionSuscripcionGratuita}
+    </div>
+        <p class="text-center">
+                ${informacionPuntaje}
+        </p>
+    <div class="col-sm-12 d-flex justify-content-center">
+        <a href="main" class="btn btn-dark mb-5" >Volver a Mi Cuenta</a>
+    </div>
+    </section>
+</c:if>
 <jsp:include page="footer.jsp" />
 </body>
 

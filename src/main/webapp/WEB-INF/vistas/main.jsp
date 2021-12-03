@@ -29,8 +29,8 @@
 
         <c:if test="${puntaje >= 1000}">
             <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-                <strong>- CONSEGUISTE 1000 PUNTOS -</strong>
-                <p>Tenés un mes gratis con el plan Diamante</p>
+                <strong>¡ CONSEGUISTE 1000 PUNTOS !</strong>
+                <p class="mt-3">Tenés un mes gratis con el plan Diamante</p>
                 <a href="suscripcion-gratis" class="btn btn-dark mt-2 mb-3">SUSCRIBIRME AL PLAN</a>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
