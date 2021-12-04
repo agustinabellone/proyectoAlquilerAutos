@@ -6,7 +6,6 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,18 +31,6 @@ public class ControladorMecanico {
         if (esMecaico(mecanico) && estaSeteadoElRol(mecanico))
             accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje();
         else siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
-        return new ModelAndView(vista, modelMap);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, path = "/revisar-auto/patente/${patente}")
-    public ModelAndView mostrarFormularioDeRevision(@PathVariable String patente, HttpServletRequest mecanico) {
-        if (esMecaico(mecanico) && estaSeteadoElRol(mecanico)) {
-            Auto paraRevision = servicioDeAuto.buscarAutoPorPatente(patente);
-            modelMap.put("auto_para_revision", paraRevision);
-            return new ModelAndView("en-revision", modelMap);
-        } else {
-            siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
-        }
         return new ModelAndView(vista, modelMap);
     }
 

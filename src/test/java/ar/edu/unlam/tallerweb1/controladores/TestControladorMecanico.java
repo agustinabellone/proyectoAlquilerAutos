@@ -85,32 +85,6 @@ public class TestControladorMecanico {
         assertThat(modelAndView.getModel().get("error")).isEqualTo(error);
     }
 
-    @Test
-    public void queAlHacerClickEnRevisarSeMuestraLaVistaConUnFormularioYElEstadoDelAutoPaseAEnRevision(){
-        String patenteDelAuto = givenExisteUnAutoParaMantenimiento(Situacion.EN_MANTENIMIENTO);
-        whenPasaARevision(patenteDelAuto,mecanico);
-        thenSeMuestraLaVistaConElFormulario(this.modelAndView,patenteDelAuto);
-    }
-
-    private String givenExisteUnAutoParaMantenimiento(Situacion enMantenimiento) {
-        Auto auto = new Auto();
-        auto.setPatente("AA123AA");
-        when(servicioDeAuto.buscarAutoPorPatente(auto.getPatente())).thenReturn(auto);
-        return auto.getPatente();
-    }
-
-    private void whenPasaARevision(String patenteDelAuto, HttpServletRequest mecanico) {
-        this.modelAndView = controlador.mostrarFormularioDeRevision(patenteDelAuto,mecanico);
-    }
-
-    private void thenSeMuestraLaVistaConElFormulario(ModelAndView modelAndView, String patenteDelAuto) {
-        assertThat(modelAndView.getViewName()).isEqualTo("en-revision");
-        assertThat(modelAndView.getModel().get("auto_para_revision")).isNotNull();
-        assertThat(modelAndView.getModel().get("auto_para_revision")).isInstanceOf(Auto.class);
-        Auto paraRevision = (Auto) modelAndView.getModel().get("auto_para_revision");
-        assertThat(paraRevision.getPatente()).isEqualTo(patenteDelAuto);
-    }
-
     private HttpServletRequest givenExisteUnUsuarioConRol(String mecanico) {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("rol")).thenReturn(mecanico);
