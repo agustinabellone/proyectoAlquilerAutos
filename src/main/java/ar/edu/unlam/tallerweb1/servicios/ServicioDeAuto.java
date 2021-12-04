@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
-import ar.edu.unlam.tallerweb1.Exceptions.AutoYaExistente;
-import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
@@ -18,5 +15,5 @@ public interface ServicioDeAuto {
 
     Auto buscarAutoPorPatente(String patente) throws AutoNoExistente;
 
-    void enviarARevision(String patente, Long id_mecanico);
+    void enviarARevision(String patente, Long id_mecanico) throws AutoYaEnRevision;
 }

@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.AutoYaEnRevision;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -44,7 +45,9 @@ public class ControladorMecanico {
                 servicioDeAuto.enviarARevision(paraRevision.getPatente(), (Long) request.getSession().getAttribute("id"));
                 request.getSession().setAttribute("patente", paraRevision.getPatente());
             } catch (AutoNoExistente e) {
-                request.getSession().setAttribute("error", "No existe el auto que queres mandar");
+                request.getSession().setAttribute("error_no_existe", "No existe el auto que queres mandar");
+            } catch (AutoYaEnRevision e) {
+                request.getSession().setAttribute("error_ya_existe", "No se puede enviar un auto a revision que ya esta enviado");
             }
         } else {
             siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
@@ -63,14 +66,16 @@ public class ControladorMecanico {
     private void accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje(HttpServletRequest request) {
         Long id_mecanico = (Long) request.getSession().getAttribute("id");
         String patente = (String) request.getSession().getAttribute("patente");
+        String autoInexistente = (String) request.getSession().getAttribute("error_no_existe");
+        String autoEnRevision = (String) request.getSession().getAttribute("error_ya_existe");
         vista = "en-mantenimiento";
         try {
             List<Auto> para_mantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
             modelMap.put("para_mantenimiento", para_mantenimiento);
-            if (patente != null) {
-                modelMap.put("auto_enviado", "Se envio correctamente el auto: \n" +
-                        "Patente: " + patente);
-            }
+            if (patente != null)
+                modelMap.put("auto_enviado", "Se envio correctamente el auto: \n" + "Patente: " + patente);
+            if (autoInexistente != null) modelMap.put("error_no_existe", autoInexistente);
+            if (autoEnRevision != null) modelMap.put("error_ya_existe", autoEnRevision);
             modelMap.put("mecanico", id_mecanico);
         } catch (NoHayAutosEnMantenientoException e) {
             modelMap.put("error", "No hay autos para mantenimiento actualmente");

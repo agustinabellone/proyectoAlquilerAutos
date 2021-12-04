@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.AutoYaEnRevision;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
@@ -88,13 +89,13 @@ public class TestControladorMecanico {
     }
 
     @Test
-    public void queUnMecanicoAlHacerClickEnElBotonDeRevisarSeAgregueAUnaListaDeAutosParaRevisar() throws AutoNoExistente {
+    public void queUnMecanicoAlHacerClickEnElBotonDeRevisarSeAgregueAUnaListaDeAutosParaRevisar() throws AutoNoExistente, AutoYaEnRevision {
         String patente = givenExisteUnAutoEnMantenimiento(Situacion.EN_MANTENIMIENTO);
         whenSeMandaARevision(patente, request);
         thenSeEnviaElAutoARevisionYRedirigeALaVistaDeAutosParaMantenimiento(this.modelAndView, patente, id_mecanico);
     }
 
-    private void thenSeEnviaElAutoARevisionYRedirigeALaVistaDeAutosParaMantenimiento(ModelAndView modelAndView, String patente, Long id_mecanico) throws AutoNoExistente {
+    private void thenSeEnviaElAutoARevisionYRedirigeALaVistaDeAutosParaMantenimiento(ModelAndView modelAndView, String patente, Long id_mecanico) throws AutoNoExistente, AutoYaEnRevision {
         assertThat(modelAndView.getViewName()).isEqualTo("redirect:/para-mantenimiento");
         assertThat(request.getSession().getAttribute("patente")).isEqualTo(patente);
         verify(servicioDeAuto,times(1)).buscarAutoPorPatente(anyString());
@@ -135,5 +136,18 @@ public class TestControladorMecanico {
     private void thenSeMuestraLaVistaConUnMensajeDeError(ModelAndView modelAndView, String error) {
         assertThat(modelAndView.getViewName()).isEqualTo("redirect:/para-mantenimiento");
         assertThat(request.getSession().getAttribute("error")).isEqualTo(error);
+    }
+
+    @Test
+    public void queSeMuestreUnMensajeDeErrorCuandoElMecanicoIntenteEnviarARevisionUnAutoQueYaEstaEnRevision() throws AutoYaEnRevision, AutoNoExistente {
+        givenExisteUnautoEnRevision();
+        whenSeMandaARevision("AA123AA",request);
+        thenSeMuestraLaVistaConUnMensajeDeError(this.modelAndView,"No se puede enviar un auto a revision que ya esta enviado");
+    }
+
+    private void givenExisteUnautoEnRevision() throws AutoYaEnRevision, AutoNoExistente {
+        when(servicioDeAuto.buscarAutoPorPatente(anyString())).thenReturn(new Auto());
+        doThrow(AutoYaEnRevision.class).when(servicioDeAuto).enviarARevision(anyString(),anyLong());
+        when(request.getSession().getAttribute("error")).thenReturn("No se puede enviar un auto a revision que ya esta enviado");
     }
 }
