@@ -15,4 +15,8 @@ public interface ServicioDeAuto {
     List<Auto> obtenerAutosEnMantenimiento() throws NoHayAutosEnMantenientoException;
 
     Auto enviarAMantenimiento(Long buscado) throws NoEnviaAutoAMantenimiento, AutoNoExistente;
+
+    Auto buscarAutoPorPatente(String patente) throws AutoNoExistente;
+
+    void enviarARevision(String patente, Long id_mecanico);
 }

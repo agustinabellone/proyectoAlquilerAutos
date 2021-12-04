@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -27,27 +28,49 @@ public class ControladorMecanico {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/para-mantenimiento")
-    public ModelAndView mostrarListadoDeAutosParaMantenimiento(HttpServletRequest mecanico) {
-        if (esMecaico(mecanico) && estaSeteadoElRol(mecanico))
-            accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje(mecanico);
+    public ModelAndView mostrarListadoDeAutosParaMantenimiento(HttpServletRequest request) {
+        if (esMecanico(request) && estaSeteadoElRol(request))
+            accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje(request);
         else siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
         return new ModelAndView(vista, modelMap);
     }
 
-    private boolean estaSeteadoElRol(HttpServletRequest mecanico) {
-        return !(Objects.isNull(mecanico.getSession().getAttribute("rol")));
+    @RequestMapping(method = RequestMethod.GET, path = "/revisar-auto/patente/${patente}")
+    public ModelAndView enviarARevision(String patente, HttpServletRequest request) {
+        if (esMecanico(request) && estaSeteadoElRol(request)) {
+            vista = "redirect:/para-mantenimiento";
+            try {
+                Auto paraRevision = servicioDeAuto.buscarAutoPorPatente(patente);
+                servicioDeAuto.enviarARevision(paraRevision.getPatente(), (Long) request.getSession().getAttribute("id"));
+                request.getSession().setAttribute("patente", paraRevision.getPatente());
+            } catch (AutoNoExistente e) {
+                request.getSession().setAttribute("error", "No existe el auto que queres mandar");
+            }
+        } else {
+            siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
+        }
+        return new ModelAndView(vista, modelMap);
     }
 
-    private boolean esMecaico(HttpServletRequest mecanico) {
-        return mecanico.getSession().getAttribute("rol").equals("mecanico");
+    private boolean estaSeteadoElRol(HttpServletRequest request) {
+        return !(Objects.isNull(request.getSession().getAttribute("rol")));
     }
 
-    private void accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje(HttpServletRequest mecanico) {
-        Long id_mecanico = (Long) mecanico.getSession().getAttribute("id");
+    private boolean esMecanico(HttpServletRequest request) {
+        return request.getSession().getAttribute("rol").equals("mecanico");
+    }
+
+    private void accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje(HttpServletRequest request) {
+        Long id_mecanico = (Long) request.getSession().getAttribute("id");
+        String patente = (String) request.getSession().getAttribute("patente");
         vista = "en-mantenimiento";
         try {
             List<Auto> para_mantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
             modelMap.put("para_mantenimiento", para_mantenimiento);
+            if (patente != null) {
+                modelMap.put("auto_enviado", "Se envio correctamente el auto: \n" +
+                        "Patente: " + patente);
+            }
             modelMap.put("mecanico", id_mecanico);
         } catch (NoHayAutosEnMantenientoException e) {
             modelMap.put("error", "No hay autos para mantenimiento actualmente");

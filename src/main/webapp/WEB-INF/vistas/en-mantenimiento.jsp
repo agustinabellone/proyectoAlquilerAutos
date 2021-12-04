@@ -82,7 +82,11 @@
             <div class="col-12 mb-4">
                 <h1 class="h3 mb-0 text-gray-800 text-center">Bienvenido ${nombre}</h1>
             </div>
-
+            <c:if test="${not empty auto_enviado}">
+                <div class="alert alert-success text-center container mt-3 col-12" role="alert">
+                        ${auto_enviado}
+                </div>
+            </c:if>
             <div class="container">
                 <c:forEach items="${para_mantenimiento}" var="autos">
                     <div class="col-md-12">
@@ -114,7 +118,7 @@
                                                 </div>
                                             </div>
                                             <a class="btn btn-primary font-14 border-0 text-white p-3 btn-block mt-3"
-                                               href="revisar-auto/patente/${auto.patente}/mecanico/${mecanico.id}">REVISAR</a>
+                                               href="revisar-auto/patente/${auto.patente}">REVISAR</a>
                                         </div>
                                     </div>
                                 </div>

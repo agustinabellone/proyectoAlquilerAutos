@@ -56,4 +56,14 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         }
         throw new NoEnviaAutoAMantenimiento();
     }
+
+    @Override
+    public Auto buscarAutoPorPatente(String patente) {
+        return null;
+    }
+
+    @Override
+    public void enviarARevision(String patente, Long id_mecanico) {
+
+    }
 }
