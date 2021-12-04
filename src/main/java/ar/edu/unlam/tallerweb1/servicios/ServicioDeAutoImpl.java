@@ -56,4 +56,9 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         }
         throw new NoEnviaAutoAMantenimiento();
     }
+
+    @Override
+    public Auto buscarAutoPorPatente(String patente) {
+        return null;
+    }
 }
