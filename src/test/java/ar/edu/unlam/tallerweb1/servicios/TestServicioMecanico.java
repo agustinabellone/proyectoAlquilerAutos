@@ -65,4 +65,9 @@ public class TestServicioMecanico {
             assertThat(auto.getSituacion()).isEqualTo(Situacion.EN_MANTENIMIENTO);
         }
     }
+
+    @Test
+    public void queAlEnviarUnAutoARevisionSuEstadoCambieAEnRevisionYTambienSeEnvieElMecanicoQueTomoEseAuto(){
+
+    }
 }

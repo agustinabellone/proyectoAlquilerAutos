@@ -42,7 +42,7 @@ public class TestControladorMecanico {
     public void queUnUsuarioMecanicoPuedaAccederALaVistaAutosParaMantenimiento() throws NoHayAutosEnMantenientoException {
         givenExisteUnaListaDeAutosParaMantenimiento(5);
         whenAccedeALaVistaDeAutosParaMantenimiento(mecanico);
-        thenSeMuestraLaVistaConUnaListaDeAutosParaMantenimiento(this.modelAndView, "en-mantenimiento");
+        thenSeMuestraLaVistaConUnaListaDeAutosParaMantenimiento(this.modelAndView, "en-mantenimiento",mecanico);
     }
 
     private void givenExisteUnaListaDeAutosParaMantenimiento(int cantidad) throws NoHayAutosEnMantenientoException {
@@ -60,8 +60,9 @@ public class TestControladorMecanico {
         this.modelAndView = controlador.mostrarListadoDeAutosParaMantenimiento(mecanico);
     }
 
-    private void thenSeMuestraLaVistaConUnaListaDeAutosParaMantenimiento(ModelAndView modelAndView, String vista) {
+    private void thenSeMuestraLaVistaConUnaListaDeAutosParaMantenimiento(ModelAndView modelAndView, String vista, HttpServletRequest mecanico) {
         assertThat(modelAndView.getViewName()).isEqualTo(vista);
+        assertThat(modelAndView.getModel().get("mecanico")).isEqualTo(mecanico.getSession().getAttribute("id"));
         assertThat(modelAndView.getModel().get("para_mantenimiento")).isNotNull();
         assertThat(modelAndView.getModel().get("para_mantenimiento")).isInstanceOf(List.class);
         List<Auto> enMantenimiento = (List<Auto>) modelAndView.getModel().get("para_mantenimiento");
@@ -88,6 +89,7 @@ public class TestControladorMecanico {
     private HttpServletRequest givenExisteUnUsuarioConRol(String mecanico) {
         when(request.getSession()).thenReturn(session);
         when(request.getSession().getAttribute("rol")).thenReturn(mecanico);
+        when(request.getSession().getAttribute("id")).thenReturn(1l);
         return request;
     }
 }

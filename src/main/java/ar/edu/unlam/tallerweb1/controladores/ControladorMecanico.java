@@ -29,7 +29,7 @@ public class ControladorMecanico {
     @RequestMapping(method = RequestMethod.GET, path = "/para-mantenimiento")
     public ModelAndView mostrarListadoDeAutosParaMantenimiento(HttpServletRequest mecanico) {
         if (esMecaico(mecanico) && estaSeteadoElRol(mecanico))
-            accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje();
+            accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje(mecanico);
         else siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
         return new ModelAndView(vista, modelMap);
     }
@@ -42,11 +42,13 @@ public class ControladorMecanico {
         return mecanico.getSession().getAttribute("rol").equals("mecanico");
     }
 
-    private void accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje() {
+    private void accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje(HttpServletRequest mecanico) {
+        Long id_mecanico = (Long) mecanico.getSession().getAttribute("id");
         vista = "en-mantenimiento";
         try {
             List<Auto> para_mantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
             modelMap.put("para_mantenimiento", para_mantenimiento);
+            modelMap.put("mecanico", id_mecanico);
         } catch (NoHayAutosEnMantenientoException e) {
             modelMap.put("error", "No hay autos para mantenimiento actualmente");
         }

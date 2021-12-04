@@ -114,7 +114,7 @@
                                                 </div>
                                             </div>
                                             <a class="btn btn-primary font-14 border-0 text-white p-3 btn-block mt-3"
-                                               href="revisar-auto/patente/${auto.patente}">REVISAR</a>
+                                               href="revisar-auto/patente/${auto.patente}/mecanico/${mecanico.id}">REVISAR</a>
                                         </div>
                                     </div>
                                 </div>
