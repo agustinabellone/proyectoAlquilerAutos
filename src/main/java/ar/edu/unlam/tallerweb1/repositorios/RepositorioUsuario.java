@@ -42,4 +42,5 @@ public interface RepositorioUsuario {
 
     void reactivarUsuario(Usuario usuario);
 
+    void guardarNotificacion(Notificacion notificacion);
 }

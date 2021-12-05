@@ -121,7 +121,8 @@ public class ControladorSuscripcion {
     @Scheduled(cron = "0 29 19 ? * *")
     public void controlDeFechaDeSuscripciones(){
         //System.out.println("Fixed rate task ");
-        servicioSuscripcion.revisionDeSuscripciones();
+        servicioSuscripcion.revisionDeSuscripcionesFueraDeTermino();
+        servicioSuscripcion.notificarUsuariosProximosAVencer();
     }
 
     private void obtenerDatosDeSuscripcion(HttpServletRequest request, Long id) {

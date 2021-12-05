@@ -135,6 +135,11 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
+    public void guardarNotificacion(Notificacion notificacion) {
+        this.sessionFactory.getCurrentSession().save(notificacion);
+    }
+
+    @Override
     public void actualizarPuntaje(int puntaje, Usuario usuario) {
         int puntajeActual = usuario.getPuntaje();
         usuario.setPuntaje(puntajeActual + puntaje);
