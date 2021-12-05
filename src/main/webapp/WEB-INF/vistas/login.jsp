@@ -30,10 +30,6 @@
     <div class="container">
         <div class="justify-content-center">
             <div class="card-wrapper mt-2">
-                <c:if test="${not empty cuentaVerificada}">
-                    <div class="alert alert-success text-center container mt-3" role="alert">${cuentaVerificada}</div>>
-                    <br>
-                </c:if>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="mb-3 text-center">Iniciar Sesión</h4>
@@ -60,6 +56,14 @@
                     <c:if test="${not empty error}">
                         <div class="alert alert-danger text-center container mt-3" role="alert">
                                 ${error}
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty usuarioInactivo}">
+                        <div class="alert alert-danger text-center container mt-3" role="alert">
+                                ${usuarioInactivo}
+                        </div>
+                        <div class="mb-2 text-center">
+                            <a class="text-success" href="reactivar-cuenta?emailUsuario=${emailUsuario}">Reactivar cuenta</a>
                         </div>
                     </c:if>
                 </div>

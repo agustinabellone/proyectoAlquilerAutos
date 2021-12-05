@@ -19,11 +19,12 @@ public class Garage {
     private Usuario encargado;
 
 
-    public Garage(Long id, String direccion, Integer capacidad, Integer cantAutosActual) {
+    public Garage(Long id, String direccion, Integer capacidad, Integer cantAutosActual, Usuario encargado) {
         this.id = id;
         this.direccion = direccion;
         this.capacidad = capacidad;
         this.cantAutosActual = cantAutosActual;
+        this.encargado=encargado;
     }
 
     public Garage() {

@@ -1,14 +1,11 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-
-import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaSuscriptoException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaActivadaException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaCanceladaException;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,10 +23,12 @@ public class ControladorSuscripcion {
 
     @Autowired
     private ServicioSuscripcion servicioSuscripcion;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorSuscripcion (ServicioSuscripcion servicioSuscripcion){
+    public ControladorSuscripcion (ServicioSuscripcion servicioSuscripcion, ServicioUsuario servicioUsuario){
         this.servicioSuscripcion=servicioSuscripcion;
+        this.servicioUsuario = servicioUsuario;
     }
 
 
@@ -38,7 +36,7 @@ public class ControladorSuscripcion {
     private ModelAndView mostrarFormularioSuscripcion(HttpServletRequest request){
 
         if(null != request.getSession().getAttribute("rol")){
-            if(request.getSession().getAttribute("rol").equals(Rol.CLIENTE)){
+            if(request.getSession().getAttribute("rol").equals("cliente")){
                 if(!(Boolean)request.getSession().getAttribute("tieneSuscripcion")){
                     return new ModelAndView("ir-a-suscribir");
                 }
@@ -47,41 +45,34 @@ public class ControladorSuscripcion {
         return new ModelAndView("redirect:/main");
     }
 
-    /*@RequestMapping(path = "/suscribirse", method = RequestMethod.GET)
-    public ModelAndView suscribirUsuario(@RequestParam(value = "id_tipo") Long id_tipo,
-                                         @RequestParam(value = "id_usuario")Long id_usuario,
-                                         HttpServletRequest request) {
-
-        ModelMap model= new ModelMap();
-        Usuario usuario = new Usuario(id_usuario);
-        TipoSuscripcion tipoSuscripcion = servicioSuscripcion.getTipoPorid(id_tipo);
-        try{
-            servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
-        }catch (ClienteYaSuscriptoException e){
-            model.put("error", "Usted ya se encuentra suscripto a un plan");
-            return new ModelAndView("confirmar-suscripcion", model);
-        }
-        request.getSession().setAttribute("tieneSuscripcion",true);
-        return new ModelAndView("redirect:/main");
-    }*/
-
-    /*@RequestMapping(path = "/suscribirseMejora", method = RequestMethod.GET)
-    public ModelAndView mejorarSuscripcion(@RequestParam(value = "id_tipo") Long id_tipo,
-                                         @RequestParam(value = "id_usuario")Long id_usuario,
-                                         HttpServletRequest request) {
-
-        ModelMap model= new ModelMap();
-        Usuario usuario = new Usuario(id_usuario);
-        TipoSuscripcion tipoSuscripcion = servicioSuscripcion.getTipoPorid(id_tipo);
-
-        servicioSuscripcion.cancelarSuscripcionForzada(usuario);
-
+    @RequestMapping(path = "/confirmar-suscripcion-gratis", method = RequestMethod.GET)
+    private ModelAndView mostrarConfirmacionSuscripcionGratuita(HttpServletRequest request){
+        Long id_suscripcion = Long.valueOf(3);
+        Long id_usuario = (Long)request.getSession().getAttribute("id");
+        Usuario usuario = this.servicioUsuario.buscarPorId(id_usuario);
+        TipoSuscripcion tipoSuscripcion= this.servicioSuscripcion.getTipoPorid(id_suscripcion);
         servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
-
         request.getSession().setAttribute("tieneSuscripcion",true);
+        servicioUsuario.restarPuntaje(1000, usuario);
+        ModelMap modelo = new ModelMap();
+        modelo.put("confirmacionSuscripcionGratuita","La suscripción fue dada de alta exitosamente");
+        modelo.put("informacionPuntaje","Se te descontarán los 1000 puntos.");
+        return new ModelAndView("suscripcion-gratis", modelo);
+    }
 
+    @RequestMapping(path = "/suscripcion-gratis", method = RequestMethod.GET)
+    private ModelAndView mostrarSuscripcionGratis(HttpServletRequest request){
+
+        if(null != request.getSession().getAttribute("rol")){
+            if(request.getSession().getAttribute("rol").equals("cliente")){
+                if(!(Boolean)request.getSession().getAttribute("tieneSuscripcion")){
+                    return new ModelAndView("suscripcion-gratis");
+                }
+            }
+        }
         return new ModelAndView("redirect:/main");
-    }*/
+    }
+
 
     @RequestMapping(path = "/darDeBajaSuscripcion")
     public ModelAndView darDeBajaSuscripcion(HttpServletRequest request) {
@@ -118,7 +109,7 @@ public class ControladorSuscripcion {
 
 
         if(null != request.getSession().getAttribute("rol")){
-            if(request.getSession().getAttribute("rol").equals(Rol.CLIENTE)){
+            if(request.getSession().getAttribute("rol").equals("cliente")){
                 obtenerDatosDeSuscripcion(request, (Long)request.getSession().getAttribute("id"));
                 return new ModelAndView("administrar-suscripcion");
             }

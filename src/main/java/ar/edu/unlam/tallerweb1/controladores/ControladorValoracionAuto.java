@@ -2,11 +2,9 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoValorado;
-import ar.edu.unlam.tallerweb1.Exceptions.AutoYaAlquiladoException;
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-
+import ar.edu.unlam.tallerweb1.modelo.*;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.ValoracionAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioValoracion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +22,12 @@ import java.util.List;
 public class ControladorValoracionAuto {
 
     private ServicioValoracion servicioValoracion;
-
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorValoracionAuto(ServicioValoracion servicioValoracion){
+    public ControladorValoracionAuto(ServicioValoracion servicioValoracion, ServicioUsuario servicioUsuario){
         this.servicioValoracion=servicioValoracion;
+        this.servicioUsuario = servicioUsuario;
     }
 
 
@@ -48,7 +47,7 @@ public class ControladorValoracionAuto {
     }
 
     private boolean elUsuarioEsCliente(HttpServletRequest request) {
-        return request.getSession().getAttribute("rol").equals(Rol.CLIENTE);
+        return request.getSession().getAttribute("rol").equals("cliente");
     }
 
 
@@ -63,7 +62,8 @@ public class ControladorValoracionAuto {
     }
 
     @RequestMapping(path = "guardar-valoracion-Auto", method = RequestMethod.POST)
-    public ModelAndView guardarValoracionAuto(@RequestParam(value = "estrellasValoracion") int cantidadEstrellas,
+    public ModelAndView guardarValoracionAuto(HttpServletRequest request,
+                                              @RequestParam(value = "estrellasValoracion") int cantidadEstrellas,
                                               @RequestParam(value = "comentario") String comentarioAuto,
                                               @RequestParam(value ="autoID") Long autoID,
                                               @RequestParam(value = "alquilerID")Long alquilerID)
@@ -73,6 +73,14 @@ public class ControladorValoracionAuto {
         modelo.put("auto", auto);
 
         servicioValoracion.guardarValoracionAuto(cantidadEstrellas,comentarioAuto, auto,alquilerID);
+
+        Long id_usuario = (Long) request.getSession().getAttribute("id");
+        Usuario usuario = servicioUsuario.buscarPorId(id_usuario);
+
+        Puntaje puntaje = new Puntaje();
+
+        servicioUsuario.actualizarPuntaje(puntaje.getValoracion(), usuario);
+
         modelo.put("mensaje", "Auto valorado exitosamente");
         return new ModelAndView("valorar-auto-confirmacion", modelo);
 

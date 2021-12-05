@@ -1,10 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.*;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
@@ -23,8 +20,6 @@ import java.util.List;
 @Controller
 public class ControladorAdministrador {
 
-    private ModelMap modelMap = getModelMap();
-    private String viewName;
     private ServicioAlquiler servicioAlquiler;
     private ServicioDeAuto servicioDeAuto;
     private ServicioSuscripcion servicioSuscripcion;
@@ -55,7 +50,7 @@ public class ControladorAdministrador {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/panel-principal")
-    public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request){
+    public ModelAndView mostrarElPanelPrincipalConLaInformacionDelAdministrador(HttpServletRequest request) {
         ModelMap model = getModelMap();
         String vista;
         if (this.elRolEstaSeteadoYEsAdministrador(request)) {
@@ -67,12 +62,12 @@ public class ControladorAdministrador {
 
                 }
                 try {
-                    model.put("clientes_no_suscriptos",obtenerListaDeClientesNoSuscriptos());
+                    model.put("clientes_no_suscriptos", obtenerListaDeClientesNoSuscriptos());
                 } catch (NoHayClientesNoSuscriptos e) {
 
                 }
                 try {
-                    model.put("lista_de_suscripto",obtenerClientesSuscriptos());
+                    model.put("lista_de_suscripto", obtenerClientesSuscriptos());
                 } catch (NoHayClientesSuscriptos e) {
 
                 }
@@ -193,7 +188,7 @@ public class ControladorAdministrador {
         if (elRolEstaSeteadoYEsAdministrador(administrador)) {
             try {
                 vista = "encargados-devolucion";
-                List<Usuario> usuariosEncargadosDeVolucion = obtenerListaDeUsuariosConRol(Rol.ENCARGADO_DEVOLUCION);
+                List<Usuario> usuariosEncargadosDeVolucion = obtenerListaDeUsuariosConRol("encargado");
                 model.put("encargados_devolucion", usuariosEncargadosDeVolucion);
             } catch (NoHayEmpladosException e) {
                 vista = "encargados-devolucion";
@@ -212,7 +207,7 @@ public class ControladorAdministrador {
         if (elRolEstaSeteadoYEsAdministrador(usuario_de_request)) {
             try {
                 vista = "mecanicos";
-                List<Usuario> usuariosMecanicos = obtenerListaDeUsuariosConRol(Rol.MECANICO);
+                List<Usuario> usuariosMecanicos = obtenerListaDeUsuariosConRol("mecanico");
                 model.put("lista_mecanicos", usuariosMecanicos);
             } catch (NoHayEmpladosException e) {
                 vista = "mecanicos";
@@ -243,8 +238,66 @@ public class ControladorAdministrador {
         return setModelAndView(model, vista);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/confirmar-rol")
+    public ModelAndView asignarRolAlEmpleado(@RequestParam(value = "rol") String rol, @RequestParam(value = "id_usuario") Long id_usuario, HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
+            vista = "asignacion-de-rol";
+            String obtenido = rol;
+            Usuario pendienteDeRol = servicioUsuario.buscarPorId(id_usuario);
+            if (obtenido != null && pendienteDeRol != null) {
+                try {
+                    Usuario actualizado = servicioUsuario.asignarRol(obtenido, pendienteDeRol.getId());
+                    model.put("usuario", actualizado);
+                    model.put("rol", obtenido);
+                    model.put("mensaje_exito", "Al usuario " + actualizado.getEmail() + " se le asigno el rol de " + obtenido);
+                } catch (NoSeAsignoElRol e) {
+                    model.put("error", "No se pudo asignar el rol correctamente");
+                }
+            } else {
+                model.put("error", "No se pudo asignar el rol correctamente");
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/enviar-a-matenimiento")
+    public ModelAndView enviarAMantenimiento(@RequestParam(value = "id_auto") Long id_auto, HttpServletRequest administrador) throws AutoNoExistente {
+        ModelMap model = new ModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(administrador)) {
+            vista = "autos_disponibles";
+            Auto buscado = obtenerAuto(id_auto);
+            if (buscado != null) {
+                try {
+                    Auto actualizado = servicioDeAuto.enviarAMantenimiento(buscado.getId());
+                    model.put("autoAEnviar", actualizado);
+                    model.put("mensaje_exito", "Se envio un auto correctamente el auto: " +
+                            "\n Patente: "+actualizado.getPatente()+"" +
+                            "\n Marca: "+actualizado.getMarca()+""+
+                            "\n Modelo: "+actualizado.getModelo()+""+
+                            "\n Kilomtraje: "+actualizado.getKm()+""+
+                            "\n Situacion: "+actualizado.getSituacion()+"");
+                } catch (NoEnviaAutoAMantenimiento e) {
+                    model.put("error", "No se envio el auto a mantenimiento porque esta ocupado");
+                    model.put("auto", buscado);
+                }
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
+        }
+        return setModelAndView(model, vista);
+    }
+
+    private Auto obtenerAuto(Long id_auto) throws AutoNoExistente {
+        return servicioDeAuto.buscarAutoPorId(id_auto);
+    }
+
     private boolean elRolEstaSeteadoYEsAdministrador(HttpServletRequest request) {
-        return request.getSession().getAttribute("rol") != null && request.getSession().getAttribute("rol").equals(Rol.ADMIN);
+        return request.getSession().getAttribute("rol") != null && request.getSession().getAttribute("rol").equals("admin");
     }
 
     private ModelMap getModelMap() {
@@ -284,49 +337,12 @@ public class ControladorAdministrador {
     }
 
 
-    public List<Usuario> obtenerListaDeUsuariosConRol(Rol rol) throws NoHayEmpladosException{
+    public List<Usuario> obtenerListaDeUsuariosConRol(String rol) throws NoHayEmpladosException {
         return servicioUsuario.obtenerListaDeUsuariosPorRol(rol);
     }
 
     public List<Usuario> obtenerListaDeUsuariosConRolPendiente() throws NoHayUsuariosPendientesDeRol {
         return servicioUsuario.obtenerListaDeUsuariosPendienteDeRol();
     }
-
-    @RequestMapping(method = RequestMethod.GET, path = "/confirmar-rol")
-    public ModelAndView asignarRolAlEmpleado(@RequestParam(value = "rol") Integer rol, @RequestParam(value = "id_usuario") Long id_usuario, HttpServletRequest request) {
-        ModelMap model = new ModelMap();
-        String vista;
-        if (elRolEstaSeteadoYEsAdministrador(request)) {
-            vista = "asignacion-de-rol";
-            Rol obtenido = obtenerRol(rol);
-            Usuario pendienteDeRol = servicioUsuario.buscarPorId(id_usuario);
-            if (obtenido != null && pendienteDeRol != null) {
-                try {
-                    Usuario actualizado = servicioUsuario.asignarRol(obtenido, pendienteDeRol.getId());
-                    model.put("usuario", actualizado);
-                    model.put("rol", obtenido);
-                    model.put("mensaje_exito","Al usuario "+actualizado.getEmail()+" se le asigno el rol de "+obtenido);
-                } catch (NoSeAsignoElRol e) {
-                    model.put("error", "No se pudo asignar el rol correctamente");
-                }
-            } else {
-                model.put("error", "No se pudo asignar el rol correctamente");
-            }
-        } else {
-            vista = enviaAlaVistaDeLoginConMensajeDeError(model);
-        }
-        return setModelAndView(model, vista);
-    }
-
-    private Rol obtenerRol(Integer rol) {
-        Rol[] buscado = Rol.values();
-        for (int i = 0; i < Rol.values().length; i++) {
-            if (buscado[i].ordinal() == rol) {
-                return buscado[i];
-            }
-        }
-        return null;
-    }
-
 
 }

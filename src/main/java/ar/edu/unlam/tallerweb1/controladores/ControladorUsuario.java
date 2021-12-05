@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +15,12 @@ public class ControladorUsuario {
 
     @Autowired
     private ServicioSuscripcion servicioSuscripcion;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorUsuario (ServicioSuscripcion servicioSuscripcion){
+    public ControladorUsuario (ServicioSuscripcion servicioSuscripcion,ServicioUsuario servicioUsuario){
         this.servicioSuscripcion=servicioSuscripcion;
+        this.servicioUsuario= servicioUsuario;
     }
 
     @RequestMapping(path = "/ir-a-perfil")

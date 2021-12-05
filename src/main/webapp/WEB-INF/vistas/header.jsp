@@ -40,8 +40,6 @@
           <a class="nav-link" href="main">Mi Cuenta</a>
         </li>
 
-
-
           <c:choose>
           <c:when test = "${rol == Rol.ADMIN }">
             <li class="nav-item">

@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.*;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
@@ -141,7 +140,7 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
     @Override
     public List<Usuario> obtenerListaDeUsuariosNoSuscriptos() throws NoHayClientesNoSuscriptos {
         List<Usuario> usuariosSinSuscripcion = new ArrayList<>();
-        List<Usuario> usuariosClientes = repositorioUsuario.buscarUsuariosPorRol(Rol.CLIENTE);
+        List<Usuario> usuariosClientes = repositorioUsuario.buscarUsuariosPorRol("cliente");
         if (usuariosClientes.size() > 0) {
             for (Usuario usuario : usuariosClientes) {
                 Suscripcion buscado = repositorioSuscripcion.buscarPorUsuario(usuario);

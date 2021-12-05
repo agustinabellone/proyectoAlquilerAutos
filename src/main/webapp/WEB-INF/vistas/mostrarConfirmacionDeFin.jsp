@@ -26,7 +26,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
-                    <h1 class="display-5 p-4">${cliente.nombre} confirma los datos para finalizar el alquiler</h1>
+                    <h1 class="display-5 p-4">${cliente.nombre} confirmá los datos para finalizar el alquiler</h1>
                 </div>
             </div>
             <!-- row  -->
@@ -69,7 +69,7 @@
                                 <h6 class="subtitle font-weight-normal" style="text-align: center">Recordar que se cobrara una tarifa por la modificacion</h6>
                             </div>
                             <div class="col-lg-12 text-center mt-2" >
-                                <a class="btn btn-success" href='confirmacion-fin-alquiler?alquilerID=${alquiler.id}'>CONFIRMAR FINALIZACION DE ALQUILER</a>
+                                <a class="btn btn-info" href='confirmacion-fin-alquiler?alquilerID=${alquiler.id}'>CONFIRMAR FINALIZACION DE ALQUILER</a>
                             </div>
                             </div>
                         </div>

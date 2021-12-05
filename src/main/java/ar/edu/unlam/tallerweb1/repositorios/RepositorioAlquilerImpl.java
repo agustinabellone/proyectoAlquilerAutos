@@ -6,9 +6,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-@Repository("RepositorioAlquiler")
+@Transactional
+@Repository
 public class RepositorioAlquilerImpl implements RepositorioAlquiler {
 
     private SessionFactory sessionFactory;
@@ -93,6 +95,26 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
         return sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
                 .add(Restrictions.eq("auto", id))
                 .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
+    }
+
+    @Override
+    public void actualizarAlquiler(Alquiler alquiler) {
+        //sessionFactory.getCurrentSession().update(alquiler);
+        alquiler = (Alquiler) sessionFactory.getCurrentSession().merge(alquiler);
+        sessionFactory.getCurrentSession().save(alquiler);
+    }
+
+    @Override
+    public Alquiler obtenerAlquileresPendientesDeUsuario(Usuario usuario) {
+        return (Alquiler) sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
+                .add(Restrictions.eq("usuario", usuario))
+                .add(Restrictions.eq("estado", Estado.PENDIENTE)).uniqueResult();
+    }
+
+    @Override
+    public List<Garage> obtenerGaragesDisponibles() {
+        return sessionFactory.getCurrentSession().createCriteria(Garage.class)
+                .list();
     }
 
 }

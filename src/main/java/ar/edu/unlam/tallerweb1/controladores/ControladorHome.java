@@ -53,10 +53,17 @@ public class ControladorHome {
                 List <String> fechasAlquileresUsuario = servicioHome.obtenerFechasEnString(alquileresUsuario);
                 List <Marca> autosMarca = servicioHome.obtenerMarcaAutoAlquiler(alquileresUsuario);
                 List <Modelo> autosModelo = servicioHome.obtenerModeloAutoAlquiler(alquileresUsuario);
+
+                Integer puntajeUsuario = usuario.getPuntaje();
+
+                Alquiler alquileresEsperandoConfirmacion = servicioAlquiler.obtenerAlquilerPendienteDeUsuario(usuario);
+                model.put("esperandoConfirmacion", alquileresEsperandoConfirmacion);
+
                 model.put("alquileres", alquileresUsuario);
                 model.put("fechas", fechasAlquileresUsuario);
                 model.put("modelos", autosModelo);
                 model.put("marcas", autosMarca);
+                model.put("puntaje", puntajeUsuario);
                 Long id=(Long) request.getSession().getAttribute("id");
                 model=obtenerDatosDeSuscripcion(request, model, id);
 
@@ -95,5 +102,19 @@ public class ControladorHome {
         out.print(json);
 
     }
+
+    @RequestMapping(path = "/ir-a-encargado-home", method = RequestMethod.GET)
+    public ModelAndView mostrarMainEncargado(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if(request.getSession().getAttribute("id")!=null){
+            Usuario usuario = servicioUsuario.buscarPorId((Long) request.getSession().getAttribute("id"));
+            List<Solicitud> solicitudesEsperandoConfirmacion = servicioUsuario.obtenerSolicitudesPendientesDeUnEncargado(usuario);
+            model.put("esperandoConfirmacion", solicitudesEsperandoConfirmacion);
+            return new ModelAndView("mainEncargado", model);
+        }
+        return new ModelAndView("redirect:/home");
+    }
+
+
 
 }

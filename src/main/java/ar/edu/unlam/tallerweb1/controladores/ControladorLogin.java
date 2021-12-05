@@ -1,10 +1,10 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.ClienteEstaInactivoException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoConfirmoEmail;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
 import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -52,7 +51,11 @@ public class ControladorLogin {
             servicioLogin.ingresar(datosLogin);
         } catch (ClienteNoExisteException e) {
             return registroFallido(modelo, "El usuario no existe");
-        } catch (PasswordIncorrectaException e) {
+        }catch (ClienteEstaInactivoException e) {
+            modelo.put("usuarioInactivo", "El usuario se encuentra inactivo.");
+            modelo.put("emailUsuario", datosLogin.getEmail());
+            return new ModelAndView("login", modelo);
+        }catch (PasswordIncorrectaException e) {
             return registroFallido(modelo, "Datos incorrectos");
         }catch(ClienteNoConfirmoEmail e){
             return registroFallido(modelo, "Confirme su email");
@@ -95,8 +98,14 @@ public class ControladorLogin {
     }
 
     private ModelAndView registroExitoso(HttpServletRequest request) {
-        if (request.getSession().getAttribute("rol").equals(Rol.ADMIN)){
+        if (request.getSession().getAttribute("rol").equals("admin")){
             return new ModelAndView("redirect:/ir-a-panel-principal");
+        }
+        if (request.getSession().getAttribute("rol").equals("encargado")){
+            return new ModelAndView("redirect:/ir-a-encargado-home");
+        }
+        if (request.getSession().getAttribute("rol").equals("mecanico")){
+            return new ModelAndView("redirect:/para-mantenimiento");
         }
         return new ModelAndView("redirect:/main");
     }

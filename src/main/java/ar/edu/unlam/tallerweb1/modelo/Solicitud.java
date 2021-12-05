@@ -1,18 +1,28 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Solicitud {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
     @ManyToOne
     private Usuario usuario;
     @ManyToOne
     private Usuario encargado;
+    @OneToOne
+    private Alquiler alquiler;
+    private EstadoSolicitud estadoSolicitud;
+
+
+    public Solicitud(Alquiler alquiler) {
+        this.usuario = alquiler.getUsuario();
+        this.encargado = alquiler.getEncargado();
+        this.alquiler = alquiler;
+        this.estadoSolicitud = EstadoSolicitud.PENDIENTE;
+    }
 
 
     public Solicitud(Long id, Usuario usuario, Usuario encargado) {
@@ -22,7 +32,7 @@ public class Solicitud {
     }
 
     public Solicitud() {
-
+        this.estadoSolicitud=EstadoSolicitud.PENDIENTE;
     }
 
     public Long getId() {
@@ -47,5 +57,21 @@ public class Solicitud {
 
     public void setEncargado(Usuario encargado) {
         this.encargado = encargado;
+    }
+
+    public EstadoSolicitud getEstadoSolicitud() {
+        return estadoSolicitud;
+    }
+
+    public void setEstadoSolicitud(EstadoSolicitud estadoSolicitud) {
+        this.estadoSolicitud = estadoSolicitud;
+    }
+
+    public Alquiler getAlquiler() {
+        return alquiler;
+    }
+
+    public void setAlquiler(Alquiler alquiler) {
+        this.alquiler = alquiler;
     }
 }

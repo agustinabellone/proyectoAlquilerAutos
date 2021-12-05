@@ -35,6 +35,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Por favor <c:out value="${nombre}"/>, confirmá tu suscripción</h5>
                     <p class="card-text">¿Te suscribimos al plan número <span style="font-size: 120%; color: black"><c:out value="${id_tipo}"/></span> ?</p>
+
                     <a href="${preferencia.initPoint}" class="btn btn-success">Pagar</a>
                     <a href="ir-a-suscribir" class="btn btn-secondary">Volver</a>
                 </div>

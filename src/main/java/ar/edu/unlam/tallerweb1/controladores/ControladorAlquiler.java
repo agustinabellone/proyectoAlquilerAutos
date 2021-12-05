@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioMail;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,19 +28,13 @@ public class ControladorAlquiler {
 
     private ServicioAlquiler servicioAlquiler;
     private ServicioMail servicioMail;
+    private ServicioUsuario servicioUsuario;
     private ServicioSuscripcion servicioSuscripcion;
-
-
-    public ControladorAlquiler(ServicioAlquiler servicioAlquiler, ServicioMail servicioMail) {
-        this.servicioAlquiler = servicioAlquiler;
-        this.servicioMail = servicioMail;
-    }
-
-
     @Autowired
-    public ControladorAlquiler(ServicioAlquiler servicioAlquiler, ServicioMail servicioMail, ServicioSuscripcion servicioSuscripcion) {
+    public ControladorAlquiler(ServicioAlquiler servicioAlquiler, ServicioMail servicioMail, ServicioUsuario servicioUsuario, ServicioSuscripcion servicioSuscripcion) {
         this.servicioAlquiler = servicioAlquiler;
-        this.servicioMail = servicioMail;
+        this.servicioMail=servicioMail;
+        this.servicioUsuario = servicioUsuario;
         this.servicioSuscripcion = servicioSuscripcion;
     }
 
@@ -68,9 +62,11 @@ public class ControladorAlquiler {
     @RequestMapping(path = "/elegir-fechas", method = RequestMethod.GET)
     public ModelAndView mostrarFechasAlquiler(@RequestParam("id_auto") Long id_auto,
                                               @RequestParam("imagen_auto") String imagen_auto) {
+        List<Garage> garagesDisponibles = servicioAlquiler.obtenerGaragesDisponibles();
         ModelMap modelo = new ModelMap();
         modelo.put("id_auto", id_auto);
         modelo.put("imagen_auto", imagen_auto);
+        modelo.put("garages", garagesDisponibles);
         return new ModelAndView("alquilarAutoFechasDisponibles", modelo);
     }
 
@@ -133,10 +129,14 @@ public class ControladorAlquiler {
 
         DatosAlquiler datosAlquiler = new DatosAlquiler(usuario, auto, salida, ingreso, garageRetiro, garageDevolucion);
 
+        Puntaje puntaje = new Puntaje();
+
         try {
             servicioAlquiler.AlquilarAuto(datosAlquiler);
-            servicioMail.enviarMailAlquiler(mail, garageRetiro.getDireccion(), garageDevolucion.getDireccion(), salida, ingreso);
-        } catch (AutoYaAlquiladoException e) {
+            servicioMail.enviarMailAlquiler(mail,garageRetiro.getDireccion(),garageDevolucion.getDireccion(),salida,ingreso);
+            servicioUsuario.actualizarPuntaje(puntaje.getAlquiler(), usuario);
+        }
+        catch (AutoYaAlquiladoException e) {
             return alquilerFallido(modelo, "El auto ya fue alquilado en esas fechas.");
         }
 

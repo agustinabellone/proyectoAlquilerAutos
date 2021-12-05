@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesNoSuscriptos;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptos;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
@@ -80,10 +79,10 @@ public class TestServicioAdministradorSeccionClientes {
         List<Usuario> listaUsuariosClientes = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
-            usuario.setRol(Rol.CLIENTE);
+            usuario.setRol("cliente");
             listaUsuariosClientes.add(usuario);
         }
-        when(repositorioUsuario.buscarUsuariosPorRol(Rol.CLIENTE)).thenReturn(listaUsuariosClientes);
+        when(repositorioUsuario.buscarUsuariosPorRol("cliente")).thenReturn(listaUsuariosClientes);
     }
 
     private void thenObtengoLaListaDeUsuarios(List<Usuario> usuarios, int cantidad_esperada) {

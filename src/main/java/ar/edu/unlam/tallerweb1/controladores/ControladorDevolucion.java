@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioSinSuscripcion;
+import ar.edu.unlam.tallerweb1.modelo.*;
+import ar.edu.unlam.tallerweb1.servicios.*;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDevolucion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEncargado;
@@ -20,30 +23,21 @@ import java.util.List;
 public class ControladorDevolucion {
 
     private ServicioDevolucion servicioDevolucion;
-    private ServicioEncargado servicioEncargado;
     private ServicioGarage servicioGarage;
     private ServicioUsuario servicioUsuario;
+    private ServicioSolicitud servicioSolicitud;
 
     @Autowired
-    public ControladorDevolucion(ServicioDevolucion servicioDevolucion, ServicioEncargado servicioEncargado, ServicioGarage servicioGarage, ServicioUsuario servicioUsuario) {
+    public ControladorDevolucion(ServicioDevolucion servicioDevolucion, ServicioGarage servicioGarage, ServicioUsuario servicioUsuario, ServicioSolicitud servicioSolicitud) {
         this.servicioDevolucion = servicioDevolucion;
-        this.servicioEncargado = servicioEncargado;
         this.servicioGarage = servicioGarage;
         this.servicioUsuario = servicioUsuario;
+        this.servicioSolicitud = servicioSolicitud;
     }
 
     public ControladorDevolucion() {
     }
 
-    @RequestMapping("/alMain")
-    public ModelAndView irAMain(HttpServletRequest request) {
-        Usuario usuario = new Usuario();
-        Auto auto = new Auto();
-        Alquiler alquiler = new Alquiler(1L, auto);
-        ModelMap modelo = new ModelMap();
-        modelo.put("alquiler", alquiler);
-        return new ModelAndView("main", modelo);
-    }
 
     @RequestMapping("finalizar-alquiler")
     public ModelAndView irFinalizarAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
@@ -83,27 +77,43 @@ public class ControladorDevolucion {
     public ModelAndView procesarSeleccionNuevoGarageLlegada(@RequestParam(value = "nuevoGarage") Long garageID, @RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
         Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
         Garage garage = servicioGarage.obtenerGaragePorID(garageID);
-        alquiler.setGarageLlegada(garage); //SETEA EL GARAGE LLEGADA != GARAGE EST
+        alquiler.setGarageLlegada(garage);
         servicioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
         return new ModelAndView("redirect:/finalizar-alquiler?alquilerID=" + alquilerID);
     }
+
+    //return new ModelAndView("redirect:/confirmacion-fin-alquiler?alquilerID=" + alquilerID);
 
     @RequestMapping("/confirmacion-fin-alquiler")
     public ModelAndView procesarConfirmacionFinDeAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
         ModelMap modelo = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
-        Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
-        Suscripcion suscripcion = servicioUsuario.obtenerSuscripcionDeUsuario(usuario);
-
-        Auto auto = alquiler.getAuto();
+        Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
+        servicioSolicitud.realizarPeticionDeDevolucion(alquiler);
         modelo.put("alquilerID", alquiler.getId());
-        modelo.put("auto", auto);
+        modelo.put("auto", alquiler.getAuto());
+        modelo.put("solicitud", "Espere la confirmacion de devolución...");
         modelo.put("valorarLuego", "valorarLuego");
-        servicioDevolucion.finalizarAlquilerCliente(alquiler, suscripcion);
         return new ModelAndView("valorar-auto", modelo);
     }
 
+    @RequestMapping("/cierreDevolucion")
+    public ModelAndView datosDevolucionAlquiler(@RequestParam(value = "solicitud") Long solicitudID) {
+        ModelMap modelo = new ModelMap();
+        Solicitud solicitud = servicioSolicitud.obtenerSolicitudPorId(solicitudID);
+        modelo.put("solicitud", solicitud);
+        return new ModelAndView("cierreDevolucionEncargado", modelo);
+    }
+
+
+    @RequestMapping("/finalizarAlquiler")
+    public ModelAndView darPorFinalizadoElAlquiler(@RequestParam(value = "solicitud") Long solicitudID, @RequestParam(value = "condicion", required = false) String enCondiciones,@RequestParam(value = "comentario", required = false) String comentario) {
+        ModelMap modelo = new ModelMap();
+        Solicitud solicitud = servicioSolicitud.obtenerSolicitudPorId(solicitudID);
+        servicioDevolucion.finalizarAlquilerCliente(solicitud, enCondiciones, comentario);
+        modelo.put("funciono", "Alquiler finalizado");
+        return new ModelAndView("mainEncargado", modelo);
+    }
 
 }
-

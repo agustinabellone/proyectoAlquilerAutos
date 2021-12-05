@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioSinSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
+import ar.edu.unlam.tallerweb1.modelo.Solicitud;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
@@ -14,7 +16,10 @@ public interface ServicioDevolucion {
 
     void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler);
 
-    void finalizarAlquilerCliente(Alquiler alquiler, Suscripcion suscripcion);
+    void adicionarAumentoPorDevolucionEnMalascondiciones(Alquiler alquiler);
+
+    void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario);
+
 
 }
 

@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,8 +19,9 @@ public class Alquiler {
     private LocalDate f_egreso;
     private LocalDate f_ingreso;
     private Float adicionalCambioLugarFecha = 0.0f;
-    private Float adicionalInfraccionesOtro = 0.0f;
-    private Boolean estadoValoracionAuto=Boolean.FALSE;
+    private Float adicionalKilometraje = 0.0f;
+    private Float adicionalCondiciones = 0.0f;
+    private Boolean estadoValoracionAuto = Boolean.FALSE;
     @ManyToOne
     private Auto auto;
     @ManyToOne
@@ -36,6 +38,9 @@ public class Alquiler {
 
     @ManyToOne
     private Usuario encargado;
+    //POST DEVOLUCION ALQUILER TERMINADO
+    private String comentario;
+    private Boolean entregadoEnCondiciones;
 
 
     public Alquiler() {
@@ -57,6 +62,7 @@ public class Alquiler {
 
     public Alquiler(DatosAlquiler datosAlquiler) {
         this.auto = datosAlquiler.getAuto();
+        this.encargado = datosAlquiler.getLugarDevolucion().getEncargado();
         this.usuario = datosAlquiler.getUsuario();
         this.f_ingreso = datosAlquiler.getF_ingreso();
         this.f_egreso = datosAlquiler.getF_salida();
@@ -64,7 +70,7 @@ public class Alquiler {
         this.garageLlegada = datosAlquiler.getLugarDevolucion();
         this.garageLlegadaEst = datosAlquiler.getLugarDevolucion();
         this.estado = Estado.ACTIVO;
-        this.estadoValoracionAuto=Boolean.FALSE;
+        this.estadoValoracionAuto = Boolean.FALSE;
     }
 
     public Long getId() {
@@ -95,16 +101,18 @@ public class Alquiler {
         return adicionalCambioLugarFecha;
     }
 
-    public void setAdicionalCambioLugarFecha(Float adicionalCambioLugarFecha) {
-        this.adicionalCambioLugarFecha = adicionalCambioLugarFecha;
+
+    public Usuario getEncargado() {
+        return encargado;
     }
 
-    public Float getAdicionalInfraccionesOtro() {
-        return adicionalInfraccionesOtro;
+    public void setEncargado(Usuario encargado) {
+        this.encargado = encargado;
     }
 
-    public void setAdicionalInfraccionesOtro(Float adicionalInfraccionesOtro) {
-        this.adicionalInfraccionesOtro = adicionalInfraccionesOtro;
+
+    public Float getAdicionalKilometraje() {
+        return adicionalKilometraje;
     }
 
     public Boolean getEstadoValoracionAuto() {
@@ -164,18 +172,56 @@ public class Alquiler {
     }
 
     public void setAdicionalCambioLugarFecha(Alquiler alquiler, Suscripcion suscripcion) {
-        Usuario usuario = suscripcion.getUsuario();
-        if (usuario.getRol().equals(Rol.CLIENTE)) {
+        Usuario usuario = alquiler.getUsuario();
+        if (usuario.getRol().equals("cliente")) {
             if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
-                if (this.garageLlegadaEst != this.garageLlegada) //SI NO HUBO CAMBIO DE GARAGE GARAGE LLEGADA == NULL
-                    adicionalCambioLugarFecha=adicionalCambioLugarFecha+suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar();
-                }
+                if (this.garageLlegada != null) //SI NO HUBO CAMBIO DE GARAGE GARAGE LLEGADA == NULL
+                    adicionalCambioLugarFecha = adicionalCambioLugarFecha + suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar();
             }
         }
+    }
 
+    public void setAdicionalKilometraje(Alquiler alquiler, Suscripcion suscripcion) {
+        Usuario usuario = alquiler.getUsuario();
+        if (usuario.getRol().equals("cliente")) {
+            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
+                adicionalKilometraje = adicionalKilometraje + suscripcion.getTipoSuscripcion().getValorPorKmAdicional();
+                entregadoEnCondiciones=false;
 
+            }
+        }
+    }
 
+    public void setAdicionalCondiciones(Alquiler alquiler, Suscripcion suscripcion) {
+        Usuario usuario = alquiler.getUsuario();
+        if (usuario.getRol().equals("cliente")) {
+            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
+                adicionalCondiciones = adicionalCondiciones + suscripcion.getTipoSuscripcion().getValorPorMalasCondiciones();
+            }
+        }
+    }
+
+    public Float getAdicionalCondiciones() {
+        return adicionalCondiciones;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public Boolean getEntregadoEnCondiciones() {
+        return entregadoEnCondiciones;
+    }
+
+    public void setEntregadoEnCondiciones(Boolean entregadoEnCondiciones) {
+        this.entregadoEnCondiciones = entregadoEnCondiciones;
+    }
 }
+
 
 
 

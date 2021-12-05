@@ -12,8 +12,7 @@ public class Usuario {
     private Long id;
 
     @Column
-    private Rol rol;
-
+    private String rol;
 
     @Column
     private String nombre;
@@ -30,8 +29,11 @@ public class Usuario {
     @Column
     private String hashCodigo;
 
+    @Column
+    private Integer puntaje;
 
-    public Usuario(Rol rol) {
+
+    public Usuario(String rol) {
         this.rol = rol;
     }
 
@@ -50,11 +52,11 @@ public class Usuario {
         this.id=id;
     }
 
-    public Rol getRol() {
+    public String getRol() {
         return this.rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 
@@ -105,5 +107,13 @@ public class Usuario {
 
     public void setHashCodigo(String hashCodigo) {
         this.hashCodigo = hashCodigo;
+    }
+
+    public Integer getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(Integer puntaje) {
+        this.puntaje = puntaje;
     }
 }

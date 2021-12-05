@@ -98,14 +98,9 @@
             <div id="collapseEmpleados" class="collapse" aria-labelledby="headingEmpleados"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-<<<<<<< HEAD:src/main/webapp/WEB-INF/vistas/autos_disponibles.jsp
-                    <a class="collapse-item" href="utilities-color.html">Encargados de Devolucion</a>
-                    <a class="collapse-item" href="utilities-border.html">Mecanicos</a>
-=======
                     <a class="collapse-item" href="encargados-devolucion">Encargados de Devolucion</a>
                     <a class="collapse-item" href="mecanicos">Mecanicos</a>
                     <a class="collapse-item" href="asignacion-de-rol">Asignacion de Rol</a>
->>>>>>> ce987c5892b8d70c8ed35bbaba2529cf88c404fa:src/main/webapp/WEB-INF/vistas/disponibles.jsp
                 </div>
             </div>
         </li>
@@ -141,58 +136,57 @@
         <!-- Main Content -->
         <div id="content" class="bg-gray-200">
 
-            <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                    <i class="fa fa-bars"></i>
-                </button>
-
-
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
-
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                    </li>
-
-                    <div class="topbar-divider d-none d-sm-block"></div>
-
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">${nombre}</span>
-                            <img class="img-profile rounded-circle"
-                                 src="img/undraw_profile.svg">
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Mi Perfil
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Cerrar Session
-                            </a>
-                        </div>
-                    </li>
-
-                </ul>
-
-            </nav>
-            <!-- End of Topbar -->
-
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class=" container container-fluid">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light topbar static-top ">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${nombre}</span>
+                                <img class="img-profile rounded-circle"
+                                     src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Mi Perfil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Cerrar Session
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
 
                 <!-- Page Heading -->
                 <div class="col-12 mb-4">
@@ -201,7 +195,7 @@
 
                 <!-- Topbar Search -->
                 <div class="row">
-                    <form class="d-sm-inline-block form-inline col-12 mb-4">
+                    <form class="d-sm-inline-block form-inline col-lg-12 mb-4">
                         <div class="input-group">
                             <input type="text" class="form-control bg-white border-0 small" placeholder="Buscar por..."
                                    aria-label="Search" aria-describedby="basic-addon2">
@@ -214,6 +208,11 @@
                     </form>
                 </div>
 
+                <c:if test="${not empty mensaje_exito}">
+                    <div class="alert alert-success text-center container mt-3 col-12" role="alert">
+                            ${mensaje_exito}
+                    </div>
+                </c:if>
                 <!-- Empieza FOR-EAH-->
                 <c:forEach items="${autosDisponibles}" var="auto">
                     <div class="col-md-12">
@@ -227,9 +226,6 @@
                                         <div class="row mt-3">
                                             <div class="col-lg-6 align-self-center">
                                                 <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                    <li>
-                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio: dd/mm/yy</span>
-                                                    </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
                                                         Patente: <span>${auto.patente}</span>
                                                     </li>
@@ -242,6 +238,9 @@
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
                                                         Kilometraje: <span>${auto.km}</span>
                                                     </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Gama: <span>${auto.gama}</span>
+                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="col-lg-6">
@@ -250,8 +249,8 @@
                                                          alt="" style="width: 100%; height: auto;">
                                                 </div>
                                             </div>
-                                            <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
-                                            >Fecha Retorno: dd/mm/yy</p>
+                                            <a class="btn btn-primary font-14 border-0 text-white p-3 btn-block mt-3"
+                                               href="enviar-a-matenimiento?id_auto=${auto.id}">ENVIAR A MANTENIMIENTO</a>
                                         </div>
                                     </div>
                                 </div>

@@ -1,11 +1,12 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
+import ar.edu.unlam.tallerweb1.modelo.Solicitud;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
 import ar.edu.unlam.tallerweb1.Exceptions.NoSeAsignoElRol;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
@@ -56,7 +57,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public List<Usuario> obtenerListaDeUsuariosPorRol(Rol rol) throws NoHayEmpladosException {
+    public List<Usuario> obtenerUsuariosSuscriptosAlPlanBasico() throws NoHayClientesSuscriptosAlPlanBasico {
+        return null;
+    }
+
+    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) throws NoHayEmpladosException {
         List<Usuario> buscados = repositorioUsuario.buscarUsuariosPorRol(rol);
         if (buscados.size() > 0) {
             return buscados;
@@ -74,8 +79,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public List<Usuario> obtenerListaDeUsuariosPorRol(String rol) {
-        return null;
+    public List<Solicitud> obtenerSolicitudesPendientesDeUnEncargado(Usuario usuario) {
+        return repositorioUsuario.obtenerSolicitudesPendientesDeUnEncargado(usuario);
     }
 
 
@@ -84,18 +89,26 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         return repositorioUsuario.getNotificacionesPorId(buscado);
     }
 
+    @Override
+    public void actualizarPuntaje(int puntaje, Usuario usuario) {
+        repositorioUsuario.actualizarPuntaje(puntaje, usuario);
+    }
+
+    @Override
+    public void restarPuntaje(int numero, Usuario usuario) {
+        repositorioUsuario.restarPuntaje(numero, usuario);
+    }
 
     public Suscripcion obtenerSuscripcionDeUsuario(Usuario cliente) {
         return repositorioSuscripcion.buscarPorUsuario(cliente);
     }
 
     @Override
-    public Usuario asignarRol(Rol rol, Long id_usuario) throws NoSeAsignoElRol {
+    public Usuario asignarRol(String rol, Long id_usuario) throws NoSeAsignoElRol {
         Usuario buscado = repositorioUsuario.buscarPorId(id_usuario);
         if (buscado != null) {
             repositorioUsuario.actualizarRol(rol, buscado.getId());
-            Usuario actualizado = new Usuario();
-            actualizado = buscarPorId(buscado.getId());
+            Usuario actualizado = buscarPorId(buscado.getId());
             return actualizado;
         }
         throw new NoSeAsignoElRol();
@@ -104,6 +117,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     @Override
     public void actualizarNotificacion(Long id_noti) {
         this.repositorioUsuario.actualizarNotificacion(id_noti);
+    }
+
+
+    public void reactivarCuenta(Usuario usuario) {
+         repositorioUsuario.reactivarUsuario(usuario);
     }
 
 

@@ -29,4 +29,9 @@ public interface RepositorioAlquiler {
 
     List<Alquiler> obtenerAlquileresDelAuto(Auto id);
 
+    void actualizarAlquiler(Alquiler alquiler);
+
+    Alquiler obtenerAlquileresPendientesDeUsuario(Usuario usuario);
+
+    List<Garage> obtenerGaragesDisponibles();
 }
