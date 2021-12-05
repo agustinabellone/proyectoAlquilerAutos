@@ -41,16 +41,7 @@ public class ControladorMecanico {
     @RequestMapping(method = RequestMethod.GET, path = "/revisar-auto/patente/${patente}")
     public ModelAndView enviarARevision(@PathVariable String patente, HttpServletRequest request) {
         if (esMecanico(request) && estaSeteadoElRol(request)) {
-            vista = "redirect:/para-mantenimiento";
-            try {
-                Auto paraRevision = servicioDeAuto.buscarAutoPorPatente(patente);
-                servicioDeAuto.enviarARevision(paraRevision.getPatente(), (Long) request.getSession().getAttribute("id"));
-                request.getSession().setAttribute("patente", paraRevision.getPatente());
-            } catch (AutoNoExistente e) {
-                request.getSession().setAttribute("error_no_existe", "No existe el auto que queres mandar");
-            } catch (AutoYaEnRevision e) {
-                request.getSession().setAttribute("error_ya_existe", "No se puede enviar un auto a revision que ya esta enviado");
-            }
+            redirigeAlaVistaDeAutosEnMantenimientoConMensajeDeExitoSiNoLanzaUnaExceptionMostrandoUnMensaje(patente, request);
         } else {
             siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
         }
@@ -98,28 +89,86 @@ public class ControladorMecanico {
         return request.getSession().getAttribute("rol").equals("mecanico");
     }
 
-    private void accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje(HttpServletRequest request) {
-        Long id_mecanico = (Long) request.getSession().getAttribute("id");
-        String patente = (String) request.getSession().getAttribute("patente");
-        String autoInexistente = (String) request.getSession().getAttribute("error_no_existe");
-        String autoEnRevision = (String) request.getSession().getAttribute("error_ya_existe");
-        vista = "en-mantenimiento";
-        try {
-            List<Auto> para_mantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
-            modelMap.put("para_mantenimiento", para_mantenimiento);
-            if (patente != null)
-                modelMap.put("auto_enviado", "Se envio correctamente el auto: \n" + "Patente: " + patente);
-            if (autoInexistente != null) modelMap.put("error_no_existe", autoInexistente);
-            if (autoEnRevision != null) modelMap.put("error_ya_existe", autoEnRevision);
-            modelMap.put("mecanico", id_mecanico);
-        } catch (NoHayAutosEnMantenientoException e) {
-            modelMap.put("error", "No hay autos para mantenimiento actualmente");
-        }
-    }
-
     private void siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError() {
         vista = "login";
         modelMap.put("datosLogin", new DatosLogin());
         modelMap.put("errorSinPermisos", "No tienes los permisos necesarios para acceder a esta pagina");
+    }
+
+    private void accedeALaVistaDeAutosParaMantenimientoMostrandoUnaListaSiNoLanzaUnaExceptionMostrandoUnMensaje(HttpServletRequest request) {
+        Long id_mecanico = obtenerIdMecanicoQueVieneComoVariableDeSesion(request);
+        String patente = obtenerPatenteDelAutoQueVieneComoVariableDeSesion(request);
+        String autoInexistente = getError_no_existeQueVieneComoVariableDeSession(request);
+        String autoEnRevision = getError_ya_existeQueVieneComoVariableDeSesion(request);
+        vista = "en-mantenimiento";
+        try {
+            obtieneLosAutosParaMantenimientoYVerificaQueNoHayErrores(id_mecanico, patente, autoInexistente, autoEnRevision);
+        } catch (NoHayAutosEnMantenientoException e) {
+            enviaMensajeDeErrorQueNoHayAutosParaMantenimientoAlaVista();
+        }
+    }
+
+    private void redirigeAlaVistaDeAutosEnMantenimientoConMensajeDeExitoSiNoLanzaUnaExceptionMostrandoUnMensaje(String patente, HttpServletRequest request) {
+        vista = "redirect:/para-mantenimiento";
+        try {
+            obtieneElAutosParaRevisarPorPatenteYLoEnviaARevision(patente, request);
+        } catch (AutoNoExistente e) {
+            siNoExisteElAutosObtenidoPorPatenteEnviarPorVariableDeSesionUnMensajeDeError(request);
+        } catch (AutoYaEnRevision e) {
+            siElAutoObtenidoYaEstaEnRevisionSeEnviarPorVariableDeSesionUnaMensajeDeError(request);
+        }
+    }
+
+    private void siElAutoObtenidoYaEstaEnRevisionSeEnviarPorVariableDeSesionUnaMensajeDeError(HttpServletRequest request) {
+        request.getSession().setAttribute("error_ya_existe", "No se puede enviar un auto a revision que ya esta enviado");
+    }
+
+    private void siNoExisteElAutosObtenidoPorPatenteEnviarPorVariableDeSesionUnMensajeDeError(HttpServletRequest request) {
+        request.getSession().setAttribute("error_no_existe", "No existe el auto que queres mandar");
+    }
+
+    private void siLaPatenteEnviadaPorVariableDeSesionExisteMandarMensajeDeExito(String patente) {
+        if (patente != null)
+            modelMap.put("auto_enviado", "Se envio correctamente el auto: \n" + "Patente: " + patente);
+    }
+
+    private void obtieneElAutosParaRevisarPorPatenteYLoEnviaARevision(String patente, HttpServletRequest request) throws AutoNoExistente, AutoYaEnRevision {
+        Auto paraRevision = servicioDeAuto.buscarAutoPorPatente(patente);
+        Long id_mecanico = obtenerIdMecanicoQueVieneComoVariableDeSesion(request);
+        servicioDeAuto.enviarARevision(paraRevision.getPatente(), id_mecanico);
+        request.getSession().setAttribute("patente", paraRevision.getPatente());
+    }
+
+    private void siEstanSeteadosLosErroresQueVienenEnVariablesDeSesionEnviarlosALaVista(String autoInexistente, String autoEnRevision) {
+        if (autoInexistente != null) modelMap.put("error_no_existe", autoInexistente);
+        if (autoEnRevision != null) modelMap.put("error_ya_existe", autoEnRevision);
+    }
+
+    private Long obtenerIdMecanicoQueVieneComoVariableDeSesion(HttpServletRequest request) {
+        return (Long) request.getSession().getAttribute("id");
+    }
+
+    private String obtenerPatenteDelAutoQueVieneComoVariableDeSesion(HttpServletRequest request) {
+        return (String) request.getSession().getAttribute("patente");
+    }
+
+    private String getError_no_existeQueVieneComoVariableDeSession(HttpServletRequest request) {
+        return (String) request.getSession().getAttribute("error_no_existe");
+    }
+
+    private String getError_ya_existeQueVieneComoVariableDeSesion(HttpServletRequest request) {
+        return (String) request.getSession().getAttribute("error_ya_existe");
+    }
+
+    private void obtieneLosAutosParaMantenimientoYVerificaQueNoHayErrores(Long id_mecanico, String patente, String autoInexistente, String autoEnRevision) throws NoHayAutosEnMantenientoException {
+        List<Auto> para_mantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
+        modelMap.put("para_mantenimiento", para_mantenimiento);
+        modelMap.put("mecanico", id_mecanico);
+        siLaPatenteEnviadaPorVariableDeSesionExisteMandarMensajeDeExito(patente);
+        siEstanSeteadosLosErroresQueVienenEnVariablesDeSesionEnviarlosALaVista(autoInexistente, autoEnRevision);
+    }
+
+    private void enviaMensajeDeErrorQueNoHayAutosParaMantenimientoAlaVista() {
+        modelMap.put("error", "No hay autos para mantenimiento actualmente");
     }
 }
