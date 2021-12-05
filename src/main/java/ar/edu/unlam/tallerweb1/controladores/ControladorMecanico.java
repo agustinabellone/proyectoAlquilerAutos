@@ -51,13 +51,7 @@ public class ControladorMecanico {
     @RequestMapping(method = RequestMethod.GET, path = "/en-revision")
     public ModelAndView mostrarListaDeAutosEnRevision(HttpServletRequest request) {
         if (esMecanico(request) && estaSeteadoElRol(request)) {
-            vista = "en-revision";
-            try {
-                List<Auto> para_revision = servicioDeAuto.obtenerAutosEnRevision();
-                modelMap.put("para_revision", para_revision);
-            } catch (NoHayAutosParaRevision e) {
-                modelMap.put("error_no_hay_autos_para_revision", "No hay autos para revision actualmente");
-            }
+            accedeAlaVistaDeRevisionDeAutosMostrandoUnaListaSiNoLanzaUnaExceptionConMensajeDeError();
         } else {
             siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
         }
@@ -127,6 +121,20 @@ public class ControladorMecanico {
         request.getSession().setAttribute("error_no_existe", "No existe el auto que queres mandar");
     }
 
+    private void accedeAlaVistaDeRevisionDeAutosMostrandoUnaListaSiNoLanzaUnaExceptionConMensajeDeError() {
+        vista = "en-revision";
+        try {
+            obtieneUnaListaDeAutosParaRevision();
+        } catch (NoHayAutosParaRevision e) {
+            SiNoHayAutosParaRevisionEnviaUnMensajeAlaVista();
+        }
+    }
+
+    private void obtieneUnaListaDeAutosParaRevision() throws NoHayAutosParaRevision {
+        List<Auto> para_revision = servicioDeAuto.obtenerAutosEnRevision();
+        modelMap.put("para_revision", para_revision);
+    }
+
     private void siLaPatenteEnviadaPorVariableDeSesionExisteMandarMensajeDeExito(String patente) {
         if (patente != null)
             modelMap.put("auto_enviado", "Se envio correctamente el auto: \n" + "Patente: " + patente);
@@ -137,6 +145,10 @@ public class ControladorMecanico {
         Long id_mecanico = obtenerIdMecanicoQueVieneComoVariableDeSesion(request);
         servicioDeAuto.enviarARevision(paraRevision.getPatente(), id_mecanico);
         request.getSession().setAttribute("patente", paraRevision.getPatente());
+    }
+
+    private void SiNoHayAutosParaRevisionEnviaUnMensajeAlaVista() {
+        modelMap.put("error_no_hay_autos_para_revision", "No hay autos para revision actualmente");
     }
 
     private void siEstanSeteadosLosErroresQueVienenEnVariablesDeSesionEnviarlosALaVista(String autoInexistente, String autoEnRevision) {
