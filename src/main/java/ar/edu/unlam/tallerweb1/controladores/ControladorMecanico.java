@@ -76,12 +76,13 @@ public class ControladorMecanico {
     @RequestMapping(method = RequestMethod.GET, path = "/formulario-revision/id-auto/${id_auto}")
     public ModelAndView completarFormularioDeRevision(@PathVariable Long id_auto, HttpServletRequest request) {
         if (esMecanico(request) && estaSeteadoElRol(request)) {
-            vista = "formulario-revision";
             try {
+                vista = "formulario-revision";
                 Auto para_revision = servicioDeAuto.buscarAutoPorId(id_auto);
-                modelMap.put("auto_para_revision",para_revision);
+                modelMap.put("auto_para_revision", para_revision);
             } catch (AutoNoExistente e) {
-                e.printStackTrace();
+                vista = "en-revision";
+                modelMap.put("error_no_existe_auto", "No existe el auto que queres revisar");
             }
         } else {
             siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();

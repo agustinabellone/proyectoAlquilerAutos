@@ -124,12 +124,12 @@ public class TestControladorMecanico {
 
     @Test
     public void queSeMuestreUnMensajeDeErrorDeQueNoExisteElAutoQueSeQuiereEnviar() throws AutoNoExistente {
-        givenNoExisteElAutoPorPatente();
+        givenNoExisteElAuto();
         whenSeMandaARevision("AA123AA", request);
         thenSeMuestraLaVistaConUnMensajeDeError(this.modelAndView, "No existe el auto que queres mandar");
     }
 
-    private void givenNoExisteElAutoPorPatente() throws AutoNoExistente {
+    private void givenNoExisteElAuto() throws AutoNoExistente {
         doThrow(AutoNoExistente.class).when(servicioDeAuto).buscarAutoPorPatente(anyString());
         when(request.getSession().getAttribute("error")).thenReturn("No existe el auto que queres mandar");
     }
@@ -200,7 +200,7 @@ public class TestControladorMecanico {
     @Test
     public void queElMecanicoAlHacerClickEnElBotonDeRevisarSeMuestreUnFormulario() throws NoHayAutosParaRevision, AutoNoExistente {
         Long id_auto = givenExisteUnAutoParaRevisar(Situacion.EN_REVISION);
-        whenAccedeALaVistaDeRevisarAutos(id_auto, request);
+        whenAccedeAlFormularioDeRevision(id_auto, request);
         thenSeMuestraLaVistaConElFormulario(this.modelAndView, id_auto);
     }
 
@@ -212,7 +212,7 @@ public class TestControladorMecanico {
         return auto.getId();
     }
 
-    private void whenAccedeALaVistaDeRevisarAutos(Long id_auto, HttpServletRequest request) {
+    private void whenAccedeAlFormularioDeRevision(Long id_auto, HttpServletRequest request) {
         this.modelAndView = controlador.completarFormularioDeRevision(id_auto, request);
     }
 
@@ -222,5 +222,21 @@ public class TestControladorMecanico {
         assertThat(modelAndView.getModel().get("auto_para_revision")).isInstanceOf(Auto.class);
         Auto auto = (Auto) modelAndView.getModel().get("auto_para_revision");
         assertThat(auto.getId()).isEqualTo(id_auto);
+    }
+
+    @Test
+    public void queElMecanicoVeaUnMensajeDeErrorAlRevisarUnAutoQueNoExisteYLoMandeALaVistaDeAutosParaRevisar() throws AutoNoExistente {
+        givenNoExisteElAutoARevisar();
+        whenAccedeAlFormularioDeRevision(1l, request);
+        thenSeMuestraUnMensajeDeErrorYRedirigeAAutosParaMantenimiento(this.modelAndView, request);
+    }
+
+    private void givenNoExisteElAutoARevisar() throws AutoNoExistente {
+        doThrow(AutoNoExistente.class).when(servicioDeAuto).buscarAutoPorId(anyLong());
+    }
+
+    private void thenSeMuestraUnMensajeDeErrorYRedirigeAAutosParaMantenimiento(ModelAndView modelAndView, HttpServletRequest request) {
+        assertThat(modelAndView.getViewName()).isEqualTo("en-revision");
+        assertThat(modelAndView.getModel().get("error_no_existe_auto")).isEqualTo("No existe el auto que queres revisar");
     }
 }
