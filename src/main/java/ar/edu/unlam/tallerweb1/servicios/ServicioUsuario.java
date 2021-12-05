@@ -35,4 +35,5 @@ public interface ServicioUsuario {
 
     Usuario asignarRol(Rol mecanico, Long id_usuario) throws NoSeAsignoElRol;
 
+    void actualizarNotificacion(Long id_noti);
 }

@@ -34,4 +34,5 @@ public interface RepositorioUsuario {
 
     void actualizarRol(Rol rol, Long id_usuario);
 
+    void actualizarNotificacion(Long id_noti);
 }

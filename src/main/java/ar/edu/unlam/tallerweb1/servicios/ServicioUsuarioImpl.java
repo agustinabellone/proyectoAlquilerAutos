@@ -101,6 +101,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         throw new NoSeAsignoElRol();
     }
 
+    @Override
+    public void actualizarNotificacion(Long id_noti) {
+        this.repositorioUsuario.actualizarNotificacion(id_noti);
+    }
+
 
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {
         return contraseña.length() < 8;

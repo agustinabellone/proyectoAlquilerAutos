@@ -107,5 +107,16 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         sessionFactory.getCurrentSession().update(buscado);
     }
 
+    @Override
+    public void actualizarNotificacion(Long id_noti) {
+
+        Notificacion notiBuscada=sessionFactory.getCurrentSession()
+                        .load(Notificacion.class, id_noti);
+
+        sessionFactory.getCurrentSession()
+                .delete(notiBuscada);
+
+    }
+
 
 }

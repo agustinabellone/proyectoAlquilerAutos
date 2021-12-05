@@ -5,14 +5,21 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioHome;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -66,6 +73,27 @@ public class ControladorHome {
             model.put("tipoSuscripcion", suscripcion.getTipoSuscripcion());
         }
         return model;
+    }
+
+    @RequestMapping(path = "/actualizarNotificaciones", method = RequestMethod.GET)
+    public void actualizarNotificaciones(@RequestParam(value="id_noti") Long id_noti,
+                                         @RequestParam(value="id_usuario") Long id_usuario,
+                                         HttpServletResponse response,
+                                         HttpServletRequest request) throws IOException {
+
+        this.servicioUsuario.actualizarNotificacion(id_noti);
+        Usuario buscado = this.servicioUsuario.buscarPorId(id_usuario);
+        List<Notificacion> notificaciones= servicioUsuario.getNotificacionesPorId(buscado);
+
+        request.getSession().setAttribute("notificaciones", notificaciones);
+
+        JsonObject json= new JsonObject();
+        PrintWriter out = response.getWriter();
+
+        json.addProperty("cantidadNotis", notificaciones.size());
+
+        out.print(json);
+
     }
 
 }
