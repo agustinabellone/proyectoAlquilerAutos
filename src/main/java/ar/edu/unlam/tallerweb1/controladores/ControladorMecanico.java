@@ -9,6 +9,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,7 +39,7 @@ public class ControladorMecanico {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/revisar-auto/patente/${patente}")
-    public ModelAndView enviarARevision(String patente, HttpServletRequest request) {
+    public ModelAndView enviarARevision(@PathVariable String patente, HttpServletRequest request) {
         if (esMecanico(request) && estaSeteadoElRol(request)) {
             vista = "redirect:/para-mantenimiento";
             try {
@@ -65,6 +66,22 @@ public class ControladorMecanico {
                 modelMap.put("para_revision", para_revision);
             } catch (NoHayAutosParaRevision e) {
                 modelMap.put("error_no_hay_autos_para_revision", "No hay autos para revision actualmente");
+            }
+        } else {
+            siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
+        }
+        return new ModelAndView(vista, modelMap);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/formulario-revision/id-auto/${id_auto}")
+    public ModelAndView completarFormularioDeRevision(@PathVariable Long id_auto, HttpServletRequest request) {
+        if (esMecanico(request) && estaSeteadoElRol(request)) {
+            vista = "formulario-revision";
+            try {
+                Auto para_revision = servicioDeAuto.buscarAutoPorId(id_auto);
+                modelMap.put("auto_para_revision",para_revision);
+            } catch (AutoNoExistente e) {
+                e.printStackTrace();
             }
         } else {
             siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();

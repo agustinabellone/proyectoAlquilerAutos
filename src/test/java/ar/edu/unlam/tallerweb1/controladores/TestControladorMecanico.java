@@ -185,7 +185,7 @@ public class TestControladorMecanico {
     public void queAlObtenerUnaListaDeAutosEnRevisionSeMuestreUnMensajeDeErrorYaQueNoHayAutosParaRevision() throws NoHayAutosParaRevision {
         givenNoExistenAutosParaRevision();
         whenAccedeALaVistaDeAutosParaRevisar(request);
-        thenSeMuestraUnMensajeDeError(this.modelAndView,"No hay autos para revision actualmente");
+        thenSeMuestraUnMensajeDeError(this.modelAndView, "No hay autos para revision actualmente");
     }
 
     private void givenNoExistenAutosParaRevision() throws NoHayAutosParaRevision {
@@ -195,5 +195,32 @@ public class TestControladorMecanico {
     private void thenSeMuestraUnMensajeDeError(ModelAndView modelAndView, String error) {
         assertThat(modelAndView.getModel().get("error_no_hay_autos_para_revision")).isEqualTo(error);
         assertThat(modelAndView.getViewName()).isEqualTo("en-revision");
+    }
+
+    @Test
+    public void queElMecanicoAlHacerClickEnElBotonDeRevisarSeMuestreUnFormulario() throws NoHayAutosParaRevision, AutoNoExistente {
+        Long id_auto = givenExisteUnAutoParaRevisar(Situacion.EN_REVISION);
+        whenAccedeALaVistaDeRevisarAutos(id_auto, request);
+        thenSeMuestraLaVistaConElFormulario(this.modelAndView, id_auto);
+    }
+
+    private Long givenExisteUnAutoParaRevisar(Situacion enRevision) throws AutoNoExistente {
+        Auto auto = new Auto();
+        auto.setId(1l);
+        auto.setSituacion(enRevision);
+        when(servicioDeAuto.buscarAutoPorId(auto.getId())).thenReturn(auto);
+        return auto.getId();
+    }
+
+    private void whenAccedeALaVistaDeRevisarAutos(Long id_auto, HttpServletRequest request) {
+        this.modelAndView = controlador.completarFormularioDeRevision(id_auto, request);
+    }
+
+    private void thenSeMuestraLaVistaConElFormulario(ModelAndView modelAndView, Long id_auto) {
+        assertThat(modelAndView.getViewName()).isEqualTo("formulario-revision");
+        assertThat(modelAndView.getModel().get("auto_para_revision")).isNotNull();
+        assertThat(modelAndView.getModel().get("auto_para_revision")).isInstanceOf(Auto.class);
+        Auto auto = (Auto) modelAndView.getModel().get("auto_para_revision");
+        assertThat(auto.getId()).isEqualTo(id_auto);
     }
 }
