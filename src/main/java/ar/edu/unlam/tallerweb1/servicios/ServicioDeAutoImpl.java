@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
@@ -65,5 +66,10 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     @Override
     public void enviarARevision(String patente, Long id_mecanico) {
 
+    }
+
+    @Override
+    public List<Auto> obtenerAutosEnRevision() throws NoHayAutosParaRevision {
+        throw new NoHayAutosParaRevision();
     }
 }

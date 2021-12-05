@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaEnRevision;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,22 @@ public class ControladorMecanico {
                 request.getSession().setAttribute("error_no_existe", "No existe el auto que queres mandar");
             } catch (AutoYaEnRevision e) {
                 request.getSession().setAttribute("error_ya_existe", "No se puede enviar un auto a revision que ya esta enviado");
+            }
+        } else {
+            siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
+        }
+        return new ModelAndView(vista, modelMap);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/en-revision")
+    public ModelAndView mostrarListaDeAutosEnRevision(HttpServletRequest request) {
+        if (esMecanico(request) && estaSeteadoElRol(request)) {
+            vista = "en-revision";
+            try {
+                List<Auto> para_revision = servicioDeAuto.obtenerAutosEnRevision();
+                modelMap.put("para_revision", para_revision);
+            } catch (NoHayAutosParaRevision e) {
+                modelMap.put("error_no_hay_autos_para_revision", "No hay autos para revision actualmente");
             }
         } else {
             siNoEsMecanicoElUsuarioLoEnviaAlLoginConMensajeDeError();
