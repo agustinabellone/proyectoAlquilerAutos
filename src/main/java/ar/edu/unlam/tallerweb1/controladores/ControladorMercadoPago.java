@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
@@ -43,6 +44,10 @@ public class ControladorMercadoPago {
 
         ModelMap model = obtenerPreferencia(id_tipo, request, 0);
 
+        Long id= (Long)request.getSession().getAttribute("id");
+        Puntaje puntaje = new Puntaje();
+        Usuario usuario = servicioUsuario.buscarPorId(id);
+        servicioUsuario.actualizarPuntaje(puntaje.getSuscripcion(), usuario);
 
         return new ModelAndView("confirmar-suscripcion", model);
     }
@@ -111,6 +116,8 @@ public class ControladorMercadoPago {
                                               @RequestParam(value="id_tipo") Long id_tipo,
                                               @RequestParam(value="opcion") int opcion)  {
 
+        String mail = (String) request.getSession().getAttribute("email");
+
         if(resultado.equals("approved") && opcion == 0){
             Long id_usuario= (Long)request.getSession().getAttribute("id");
             Usuario usuario = this.servicioUsuario.buscarPorId(id_usuario);
@@ -118,6 +125,7 @@ public class ControladorMercadoPago {
 
             servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
             request.getSession().setAttribute("tieneSuscripcion",true);
+            servicioMail.enviarMailSuscripcion(mail,tipoSuscripcion.getNombre());
         }
 
         if(resultado.equals("approved") && opcion == 1){
@@ -129,13 +137,9 @@ public class ControladorMercadoPago {
             servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
 
             request.getSession().setAttribute("tieneSuscripcion",true);
+            servicioMail.enviarMailMejorarSuscripcion(mail,tipoSuscripcion.getNombre());
         }
 
-        if((Boolean) request.getSession().getAttribute("tieneSuscripcion")==true){
-            String mail = (String) request.getSession().getAttribute("email");
-            TipoSuscripcion tipoSuscripcion = servicioSuscripcion.getTipoPorid(id_tipo);
-            servicioMail.enviarMailSuscripcion(mail,tipoSuscripcion.getNombre());
-        }
 
 
 

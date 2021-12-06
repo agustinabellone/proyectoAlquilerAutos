@@ -21,7 +21,23 @@
 <jsp:include page="header.jsp" />
 <section class="bg-light pb-5 py-2">
     <div class="container">
-        <h1 class="display-4 p-4">¡Hola <c:out value="${nombre}"/>!</h1>
+        <h1 class="text-center display-4 p-4">¡Hola <c:out value="${nombre}"/>!</h1>
+        <p class="text-center">Te queremos comentar que al suscribirte, alquilar y valorar autos sumas puntos para obtener un mes con nuestro mejor plan gratis!</p>
+        <div class="d-flex justify-content-end mr-4">
+            <p style="font-size: 20px" class="text-success p-3 rounded">Tu puntaje actual es: <span class="font-weight-bold">${puntaje}</span> </p>
+        </div>
+
+        <c:if test="${puntaje >= 1000}">
+            <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                <strong>¡ CONSEGUISTE 1000 PUNTOS !</strong>
+                <p class="mt-3">Tenés un mes gratis con el plan Diamante</p>
+                <a href="suscripcion-gratis" class="btn btn-dark mt-2 mb-3">SUSCRIBIRME AL PLAN</a>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
+
         <c:if test="${not empty confirmacionDarDeBaja}">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>-</strong> ${confirmacionDarDeBaja}<strong>-</strong>
@@ -138,13 +154,13 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5>¡Uy!</h5>
+                        <h5>Lo sentimos</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        No puedes alquilar un auto sin una suscripción activa.
+                        No podés alquilar un auto sin una suscripción activa.
                     </div>
                     <div class="modal-footer">
                         <a href="ir-a-suscribir"><button type="button" class="btn btn-info">Suscribirme</button></a>
@@ -161,9 +177,7 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"

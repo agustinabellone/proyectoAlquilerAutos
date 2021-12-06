@@ -18,6 +18,16 @@ public class Notificacion {
     @ManyToOne
     private Usuario Usuario;
 
+    public Notificacion(){
+
+    }
+
+    public Notificacion(String descripcion, String color, ar.edu.unlam.tallerweb1.modelo.Usuario usuario) {
+        Descripcion = descripcion;
+        Color = color;
+        Usuario = usuario;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

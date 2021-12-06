@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -67,7 +66,7 @@ public class TestControladorAdministradorSeccionEmpleados {
 
     @Test
     public void queElUsuarioAdministradorPuedaVerUnaListaDeLosEmpleadosEncargadosDeLaDevolucion() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
-        givenExisteUnaListaDeEmplados(Rol.ENCARGADO_DEVOLUCION, 2);
+        givenExisteUnaListaDeEmplados("encargado", 2);
         HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
         givenAccedeALaVistaDeEmpleados(administrador);
         whenObtieneUnaListaDeUsuarios("encargado");
@@ -102,7 +101,7 @@ public class TestControladorAdministradorSeccionEmpleados {
 
     @Test
     public void queElUsuarioAdministradorPuedaVerUnaListaDeLosEmpladosMecanicos() throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
-        givenExisteUnaListaDeEmplados(Rol.MECANICO, 3);
+        givenExisteUnaListaDeEmplados("mecanico", 3);
         HttpServletRequest administrador = givenExisteUnUsuario(ADMIN);
         givenAccedeALaVistaDeEmpleadosMecanicos(administrador);
         whenObtieneUnaListaDeUsuarios("mecanico");
@@ -130,7 +129,7 @@ public class TestControladorAdministradorSeccionEmpleados {
         this.whenAccedeALaVistaDeEmpleados(administrador);
     }
 
-    private void givenExisteUnaListaDeEmplados(Rol empleado, int cantidad) throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
+    private void givenExisteUnaListaDeEmplados(String empleado, int cantidad) throws NoHayEmpladosException, NoHayUsuariosPendientesDeRol {
         List<Usuario> listaDeUsuariosEncargadosDeDevolucion = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Usuario usuario = new Usuario();
