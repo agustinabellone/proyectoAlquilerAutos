@@ -45,4 +45,28 @@ public class TestRepositorioMecanico extends SpringTest {
             assertThat(auto.getSituacion()).isEqualTo(Situacion.EN_MANTENIMIENTO);
         }
     }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaBuscarAutosPorPatente(){
+        Auto auto = givenUnExisteAuto();
+        Auto buscado = whenBuscoUnAutoPorPatente(auto.getPatente());
+        thenObtengoElAutosBuscado(buscado,auto);
+    }
+
+    private Auto givenUnExisteAuto() {
+        Auto auto = new Auto();
+        auto.setPatente("AA123AA");
+        session().save(auto);
+        return auto;
+    }
+
+    private Auto whenBuscoUnAutoPorPatente(String patente) {
+        return repositorioAuto.buscarPorPatente(patente);
+    }
+
+    private void thenObtengoElAutosBuscado(Auto buscado, Auto auto) {
+        assertThat(buscado.getPatente()).isEqualTo(auto.getPatente());
+    }
 }

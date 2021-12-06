@@ -68,7 +68,8 @@ public class RepositorioAutoImpl implements RepositorioAuto {
 
     @Override
     public Auto buscarPorPatente(String patente) {
-        return null;
+        return (Auto) sessionFactory.getCurrentSession().createCriteria(Auto.class).
+                add(Restrictions.eq("patente",patente)).uniqueResult();
     }
 
     @Override
