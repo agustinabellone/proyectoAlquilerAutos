@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Marca;
-import ar.edu.unlam.tallerweb1.modelo.Modelo;
-import ar.edu.unlam.tallerweb1.modelo.Situacion;
+import ar.edu.unlam.tallerweb1.modelo.*;
 
 import java.util.List;
 
@@ -27,5 +24,7 @@ public interface RepositorioAuto {
 
     List<Auto> buscarAutosEnRevision(Situacion enRevision);
 
-    void enviarARevision(Auto buscado, Long id_mecanico);
+    void enviarARevision(Auto buscado, Usuario mecanico);
+
+    List<Revision> buscarRevisionPorMecanico(Usuario mecanico);
 }

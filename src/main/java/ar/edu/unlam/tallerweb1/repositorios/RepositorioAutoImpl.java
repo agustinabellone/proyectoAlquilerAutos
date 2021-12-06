@@ -12,7 +12,7 @@ import java.util.List;
 public class RepositorioAutoImpl implements RepositorioAuto {
 
     private SessionFactory sessionFactory;
-
+    private Revision revision = new Revision();
     @Autowired
     public RepositorioAutoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -79,8 +79,18 @@ public class RepositorioAutoImpl implements RepositorioAuto {
     }
 
     @Override
-    public void enviarARevision(Auto buscado, Long id_mecanico) {
+    public void enviarARevision(Auto buscado, Usuario mecanico) {
+        buscado.setSituacion(Situacion.EN_REVISION);
+        sessionFactory.getCurrentSession().update(buscado);
+        revision.setAuto(buscado);
+        revision.setUsuario(mecanico);
+        sessionFactory.getCurrentSession().save(revision);
+    }
 
+    @Override
+    public List<Revision> buscarRevisionPorMecanico(Usuario mecanico) {
+        return sessionFactory.getCurrentSession().createCriteria(Revision.class)
+                .add(Restrictions.eq("mecanico",mecanico)).list();
     }
 
 }

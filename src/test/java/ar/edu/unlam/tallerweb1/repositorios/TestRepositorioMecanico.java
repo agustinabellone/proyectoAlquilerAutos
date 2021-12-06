@@ -2,7 +2,9 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Revision;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -16,6 +18,7 @@ public class TestRepositorioMecanico extends SpringTest {
 
     @Autowired
     private RepositorioAuto repositorioAuto;
+    private String MECANICO = "mecanico";
 
     @Test
     @Rollback
@@ -73,8 +76,8 @@ public class TestRepositorioMecanico extends SpringTest {
     @Test
     @Rollback
     @Transactional
-    public void queSePuedaObtenerAutosEnRevision(){
-        givenExistenAutosParaRevision(Situacion.EN_REVISION,5);
+    public void queSePuedaObtenerAutosEnRevision() {
+        givenExistenAutosParaRevision(Situacion.EN_REVISION, 5);
         List<Auto> paraRevision = whenBuscoAutosEnSituacionDeRevision(Situacion.EN_REVISION);
         thenObtengoUnaListaDeLosAutosEnRevision(paraRevision);
     }
@@ -93,5 +96,38 @@ public class TestRepositorioMecanico extends SpringTest {
 
     private void thenObtengoUnaListaDeLosAutosEnRevision(List<Auto> paraRevision) {
         assertThat(paraRevision).hasSize(5);
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedanObtenerRevisionesDeCadaMecanico() {
+        Usuario mecanico = givenExisteUnaRevisionHechaPorUnMecanico(MECANICO);
+        List<Revision> obtenidas = whenBuscoUnaListaDeRevisionesPorElMacanico(mecanico);
+        thenObtengoLaListaConLasRevisiones(obtenidas);
+    }
+
+    private void thenObtengoLaListaConLasRevisiones(List<Revision> obtenidas) {
+        assertThat(obtenidas).hasSize(5);
+    }
+
+    private Usuario givenExisteUnaRevisionHechaPorUnMecanico(String mecanico) {
+        Usuario usuario = new Usuario();
+        usuario.setRol(mecanico);
+        session().save(usuario);
+        for (int i = 0; i < 5; i++) {
+            Auto auto = new Auto();
+            auto.setSituacion(Situacion.EN_REVISION);
+            session().save(auto);
+            Revision revision = new Revision();
+            revision.setUsuario(usuario);
+            revision.setAuto(auto);
+            session().save(revision);
+        }
+        return usuario;
+    }
+
+    private List<Revision> whenBuscoUnaListaDeRevisionesPorElMacanico(Usuario mecanico) {
+        return repositorioAuto.buscarRevisionPorMecanico(mecanico);
     }
 }
