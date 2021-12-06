@@ -101,6 +101,22 @@ public class ServicioMailImpl implements ServicioMail {
 
     }
 
+    @Override
+    public void enviarMailMejorarSuscripcion(String email, String nombrePlan) {
+        String asunto="Registro mejorado actualizado";
+        String mensaje= "<h2>¡Hola !</h2>\n"
+                + "<p>------------------------</p>\n"
+                + "<h4>Usted avanzo a el plan "+nombrePlan+"</h4><br>"
+                +"<p>Estas son la promociones especiales exclusivas para clientes como vos:</p><br>"
+                +"<p>etc etc etc</p><br>";
+
+        enviarMail(mensaje,asunto,email);
+
+    }
+
+
+
+
 
     @Override
     public void enviarMailAlquiler(String email, String lugarRetiro, String lugarDevolucion, LocalDate salida, LocalDate ingreso) {
