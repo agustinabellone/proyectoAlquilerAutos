@@ -140,6 +140,11 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
+    public void enviarARevision(Auto buscado, Long id_mecanico) {
+
+    }
+
+    @Override
     public void actualizarPuntaje(int puntaje, Usuario usuario) {
         int puntajeActual = usuario.getPuntaje();
         usuario.setPuntaje(puntajeActual + puntaje);

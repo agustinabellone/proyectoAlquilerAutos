@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,8 +21,9 @@ public class TestServicioAdministradorSeccionAutos {
 
     private RepositorioAlquiler repositorioAlquiler = mock(RepositorioAlquiler.class);
     private RepositorioAuto repositorioAuto = mock(RepositorioAuto.class);
+    private RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
     private ServicioAlquiler servicioAlquiler = new ServicioAlquilerImpl(repositorioAlquiler);
-    private ServicioDeAuto servicioDeAuto = new ServicioDeAutoImpl(repositorioAuto);
+    private ServicioDeAuto servicioDeAuto = new ServicioDeAutoImpl(repositorioAuto, repositorioUsuario);
 
     @Test
     public void queSePuedaObtenerAutosAlquilados() throws NoHayAutosAlquiladosException {

@@ -66,4 +66,9 @@ public class RepositorioAutoImpl implements RepositorioAuto {
         return sessionFactory.getCurrentSession().get(Auto.class,buscado.getId());
     }
 
+    @Override
+    public Auto buscarPorPatente(String patente) {
+        return null;
+    }
+
 }

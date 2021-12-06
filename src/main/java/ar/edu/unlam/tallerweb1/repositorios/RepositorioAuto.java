@@ -22,4 +22,6 @@ public interface RepositorioAuto {
     List<Auto> buscarAutosEnMantenimiento(Situacion enMantenimiento);
 
     Auto enviarAMantenimiento(Long id, Situacion enMantenimiento);
+
+    Auto buscarPorPatente(String patente);
 }

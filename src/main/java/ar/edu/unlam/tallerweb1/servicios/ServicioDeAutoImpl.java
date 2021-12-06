@@ -6,7 +6,9 @@ import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +21,13 @@ import java.util.List;
 public class ServicioDeAutoImpl implements ServicioDeAuto {
 
     private RepositorioAuto repositorioAuto;
+    private RepositorioUsuario repositorioUsuario;
     private LocalDate localDate = LocalDate.now();
 
     @Autowired
-    public ServicioDeAutoImpl(RepositorioAuto repositorioAuto) {
+    public ServicioDeAutoImpl(RepositorioAuto repositorioAuto, RepositorioUsuario repositorioUsuario) {
         this.repositorioAuto = repositorioAuto;
+        this.repositorioUsuario = repositorioUsuario;
     }
 
     public ServicioDeAutoImpl() {
@@ -52,20 +56,33 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     public Auto enviarAMantenimiento(Long buscado) throws NoEnviaAutoAMantenimiento, AutoNoExistente {
         Auto obtenido = repositorioAuto.buscarPor(buscado);
         if (obtenido != null && obtenido.getSituacion().equals(Situacion.DISPONIBLE)) {
-            Auto actualizado = repositorioAuto.enviarAMantenimiento(obtenido.getId(),Situacion.EN_MANTENIMIENTO);
+            Auto actualizado = repositorioAuto.enviarAMantenimiento(obtenido.getId(), Situacion.EN_MANTENIMIENTO);
             return actualizado;
         }
         throw new NoEnviaAutoAMantenimiento();
     }
 
     @Override
-    public Auto buscarAutoPorPatente(String patente) {
-        return null;
+    public Auto buscarAutoPorPatente(String patente) throws AutoNoExistente {
+        Auto buscado = repositorioAuto.buscarPorPatente(patente);
+        if (buscado != null) {
+            return buscado;
+        }
+        throw new AutoNoExistente();
     }
 
     @Override
-    public void enviarARevision(String patente, Long id_mecanico) {
-
+    public Auto enviarARevision(String patente, Long id_mecanico) throws AutoNoExistente {
+        Auto buscado = buscarAutoPorPatente(patente);
+        Usuario mecanico = repositorioUsuario.buscarPorId(id_mecanico);
+        if (buscado != null && mecanico != null) {
+            if (buscado.getSituacion().equals(Situacion.EN_MANTENIMIENTO)) {
+                repositorioUsuario.enviarARevision(buscado, id_mecanico);
+                Auto enRevision = repositorioAuto.buscarPor(buscado.getId());
+                return enRevision;
+            }
+        }
+        throw new AutoNoExistente();
     }
 
     @Override
