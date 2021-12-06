@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoYaEnRevision;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -151,5 +152,19 @@ public class TestServicioMecanico {
     }
 
     private void givenNoExisteUnAuto() {
+    }
+
+    @Test (expected = NoHayAutosParaRevision.class)
+    public void lanzarUnaExceptionSiNoExistenAutosEnRevision() throws NoHayAutosParaRevision {
+        givenNoExistenAutosParaRevision();
+        whenBuscoUnaListaDeAutosParaRevision();
+    }
+
+    private void givenNoExistenAutosParaRevision() {
+
+    }
+
+    private List<Auto> whenBuscoUnaListaDeAutosParaRevision() throws NoHayAutosParaRevision {
+        return servicioDeAuto.obtenerAutosEnRevision();
     }
 }
