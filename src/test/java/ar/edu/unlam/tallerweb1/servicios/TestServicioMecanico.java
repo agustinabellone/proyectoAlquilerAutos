@@ -120,4 +120,26 @@ public class TestServicioMecanico {
     private void givenNoExiteUnAutoParaMantenimiento() {
 
     }
+
+    @Test
+    public void queSePuedanObtenerAutosPorPatente(){
+        Auto auto = givenExistenAutos();
+        Auto buscado = whenLoBuscoPorPatente(auto.getPatente());
+        thenObtengoElAutoBuscado(buscado,auto.getPatente());
+    }
+
+    private Auto givenExistenAutos() {
+        Auto auto = new Auto();
+        auto.setPatente("AA123AA");
+        when(repositorioDeAuto.buscarPorPatente(anyString())).thenReturn(auto);
+        return auto;
+    }
+
+    private Auto whenLoBuscoPorPatente(String patente) {
+        return repositorioDeAuto.buscarPorPatente(patente);
+    }
+
+    private void thenObtengoElAutoBuscado(Auto buscado, String patente) {
+        assertThat(buscado.getPatente()).isEqualTo(patente);
+    }
 }
