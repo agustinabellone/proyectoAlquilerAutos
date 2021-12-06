@@ -49,10 +49,10 @@ public class TestRepositorioMecanico extends SpringTest {
     @Test
     @Rollback
     @Transactional
-    public void queSePuedaBuscarAutosPorPatente(){
+    public void queSePuedaBuscarAutosPorPatente() {
         Auto auto = givenUnExisteAuto();
         Auto buscado = whenBuscoUnAutoPorPatente(auto.getPatente());
-        thenObtengoElAutosBuscado(buscado,auto);
+        thenObtengoElAutosBuscado(buscado, auto);
     }
 
     private Auto givenUnExisteAuto() {
@@ -68,5 +68,30 @@ public class TestRepositorioMecanico extends SpringTest {
 
     private void thenObtengoElAutosBuscado(Auto buscado, Auto auto) {
         assertThat(buscado.getPatente()).isEqualTo(auto.getPatente());
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaObtenerAutosEnRevision(){
+        givenExistenAutosParaRevision(Situacion.EN_REVISION,5);
+        List<Auto> paraRevision = whenBuscoAutosEnSituacionDeRevision(Situacion.EN_REVISION);
+        thenObtengoUnaListaDeLosAutosEnRevision(paraRevision);
+    }
+
+    private void givenExistenAutosParaRevision(Situacion enRevision, int cantidad) {
+        for (int i = 0; i < cantidad; i++) {
+            Auto auto = new Auto();
+            auto.setSituacion(enRevision);
+            session().save(auto);
+        }
+    }
+
+    private List<Auto> whenBuscoAutosEnSituacionDeRevision(Situacion enRevision) {
+        return repositorioAuto.buscarAutosEnRevision(enRevision);
+    }
+
+    private void thenObtengoUnaListaDeLosAutosEnRevision(List<Auto> paraRevision) {
+        assertThat(paraRevision).hasSize(5);
     }
 }

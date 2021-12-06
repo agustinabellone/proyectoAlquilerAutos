@@ -74,7 +74,13 @@ public class RepositorioAutoImpl implements RepositorioAuto {
 
     @Override
     public List<Auto> buscarAutosEnRevision(Situacion enRevision) {
-        return null;
+        return sessionFactory.getCurrentSession().createCriteria(Auto.class)
+                .add(Restrictions.eq("situacion",enRevision)).list();
+    }
+
+    @Override
+    public void enviarARevision(Auto buscado, Long id_mecanico) {
+
     }
 
 }

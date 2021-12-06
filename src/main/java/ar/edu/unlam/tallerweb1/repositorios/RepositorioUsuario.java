@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.repositorios;
+
 import ar.edu.unlam.tallerweb1.modelo.*;
 
 import java.util.List;
@@ -40,6 +41,4 @@ public interface RepositorioUsuario {
     void reactivarUsuario(Usuario usuario);
 
     void guardarNotificacion(Notificacion notificacion);
-
-    void enviarARevision(Auto buscado, Long id_mecanico);
 }

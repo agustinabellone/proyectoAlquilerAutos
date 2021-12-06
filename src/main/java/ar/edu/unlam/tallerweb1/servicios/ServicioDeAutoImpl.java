@@ -77,7 +77,7 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         Usuario mecanico = repositorioUsuario.buscarPorId(id_mecanico);
         if (buscado != null && mecanico != null) {
             if (buscado.getSituacion().equals(Situacion.EN_MANTENIMIENTO)) {
-                repositorioUsuario.enviarARevision(buscado, id_mecanico);
+                repositorioAuto.enviarARevision(buscado, id_mecanico);
                 Auto enRevision = repositorioAuto.buscarPor(buscado.getId());
                 return enRevision;
             }
