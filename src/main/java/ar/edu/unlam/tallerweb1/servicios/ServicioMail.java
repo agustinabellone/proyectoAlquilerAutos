@@ -11,6 +11,8 @@ public interface ServicioMail {
 
     void enviarMailSuscripcion(String email, String nombrePlan);
 
+    void enviarMailMejorarSuscripcion(String email, String nombrePlan);
+
     void enviarMailAlquiler(String email, String lugarRetiro, String lugarDevolucion, LocalDate salida, LocalDate ingreso);
 
     void verificarHash(String mail, String hash);

@@ -116,6 +116,8 @@ public class ControladorMercadoPago {
                                               @RequestParam(value="id_tipo") Long id_tipo,
                                               @RequestParam(value="opcion") int opcion)  {
 
+        String mail = (String) request.getSession().getAttribute("email");
+
         if(resultado.equals("approved") && opcion == 0){
             Long id_usuario= (Long)request.getSession().getAttribute("id");
             Usuario usuario = this.servicioUsuario.buscarPorId(id_usuario);
@@ -123,6 +125,7 @@ public class ControladorMercadoPago {
 
             servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
             request.getSession().setAttribute("tieneSuscripcion",true);
+            servicioMail.enviarMailSuscripcion(mail,tipoSuscripcion.getNombre());
         }
 
         if(resultado.equals("approved") && opcion == 1){
@@ -134,13 +137,9 @@ public class ControladorMercadoPago {
             servicioSuscripcion.suscribir(usuario, tipoSuscripcion);
 
             request.getSession().setAttribute("tieneSuscripcion",true);
+            servicioMail.enviarMailMejorarSuscripcion(mail,tipoSuscripcion.getNombre());
         }
 
-        if((Boolean) request.getSession().getAttribute("tieneSuscripcion")==true){
-            String mail = (String) request.getSession().getAttribute("email");
-            TipoSuscripcion tipoSuscripcion = servicioSuscripcion.getTipoPorid(id_tipo);
-            servicioMail.enviarMailSuscripcion(mail,tipoSuscripcion.getNombre());
-        }
 
 
 
