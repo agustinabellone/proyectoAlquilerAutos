@@ -39,9 +39,9 @@
                             <p>Lugar de retiro:</p>
                             <select name="lugarRetiro" id="lugarRetiro" class="form-select" required>
                                 <option value="">Seleccionar</option>
-                                <option value="1">Sede Liniers</option>
-                                <option value="2">Sede Morón</option>
-                                <option value="3">Sede La Matanza</option>
+                                <c:forEach items="${garages}" var="garage">
+                                    <option value=${garage.id}>${garage.direccion}</option>
+                                </c:forEach>
                             </select>
                         </div>
                    </div>
@@ -54,9 +54,9 @@
                             <p>Lugar de devolución:</p>
                             <select name="lugarDevolucion" id="lugarDevolucion" class="form-select" required>
                                 <option value="">Seleccionar</option>
-                                <option value="1">Sede Ramos Mejía</option>
-                                <option value="2">Sede Morón</option>
-                                <option value="3">Sede La Matanza</option>
+                                <c:forEach items="${garages}" var="garage">
+                                    <option value=${garage.id}>${garage.direccion}</option>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>

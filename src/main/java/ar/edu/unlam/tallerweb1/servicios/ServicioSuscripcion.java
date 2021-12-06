@@ -20,7 +20,7 @@ public interface ServicioSuscripcion {
 
     Suscripcion buscarPorIdUsuario(Long id);
 
-    void revisionDeSuscripciones();
+    void revisionDeSuscripcionesFueraDeTermino();
 
     TipoSuscripcion getTipoPorid(Long id_tipo);
 
@@ -31,4 +31,8 @@ public interface ServicioSuscripcion {
     List<Suscripcion> obtenerClientesSuscriptos() throws NoHayClientesSuscriptos;
 
     List<Usuario> obtenerListaDeUsuariosNoSuscriptos()throws NoHayClientesNoSuscriptos;
+
+    void generarNotificacion(Usuario usuario, String mensajeNotificacion, String colorNotificacion);
+
+    void notificarUsuariosProximosAVencer();
 }

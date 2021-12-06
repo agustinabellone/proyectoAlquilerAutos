@@ -66,6 +66,7 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
         listaDeBajas= sessionFactory.getCurrentSession()
                 .createCriteria(Suscripcion.class)
                 .add(Restrictions.eq("FechaFin", fechaActual))
+                .add(Restrictions.isNull("FechaFinForzada"))
                 .list();
 
 
@@ -84,6 +85,5 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
     public List<Suscripcion> buscarSuscripciones() {
         return sessionFactory.getCurrentSession().createCriteria(Suscripcion.class).list();
     }
-
 
 }

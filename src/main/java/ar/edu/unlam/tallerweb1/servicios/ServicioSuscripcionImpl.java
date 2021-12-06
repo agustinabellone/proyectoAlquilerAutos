@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.*;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
+import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
@@ -84,7 +84,7 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
     }
 
     @Override
-    public void revisionDeSuscripciones() {
+    public void revisionDeSuscripcionesFueraDeTermino() {
         List<Suscripcion> listaDeBajas;
         listaDeBajas = repositorioSuscripcion.buscarSuscripcionesFueraDeFecha(LocalDate.now());
         if (!listaDeBajas.isEmpty()) {
@@ -93,13 +93,73 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
                 // SI LA RENOVACION ESTA ACTIVA, SE CREA UNA NUEVA SUSCRIPCION
                 if (suscripcion.getRenovacion()) {
                     suscribir(suscripcion.getUsuario(), suscripcion.getTipoSuscripcion());
-                    System.out.println("Se crea nueva suscripcion");
+                    suscripcion.setFechaFinForzada(LocalDate.now());
+                    this.repositorioSuscripcion.actualizarSuscripcion(suscripcion);
+                    String mensajeNoti="Su suscripcion fue renovada automaticamente";
+                    String colorNoti="success";
+                    generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                }else{
+                    String mensajeNoti="Su suscripcion fue cancelada automaticamente";
+                    String colorNoti="danger";
+                    generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
                 }
             }
             System.out.println("Todas las suscripciones fueron dadas de baja correctamente");
         } else {
             System.out.println("Ninguna baja");
         }
+    }
+
+    @Override
+    public void notificarUsuariosProximosAVencer() {
+        List<Suscripcion> listaDeSuscripcionesEn5Dias;
+        List<Suscripcion> listaDeSuscripcionesEn10Dias;
+
+        LocalDate fechaInteresadaEn5Dias=LocalDate.now().plusDays(5);
+        LocalDate fechaInteresadaEn10Dias=LocalDate.now().plusDays(10);
+
+        listaDeSuscripcionesEn5Dias = repositorioSuscripcion.buscarSuscripcionesFueraDeFecha(fechaInteresadaEn5Dias);
+        listaDeSuscripcionesEn10Dias = repositorioSuscripcion.buscarSuscripcionesFueraDeFecha(fechaInteresadaEn10Dias);
+
+        if (!listaDeSuscripcionesEn5Dias.isEmpty()) {
+            for (Suscripcion suscripcion : listaDeSuscripcionesEn5Dias) {
+                    if(suscripcion.getRenovacion()){
+                        String mensajeNoti="Su suscripcion sera renovada dentro de 5 dias";
+                        String colorNoti="success";
+                        generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                    }else{
+                        String mensajeNoti="Su suscripcion sera cancelada dentro de 5 dias";
+                        String colorNoti="danger";
+                        generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                    }
+
+            }
+        } else {
+            System.out.println("Ninguna Suscripcion en fecha interesada en 5");
+        }
+
+        if (!listaDeSuscripcionesEn10Dias.isEmpty()) {
+            for (Suscripcion suscripcion : listaDeSuscripcionesEn10Dias) {
+                if(suscripcion.getRenovacion()){
+                    String mensajeNoti="Su suscripcion sera renovada dentro de 10 dias";
+                    String colorNoti="success";
+                    generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                }else{
+                    String mensajeNoti="Su suscripcion sera cancelada dentro de 10 dias";
+                    String colorNoti="danger";
+                    generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                }
+
+            }
+        } else {
+            System.out.println("Ninguna Suscripcion en fecha interesada en 10");
+        }
+    }
+
+    @Override
+    public void generarNotificacion(Usuario usuario, String mensajeNotificacion, String colorNotificacion) {
+        Notificacion notificacion = new Notificacion(mensajeNotificacion, colorNotificacion, usuario);
+        this.repositorioUsuario.guardarNotificacion(notificacion);
     }
 
     @Override

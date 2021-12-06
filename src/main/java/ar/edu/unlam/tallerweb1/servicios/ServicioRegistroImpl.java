@@ -4,7 +4,6 @@ import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +42,7 @@ public class ServicioRegistroImpl implements ServicioRegistro {
 
 
         nuevoUsuario.setHashCodigo(md5);
+        nuevoUsuario.setPuntaje(0);
         nuevoUsuario.setRol("cliente");
 
         repositorioUsuario.guardar(nuevoUsuario);

@@ -2,13 +2,11 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayClientesSuscriptosAlPlanBasico;
-import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
 import ar.edu.unlam.tallerweb1.modelo.Solicitud;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayUsuariosPendientesDeRol;
 import ar.edu.unlam.tallerweb1.Exceptions.NoSeAsignoElRol;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioSuscripcion;
@@ -91,6 +89,15 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         return repositorioUsuario.getNotificacionesPorId(buscado);
     }
 
+    @Override
+    public void actualizarPuntaje(int puntaje, Usuario usuario) {
+        repositorioUsuario.actualizarPuntaje(puntaje, usuario);
+    }
+
+    @Override
+    public void restarPuntaje(int numero, Usuario usuario) {
+        repositorioUsuario.restarPuntaje(numero, usuario);
+    }
 
     public Suscripcion obtenerSuscripcionDeUsuario(Usuario cliente) {
         return repositorioSuscripcion.buscarPorUsuario(cliente);
@@ -106,6 +113,17 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         }
         throw new NoSeAsignoElRol();
     }
+
+    @Override
+    public void actualizarNotificacion(Long id_noti) {
+        this.repositorioUsuario.actualizarNotificacion(id_noti);
+    }
+
+
+    public void reactivarCuenta(Usuario usuario) {
+         repositorioUsuario.reactivarUsuario(usuario);
+    }
+
 
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {
         return contraseña.length() < 8;

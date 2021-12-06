@@ -35,19 +35,20 @@
                 <c:if test="${resultado == 'rejected'}">
                     <div class="card-body bg-danger text-white">
                         <h5 class="card-title text-white">Su pago fue rechazado, por favor intentelo de nuevo</h5>
-                        <p class="card-text"><a class="btn btn-primary" href="main">Volver a Mi Cuenta</a></p>
+                        <p class="card-text  mt-2"><a class="btn btn-secondary" href="main">Volver a Mi Cuenta</a></p>
                     </div>
                 </c:if>
                 <c:if test="${resultado == 'approved'}">
                     <div class="card-body bg-success text-white">
                         <h5 class="card-title text-white">¡Felicidades, su pago fue realizado con exito!</h5>
-                        <p class="card-text"><a class="btn btn-primary" href="main">Volver a Mi Cuenta</a></p>
+                        <p class="text-white">¡Sumaste 100 puntos!</p>
+                        <p class="card-text mt-2"><a class="btn btn-secondary" href="main">Volver a Mi Cuenta</a></p>
                     </div>
                 </c:if>
                 <div class="card-footer text-muted">
 
                 </div>
-
+            </div>
         </div>
 
     </div>

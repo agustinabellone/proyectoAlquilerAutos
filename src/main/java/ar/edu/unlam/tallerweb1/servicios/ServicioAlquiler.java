@@ -39,4 +39,6 @@ public interface ServicioAlquiler {
     boolean buscarSiElAutoYaFueAlquiladoEnEsasFechas(Auto auto, LocalDate f_egreso, LocalDate f_ingreso);
 
     Alquiler obtenerAlquilerPendienteDeUsuario(Usuario usuario);
+
+    List<Garage> obtenerGaragesDisponibles();
 }

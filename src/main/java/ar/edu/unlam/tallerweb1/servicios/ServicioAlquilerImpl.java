@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.controladores.DatosAlquiler;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAlquiler;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +54,11 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     @Override
     public Alquiler obtenerAlquilerPendienteDeUsuario(Usuario usuario) {
         return repositorioAlquiler.obtenerAlquileresPendientesDeUsuario(usuario);
+    }
+
+    @Override
+    public List<Garage> obtenerGaragesDisponibles() {
+        return repositorioAlquiler.obtenerGaragesDisponibles();
     }
 
     @Override

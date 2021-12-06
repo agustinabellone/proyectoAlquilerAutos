@@ -46,10 +46,6 @@
 
                 </div>
             </div>
-            <a href="${preferencia.initPoint}">MERCADO PAGO</a>
-
-            <div>-${preferencia.getId()}-</div>
-
         </div>
 
     </div>

@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 import ar.edu.unlam.tallerweb1.modelo.Solicitud;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
-import ar.edu.unlam.tallerweb1.modelo.Rol;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
@@ -27,13 +26,21 @@ public interface RepositorioUsuario {
 
     List<Usuario> buscarUsuariosPorSuscripcion(Suscripcion suscripcion);
 
-
     List<Notificacion> getNotificacionesPorId(Usuario buscado);
 
     List<Usuario> buscarUsuariosPorRol(String rol);
 
     List<Usuario> buscarUsuariosPendientesDeRol();
 
+    void actualizarPuntaje(int puntaje, Usuario usuario);
+
     void actualizarRol(String rol, Long id_usuario);
 
+    void restarPuntaje(int numero, Usuario usuario);
+
+    void actualizarNotificacion(Long id_noti);
+
+    void reactivarUsuario(Usuario usuario);
+
+    void guardarNotificacion(Notificacion notificacion);
 }

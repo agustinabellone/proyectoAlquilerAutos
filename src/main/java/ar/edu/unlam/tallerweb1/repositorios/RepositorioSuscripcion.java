@@ -23,4 +23,5 @@ public interface RepositorioSuscripcion {
     TipoSuscripcion getTipoPorId(Long id_tipo);
 
     List<Suscripcion> buscarSuscripciones();
+
 }
