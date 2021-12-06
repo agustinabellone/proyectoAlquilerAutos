@@ -110,4 +110,14 @@ public class TestServicioMecanico {
     private void thenDevuelveElAutoConElEstadoCambiado(Auto enRevision) {
         assertThat(enRevision.getSituacion()).isEqualTo(Situacion.EN_REVISION);
     }
+
+    @Test (expected = AutoNoExistente.class)
+    public void lanzarUnaExceptionSiElAutoAEnviarAReivisionNoExiste() throws AutoYaEnRevision, AutoNoExistente {
+        givenNoExiteUnAutoParaMantenimiento();
+        whenLoEnvioARevision(new Auto(),1l);
+    }
+
+    private void givenNoExiteUnAutoParaMantenimiento() {
+
+    }
 }
