@@ -17,4 +17,5 @@ public interface ServicioDeAuto {
     Auto enviarARevision(String patente, Long id_mecanico) throws AutoYaEnRevision, AutoNoExistente;
 
     List<Auto> obtenerAutosEnRevision() throws NoHayAutosParaRevision;
+
 }

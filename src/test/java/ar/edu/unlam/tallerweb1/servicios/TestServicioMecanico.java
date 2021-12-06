@@ -26,12 +26,13 @@ public class TestServicioMecanico {
     private RepositorioAuto repositorioDeAuto;
     private ServicioDeAuto servicioDeAuto;
     private RepositorioUsuario repositorioUsuario;
+
     @Before
     public void init() {
         MECANICO = "mecanico";
         repositorioUsuario = mock(RepositorioUsuario.class);
         repositorioDeAuto = mock(RepositorioAuto.class);
-        servicioDeAuto = new ServicioDeAutoImpl(repositorioDeAuto,repositorioUsuario);
+        servicioDeAuto = new ServicioDeAutoImpl(repositorioDeAuto, repositorioUsuario);
     }
 
     @Test(expected = NoHayAutosEnMantenientoException.class)
@@ -111,10 +112,10 @@ public class TestServicioMecanico {
         assertThat(enRevision.getSituacion()).isEqualTo(Situacion.EN_REVISION);
     }
 
-    @Test (expected = AutoNoExistente.class)
+    @Test(expected = AutoNoExistente.class)
     public void lanzarUnaExceptionSiElAutoAEnviarAReivisionNoExiste() throws AutoYaEnRevision, AutoNoExistente {
         givenNoExiteUnAutoParaMantenimiento();
-        whenLoEnvioARevision(new Auto(),1l);
+        whenLoEnvioARevision(new Auto(), 1l);
     }
 
     private void givenNoExiteUnAutoParaMantenimiento() {
@@ -122,10 +123,10 @@ public class TestServicioMecanico {
     }
 
     @Test
-    public void queSePuedanObtenerAutosPorPatente(){
+    public void queSePuedanObtenerAutosPorPatente() throws AutoNoExistente {
         Auto auto = givenExistenAutos();
         Auto buscado = whenLoBuscoPorPatente(auto.getPatente());
-        thenObtengoElAutoBuscado(buscado,auto.getPatente());
+        thenObtengoElAutoBuscado(buscado, auto.getPatente());
     }
 
     private Auto givenExistenAutos() {
@@ -135,11 +136,20 @@ public class TestServicioMecanico {
         return auto;
     }
 
-    private Auto whenLoBuscoPorPatente(String patente) {
-        return repositorioDeAuto.buscarPorPatente(patente);
+    private Auto whenLoBuscoPorPatente(String patente) throws AutoNoExistente {
+        return servicioDeAuto.buscarAutoPorPatente(patente);
     }
 
     private void thenObtengoElAutoBuscado(Auto buscado, String patente) {
         assertThat(buscado.getPatente()).isEqualTo(patente);
+    }
+
+    @Test(expected = AutoNoExistente.class)
+    public void lanzarUnaExceptionSiNoExisteElAutoBuscado() throws AutoNoExistente {
+        givenNoExisteUnAuto();
+        whenLoBuscoPorPatente("AA223AA");
+    }
+
+    private void givenNoExisteUnAuto() {
     }
 }
