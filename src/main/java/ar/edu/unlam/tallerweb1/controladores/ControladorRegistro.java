@@ -49,7 +49,6 @@ public class ControladorRegistro {
         try {
             servicioRegistro.registrar(datosRegistro,md5);
             servicioMail.enviarMailRegistro(datosRegistro.getEmail(),md5);
-            usuario.setPuntaje(0);
         }
         catch (ClavesDistintasException e){
             return registroFallido(modelo, "Las claves deben ser iguales");
