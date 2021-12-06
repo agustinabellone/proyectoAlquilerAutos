@@ -56,6 +56,8 @@ public class ControladorRegistro {
             return registroFallido(modelo, "La clave debe tener al menos 8 caracteres");
         } catch (ClienteYaExisteException e){
             return registroFallido(modelo, "El usuario ya se encuentra registrado");
+        }catch(MailNoEnviado e){
+            return registroFallido(modelo, "El mail no se envio");
         }
 
 
@@ -101,10 +103,17 @@ public class ControladorRegistro {
 
     @RequestMapping(path = "/reactivar-cuenta")
     private ModelAndView reactivarCuenta( @RequestParam("emailUsuario") String email){
-        Usuario usuario = servicioUsuario.buscarPorEmail(email);
-        servicioUsuario.reactivarCuenta(usuario);
+        servicioMail.enviarMailActivarCuenta(email);
         return new ModelAndView("cuenta-reactivada");
     }
+
+    @RequestMapping(path = "/confirmar-reactivar-cuenta")
+    private ModelAndView confirmarReactivarCuenta( @RequestParam("emailUsuario") String email){
+        Usuario usuario = servicioUsuario.buscarPorEmail(email);
+        servicioUsuario.reactivarCuenta(usuario);
+        return new ModelAndView("redirect:/login");
+    }
+
 
     private String crearMd5(String mail){
         try {
