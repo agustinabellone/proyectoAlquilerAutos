@@ -50,6 +50,8 @@ insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) valu
 insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2019-cruze-premier/colorizer/enero-21/colorizer-branco-summit.jpg?imwidth=960",80000,01,6,"BGC171",2);
 insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2019-cruze-premier/colorizer/enero-21/colorizer-branco-summit.jpg?imwidth=960",80000,01,6,"AJJ271",2);
 
+--NOTIFICACIONES
+INSERT INTO `notificacion` (`id`, `Color`, `Descripcion`, `Usuario_id`) VALUES (NULL, 'danger', 'Su suscripcion sera cancelada dentro de 5 dias', '1'), (NULL, 'primary', 'Quedan 3 dias para que aproveche nuestras promociones!', '1'), (NULL, 'success', 'Su suscripcion sera renovada dentro de 10 dias', '1');
 
 
 -- OTROS
