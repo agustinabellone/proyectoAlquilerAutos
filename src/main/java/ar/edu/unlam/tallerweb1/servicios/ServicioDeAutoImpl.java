@@ -87,6 +87,10 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
 
     @Override
     public List<Auto> obtenerAutosEnRevision() throws NoHayAutosParaRevision {
-        throw new NoHayAutosParaRevision();
+        List<Auto> buscados = repositorioAuto.buscarAutosEnRevision(Situacion.EN_REVISION);
+        if (buscados.isEmpty()) {
+            throw new NoHayAutosParaRevision();
+        }
+        return buscados;
     }
 }

@@ -69,8 +69,7 @@ public class TestServicioMecanico {
 
     private void thenObtengoLaListaConLosAutosParaMatenimiento(List<Auto> paraMantenimiento) {
         assertThat(paraMantenimiento).hasSize(5);
-        for (Auto auto :
-                paraMantenimiento) {
+        for (Auto auto : paraMantenimiento) {
             assertThat(auto.getSituacion()).isEqualTo(Situacion.EN_MANTENIMIENTO);
         }
     }
@@ -154,7 +153,7 @@ public class TestServicioMecanico {
     private void givenNoExisteUnAuto() {
     }
 
-    @Test (expected = NoHayAutosParaRevision.class)
+    @Test(expected = NoHayAutosParaRevision.class)
     public void lanzarUnaExceptionSiNoExistenAutosEnRevision() throws NoHayAutosParaRevision {
         givenNoExistenAutosParaRevision();
         whenBuscoUnaListaDeAutosParaRevision();
@@ -166,5 +165,26 @@ public class TestServicioMecanico {
 
     private List<Auto> whenBuscoUnaListaDeAutosParaRevision() throws NoHayAutosParaRevision {
         return servicioDeAuto.obtenerAutosEnRevision();
+    }
+
+    @Test
+    public void queSeObtengaUnaListaDeAutosEnRevision() throws NoHayAutosParaRevision {
+        givenExistenAutosParaRevision(Situacion.EN_REVISION, 5);
+        List<Auto> paraRevision = whenBuscoUnaListaDeAutosParaRevision();
+        thenObtengoLaListaDeAutosParaRevision(paraRevision);
+    }
+
+    private void givenExistenAutosParaRevision(Situacion enRevision, int cantidad) {
+        List<Auto> paraRevision = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Auto auto = new Auto();
+            auto.setSituacion(enRevision);
+            paraRevision.add(auto);
+        }
+        when(repositorioDeAuto.buscarAutosEnRevision(Situacion.EN_REVISION)).thenReturn(paraRevision);
+    }
+
+    private void thenObtengoLaListaDeAutosParaRevision(List<Auto> paraRevision) {
+        assertThat(paraRevision).hasSize(5);
     }
 }
