@@ -13,7 +13,7 @@ public interface RepositorioDevolucion {
 
     Alquiler obtenerAlquilerPorId(Long alquilerID);
 
-    void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler);
+    void updateAlquiler(Alquiler alquiler);
 
     void finalizarAlquilerCliente(Alquiler alquiler, Solicitud solAlquilerModificado);
 

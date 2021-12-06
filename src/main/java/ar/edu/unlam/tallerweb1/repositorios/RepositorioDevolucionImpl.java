@@ -32,7 +32,7 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
     }
 
     @Override
-    public void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler) {
+    public void updateAlquiler(Alquiler alquiler) {
         sessionFactory.getCurrentSession().update(alquiler);
     }
 

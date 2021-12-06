@@ -22,7 +22,7 @@ public class Auto {
     private int km;
     private String imagen;
     private String patente;
-
+    private int limiteKm;
 
 
     private Situacion situacion;
@@ -33,6 +33,7 @@ public class Auto {
 
     public Auto() {
         this.km = 100;
+        this.limiteKm = 1000;
     }
 
 
@@ -47,6 +48,7 @@ public class Auto {
         this.km = kilometros;
         this.situacion = situacion;
         this.gama=gama;
+        this.limiteKm = 1000;
     }
 
     public Long getId() {
@@ -110,8 +112,8 @@ public class Auto {
         return km;
     }
 
-    public void setKm(int kilometros) {
-        this.km = kilometros;
+    public void setKm(int kilometrosAdicionales) {
+        this.km = this.km + kilometrosAdicionales;
     }
 
     public Situacion getSituacion() {
@@ -138,5 +140,13 @@ public class Auto {
 
     public void setGama(Gama gama) {
         this.gama = gama;
+    }
+
+    public int getLimiteKm() {
+        return limiteKm;
+    }
+
+    public void setLimiteKm(int limiteKm) {
+        this.limiteKm = limiteKm;
     }
 }

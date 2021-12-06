@@ -181,14 +181,9 @@ public class Alquiler {
         }
     }
 
-    public void setAdicionalKilometraje(Alquiler alquiler, Suscripcion suscripcion) {
-        Usuario usuario = alquiler.getUsuario();
-        if (usuario.getRol().equals("cliente")) {
-            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
-                adicionalKilometraje = adicionalKilometraje + suscripcion.getTipoSuscripcion().getValorPorKmAdicional();
-                entregadoEnCondiciones=false;
-
-            }
+    public void setAdicionalKilometraje(Suscripcion suscripcion, int kmSobrepasados) {
+        for(int i=0; i<kmSobrepasados; i++){
+            this.adicionalKilometraje = adicionalKilometraje + suscripcion.getTipoSuscripcion().getValorPorKmAdicional();
         }
     }
 
@@ -220,6 +215,8 @@ public class Alquiler {
     public void setEntregadoEnCondiciones(Boolean entregadoEnCondiciones) {
         this.entregadoEnCondiciones = entregadoEnCondiciones;
     }
+
+
 }
 
 
