@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface RepositorioAuto {
@@ -13,7 +12,6 @@ public interface RepositorioAuto {
 
     List<Auto> buscarAutosEnMantenimiento(Situacion enMantenimiento);
 
-    Auto enviarAMantenimiento(Long id, Situacion enMantenimiento, LocalDate localDate);
+    Auto enviarAMantenimiento(Long id, Situacion enMantenimiento);
 
-    Mantenimiento buscarAutoPorIdDeMantenimiento(Long id);
 }
