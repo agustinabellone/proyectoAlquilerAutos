@@ -28,7 +28,7 @@
 </header>
 <section class="mb-3 container">
     <div class="col-sm-12 d-flex justify-content-center">
-        <h1 class="display-4 p-4">verificá en tu mail para reactivar tu cuenta</h1>
+        <h1 class="display-4 p-4">Verificá tu mail para reactivar tu cuenta</h1>
     </div>
     <div class=" d-flex justify-content-center">
         <a href="login" class="btn btn-lg btn-dark ">Iniciar sesión</a>
