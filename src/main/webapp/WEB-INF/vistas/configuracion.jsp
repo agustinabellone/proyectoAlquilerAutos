@@ -65,7 +65,7 @@
                     ${mensaje}
             </div>
             <div class="col-sm-12 d-flex justify-content-center">
-                <a href="logout" class="btn btn-dark" >Salir</a>
+                <p>La sesión se va a cerrar en 3 segundos..</p>
             </div>
         </c:if>
         <c:if test="${not empty cambiosActualizados}">
@@ -114,6 +114,13 @@
 <jsp:include page="footer.jsp" />
 </c:if>
 </body>
+
+<script type="text/javascript">
+    <c:if test="${not empty mensaje}">
+        setTimeout(function(){location.href="/proyecto_limpio_spring_war_exploded/logout"} , 3000);
+    </c:if>
+</script>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
