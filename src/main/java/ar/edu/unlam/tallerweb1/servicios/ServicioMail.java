@@ -15,6 +15,8 @@ public interface ServicioMail {
 
     void enviarMailAlquiler(String email, String lugarRetiro, String lugarDevolucion, LocalDate salida, LocalDate ingreso);
 
+    void enviarMailActivarCuenta(String email);
+
     void verificarHash(String mail, String hash);
 }
 

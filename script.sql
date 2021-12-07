@@ -2,14 +2,16 @@ use alquiler;
 
 -- USUARIO ADMINISTRADOR CUANDO MOSTREMOS ES EL UNICO  QUE DEBE ESTAR CARGADO.
 INSERT INTO usuario (clave, email, rol, nombre, estado) VALUES ('admin', 'admin@tallerweb.com', 'admin', 'admin',1);
-INSERT INTO usuario (clave, email, rol, nombre, estado) VALUES ('clave', 'mail@tallerweb.com', 'encargado', 'Encargado Av Mayo 2525', 1), ('clave', 'mail2@tallerweb.com', 'encargado', 'Encargado 9 de Julio 922', 1);
+INSERT INTO usuario (clave, email, rol, nombre, estado) VALUES ('clave', 'enca1@tallerweb.com', 'encargado', 'Encargado Av Mayo 2525', 1), ('clave', 'enca2@tallerweb.com', 'encargado', 'Encargado 9 de Julio 922', 1), ('clave', 'enca3@tallerweb.com', 'encargado', 'Encargado Dr. I. Arieta 5259', 1);
 
-
+-- USUARIO CLIENTE
+insert into usuario (email, clave, estado, rol, puntaje, nombre)
+values ("cliente@gmail.com", "12345678", 1, "cliente", 0, "Juan");
 
 -- GARAGES
-INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (1, 36, 85, 'Av. de Mayo 2525', 3);
-INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (2, 26, 40, '9 de Julio 922', 4);
-
+INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (1, 36, 85, 'Sede Liniers"', 2);
+INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (2, 26, 40, 'Sede Morón', 3);
+INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (3, 12, 100, 'Sede La Matanza', 4);
 
 -- TIPO DE SUSCRIPCION
 INSERT INTO tiposuscripcion (id, descripcion, eleccionVehiculo, limiteKilometraje, permiteReserva, valorIncumplimientoHoraLugar, valorPorKmAdicional, valorPorMalasCondiciones, duracion, precio)
@@ -54,6 +56,8 @@ insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limit
 insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2019-cruze-premier/colorizer/enero-21/colorizer-branco-summit.jpg?imwidth=960",80000,01,6,"AJJ271",2,1000);
 
 
+-- NOTIFICACIONES
+INSERT INTO `notificacion` (`id`, `Color`, `Descripcion`, `Usuario_id`) VALUES (NULL, 'danger', 'Su suscripcion sera cancelada dentro de 5 dias', '1'), (NULL, 'primary', 'Quedan 3 dias para que aproveche nuestras promociones!', '1'), (NULL, 'success', 'Su suscripcion sera renovada dentro de 10 dias', '1');
 
 -- OTROS
 /*INSERT INTO alquiler (id,auto_id, usuario_id, estado, garageLlegadaEst_id, garagePartida_id, adicionalCambioLugarFecha, adicionalInfraccionesOtro, f_egreso, f_ingreso, garageLlegada_id, encargado_id) VALUES (8, 1, 1, 0, 2, 1, '0.0', '0.0', '20211027', '20211031', 2, 3);*/
