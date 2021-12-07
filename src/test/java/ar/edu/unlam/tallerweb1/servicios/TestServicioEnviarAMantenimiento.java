@@ -49,7 +49,7 @@ public class TestServicioEnviarAMantenimiento {
         Auto auto  = new Auto();
         auto.setId(1l);
         auto.setSituacion(Situacion.EN_MANTENIMIENTO);
-        when(repositorioAuto.enviarAMantenimiento(anyLong(),any())).thenReturn(auto);
+        when(repositorioAuto.enviarAMantenimiento(anyLong(),any(),any())).thenReturn(auto);
     }
 
 
