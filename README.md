@@ -15,7 +15,7 @@
 ### 6) Hace click en Add Configuration para instalar Tomcat y seleccioná en el + "Tomcat Server - Local"
 ### 7) Hace click en Configure y seleccioná la carpeta donde tengas Tomcat descargado
 ### 8) En la parte de deployments - agregá el Artefact que se creo previamente
-### 9) Ir a File -> preferences (esto puede ser distinto segun el sistema operativo) y seleccioná la version que tengamos de jdk (en este caso el 8)
+### 9) Ir a File -> preferences (esto puede ser distinto según el sistema operativo) y seleccioná la version que tengas de jdk (en este caso el 8)
 ### 10) Por ultimo, en services corré el TomCat.
 
 ## Integrantes
