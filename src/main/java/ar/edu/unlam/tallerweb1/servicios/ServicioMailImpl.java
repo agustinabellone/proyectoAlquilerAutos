@@ -144,8 +144,8 @@ public class ServicioMailImpl implements ServicioMail {
         String asunto="Reactivar cuenta ";
         String mensaje= "<h2>¡Reactive su cuenta!</h2>\n"
                 + "<p>------------------------</p>\n"
-                + "<h4>Quiere reactivar su cuenta? confirme en el siguiente link</h4><br>"
-                +"<a href='http://localhost:8080/proyecto_limpio_spring_war_exploded/confirmar-reactivar-cuenta?email="+email+"'></a>"
+                + "<h4>Para reactivar tu cuenta necesitas confirmar con el siguiente link</h4><br>"
+                +"<a href='http://localhost:8080/proyecto_limpio_spring_war_exploded/confirmar-reactivar-cuenta?emailUsuario="+email+"'>REACTIVAR CUENTA</a>"
                 +"<p>Si crees que esto es un error y no tenes la intencion de reactivar tu cuenta, podes ignorar este mensaje y nada mas sucedera</p><br>";;
 
         enviarMail(mensaje,asunto,email);

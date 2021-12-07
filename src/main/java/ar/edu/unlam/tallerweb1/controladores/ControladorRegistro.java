@@ -101,12 +101,6 @@ public class ControladorRegistro {
         return new ModelAndView("cuenta-reactivada");
     }
 
-    @RequestMapping(path = "/reactivar-cuenta")
-    private ModelAndView reactivarCuenta( @RequestParam("emailUsuario") String email){
-        servicioMail.enviarMailActivarCuenta(email);
-        return new ModelAndView("cuenta-reactivada");
-    }
-
     @RequestMapping(path = "/confirmar-reactivar-cuenta")
     private ModelAndView confirmarReactivarCuenta( @RequestParam("emailUsuario") String email){
         Usuario usuario = servicioUsuario.buscarPorEmail(email);
