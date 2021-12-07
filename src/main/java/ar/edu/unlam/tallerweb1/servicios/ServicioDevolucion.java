@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
 import ar.edu.unlam.tallerweb1.Exceptions.UsuarioSinSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Solicitud;
@@ -18,8 +20,7 @@ public interface ServicioDevolucion {
 
     void adicionarAumentoPorDevolucionEnMalascondiciones(Alquiler alquiler);
 
-    void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario);
-
+    void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario, Integer km) throws NoEnviaAutoAMantenimiento, AutoNoExistente;
 
 }
 

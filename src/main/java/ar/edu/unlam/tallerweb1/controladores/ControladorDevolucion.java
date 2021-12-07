@@ -1,11 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
 import ar.edu.unlam.tallerweb1.Exceptions.UsuarioSinSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDevolucion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioEncargado;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,10 +109,10 @@ public class ControladorDevolucion {
 
 
     @RequestMapping("/finalizarAlquiler")
-    public ModelAndView darPorFinalizadoElAlquiler(@RequestParam(value = "solicitud") Long solicitudID, @RequestParam(value = "condicion", required = false) String enCondiciones,@RequestParam(value = "comentario", required = false) String comentario) {
+    public ModelAndView darPorFinalizadoElAlquiler(@RequestParam(value = "solicitud") Long solicitudID, @RequestParam(value = "condicion", required = false) String enCondiciones,@RequestParam(value = "comentario", required = false) String comentario,@RequestParam(value = "kilometros", required = true) Integer km) throws NoEnviaAutoAMantenimiento, AutoNoExistente {
         ModelMap modelo = new ModelMap();
         Solicitud solicitud = servicioSolicitud.obtenerSolicitudPorId(solicitudID);
-        servicioDevolucion.finalizarAlquilerCliente(solicitud, enCondiciones, comentario);
+        servicioDevolucion.finalizarAlquilerCliente(solicitud, enCondiciones, comentario, km);
         modelo.put("funciono", "Alquiler finalizado");
         return new ModelAndView("mainEncargado", modelo);
     }

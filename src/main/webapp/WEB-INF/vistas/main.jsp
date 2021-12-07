@@ -122,6 +122,7 @@
                 <h1 class="text-center">El alquiler aún no recibe confirmacion de finalizacion. Una vez terminado aparecera en el historia de tus alquileres.</h1>
             </div>
         </c:if>
+
         <div class="container d-flex justify-content-center text-center">
             <div class="col-sm-9">
                     <c:forEach items="${alquileres}" var="alquiler">

@@ -37,7 +37,7 @@
                                 <input type="hidden" name="solicitud" value='${solicitud.id}'>
                                 <div class="form-group">
                                     <label>
-                                        <input style="opacity:1;" type="number" name="kilometros" placeholder="${solicitud.alquiler.auto.km}">
+                                        <input style="opacity:1;" type="number" step="any" name="kilometros" placeholder="${solicitud.alquiler.auto.km}">
                                     </label>
                                 </div>
                                 <div class="form-group">

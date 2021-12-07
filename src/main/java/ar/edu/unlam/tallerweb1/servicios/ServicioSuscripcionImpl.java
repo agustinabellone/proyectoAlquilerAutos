@@ -157,6 +157,12 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
     }
 
     @Override
+    public Suscripcion obtenerSuscripcionDeUsuario(Usuario usuario) {
+
+        return null;
+    }
+
+    @Override
     public void generarNotificacion(Usuario usuario, String mensajeNotificacion, String colorNotificacion) {
         Notificacion notificacion = new Notificacion(mensajeNotificacion, colorNotificacion, usuario);
         this.repositorioUsuario.guardarNotificacion(notificacion);

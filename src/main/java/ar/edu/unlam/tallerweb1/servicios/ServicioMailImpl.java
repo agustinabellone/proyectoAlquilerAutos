@@ -1,9 +1,6 @@
 
 package ar.edu.unlam.tallerweb1.servicios;
-import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
-import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
-import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
-import ar.edu.unlam.tallerweb1.Exceptions.HashIncorrecto;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
 import ar.edu.unlam.tallerweb1.modelo.EstadoUsuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -68,7 +65,7 @@ public class ServicioMailImpl implements ServicioMail {
             transport.sendMessage(msj,msj.getAllRecipients());
             transport.close();
         } catch (MessagingException e) {
-            e.printStackTrace();
+            throw new MailNoEnviado();
         }
 
     }
@@ -141,6 +138,20 @@ public class ServicioMailImpl implements ServicioMail {
         enviarMail(mensaje,asunto,email);
 
     }
+
+    @Override
+    public void enviarMailActivarCuenta(String email) {
+        String asunto="Reactivar cuenta ";
+        String mensaje= "<h2>¡Reactive su cuenta!</h2>\n"
+                + "<p>------------------------</p>\n"
+                + "<h4>Para reactivar tu cuenta necesitas confirmar con el siguiente link</h4><br>"
+                +"<a href='http://localhost:8080/proyecto_limpio_spring_war_exploded/confirmar-reactivar-cuenta?emailUsuario="+email+"'>REACTIVAR CUENTA</a>"
+                +"<p>Si crees que esto es un error y no tenes la intencion de reactivar tu cuenta, podes ignorar este mensaje y nada mas sucedera</p><br>";;
+
+        enviarMail(mensaje,asunto,email);
+
+    }
+
 
 
 

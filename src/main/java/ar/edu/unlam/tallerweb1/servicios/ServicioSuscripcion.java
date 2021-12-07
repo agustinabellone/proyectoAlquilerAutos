@@ -35,4 +35,6 @@ public interface ServicioSuscripcion {
     void generarNotificacion(Usuario usuario, String mensajeNotificacion, String colorNotificacion);
 
     void notificarUsuariosProximosAVencer();
+
+    Suscripcion obtenerSuscripcionDeUsuario(Usuario usuario);
 }
