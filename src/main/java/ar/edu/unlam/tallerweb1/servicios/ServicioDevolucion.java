@@ -20,7 +20,7 @@ public interface ServicioDevolucion {
 
     void adicionarAumentoPorDevolucionEnMalascondiciones(Alquiler alquiler);
 
-    void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario, int km) throws NoEnviaAutoAMantenimiento, AutoNoExistente;
+    void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario, Integer km) throws NoEnviaAutoAMantenimiento, AutoNoExistente;
 
 }
 

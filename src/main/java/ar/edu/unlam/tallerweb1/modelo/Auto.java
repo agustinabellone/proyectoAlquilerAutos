@@ -19,12 +19,11 @@ public class Auto {
     @ManyToOne
     private Garage garage;
     private LocalDate añoFabricación;
-    private int km;
+    private Integer km;
     private String imagen;
     private String patente;
-    private int limiteKm;
-
-
+    @Column(nullable = true)
+    private Integer limiteKm = 0;
     private Situacion situacion;
 
     @Column
@@ -108,11 +107,11 @@ public class Auto {
         this.modelo = modelo;
     }
 
-    public int getKm() {
+    public Integer getKm() {
         return km;
     }
 
-    public void setKm(int kilometrosAdicionales) {
+    public void setKm(Integer kilometrosAdicionales) {
         this.km = this.km + kilometrosAdicionales;
     }
 
@@ -142,11 +141,11 @@ public class Auto {
         this.gama = gama;
     }
 
-    public int getLimiteKm() {
+    public Integer getLimiteKm() {
         return limiteKm;
     }
 
-    public void setLimiteKm(int limiteKm) {
+    public void setLimiteKm(Integer limiteKm) {
         this.limiteKm = limiteKm;
     }
 }

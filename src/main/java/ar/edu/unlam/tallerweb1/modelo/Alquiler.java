@@ -181,7 +181,7 @@ public class Alquiler {
         }
     }
 
-    public void setAdicionalKilometraje(Suscripcion suscripcion, int kmSobrepasados) {
+    public void setAdicionalKilometraje(Suscripcion suscripcion, Float kmSobrepasados) {
         for(int i=0; i<kmSobrepasados; i++){
             this.adicionalKilometraje = adicionalKilometraje + suscripcion.getTipoSuscripcion().getValorPorKmAdicional();
         }

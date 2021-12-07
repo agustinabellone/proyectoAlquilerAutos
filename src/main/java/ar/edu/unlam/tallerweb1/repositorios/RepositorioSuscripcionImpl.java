@@ -53,6 +53,8 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
                 .uniqueResult();
     }
 
+
+
     @Override
     public void actualizarSuscripcion(Suscripcion suscripcion) {
         this.sessionFactory.getCurrentSession()
@@ -84,6 +86,11 @@ public class RepositorioSuscripcionImpl implements RepositorioSuscripcion{
     @Override
     public List<Suscripcion> buscarSuscripciones() {
         return sessionFactory.getCurrentSession().createCriteria(Suscripcion.class).list();
+    }
+
+    @Override
+    public Suscripcion obtenerSuscripcionDeUsuario(Usuario usuario) {
+        return (Suscripcion) sessionFactory.getCurrentSession().createCriteria(Suscripcion.class).add(Restrictions.eq("Usuario", usuario)).uniqueResult();
     }
 
 }

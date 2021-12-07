@@ -24,4 +24,5 @@ public interface RepositorioSuscripcion {
 
     List<Suscripcion> buscarSuscripciones();
 
+    Suscripcion obtenerSuscripcionDeUsuario(Usuario usuario);
 }
