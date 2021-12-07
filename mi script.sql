@@ -4,9 +4,12 @@ use alquiler;
 INSERT INTO usuario (clave, email, rol, nombre, estado) VALUES ('admin', 'admin@tallerweb.com', 'admin', 'admin',1);
 INSERT INTO usuario (clave, email, rol, nombre, estado) VALUES ('clave', 'mail@tallerweb.com', 'encargado', 'Encargado Av Mayo 2525', 1), ('clave', 'mail2@tallerweb.com', 'encargado', 'Encargado 9 de Julio 922', 1);
 
+
+
 -- GARAGES
-INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (1, 36, 85, 'Av. de Mayo 2525', 2);
-INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (2, 26, 40, '9 de Julio 922', 3);
+INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (1, 36, 85, 'Av. de Mayo 2525', 3);
+INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (2, 26, 40, '9 de Julio 922', 4);
+
 
 -- TIPO DE SUSCRIPCION
 INSERT INTO tiposuscripcion (id, descripcion, eleccionVehiculo, limiteKilometraje, permiteReserva, valorIncumplimientoHoraLugar, valorPorKmAdicional, valorPorMalasCondiciones, duracion, precio)
@@ -31,24 +34,24 @@ insert into modelo(id,descripcion,marca_id) values(5,'hilux',02);
 insert into modelo(id,descripcion,marca_id) values(6,'cruze',01);
 
 -- AUTOS
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_48e01d974fcc4d20a9178b645526b693.jpg",80000,02,1,"AAA111",0);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_48e01d974fcc4d20a9178b645526b693.jpg",80000,02,1,"ABA121",0);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_48e01d974fcc4d20a9178b645526b693.jpg",80000,02,1,"DZA531",0);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://cdn.wheel-size.com/automobile/body/volkswagen-gol-2019-2021-1605540845.02767.jpg",80000,04,2,"BCA121",0);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://cdn.wheel-size.com/automobile/body/volkswagen-gol-2019-2021-1605540845.02767.jpg",80000,04,2,"ABL771",0);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_48e01d974fcc4d20a9178b645526b693.jpg",80000,02,1,"AAA111",0, 1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_48e01d974fcc4d20a9178b645526b693.jpg",80000,02,1,"ABA121",0, 1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_48e01d974fcc4d20a9178b645526b693.jpg",80000,02,1,"DZA531",0, 1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://cdn.wheel-size.com/automobile/body/volkswagen-gol-2019-2021-1605540845.02767.jpg",80000,04,2,"BCA121",0, 1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://cdn.wheel-size.com/automobile/body/volkswagen-gol-2019-2021-1605540845.02767.jpg",80000,04,2,"ABL771",0, 1000);
 
 
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://vossrentals.com.ar/30-large_default/fiat-cronos.jpg",80000,03,3,"QQA891",1);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://vossrentals.com.ar/30-large_default/fiat-cronos.jpg",80000,03,3,"ATY411",1);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://vossrentals.com.ar/30-large_default/fiat-cronos.jpg",80000,03,3,"SAA551",1);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2020-onix-premier/colorizer/01-images/julio-20/5-onix-premier-summit-white.png?imwidth=960",80000,01,4,"BCA121",1);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2020-onix-premier/colorizer/01-images/julio-20/5-onix-premier-summit-white.png?imwidth=960",80000,01,4,"ABL771",1);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://vossrentals.com.ar/30-large_default/fiat-cronos.jpg",80000,03,3,"QQA891",1, 1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://vossrentals.com.ar/30-large_default/fiat-cronos.jpg",80000,03,3,"ATY411",1, 1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://vossrentals.com.ar/30-large_default/fiat-cronos.jpg",80000,03,3,"SAA551",1, 1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2020-onix-premier/colorizer/01-images/julio-20/5-onix-premier-summit-white.png?imwidth=960",80000,01,4,"BCA121",1,1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2020-onix-premier/colorizer/01-images/julio-20/5-onix-premier-summit-white.png?imwidth=960",80000,01,4,"ABL771",1,1000);
 
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_306e84f8dec84ba4ad1f3372499ac72e.jpg",80000,02,5,"TTT191",2);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_306e84f8dec84ba4ad1f3372499ac72e.jpg",80000,02,5,"ATZ119",2);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_306e84f8dec84ba4ad1f3372499ac72e.jpg",80000,02,5,"SGA991",2);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2019-cruze-premier/colorizer/enero-21/colorizer-branco-summit.jpg?imwidth=960",80000,01,6,"BGC171",2);
-insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2019-cruze-premier/colorizer/enero-21/colorizer-branco-summit.jpg?imwidth=960",80000,01,6,"AJJ271",2);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_306e84f8dec84ba4ad1f3372499ac72e.jpg",80000,02,5,"TTT191",2,1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_306e84f8dec84ba4ad1f3372499ac72e.jpg",80000,02,5,"ATZ119",2,1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_306e84f8dec84ba4ad1f3372499ac72e.jpg",80000,02,5,"SGA991",2,1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2019-cruze-premier/colorizer/enero-21/colorizer-branco-summit.jpg?imwidth=960",80000,01,6,"BGC171",2,1000);
+insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2019-cruze-premier/colorizer/enero-21/colorizer-branco-summit.jpg?imwidth=960",80000,01,6,"AJJ271",2,1000);
 
 
 
@@ -65,6 +68,7 @@ select * from tiposuscripcion;
 select * from auto;
 select * from valoracionauto;
 select * from solicitud;
+
 
 
 
