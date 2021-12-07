@@ -171,6 +171,7 @@ public class ControladorAdministrador {
                 vista = "clientes-no-suscriptos";
                 List<Usuario> clientesNoSuscriptos = obtenerListaDeClientesNoSuscriptos();
                 model.put("clientes_no_suscriptos", clientesNoSuscriptos);
+                model.put("nombre",administrador.getSession().getAttribute("nombre"));
             } catch (NoHayClientesNoSuscriptos e) {
                 vista = "clientes-no-suscriptos";
                 model.put("error_no_hay_clientes_no_suscriptos", "Al parecer todos los clientes estan suscriptos");
