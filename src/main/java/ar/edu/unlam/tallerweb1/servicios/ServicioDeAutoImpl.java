@@ -56,7 +56,7 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     public Auto enviarAMantenimiento(Long buscado) throws NoEnviaAutoAMantenimiento, AutoNoExistente {
         Auto obtenido = repositorioAuto.buscarPor(buscado);
         if (obtenido != null && obtenido.getSituacion().equals(Situacion.DISPONIBLE)) {
-            Auto actualizado = repositorioAuto.enviarAMantenimiento(obtenido.getId(), Situacion.EN_MANTENIMIENTO);
+            Auto actualizado = repositorioAuto.enviarAMantenimiento(obtenido.getId(), Situacion.EN_MANTENIMIENTO, localDate);
             return actualizado;
         }
         throw new NoEnviaAutoAMantenimiento();

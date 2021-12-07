@@ -9,12 +9,15 @@ import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
+import java.time.LocalDate;
+
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class TestRepositorioEnviarAutoAMantenimiento extends SpringTest {
 
     @Autowired
     private RepositorioAuto repositorioAuto;
+    private LocalDate localDate = LocalDate.now();
 
     @Test @Rollback @Transactional
     public void queSePuedaEnviarUnAutoDisponibleAMantenimiento() {
@@ -31,7 +34,7 @@ public class TestRepositorioEnviarAutoAMantenimiento extends SpringTest {
     }
 
     private Auto whenLoEnvioAMantenimiento(Long id_auto, Situacion enMantenimiento) {
-        return repositorioAuto.enviarAMantenimiento(id_auto, enMantenimiento);
+        return repositorioAuto.enviarAMantenimiento(id_auto, enMantenimiento, localDate);
     }
 
     private void thenObtengoElAuto(Auto actualizado) {
