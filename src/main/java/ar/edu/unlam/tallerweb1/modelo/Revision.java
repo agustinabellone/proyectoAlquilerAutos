@@ -12,6 +12,7 @@ public class Revision {
     private Auto auto;
     @ManyToOne
     private Usuario mecanico;
+    private String comentario;
 
     public Long getId() {
         return id;
@@ -35,5 +36,13 @@ public class Revision {
 
     public Usuario getUsuario() {
         return mecanico;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 }

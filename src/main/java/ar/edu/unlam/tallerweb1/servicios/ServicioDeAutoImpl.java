@@ -62,35 +62,5 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         throw new NoEnviaAutoAMantenimiento();
     }
 
-    @Override
-    public Auto buscarAutoPorPatente(String patente) throws AutoNoExistente {
-        Auto buscado = repositorioAuto.buscarPorPatente(patente);
-        if (buscado != null) {
-            return buscado;
-        }
-        throw new AutoNoExistente();
-    }
 
-    @Override
-    public Auto enviarARevision(String patente, Long id_mecanico) throws AutoNoExistente {
-        Auto buscado = buscarAutoPorPatente(patente);
-        Usuario mecanico = repositorioUsuario.buscarPorId(id_mecanico);
-        if (buscado != null && mecanico != null) {
-            if (buscado.getSituacion().equals(Situacion.EN_MANTENIMIENTO)) {
-                repositorioAuto.enviarARevision(buscado, mecanico);
-                Auto enRevision = repositorioAuto.buscarPor(buscado.getId());
-                return enRevision;
-            }
-        }
-        throw new AutoNoExistente();
-    }
-
-    @Override
-    public List<Auto> obtenerAutosEnRevision() throws NoHayAutosParaRevision {
-        List<Auto> buscados = repositorioAuto.buscarAutosEnRevision(Situacion.EN_REVISION);
-        if (buscados.isEmpty()) {
-            throw new NoHayAutosParaRevision();
-        }
-        return buscados;
-    }
 }

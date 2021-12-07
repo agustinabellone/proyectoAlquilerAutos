@@ -29,29 +29,6 @@ public class RepositorioAutoImpl implements RepositorioAuto {
     }
 
     @Override
-    public List<Auto> buscarPorModelo(Modelo modelo) {
-        return sessionFactory.getCurrentSession().createCriteria(Auto.class).
-                createAlias("modelo", "modelo")
-                .add(Restrictions.eq("modelo.id", modelo.getId())).list();
-    }
-
-
-    @Override
-    public List<Auto> buscarTodos() {
-        return sessionFactory.getCurrentSession()
-                .createCriteria(Auto.class)
-                .list();
-    }
-
-
-    @Override
-    public List<Auto> buscarPorMarca(Marca marca) {
-        return sessionFactory.getCurrentSession().createCriteria(Auto.class)
-                .createAlias("marca", "marca")
-                .add(Restrictions.eq("marca.id", marca.getId())).list();
-    }
-
-    @Override
     public List<Auto> buscarAutosEnMantenimiento(Situacion enMantenimiento) {
         return sessionFactory.getCurrentSession().createCriteria(Auto.class)
                 .add(Restrictions.eq("situacion", enMantenimiento))
@@ -66,31 +43,5 @@ public class RepositorioAutoImpl implements RepositorioAuto {
         return sessionFactory.getCurrentSession().get(Auto.class,buscado.getId());
     }
 
-    @Override
-    public Auto buscarPorPatente(String patente) {
-        return (Auto) sessionFactory.getCurrentSession().createCriteria(Auto.class).
-                add(Restrictions.eq("patente",patente)).uniqueResult();
-    }
-
-    @Override
-    public List<Auto> buscarAutosEnRevision(Situacion enRevision) {
-        return sessionFactory.getCurrentSession().createCriteria(Auto.class)
-                .add(Restrictions.eq("situacion",enRevision)).list();
-    }
-
-    @Override
-    public void enviarARevision(Auto buscado, Usuario mecanico) {
-        buscado.setSituacion(Situacion.EN_REVISION);
-        sessionFactory.getCurrentSession().update(buscado);
-        revision.setAuto(buscado);
-        revision.setUsuario(mecanico);
-        sessionFactory.getCurrentSession().save(revision);
-    }
-
-    @Override
-    public List<Revision> buscarRevisionPorMecanico(Usuario mecanico) {
-        return sessionFactory.getCurrentSession().createCriteria(Revision.class)
-                .add(Restrictions.eq("mecanico",mecanico)).list();
-    }
 
 }
