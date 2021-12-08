@@ -27,52 +27,112 @@
 
 <body id="page-top">
 
+<header class="header">
+    <!-- Topbar -->
+    <nav class="navbar navbar-expand navbar-light topbar ">
 
-<c:forEach items="${lista_autos_mantenimiento}" var="auto">
-    <div class="col-md-12">
-        <div class="card card-shadow border-0 mb-4">
-            <div class="card-body p-4">
-                <div class="d-flex align-items-center">
-                    <h5 class="font-weight-medium mb-0">Situacion: ${auto.situacion}</h5>
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+        </button>
+
+
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-search fa-fw"></i>
+                </a>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">${nombre}</span>
+                    <img class="img-profile rounded-circle"
+                         src="img/undraw_profile.svg">
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                     aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Mi Perfil
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Cerrar Session
+                    </a>
                 </div>
-                <div class="col">
-                    <div class="col-lg-12">
-                        <div class="row mt-3">
-                            <div class="col-lg-6 align-self-center">
-                                <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                    <li>
-                                        <span class="badge badge-danger font-weight-normal p-2">Fecha en la que se envioa mantenimiento: ${auto.fecha_inicio_mantenimiento}</span>
-                                    </li>
-                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                        Patente: <span>${auto.patente}</span>
-                                    </li>
-                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                        Marca: <span>${auto.marca.descripcion}</span>
-                                    </li>
-                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                        Modelo: <span>${auto.modelo.descripcion}</span>
-                                    </li>
-                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                        Kilometraje: <span>${auto.km}</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="container">
-                                    <img src="${auto.imagen}"
-                                         alt="" style="width: 100%; height: auto;">
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="container">
+    <nav class="navbar bg-gray-300">
+        <a class="nav-link active" href="ir-a-pantalla-principal">Pantalla Principal</a>
+        <a class="nav-link" href="autos-en-revision">Autos en Revision -></a>
+    </nav>
+</div>
+<div class="container mt-4">
+    <h1 class="text-center">Autos para Mantenimiento</h1>
+    <c:forEach items="${lista_autos_mantenimiento}" var="auto">
+        <div class="col-md-12">
+            <div class="card card-shadow border-0 mb-4">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                        <h5 class="font-weight-medium mb-0">Situacion: ${auto.situacion}</h5>
+                    </div>
+                    <div class="col">
+                        <div class="col-lg-12">
+                            <div class="row mt-3">
+                                <div class="col-lg-6 align-self-center">
+                                    <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
+                                        <li>
+                                            <span class="badge badge-danger font-weight-normal p-2">Fecha en la que se envioa mantenimiento: ${auto.fecha_inicio_mantenimiento}</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                            Patente: <span>${auto.patente}</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                            Marca: <span>${auto.marca.descripcion}</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                            Modelo: <span>${auto.modelo.descripcion}</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                            Kilometraje: <span>${auto.km}</span>
+                                        </li>
+                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                            Fecha de retorno de mantenimiento: <span>A confirmar</span>
+                                        </li>
+                                    </ul>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="container">
+                                        <img src="${auto.imagen}"
+                                             alt="" style="width: 100%; height: auto;">
+                                    </div>
+                                </div>
+                                <button class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
+                                ><a class="text-white" href="enviar-a-revision?id_auto=${auto.id}">AGREGAR AUTO A MI
+                                    LISTA DE REVISION</a></button>
                             </div>
-                            <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
-                            >Fecha Retorno: dd/mm/yy</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</c:forEach>
+    </c:forEach>
+</div>
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
