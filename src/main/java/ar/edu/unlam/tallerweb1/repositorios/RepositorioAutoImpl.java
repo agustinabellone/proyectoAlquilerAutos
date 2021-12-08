@@ -45,5 +45,10 @@ public class RepositorioAutoImpl implements RepositorioAuto {
         return sessionFactory.getCurrentSession().get(Auto.class,buscado.getId());
     }
 
+    @Override
+    public Revision enviarARevision(Auto aEnviar, Usuario deLaRevision, LocalDate fecha_de_envio) {
+        return null;
+    }
+
 
 }

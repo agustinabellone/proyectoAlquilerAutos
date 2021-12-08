@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoExistente;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Revision;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -65,12 +66,15 @@ public class ControladorMecanico {
             try {
                 Usuario mecanico = servicioUsuario.buscarPorId((Long) request.getSession().getAttribute("id"));
                 Auto queVienePorRequestParam = servicioAuto.buscarAutoPorId(id_auto);
-                Auto conSituacionActualizada = servicioAuto.enviarARevision(queVienePorRequestParam, mecanico, LocalDate.now());
+                Revision nueva = servicioAuto.enviarARevision(queVienePorRequestParam, mecanico, LocalDate.now());
                 model.put("envio_exitoso", "El auto se envio correctamente");
-                model.put("auto_en_revision", conSituacionActualizada);
+                model.put("auto_en_revision", nueva.getAuto());
                 return new ModelAndView("envio-a-revision", model);
             } catch (AutoNoExistente e) {
                 model.put("error_no_existe_el_auto", "No existe el auto que queres enviar a revision");
+                return new ModelAndView("envio-a-revision", model);
+            } catch (UsuarioNoExistente e) {
+                model.put("error_no_existe_el_usuario", "No existe el usuario con el cual vas a reviar el auto");
                 return new ModelAndView("envio-a-revision", model);
             }
         }

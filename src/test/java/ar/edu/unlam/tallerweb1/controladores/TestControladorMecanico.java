@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoExistente;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Revision;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
@@ -114,7 +115,7 @@ public class TestControladorMecanico {
     }
 
     @Test
-    public void queUnMencanicoPuedaEnviarUnAutoASuListaDeRevisionMostrandoUnMensajeDeExito() throws AutoNoExistente {
+    public void queUnMencanicoPuedaEnviarUnAutoASuListaDeRevisionMostrandoUnMensajeDeExito() throws AutoNoExistente, UsuarioNoExistente {
         Long id_auto = givenQueExisteUnAutoEnMantenimiento(Situacion.EN_MANTENIMIENTO);
         Usuario mecanico = givenExisteUnUsuarioMecanico();
         whenElServicioLLamaAEnviarUnAutoARevision(id_auto, mecanico, LocalDate.now());
@@ -123,10 +124,12 @@ public class TestControladorMecanico {
         thenSeMuestraUnMensajeDeExisto("El auto se envio correctamente", this.modelAndView);
     }
 
-    private void whenElServicioLLamaAEnviarUnAutoARevision(Long id_auto, Usuario mecanico, LocalDate now) {
+    private void whenElServicioLLamaAEnviarUnAutoARevision(Long id_auto, Usuario mecanico, LocalDate now) throws UsuarioNoExistente, AutoNoExistente {
         Auto enRevision = new Auto();
         enRevision.setSituacion(Situacion.EN_REVISION);
-        when(servicioAuto.enviarARevision(any(), any(), any())).thenReturn(enRevision);
+        Revision revision = new Revision();
+        revision.setAuto(enRevision);
+        when(servicioAuto.enviarARevision(any(), any(), any())).thenReturn(revision);
     }
 
     private Usuario givenExisteUnUsuarioMecanico() {
@@ -259,7 +262,7 @@ public class TestControladorMecanico {
     public void queUnMecanicoAlFinalizarLaRevisionSeCambieLaSituacionDelAutoADisponibleYSeSeteeElNuevoLimiteDeKilometraje() throws AutoNoExistente {
         Long id_auto = givenExisteUnAutoParaFinalizarElFormulario();
         String comentario = givenExisteUnComentario();
-        whenElServicioLlamaAFinzalizarLaRevision(comentario,LocalDate.now());
+        whenElServicioLlamaAFinzalizarLaRevision(comentario, LocalDate.now());
         whenFinalizaElFormulario(id_auto, request, comentario);
         thenSeMuestraLaVista("finaliza-formulario-revision", this.modelAndView);
         thenSeMuestraUnMensajeAlFinalizarElFormulario("Se envio correctamente el formulario y el auto esta diponibles para alquiler nuevamente", this.modelAndView);
@@ -288,7 +291,7 @@ public class TestControladorMecanico {
         revision.setComentario(comentario);
         revision.setFechaFinRevision(now);
         revision.setUsuario(usuario);
-        when(servicioAuto.finalizarRevision(any(),any(),any())).thenReturn(revision);
+        when(servicioAuto.finalizarRevision(any(), any(), any())).thenReturn(revision);
     }
 
     private void whenFinalizaElFormulario(Long id_auto, HttpServletRequest request, String comentario) {
@@ -318,13 +321,28 @@ public class TestControladorMecanico {
     public void queUnMecanicoVeaUnMensajeDeErrorAlFinzalizarUnaRevisionConUnAutoInexistente() throws AutoNoExistente {
         givenNoExisteUnAutoEnRevision();
         String comentario = givenExisteUnComentario();
-        whenElServicioLlamaAFinzalizarLaRevision(comentario,LocalDate.now());
+        whenElServicioLlamaAFinzalizarLaRevision(comentario, LocalDate.now());
         whenFinalizaElFormulario(1l, request, comentario);
         thenSeMuestraLaVista("finaliza-formulario-revision", this.modelAndView);
-        thenMuestraUnMensajeDeError("No existe el auto con el cual vas a finlizar la revision",this.modelAndView);
+        thenMuestraUnMensajeDeError("No existe el auto con el cual vas a finlizar la revision", this.modelAndView);
     }
 
     private void thenMuestraUnMensajeDeError(String error, ModelAndView modelAndView) {
         assertThat(modelAndView.getModel().get("error_no_existe_auto")).isEqualTo(error);
+    }
+
+    @Test
+    public void queElMecanicoVeaUnMensaejDeErrorCuandoSeEnvieeUnAutoARevisionConElIDDelMecanicoIncorrecto() throws AutoNoExistente, UsuarioNoExistente {
+        givenNoExisteUnUsuario();
+        whenUnMencanicoEnviaUnAutoEnMantenimientoARevision(1l, request);
+        thenLaSolicitudFalla("No existe el usuario con el cual vas a reviar el auto", this.modelAndView);
+    }
+
+    private void givenNoExisteUnUsuario() throws UsuarioNoExistente, AutoNoExistente {
+        doThrow(UsuarioNoExistente.class).when(servicioAuto).enviarARevision(any(), any(), any());
+    }
+
+    private void thenLaSolicitudFalla(String s, ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("error_no_existe_el_usuario")).isEqualTo(s);
     }
 }

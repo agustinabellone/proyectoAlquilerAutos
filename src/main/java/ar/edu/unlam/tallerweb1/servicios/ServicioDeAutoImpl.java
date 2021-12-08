@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoExistente;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Revision;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
@@ -38,9 +39,8 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         Auto buscado = repositorioAuto.buscarPor(idDelAuto);
         if (buscado != null) {
             return buscado;
-        } else {
-            throw new AutoNoExistente();
         }
+        throw new AutoNoExistente();
     }
 
     @Override
@@ -63,8 +63,18 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     }
 
     @Override
-    public Auto enviarARevision(Auto enMantenimiento, Usuario mecanico, LocalDate fecha_de_envio) {
-        return null;
+    public Revision enviarARevision(Auto enMantenimiento, Usuario mecanico, LocalDate fecha_de_envio) throws AutoNoExistente, UsuarioNoExistente {
+        Auto aEnviar = repositorioAuto.buscarPor(enMantenimiento.getId());
+        Usuario deLaRevision = repositorioUsuario.buscarPorId(mecanico.getId());
+        if (aEnviar == null) {
+            throw new AutoNoExistente();
+        }
+        if (deLaRevision == null) {
+            throw new UsuarioNoExistente();
+        }
+        aEnviar.setSituacion(Situacion.EN_REVISION);
+        Revision nueva = repositorioAuto.enviarARevision(aEnviar, deLaRevision, fecha_de_envio);
+        return nueva;
     }
 
     @Override
