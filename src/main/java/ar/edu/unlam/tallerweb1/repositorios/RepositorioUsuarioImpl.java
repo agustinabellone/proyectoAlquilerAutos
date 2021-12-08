@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.repositorios;
+
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
@@ -47,11 +48,11 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
-    public Usuario buscarPorEmailYHash(String email,String hash) {
+    public Usuario buscarPorEmailYHash(String email, String hash) {
         return (Usuario) sessionFactory.getCurrentSession()
                 .createCriteria(Usuario.class)
                 .add(Restrictions.eq("email", email))
-                .add(Restrictions.eq("hashCodigo",hash))
+                .add(Restrictions.eq("hashCodigo", hash))
                 .uniqueResult();
     }
 
@@ -115,8 +116,8 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     @Override
     public void actualizarNotificacion(Long id_noti) {
 
-        Notificacion notiBuscada=sessionFactory.getCurrentSession()
-                        .load(Notificacion.class, id_noti);
+        Notificacion notiBuscada = sessionFactory.getCurrentSession()
+                .load(Notificacion.class, id_noti);
 
         sessionFactory.getCurrentSession()
                 .delete(notiBuscada);

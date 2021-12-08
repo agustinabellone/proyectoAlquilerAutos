@@ -12,7 +12,7 @@ import java.util.List;
 public class RepositorioAutoImpl implements RepositorioAuto {
 
     private SessionFactory sessionFactory;
-
+    private Revision revision = new Revision();
     @Autowired
     public RepositorioAutoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -29,29 +29,6 @@ public class RepositorioAutoImpl implements RepositorioAuto {
     }
 
     @Override
-    public List<Auto> buscarPorModelo(Modelo modelo) {
-        return sessionFactory.getCurrentSession().createCriteria(Auto.class).
-                createAlias("modelo", "modelo")
-                .add(Restrictions.eq("modelo.id", modelo.getId())).list();
-    }
-
-
-    @Override
-    public List<Auto> buscarTodos() {
-        return sessionFactory.getCurrentSession()
-                .createCriteria(Auto.class)
-                .list();
-    }
-
-
-    @Override
-    public List<Auto> buscarPorMarca(Marca marca) {
-        return sessionFactory.getCurrentSession().createCriteria(Auto.class)
-                .createAlias("marca", "marca")
-                .add(Restrictions.eq("marca.id", marca.getId())).list();
-    }
-
-    @Override
     public List<Auto> buscarAutosEnMantenimiento(Situacion enMantenimiento) {
         return sessionFactory.getCurrentSession().createCriteria(Auto.class)
                 .add(Restrictions.eq("situacion", enMantenimiento))
@@ -65,5 +42,6 @@ public class RepositorioAutoImpl implements RepositorioAuto {
         sessionFactory.getCurrentSession().update(buscado);
         return sessionFactory.getCurrentSession().get(Auto.class,buscado.getId());
     }
+
 
 }

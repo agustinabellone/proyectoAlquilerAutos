@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.junit.Test;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -16,7 +17,8 @@ import static org.mockito.Mockito.when;
 public class TestServicioEnviarAMantenimiento {
 
     private RepositorioAuto repositorioAuto = mock(RepositorioAuto.class);
-    private ServicioDeAuto servicioDeAuto = new ServicioDeAutoImpl(repositorioAuto);
+    private RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    private ServicioDeAuto servicioDeAuto = new ServicioDeAutoImpl(repositorioAuto, repositorioUsuario);
 
     @Test(expected = NoEnviaAutoAMantenimiento.class)
     public void lanzarUnaExceptionCuandoElAdministradorEnviaUnAutoOcupadoAMantenimiento() throws NoEnviaAutoAMantenimiento, AutoNoExistente {
