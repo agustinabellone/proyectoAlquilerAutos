@@ -46,6 +46,14 @@
                 </button>
             </div>
         </c:if>
+        <c:if test="${not empty suscripcionActiva}">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              ${suscripcionActiva}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
         <c:if test="${not empty confirmacionDarDeAlta}">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>-</strong> ${confirmacionDarDeAlta}<strong>-</strong>
@@ -80,7 +88,7 @@
                             <img class="card-img-top mt-3" src="img/noTieneSuscripcion.png" alt="no tiene suscripcion">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">Suscripción</h5>
-                                <p class="card-text">No se encuentra suscripto a ningun plan :(</p>
+                                <p class="card-text">No se encuentra suscripto a ningún plan.</p>
                                 <a href="ir-a-suscribir" class="btn btn-info">¡Suscribirme!</a>
                             </div>
                         </div>
