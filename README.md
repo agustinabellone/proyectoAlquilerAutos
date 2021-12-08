@@ -18,15 +18,6 @@
 ### 9) Ir a File -> preferences (esto puede ser distinto según el sistema operativo) y seleccioná la version que tengas de jdk (en este caso el 8)
 ### 10) Por ultimo, en services corré el TomCat.
 
-## Datos para probar la api de Mercado Pago
-
-### Usar tarjeta con los siguientes datos:
-#### Numero: 5031 7557 3453 0604	<br>
-#### Codigo: 123	<br>
-#### Vencimiento: 11/25 <br>
-#### Nombre: APRO
-
-
 ## Integrantes
 
 <a>https://github.com/AibarHernanEzequiel</a><br>
