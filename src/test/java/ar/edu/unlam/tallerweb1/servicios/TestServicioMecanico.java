@@ -102,9 +102,17 @@ public class TestServicioMecanico {
     public void queSePuedaEnviarUnAutoARevision() throws AutoNoExistente, UsuarioNoExistente, NoSeEnviaARevision {
         Auto paraRevision = givenExisteUnAutoParaMantenimiento();
         Usuario mecanico = givenExisteUnMecanico();
-        givenSeLlamaAlRepoParaEnviarARevision(paraRevision,mecanico);
+        givenQueSeSeteaLaSituacion();
         Revision nueva = whenEnvioElAutoARevisionConElMecanicoYLaFechaActual(paraRevision, mecanico, LocalDate.now());
         thenObtengoElAutoConLaSituacionActualizadaConUnObjetoRevision(nueva);
+    }
+
+    private void givenQueSeSeteaLaSituacion() {
+        Revision auto = new Revision();
+        Auto nuevo = new Auto();
+        nuevo.setSituacion(Situacion.EN_REVISION);
+        auto.setAuto(nuevo);
+        when(repositorioAuto.enviarARevision(any(),any(),any())).thenReturn(auto);
     }
 
     private void givenSeLlamaAlRepoParaEnviarARevision(Auto paraRevision, Usuario mecanico) {
@@ -202,6 +210,7 @@ public class TestServicioMecanico {
         Auto enRevision = givenExisteUnAutoEnRevision();
         givenexisteUnaRevision();
         String comentario = givenExisteUnComentario();
+        givenSeSeteaLaSituacion();
         Revision obtenida = whenElMecanicoFinalizaLaRevision(enRevision,LocalDate.now(),comentario);
         thenObtengoLaRevisionConLaSituacionDelAutoEnDisponible(obtenida);
     }
@@ -223,6 +232,14 @@ public class TestServicioMecanico {
         auto.setSituacion(Situacion.EN_REVISION);
         when(repositorioAuto.buscarPor(anyLong())).thenReturn(auto);
         return auto;
+    }
+
+    private void givenSeSeteaLaSituacion() {
+        Revision actualizada = new Revision();
+        Auto auto = new Auto();
+        auto.setSituacion(Situacion.DISPONIBLE);
+        actualizada.setAuto(auto);
+        when(repositorioAuto.actualizarRevision(any())).thenReturn(actualizada);
     }
 
     private void thenObtengoLaRevisionConLaSituacionDelAutoEnDisponible(Revision obtenida) {
