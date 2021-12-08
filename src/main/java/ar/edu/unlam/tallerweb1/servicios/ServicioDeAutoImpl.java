@@ -62,5 +62,10 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         throw new NoEnviaAutoAMantenimiento();
     }
 
+    @Override
+    public Auto enviarARevision(Auto enMantenimiento, Usuario mecanico, LocalDate fecha_de_envio) {
+        return null;
+    }
+
 
 }
