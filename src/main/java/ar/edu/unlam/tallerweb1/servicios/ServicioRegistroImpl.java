@@ -37,6 +37,7 @@ public class ServicioRegistroImpl implements ServicioRegistro {
             Usuario nuevoUsuario = new Usuario(datosRegistro);
             nuevoUsuario.setRol("empleado");
             repositorioUsuario.guardar(nuevoUsuario);
+            return nuevoUsuario;
         }
         Usuario nuevoUsuario = new Usuario(datosRegistro);
 

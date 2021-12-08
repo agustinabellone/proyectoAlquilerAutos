@@ -41,7 +41,7 @@
                             <div class="col-lg-6 align-self-center">
                                 <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
                                     <li>
-                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio: dd/mm/yy</span>
+                                        <span class="badge badge-danger font-weight-normal p-2">Fecha en la que se envioa mantenimiento: ${auto.fecha_inicio_mantenimiento}</span>
                                     </li>
                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
                                         Patente: <span>${auto.patente}</span>
