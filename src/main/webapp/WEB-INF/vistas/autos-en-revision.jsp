@@ -127,9 +127,9 @@
         </div>
 
     </c:forEach>
-    <c:if test="${not empty }">
+    <c:if test="${not empty error}">
         <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                ${error_no_existe_el_auto}
+                ${error}
         </div>
     </c:if>
 </div>

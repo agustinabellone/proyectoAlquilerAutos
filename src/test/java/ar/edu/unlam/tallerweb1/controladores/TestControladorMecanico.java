@@ -100,8 +100,8 @@ public class TestControladorMecanico {
     public void queUnMecanicoVeaUnMensajeDeErrorCuandoNoHayanAutosParaMantenimiento() throws NoHayAutosEnMantenientoException {
         givenNoExistenAutosParaMantenimiento();
         whenEntraAlaPantallaPrincipal(request);
-        thenSeMuestraLaVista("pantalla-principal-mecanico",this.modelAndView);
-        thenSeMuestraUnMensajeDeError("No hay autos para mantenimiento actualmente",this.modelAndView);
+        thenSeMuestraLaVista("pantalla-principal-mecanico", this.modelAndView);
+        thenSeMuestraUnMensajeDeError("No hay autos para mantenimiento actualmente", this.modelAndView);
     }
 
     private void givenNoExistenAutosParaMantenimiento() throws NoHayAutosEnMantenientoException {
@@ -157,9 +157,9 @@ public class TestControladorMecanico {
     @Test
     public void queUnMecanicoVeaUnMensajeDeErrorCuandoEnvieUnAutoARevisionQueNoExiste() throws AutoNoExistente {
         givenNoExisteUnAutoEnRevision();
-        whenUnMencanicoEnviaUnAutoEnMantenimientoARevision(1l,request);
-        thenSeMuestraLaVista("envio-a-revision",this.modelAndView);
-        thenSeMuestraUnMensajeDeErrorEnLaVista("No existe el auto que queres enviar a revision",this.modelAndView);
+        whenUnMencanicoEnviaUnAutoEnMantenimientoARevision(1l, request);
+        thenSeMuestraLaVista("envio-a-revision", this.modelAndView);
+        thenSeMuestraUnMensajeDeErrorEnLaVista("No existe el auto que queres enviar a revision", this.modelAndView);
     }
 
     private void givenNoExisteUnAutoEnRevision() throws AutoNoExistente {
@@ -197,5 +197,21 @@ public class TestControladorMecanico {
         assertThat(modelAndView.getModel().get("lista_de_autos_en_revision")).isInstanceOf(List.class);
         List<Auto> enRevision = (List<Auto>) modelAndView.getModel().get("lista_de_autos_en_revision");
         assertThat(enRevision).hasSize(5);
+    }
+
+    @Test
+    public void queUnMecanicoVeaUnMensajeDeErrorCuandoNoHayanAutosParaRevision() throws NoHayAutosParaRevision {
+        givenNoExistenAutosParaRevision();
+        whenSolicitaVerSuListaDeAutosEnRevision(request);
+        thenSeMuestraLaVista("autos-en-revision", this.modelAndView);
+        thenSeMuestraErrorEnLaVista("No hay autos para revision actualmente", this.modelAndView);
+    }
+
+    private void givenNoExistenAutosParaRevision() throws NoHayAutosParaRevision {
+        doThrow(NoHayAutosParaRevision.class).when(servicioAuto).obtenerAutosEnRevision();
+    }
+
+    private void thenSeMuestraErrorEnLaVista(String error, ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("error")).isEqualTo(error);
     }
 }

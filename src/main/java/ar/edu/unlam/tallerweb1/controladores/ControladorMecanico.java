@@ -85,7 +85,8 @@ public class ControladorMecanico {
                 model.put("lista_de_autos_en_revision", enRevision);
                 return new ModelAndView("autos-en-revision", model);
             } catch (NoHayAutosParaRevision e) {
-                e.printStackTrace();
+                model.put("error", "No hay autos para revision actualmente");
+                return new ModelAndView("autos-en-revision", model);
             }
         }
         return enviarAlLoginConMensajeError(model);
