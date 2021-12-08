@@ -60,6 +60,11 @@ public class ControladorRegistro {
             return registroFallido(modelo, "El mail no se envio");
         }
 
+        Usuario nuevo = this.servicioUsuario.buscarPorEmail(datosRegistro.getEmail());
+        String colorNotificacion="success";
+        String mensajeNotificacion="Su registro a sido exitoso ¡Bienvenido a TALLER! disfrute de nuestros servicios";
+
+        this.servicioUsuario.generarNotificacion(nuevo, mensajeNotificacion, colorNotificacion);
 
         return new ModelAndView ("aviso-confirmar-mail");
     }

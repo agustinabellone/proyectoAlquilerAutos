@@ -124,6 +124,12 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
          repositorioUsuario.reactivarUsuario(usuario);
     }
 
+    @Override
+    public void generarNotificacion(Usuario usuario, String mensajeNotificacion, String colorNotificacion) {
+        Notificacion notificacion = new Notificacion(mensajeNotificacion, colorNotificacion, usuario);
+        this.repositorioUsuario.guardarNotificacion(notificacion);
+    }
+
 
     private boolean LaClaveTieneLongitudIncorrecta(String contraseña) {
         return contraseña.length() < 8;

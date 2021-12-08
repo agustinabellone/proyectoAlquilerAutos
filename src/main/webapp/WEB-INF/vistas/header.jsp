@@ -25,8 +25,8 @@
                 <c:forEach items="${notificaciones}" var="noti">
                   <div class="alert alert-${noti.getColor()} alert-dismissible fade show" style="margin-bottom: 5px; width: 350px" role="alert">
                     <strong>${noti.getDescripcion()}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
-                      <span aria-hidden="true" onclick="actualizarNotificaciones(${noti.getId()},${noti.getUsuario().getId()})">&times;</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="actualizarNotificaciones(${noti.getId()},${noti.getUsuario().getId()})">
+                      <span aria-hidden="true" >&times;</span>
                     </button>
                   </div>
                 </c:forEach>
