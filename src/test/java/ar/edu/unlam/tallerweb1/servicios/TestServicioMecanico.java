@@ -99,7 +99,7 @@ public class TestServicioMecanico {
     }
 
     @Test
-    public void queSePuedaEnviarUnAutoARevision() throws AutoNoExistente, UsuarioNoExistente {
+    public void queSePuedaEnviarUnAutoARevision() throws AutoNoExistente, UsuarioNoExistente, NoSeEnviaARevision {
         Auto paraRevision = givenExisteUnAutoParaMantenimiento();
         Usuario mecanico = givenExisteUnMecanico();
         givenSeLlamaAlRepoParaEnviarARevision(paraRevision,mecanico);
@@ -129,7 +129,7 @@ public class TestServicioMecanico {
         return auto;
     }
 
-    private Revision whenEnvioElAutoARevisionConElMecanicoYLaFechaActual(Auto paraRevision, Usuario mecanico, LocalDate fecha_de_envio) throws AutoNoExistente, UsuarioNoExistente {
+    private Revision whenEnvioElAutoARevisionConElMecanicoYLaFechaActual(Auto paraRevision, Usuario mecanico, LocalDate fecha_de_envio) throws AutoNoExistente, UsuarioNoExistente, NoSeEnviaARevision {
         return servicioAuto.enviarARevision(paraRevision, mecanico, fecha_de_envio);
     }
 
@@ -138,7 +138,7 @@ public class TestServicioMecanico {
     }
 
     @Test(expected = UsuarioNoExistente.class)
-    public void lanzarUnaExceptionCuandoElUsuarioMecanicoNoExista() throws UsuarioNoExistente, AutoNoExistente {
+    public void lanzarUnaExceptionCuandoElUsuarioMecanicoNoExista() throws UsuarioNoExistente, AutoNoExistente, NoSeEnviaARevision {
         Auto paraRevision = givenExisteUnAutoParaMantenimiento();
         givenQueNoExisteUnUsuario();
         whenEnvioElAutoARevisionConElMecanicoYLaFechaActual(paraRevision,new Usuario(),LocalDate.now());

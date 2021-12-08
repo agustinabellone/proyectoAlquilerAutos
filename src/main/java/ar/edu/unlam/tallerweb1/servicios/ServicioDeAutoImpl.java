@@ -60,7 +60,7 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     }
 
     @Override
-    public Revision enviarARevision(Auto enMantenimiento, Usuario mecanico, LocalDate fecha_de_envio) throws AutoNoExistente, UsuarioNoExistente {
+    public Revision enviarARevision(Auto enMantenimiento, Usuario mecanico, LocalDate fecha_de_envio) throws AutoNoExistente, UsuarioNoExistente, NoSeEnviaARevision {
         Auto aEnviar = repositorioAuto.buscarPor(enMantenimiento.getId());
         Usuario deLaRevision = repositorioUsuario.buscarPorId(mecanico.getId());
         if (aEnviar == null) {
@@ -69,7 +69,9 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         if (deLaRevision == null) {
             throw new UsuarioNoExistente();
         }
-        aEnviar.setSituacion(Situacion.EN_REVISION);
+        if (!aEnviar.getSituacion().equals(Situacion.EN_MANTENIMIENTO)){
+            throw new NoSeEnviaARevision();
+        }
         Revision nueva = repositorioAuto.enviarARevision(aEnviar, deLaRevision, fecha_de_envio);
         return nueva;
     }

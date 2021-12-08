@@ -13,7 +13,7 @@ import java.util.List;
 public class RepositorioAutoImpl implements RepositorioAuto {
 
     private SessionFactory sessionFactory;
-    private Revision revision = new Revision();
+
     @Autowired
     public RepositorioAutoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -31,9 +31,7 @@ public class RepositorioAutoImpl implements RepositorioAuto {
 
     @Override
     public List<Auto> buscarAutosEnMantenimiento(Situacion enMantenimiento) {
-        return sessionFactory.getCurrentSession().createCriteria(Auto.class)
-                .add(Restrictions.eq("situacion", enMantenimiento))
-                .list();
+        return sessionFactory.getCurrentSession().createCriteria(Auto.class).add(Restrictions.eq("situacion", enMantenimiento)).list();
     }
 
     @Override
@@ -42,12 +40,19 @@ public class RepositorioAutoImpl implements RepositorioAuto {
         buscado.setSituacion(enMantenimiento);
         buscado.setFecha_inicio_mantenimiento(localDate);
         sessionFactory.getCurrentSession().update(buscado);
-        return sessionFactory.getCurrentSession().get(Auto.class,buscado.getId());
+        return sessionFactory.getCurrentSession().get(Auto.class, buscado.getId());
     }
 
     @Override
     public Revision enviarARevision(Auto aEnviar, Usuario deLaRevision, LocalDate fecha_de_envio) {
-        return null;
+        Revision nueva = new Revision();
+        aEnviar.setSituacion(Situacion.EN_REVISION);
+        sessionFactory.getCurrentSession().update(aEnviar);
+        nueva.setAuto(aEnviar);
+        nueva.setUsuario(deLaRevision);
+        nueva.setFechaInicioRevision(fecha_de_envio);
+        sessionFactory.getCurrentSession().save(nueva);
+        return nueva;
     }
 
     @Override

@@ -16,7 +16,7 @@ public interface ServicioDeAuto {
     Auto enviarAMantenimiento(Long buscado) throws NoEnviaAutoAMantenimiento, AutoNoExistente;
 
 
-    Revision enviarARevision(Auto enMantenimiento, Usuario mecanico, LocalDate fecha_de_envio) throws AutoNoExistente, UsuarioNoExistente;
+    Revision enviarARevision(Auto enMantenimiento, Usuario mecanico, LocalDate fecha_de_envio) throws AutoNoExistente, UsuarioNoExistente, NoSeEnviaARevision;
 
     List<Auto> obtenerAutosEnRevision() throws NoHayAutosParaRevision;
 

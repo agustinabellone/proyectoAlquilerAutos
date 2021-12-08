@@ -73,6 +73,9 @@ public class ControladorMecanico {
             } catch (UsuarioNoExistente e) {
                 model.put("error_no_existe_el_usuario", "No existe el usuario con el cual vas a reviar el auto");
                 return new ModelAndView("envio-a-revision", model);
+            } catch (NoSeEnviaARevision e) {
+                model.put("error_no_esta_en_mantenimiento","El auto queres enviar tiene que estar en mantenimiento");
+                return new ModelAndView("envio-a-revision", model);
             }
         }
         return enviarAlLoginConMensajeError(model);

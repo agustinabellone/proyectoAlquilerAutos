@@ -112,7 +112,7 @@ public class TestControladorMecanico {
     }
 
     @Test
-    public void queUnMencanicoPuedaEnviarUnAutoASuListaDeRevisionMostrandoUnMensajeDeExito() throws AutoNoExistente, UsuarioNoExistente {
+    public void queUnMencanicoPuedaEnviarUnAutoASuListaDeRevisionMostrandoUnMensajeDeExito() throws AutoNoExistente, UsuarioNoExistente, NoSeEnviaARevision {
         Long id_auto = givenQueExisteUnAutoEnMantenimiento(Situacion.EN_MANTENIMIENTO);
         Usuario mecanico = givenExisteUnUsuarioMecanico();
         whenElServicioLLamaAEnviarUnAutoARevision(id_auto, mecanico, LocalDate.now());
@@ -121,7 +121,7 @@ public class TestControladorMecanico {
         thenSeMuestraUnMensajeDeExisto("El auto se envio correctamente", this.modelAndView);
     }
 
-    private void whenElServicioLLamaAEnviarUnAutoARevision(Long id_auto, Usuario mecanico, LocalDate now) throws UsuarioNoExistente, AutoNoExistente {
+    private void whenElServicioLLamaAEnviarUnAutoARevision(Long id_auto, Usuario mecanico, LocalDate now) throws UsuarioNoExistente, AutoNoExistente, NoSeEnviaARevision {
         Auto enRevision = new Auto();
         enRevision.setSituacion(Situacion.EN_REVISION);
         Revision revision = new Revision();
@@ -326,13 +326,13 @@ public class TestControladorMecanico {
     }
 
     @Test
-    public void queElMecanicoVeaUnMensaejDeErrorCuandoSeEnvieeUnAutoARevisionConElIDDelMecanicoIncorrecto() throws AutoNoExistente, UsuarioNoExistente {
+    public void queElMecanicoVeaUnMensaejDeErrorCuandoSeEnvieeUnAutoARevisionConElIDDelMecanicoIncorrecto() throws AutoNoExistente, UsuarioNoExistente, NoSeEnviaARevision {
         givenNoExisteUnUsuario();
         whenUnMencanicoEnviaUnAutoEnMantenimientoARevision(1l, request);
         thenLaSolicitudFalla("No existe el usuario con el cual vas a reviar el auto", this.modelAndView);
     }
 
-    private void givenNoExisteUnUsuario() throws UsuarioNoExistente, AutoNoExistente {
+    private void givenNoExisteUnUsuario() throws UsuarioNoExistente, AutoNoExistente, NoSeEnviaARevision {
         doThrow(UsuarioNoExistente.class).when(servicioAuto).enviarARevision(any(), any(), any());
     }
 
