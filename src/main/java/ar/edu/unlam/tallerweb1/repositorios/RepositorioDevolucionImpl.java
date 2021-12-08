@@ -38,8 +38,6 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
 
     @Override
     public void finalizarAlquilerCliente(Alquiler alquiler, Solicitud solAlquilerModificado) {
-        Auto auto = alquiler.getAuto();
-        sessionFactory.getCurrentSession().update(auto);
         sessionFactory.getCurrentSession().update(alquiler);
         sessionFactory.getCurrentSession().update(solAlquilerModificado);
     }

@@ -1,7 +1,5 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -27,8 +25,7 @@ public class Auto {
     @Column(nullable = true)
     private Integer limiteKm = 0;
     private Situacion situacion;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate fecha_inicio_mantenimiento;
+
     @Column
     private Gama gama;
 
