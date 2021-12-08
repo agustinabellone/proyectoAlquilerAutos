@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Revision;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
@@ -103,6 +104,28 @@ public class ControladorMecanico {
             } catch (AutoNoExistente e) {
                 model.put("error", "No existe el auto con el cual queres completar el formulario de revision");
                 return new ModelAndView("formulario-completar-revision", model);
+            }
+        }
+        return enviarAlLoginConMensajeError(model);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/finalizar-revision")
+    public ModelAndView finalizarFormularioDeRevision(@RequestParam(value = "id_auto") Long id_auto, @RequestParam(value = "comentario") String comentario, HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esMecanico(request)) {
+            try {
+                String comentarioAGuardar = servicioAuto.estaVacioElComentario(comentario);
+                LocalDate fecha_fin_revision = LocalDate.now();
+                Auto queVienePorRequestParam = servicioAuto.buscarAutoPorId(id_auto);
+                Revision conSituacionActualizada = servicioAuto.finalizarRevision(queVienePorRequestParam, fecha_fin_revision, comentarioAGuardar);
+                model.put("auto_con_situacion_actualizada", conSituacionActualizada.getAuto());
+                model.put("usuario_mecanico", conSituacionActualizada.getUsuario());
+                model.put("fecha_fin_revision", conSituacionActualizada.getFechaFinRevision());
+                model.put("formulario_exitoso", "Se envio correctamente el formulario y el auto esta diponibles para alquiler nuevamente");
+                return new ModelAndView("finaliza-formulario-revision", model);
+            } catch (AutoNoExistente e) {
+                model.put("error_no_existe_auto", "No existe el auto con el cual vas a finlizar la revision");
+                return new ModelAndView("finaliza-formulario-revision", model);
             }
         }
         return enviarAlLoginConMensajeError(model);
