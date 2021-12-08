@@ -84,8 +84,8 @@
 <div class="container mt-4">
     <h1 class="text-center">Autos para Mantenimiento</h1>
     <c:forEach items="${lista_autos_mantenimiento}" var="auto">
-        <div class="col-md-12">
-            <div class="card card-shadow border-0 mb-4">
+        <div class="col-md-12 card-shadow">
+            <div class="card card-shadow mb-4">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center">
                         <h5 class="font-weight-medium mb-0">Situacion: ${auto.situacion}</h5>
@@ -139,7 +139,7 @@
 </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade " id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
