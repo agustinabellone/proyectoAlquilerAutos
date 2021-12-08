@@ -104,4 +104,107 @@ public class TestRepositorioMecanico extends SpringTest {
         assertThat(revision.getAuto().getSituacion()).isEqualTo(Situacion.EN_REVISION);
         assertThat(revision.getUsuario().getRol()).isEqualTo("mecanico");
     }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaObtenerUnaRevisionPorAuto() {
+        Revision revision = givenExisteUnAutoEnRevision();
+        Revision obtenido = whenSeBuscaUnaRevisionPorAuto(revision.getAuto());
+        thenObtengoLaRevision(obtenido);
+    }
+
+    private Revision whenSeBuscaUnaRevisionPorAuto(Auto auto) {
+        return repositorioAuto.obtenerRevisionPorAuto(auto);
+    }
+
+    private Revision givenExisteUnAutoEnRevision() {
+        Revision revision = new Revision();
+        Auto auto = new Auto();
+        auto.setSituacion(Situacion.EN_REVISION);
+        session().save(auto);
+        revision.setAuto(auto);
+        session().save(revision);
+        return revision;
+    }
+
+    private void thenObtengoLaRevision(Revision obtenido) {
+        assertThat(obtenido.getAuto().getSituacion()).isEqualTo(Situacion.EN_REVISION);
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaActualizarUnaRevision() {
+        Revision revisionInicial = givenExisteUnaRevisionConAutoYUsuario();
+        Revision cambiada = givenAgregoUnComentarioYUnaFechaAlaRevision(revisionInicial);
+        Revision actualizada = whenActualizoLaRevision(cambiada);
+        thenObtengoLaRevisionActualizada(actualizada);
+    }
+
+    private Revision givenExisteUnaRevisionConAutoYUsuario() {
+        Usuario usuario = new Usuario();
+        usuario.setRol("mecanico");
+        session().save(usuario);
+
+        Auto auto = new Auto();
+        auto.setSituacion(Situacion.EN_REVISION);
+        session().save(auto);
+
+        Revision revision = new Revision();
+        revision.setUsuario(usuario);
+        revision.setAuto(auto);
+        session().save(revision);
+        return revision;
+    }
+
+    private Revision givenAgregoUnComentarioYUnaFechaAlaRevision(Revision revisionInicial) {
+        revisionInicial.setComentario("rueda");
+        revisionInicial.setFechaInicioRevision(LocalDate.now());
+        return revisionInicial;
+    }
+
+    private Revision whenActualizoLaRevision(Revision cambiada) {
+        return repositorioAuto.actualizarRevision(cambiada);
+    }
+
+    private void thenObtengoLaRevisionActualizada(Revision actualizada) {
+        assertThat(actualizada.getComentario()).isEqualTo("rueda");
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void queSePuedaObtenerUnaListaDeRevisionesPorMecanico() {
+        Usuario mecanico = givenExistenRevisionesPorUnMecanico(5);
+        List<Revision> revisions = whenBuscoUnaListaDeRevisionesPorUsuarioMecanico(mecanico);
+        thenObtengoUnaListaDeRevisiones(revisions, mecanico);
+    }
+
+    private Usuario givenExistenRevisionesPorUnMecanico(int i) {
+        Usuario mecanico = new Usuario();
+        mecanico.setRol("mecanico");
+        for (int j = 0; j < i; j++) {
+            Auto auto = new Auto();
+            auto.setSituacion(Situacion.EN_REVISION);
+            Revision revision = new Revision();
+            revision.setAuto(auto);
+            revision.setUsuario(mecanico);
+            session().save(auto);
+            session().save(revision);
+        }
+        session().save(mecanico);
+        return mecanico;
+    }
+
+    private List<Revision> whenBuscoUnaListaDeRevisionesPorUsuarioMecanico(Usuario mecanico) {
+        return repositorioAuto.obtenerRevisionesPorMecanico(mecanico);
+    }
+
+    private void thenObtengoUnaListaDeRevisiones(List<Revision> revisions, Usuario mecanico) {
+        assertThat(revisions).hasSize(5);
+        for (Revision re : revisions) {
+            assertThat(re.getUsuario().getId()).isEqualTo(mecanico.getId());
+        }
+    }
 }

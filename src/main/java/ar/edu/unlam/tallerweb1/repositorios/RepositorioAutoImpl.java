@@ -62,12 +62,18 @@ public class RepositorioAutoImpl implements RepositorioAuto {
 
     @Override
     public Revision obtenerRevisionPorAuto(Auto deLaRevision) {
-        return null;
+        return (Revision) sessionFactory.getCurrentSession().createCriteria(Revision.class).add(Restrictions.eq("auto", deLaRevision)).uniqueResult();
     }
 
     @Override
-    public void actualizarRevision(Revision revision) {
+    public Revision actualizarRevision(Revision revision) {
+        sessionFactory.getCurrentSession().update(revision);
+        return sessionFactory.getCurrentSession().get(Revision.class, revision.getId());
+    }
 
+    @Override
+    public List<Revision> obtenerRevisionesPorMecanico(Usuario mecanico) {
+        return sessionFactory.getCurrentSession().createCriteria(Revision.class).add(Restrictions.eq("mecanico", mecanico)).list();
     }
 
 

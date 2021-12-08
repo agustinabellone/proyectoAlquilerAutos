@@ -97,8 +97,8 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         }
         revision.setFechaFinRevision(fecha_fin_revision);
         revision.setComentario(comentario);
-        repositorioAuto.actualizarRevision(revision);
-        return revision;
+        Revision actualizada = repositorioAuto.actualizarRevision(revision);
+        return actualizada;
     }
 
 }

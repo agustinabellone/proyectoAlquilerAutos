@@ -21,5 +21,7 @@ public interface RepositorioAuto {
 
     Revision obtenerRevisionPorAuto(Auto deLaRevision);
 
-    void actualizarRevision(Revision revision);
+    Revision actualizarRevision(Revision revision);
+
+    List<Revision> obtenerRevisionesPorMecanico(Usuario id_mecanico);
 }
