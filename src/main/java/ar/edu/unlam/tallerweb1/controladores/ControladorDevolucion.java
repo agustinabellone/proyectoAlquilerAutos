@@ -24,16 +24,18 @@ import java.util.List;
 public class ControladorDevolucion {
 
     private ServicioDevolucion servicioDevolucion;
+    private ServicioAlquiler servicioAlquiler;
     private ServicioGarage servicioGarage;
     private ServicioUsuario servicioUsuario;
     private ServicioSolicitud servicioSolicitud;
 
     @Autowired
-    public ControladorDevolucion(ServicioDevolucion servicioDevolucion, ServicioGarage servicioGarage, ServicioUsuario servicioUsuario, ServicioSolicitud servicioSolicitud) {
+    public ControladorDevolucion(ServicioDevolucion servicioDevolucion, ServicioGarage servicioGarage, ServicioUsuario servicioUsuario, ServicioSolicitud servicioSolicitud, ServicioAlquiler servicioAlquiler) {
         this.servicioDevolucion = servicioDevolucion;
         this.servicioGarage = servicioGarage;
         this.servicioUsuario = servicioUsuario;
         this.servicioSolicitud = servicioSolicitud;
+        this.servicioAlquiler = servicioAlquiler;
     }
 
     public ControladorDevolucion() {
@@ -44,7 +46,8 @@ public class ControladorDevolucion {
     public ModelAndView irFinalizarAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
         ModelMap model = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
-        Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
+        //Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
+        Alquiler alquilerActivo = servicioAlquiler.obtenerAlquilerPorID(alquilerID);
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
         Garage garagePartida = servicioGarage.obtenerGaragePorID(alquilerActivo.getGaragePartida().getId());
         Garage garageLlegada = servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegada().getId());
@@ -66,7 +69,7 @@ public class ControladorDevolucion {
 
     @RequestMapping("/modificar-garage-llegada")
     public ModelAndView modificarGarageDeLlegada(@RequestParam(value = "alquilerID") Long alquilerID) {
-        Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
+        Alquiler alquiler = servicioAlquiler.obtenerAlquilerPorID(alquilerID);
         List<Garage> garages = servicioGarage.obtenerListadoDeGarages();
         ModelMap model = new ModelMap();
         model.put("alquiler", alquiler);
@@ -76,7 +79,7 @@ public class ControladorDevolucion {
 
     @RequestMapping("/seleccionNuevoGarageSeleccionado")
     public ModelAndView procesarSeleccionNuevoGarageLlegada(@RequestParam(value = "nuevoGarage") Long garageID, @RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
-        Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
+        Alquiler alquiler = servicioAlquiler.obtenerAlquilerPorID(alquilerID);
         Garage garage = servicioGarage.obtenerGaragePorID(garageID);
         alquiler.setGarageLlegada(garage);
         servicioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
@@ -90,7 +93,7 @@ public class ControladorDevolucion {
         ModelMap modelo = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
-        Alquiler alquiler = servicioDevolucion.obtenerAlquilerPorID(alquilerID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
+        Alquiler alquiler = servicioAlquiler.obtenerAlquilerPorID(alquilerID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
         servicioSolicitud.realizarPeticionDeDevolucion(alquiler);
         modelo.put("alquilerID", alquiler.getId());
         modelo.put("auto", alquiler.getAuto());

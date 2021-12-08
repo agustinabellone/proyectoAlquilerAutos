@@ -25,12 +25,12 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
                 .add(Restrictions.eq("usuario", usuario))
                 .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
     }
-
+/*
     @Override
     public Alquiler obtenerAlquilerPorId(Long alquilerID) {
         return sessionFactory.getCurrentSession().get(Alquiler.class, alquilerID);
     }
-
+*/
     @Override
     public void updateAlquiler(Alquiler alquiler) {
         sessionFactory.getCurrentSession().update(alquiler);

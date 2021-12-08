@@ -27,7 +27,7 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
 
 
     @Override
-    public List<Auto> obtenerAutosDisponibles() {
+    public List obtenerAutosDisponibles() {
         return this.sessionFactory.getCurrentSession()
                 .createCriteria(Auto.class)
                 .add(Restrictions.eq("situacion", Situacion.DISPONIBLE)).list();
@@ -117,4 +117,8 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
                 .list();
     }
 
+    @Override
+    public Alquiler obtenerAlquilerPorId(Long alquilerID) {
+        return sessionFactory.getCurrentSession().get(Alquiler.class, alquilerID);
+    }
 }

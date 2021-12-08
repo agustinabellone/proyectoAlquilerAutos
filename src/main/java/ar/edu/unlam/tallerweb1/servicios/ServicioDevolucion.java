@@ -14,7 +14,7 @@ public interface ServicioDevolucion {
 
     List<Alquiler> obtenerAlquilerActivoDeCliente(Usuario usuario);
 
-    Alquiler obtenerAlquilerPorID(Long alquilerID);
+    //Alquiler obtenerAlquilerPorID(Long alquilerID);
 
     void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler);
 

@@ -11,8 +11,6 @@ public interface RepositorioDevolucion {
 
     List<Alquiler> obtenerAlquilerActivoDeCliente(Usuario usuario);
 
-    Alquiler obtenerAlquilerPorId(Long alquilerID);
-
     void updateAlquiler(Alquiler alquiler);
 
     void finalizarAlquilerCliente(Alquiler alquiler, Solicitud solAlquilerModificado);
