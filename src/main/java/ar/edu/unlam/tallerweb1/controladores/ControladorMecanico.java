@@ -92,6 +92,22 @@ public class ControladorMecanico {
         return enviarAlLoginConMensajeError(model);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/formulario-revision")
+    public ModelAndView mostrarFormularioParaFinaLizarLaRevision(@RequestParam(value = "id_auto") Long id_auto, HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esMecanico(request)) {
+            try {
+                Auto queVienePorRequestParam = servicioAuto.buscarAutoPorId(id_auto);
+                model.put("auto_para_formulario", queVienePorRequestParam);
+                return new ModelAndView("formulario-completar-revision", model);
+            } catch (AutoNoExistente e) {
+                model.put("error", "No existe el auto con el cual queres completar el formulario de revision");
+                return new ModelAndView("formulario-completar-revision", model);
+            }
+        }
+        return enviarAlLoginConMensajeError(model);
+    }
+
     private boolean estaSeteadoElRol(HttpServletRequest request) {
         return request.getSession().getAttribute("rol") != null;
     }

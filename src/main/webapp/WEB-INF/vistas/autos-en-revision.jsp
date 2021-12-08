@@ -106,15 +106,9 @@
                                             Kilometraje: <span>${auto.km}</span>
                                         </li>
                                         <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                            Fecha de retorno de revision: <span>A confirmar</span>
+                                            Fecha de retorno de revision: <span><b>A confirmar cuando finalize la revision</b></span>
                                         </li>
                                     </ul>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="container">
-                                        <img src="${auto.imagen}"
-                                             alt="" style="width: 100%; height: auto;">
-                                    </div>
                                 </div>
                                 <button class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
                                 ><a class="text-white" href="formulario-revision?id_auto=${auto.id}">COMPLETAR

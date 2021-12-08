@@ -214,4 +214,43 @@ public class TestControladorMecanico {
     private void thenSeMuestraErrorEnLaVista(String error, ModelAndView modelAndView) {
         assertThat(modelAndView.getModel().get("error")).isEqualTo(error);
     }
+
+    @Test
+    public void queUnMecanicoPuedaVerLaVistaDelFormularioACompletarParaFinalizarLaRevisionDelAuto() throws AutoNoExistente {
+        Long id_auto = givenExisteUnAutoEnRevision(Situacion.EN_REVISION);
+        whenUnMecanicoSolicitaLaVistaParaCompletarElFormularioDelAuto(id_auto, request);
+        thenSeMuestraLaVista("formulario-completar-revision", this.modelAndView);
+        thenSeMuestraElAutoQueSeMostraraEnElFormulario(this.modelAndView);
+    }
+
+
+    private Long givenExisteUnAutoEnRevision(Situacion enRevision) throws AutoNoExistente {
+        Auto paraRevision = new Auto();
+        paraRevision.setSituacion(enRevision);
+        when(servicioAuto.buscarAutoPorId(anyLong())).thenReturn(paraRevision);
+        return null;
+    }
+
+    private void whenUnMecanicoSolicitaLaVistaParaCompletarElFormularioDelAuto(Long id_auto, HttpServletRequest request) {
+        this.modelAndView = controlador.mostrarFormularioParaFinaLizarLaRevision(id_auto, request);
+    }
+
+    private void thenSeMuestraElAutoQueSeMostraraEnElFormulario(ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("auto_para_formulario")).isNotNull();
+        assertThat(modelAndView.getModel().get("auto_para_formulario")).isInstanceOf(Auto.class);
+        Auto enRevision = (Auto) modelAndView.getModel().get("auto_para_formulario");
+        assertThat(enRevision.getSituacion()).isEqualTo(Situacion.EN_REVISION);
+    }
+
+    @Test
+    public void queUnMecanicoVeaUnMensajeDeErrorAlCompletarUnFormularioDeUnaAutoNoExistente() throws AutoNoExistente {
+        givenNoExisteUnAutoEnRevision();
+        whenUnMecanicoSolicitaLaVistaParaCompletarElFormularioDelAuto(1l, request);
+        thenSeMuestraLaVista("formulario-completar-revision", this.modelAndView);
+        thenSeMuestraUnError("No existe el auto con el cual queres completar el formulario de revision", this.modelAndView);
+    }
+
+    private void thenSeMuestraUnError(String error, ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("error")).isEqualTo(error);
+    }
 }

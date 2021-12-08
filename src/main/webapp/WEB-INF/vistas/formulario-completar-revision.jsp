@@ -1,18 +1,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pantalla Principal</title>
+    <title>Formulario Revision</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,9 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
-
 <body id="page-top">
 
 <header class="header">
@@ -77,66 +72,52 @@
 </header>
 <div class="container">
     <nav class="navbar bg-gray-300">
-        <a class="nav-link active" href="ir-a-pantalla-principal">Pantalla Principal</a>
-        <a class="nav-link" href="autos-en-revision">Autos en Revision -></a>
+        <a class="nav-link active" href="ir-a-pantalla-principal">Ir a Pantalla Principal</a>
+        <a class="nav-link" href="autos-en-revision">Ir a autos en Revision</a>
     </nav>
 </div>
 <div class="container mt-4">
-    <h1 class="text-center">Autos para Mantenimiento</h1>
-    <c:forEach items="${lista_autos_mantenimiento}" var="auto">
-        <div class="col-md-12 card-shadow">
-            <div class="card card-shadow mb-4">
-                <div class="card-body p-4">
-                    <div class="d-flex align-items-center">
-                        <h5 class="font-weight-medium mb-0">Situacion: ${auto.situacion}</h5>
-                    </div>
-                    <div class="col">
-                        <div class="col-lg-12">
-                            <div class="row mt-3">
-                                <div class="col-lg-6 align-self-center">
-                                    <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                        <li>
-                                            <span class="badge badge-danger font-weight-normal p-2">Fecha en la que se envioa mantenimiento: ${auto.fecha_inicio_mantenimiento}</span>
-                                        </li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                            Patente: <span>${auto.patente}</span>
-                                        </li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                            Marca: <span>${auto.marca.descripcion}</span>
-                                        </li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                            Modelo: <span>${auto.modelo.descripcion}</span>
-                                        </li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                            Kilometraje: <span>${auto.km}</span>
-                                        </li>
-                                        <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                            Fecha de retorno de mantenimiento: <span><b>A confirmar cuando finalize la revision</b></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="container">
-                                        <img src="${auto.imagen}"
-                                             alt="" style="width: 100%; height: auto;">
-                                    </div>
-                                </div>
-                                <button class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
-                                ><a class="text-white" href="enviar-a-revision?id_auto=${auto.id}">AGREGAR AUTO A MI
-                                    LISTA DE REVISION</a></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <h1 class="text-center">Formulario Revision</h1>
+    <div class="col-md-12 card-shadow">
+        <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
+            <li class="py-2">
+                <span><i
+                        class="icon-check text-info mr-2"></i>Fecha en la que se envio a revision: ${auto_para_formulario.fecha_inicio_mantenimiento}</span>
+            </li>
+            <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                Patente: <span>${auto_para_formulario.patente}</span>
+            </li>
+            <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                Marca: <span>${auto_para_formulario.marca.descripcion}</span>
+            </li>
+            <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                Modelo: <span>${auto_para_formulario.modelo.descripcion}</span>
+            </li>
+            <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                Kilometraje: <span>${auto_para_formulario.km}</span>
+            </li>
+            <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                Fecha de retorno de revision: <span><b>A confirmar cuando finalize la revision</b></span>
+            </li>
+        </ul>
+    </div>
+    <form action="finalizar-revision">
+        <input type="hidden" name="id_auto" value="${auto_para_formulario.id}">
+        <div>
+            <p><textarea class="form-control mt-3" name="comentario" rows="5" required
+                         placeholder="Ingrese una descripcion de lo realizado al vechiculo... "></textarea></p>
         </div>
-
-    </c:forEach>
-    <c:if test="${not empty error}">
-        <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                ${error}
-        </div>
-    </c:if>
+        <button class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-secondary" type="submit">
+            FINALIZAR REVISION
+        </button>
+    </form>
+</div>
+</div>
+<c:if test="${not empty error}">
+    <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
+            ${error}
+    </div>
+</c:if>
 </div>
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
