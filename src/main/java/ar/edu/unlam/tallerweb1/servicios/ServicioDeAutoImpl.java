@@ -67,5 +67,10 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         return null;
     }
 
+    @Override
+    public List<Auto> obtenerAutosEnRevision() {
+        return null;
+    }
+
 
 }

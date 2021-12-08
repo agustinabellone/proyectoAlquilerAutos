@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -65,8 +66,23 @@ public class ControladorMecanico {
                 Auto conSituacionActualizada = servicioAuto.enviarARevision(queVienePorRequestParam, mecanico, LocalDate.now());
                 model.put("envio_exitoso", "El auto se envio correctamente");
                 model.put("auto_en_revision", conSituacionActualizada);
-                return new ModelAndView("envio-a-revision",model);
+                return new ModelAndView("envio-a-revision", model);
             } catch (AutoNoExistente e) {
+                e.printStackTrace();
+            }
+        }
+        return enviarAlLoginConMensajeError(model);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/autos-en-revision")
+    public ModelAndView mostrarAutosParaRevision(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esMecanico(request)) {
+            try {
+                List<Auto> enRevision = servicioAuto.obtenerAutosEnRevision();
+                model.put("lista_de_autos_en_revision", enRevision);
+                return new ModelAndView("autos-en-revision",model);
+            } catch (NoHayAutosParaRevision e) {
                 e.printStackTrace();
             }
         }

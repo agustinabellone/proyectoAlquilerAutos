@@ -16,4 +16,6 @@ public interface ServicioDeAuto {
 
 
     Auto enviarARevision(Auto enMantenimiento, Usuario mecanico, LocalDate fecha_de_envio);
+
+    List<Auto> obtenerAutosEnRevision() throws NoHayAutosParaRevision;
 }

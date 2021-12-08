@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -136,5 +137,34 @@ public class TestControladorMecanico {
         assertThat(modelAndView.getModel().get("auto_en_revision")).isInstanceOf(Auto.class);
         Auto enRevision = (Auto) modelAndView.getModel().get("auto_en_revision");
         assertThat(enRevision.getSituacion()).isEqualTo(Situacion.EN_REVISION);
+    }
+
+    @Test
+    public void queUnMencanicoPuedaVerUnaListaDeAutosEnRevision() throws NoHayAutosParaRevision {
+        givenExistenAutosEnRevision(5,Situacion.EN_REVISION);
+        whenSolicitaVerSuListaDeAutosEnRevision(request);
+        thenSeMuestraLaVista("autos-en-revision",this.modelAndView);
+        thenSeMuestraUnListaDeAutosEnRevision(this.modelAndView);
+    }
+
+    private void givenExistenAutosEnRevision(int cantidad, Situacion enRevision) throws NoHayAutosParaRevision {
+        List<Auto> paraRevision = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Auto revision = new Auto();
+            revision.setSituacion(enRevision);
+            paraRevision.add(revision);
+        }
+        when(servicioAuto.obtenerAutosEnRevision()).thenReturn(paraRevision);
+    }
+
+    private void whenSolicitaVerSuListaDeAutosEnRevision(HttpServletRequest request) {
+        this.modelAndView = controlador.mostrarAutosParaRevision(request);
+    }
+
+    private void thenSeMuestraUnListaDeAutosEnRevision(ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("lista_de_autos_en_revision")).isNotNull();
+        assertThat(modelAndView.getModel().get("lista_de_autos_en_revision")).isInstanceOf(List.class);
+        List<Auto> enRevision = (List<Auto>) modelAndView.getModel().get("lista_de_autos_en_revision");
+        assertThat(enRevision).hasSize(5);
     }
 }
