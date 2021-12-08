@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
-import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Revision;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -118,7 +115,7 @@ public class ControladorMecanico {
         ModelMap model = new ModelMap();
         if (estaSeteadoElRol(request) && esMecanico(request)) {
             try {
-                String comentarioAGuardar = servicioAuto.estaVacioElComentario(comentario);
+                String comentarioAGuardar = estaVacioElComentario(comentario);
                 LocalDate fecha_fin_revision = LocalDate.now();
                 Auto queVienePorRequestParam = servicioAuto.buscarAutoPorId(id_auto);
                 Revision conSituacionActualizada = servicioAuto.finalizarRevision(queVienePorRequestParam, fecha_fin_revision, comentarioAGuardar);
@@ -130,9 +127,11 @@ public class ControladorMecanico {
             } catch (AutoNoExistente e) {
                 model.put("error_no_existe_auto", "No existe el auto con el cual vas a finlizar la revision");
                 return new ModelAndView("finaliza-formulario-revision", model);
+            } catch (ComentarioVacio e) {
+                model.put("error_comentario_vacio", "La descripcion no puede estar vacia");
+                return new ModelAndView("finaliza-formulario-revision", model);
             }
-        }
-        return enviarAlLoginConMensajeError(model);
+        } return enviarAlLoginConMensajeError(model);
     }
 
     private boolean estaSeteadoElRol(HttpServletRequest request) {
@@ -147,5 +146,12 @@ public class ControladorMecanico {
         model.put("errorSinPermisos", "No tenes los permisos necesarios para acceder a esta pagina");
         model.put("datosLogin", new DatosLogin());
         return new ModelAndView("login", model);
+    }
+
+    private String estaVacioElComentario(String comentario) throws ComentarioVacio {
+        if (comentario==null) {
+            throw new ComentarioVacio();
+        }
+        return comentario;
     }
 }

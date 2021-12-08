@@ -16,4 +16,6 @@ public interface RepositorioAuto {
     Auto enviarAMantenimiento(Long id, Situacion enMantenimiento, LocalDate localDate);
 
     Revision enviarARevision(Auto aEnviar, Usuario deLaRevision, LocalDate fecha_de_envio);
+
+    List<Auto> obtenerAutosEnRevision();
 }

@@ -50,5 +50,10 @@ public class RepositorioAutoImpl implements RepositorioAuto {
         return null;
     }
 
+    @Override
+    public List<Auto> obtenerAutosEnRevision() {
+        return null;
+    }
+
 
 }

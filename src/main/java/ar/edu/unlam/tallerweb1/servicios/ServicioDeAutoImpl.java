@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
-import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
-import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Revision;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
@@ -78,8 +75,12 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     }
 
     @Override
-    public List<Auto> obtenerAutosEnRevision() {
-        return null;
+    public List<Auto> obtenerAutosEnRevision() throws NoHayAutosParaRevision {
+        List<Auto> paraRevision = repositorioAuto.obtenerAutosEnRevision();
+        if (paraRevision.size() == 0){
+            throw new NoHayAutosParaRevision();
+        }
+        return paraRevision;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
-import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Revision;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
@@ -149,4 +147,39 @@ public class TestServicioMecanico {
     private void givenQueNoExisteUnUsuario() {
 
     }
+    
+    @Test(expected = NoHayAutosParaRevision.class)
+    public void lanzarUnaExpetionCuandoSeObtengaUnaListaDeAutosEnRevisionQueNoExisten() throws NoHayAutosParaRevision {
+        givenNoExistenAutosParaRevision();
+        whenElMecanicoSolicitaUnaListaDeAutosParaRevision();
+    }
+
+    private void givenNoExistenAutosParaRevision() {
+    }
+
+    private List<Auto> whenElMecanicoSolicitaUnaListaDeAutosParaRevision() throws NoHayAutosParaRevision {
+        return servicioAuto.obtenerAutosEnRevision();
+    }
+
+    @Test
+    public void queSePuedaObtenerUnaListaDeAutosParaRevision() throws NoHayAutosParaRevision {
+        givenQueExistenAutosParaRevision(5);
+        List<Auto> paraRevision = whenElMecanicoSolicitaUnaListaDeAutosParaRevision();
+        thenObtengolaListaConLaCantidadEsperada(paraRevision,5);
+    }
+
+    private void givenQueExistenAutosParaRevision(int cantidad) {
+        List<Auto> autoList = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Auto auto = new Auto();
+            auto.setSituacion(Situacion.EN_REVISION);
+            autoList.add(auto);
+        }
+        when(repositorioAuto.obtenerAutosEnRevision()).thenReturn(autoList);
+    }
+
+    private void thenObtengolaListaConLaCantidadEsperada(List<Auto> paraRevision, int cantidad_esperada) {
+        assertThat(paraRevision).hasSize(cantidad_esperada);
+    }
+
 }

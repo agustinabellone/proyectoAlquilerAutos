@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
-import ar.edu.unlam.tallerweb1.Exceptions.UsuarioNoExistente;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Revision;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
@@ -344,5 +341,21 @@ public class TestControladorMecanico {
 
     private void thenLaSolicitudFalla(String s, ModelAndView modelAndView) {
         assertThat(modelAndView.getModel().get("error_no_existe_el_usuario")).isEqualTo(s);
+    }
+
+    @Test
+    public void queUnMecanicoVeaUnMensajeDeErrorAlQuererFinalizarConUnComentarioVacio() {
+        String comentario = givenQueElComentarioEstaVacio();
+        whenFinalizaElFormulario(1l, request, comentario);
+        thenSeMuestraLaVista("finaliza-formulario-revision", this.modelAndView);
+        thenSeMuestraUnMsjDeError("La descripcion no puede estar vacia", this.modelAndView);
+    }
+
+    private String givenQueElComentarioEstaVacio() {
+        return null;
+    }
+
+    private void thenSeMuestraUnMsjDeError(String error, ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("error_comentario_vacio")).isEqualTo(error);
     }
 }
