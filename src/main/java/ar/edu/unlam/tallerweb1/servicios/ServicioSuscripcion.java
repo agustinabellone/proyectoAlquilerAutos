@@ -32,7 +32,6 @@ public interface ServicioSuscripcion {
 
     List<Usuario> obtenerListaDeUsuariosNoSuscriptos()throws NoHayClientesNoSuscriptos;
 
-    void generarNotificacion(Usuario usuario, String mensajeNotificacion, String colorNotificacion);
 
     void notificarUsuariosProximosAVencer();
 

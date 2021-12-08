@@ -97,11 +97,13 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
                     this.repositorioSuscripcion.actualizarSuscripcion(suscripcion);
                     String mensajeNoti="Su suscripcion fue renovada automaticamente";
                     String colorNoti="success";
-                    generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                    Notificacion notificacion = new Notificacion(mensajeNoti, colorNoti, suscripcion.getUsuario());
+                    this.repositorioUsuario.guardarNotificacion(notificacion);
                 }else{
                     String mensajeNoti="Su suscripcion fue cancelada automaticamente";
                     String colorNoti="danger";
-                    generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                    Notificacion notificacion = new Notificacion(mensajeNoti, colorNoti, suscripcion.getUsuario());
+                    this.repositorioUsuario.guardarNotificacion(notificacion);
                 }
             }
             System.out.println("Todas las suscripciones fueron dadas de baja correctamente");
@@ -126,11 +128,13 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
                     if(suscripcion.getRenovacion()){
                         String mensajeNoti="Su suscripcion sera renovada dentro de 5 dias";
                         String colorNoti="success";
-                        generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                        Notificacion notificacion = new Notificacion(mensajeNoti, colorNoti, suscripcion.getUsuario());
+                        this.repositorioUsuario.guardarNotificacion(notificacion);
                     }else{
                         String mensajeNoti="Su suscripcion sera cancelada dentro de 5 dias";
                         String colorNoti="danger";
-                        generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                        Notificacion notificacion = new Notificacion(mensajeNoti, colorNoti, suscripcion.getUsuario());
+                        this.repositorioUsuario.guardarNotificacion(notificacion);
                     }
 
             }
@@ -143,11 +147,13 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
                 if(suscripcion.getRenovacion()){
                     String mensajeNoti="Su suscripcion sera renovada dentro de 10 dias";
                     String colorNoti="success";
-                    generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                    Notificacion notificacion = new Notificacion(mensajeNoti, colorNoti, suscripcion.getUsuario());
+                    this.repositorioUsuario.guardarNotificacion(notificacion);
                 }else{
                     String mensajeNoti="Su suscripcion sera cancelada dentro de 10 dias";
                     String colorNoti="danger";
-                    generarNotificacion(suscripcion.getUsuario(),mensajeNoti, colorNoti);
+                    Notificacion notificacion = new Notificacion(mensajeNoti, colorNoti, suscripcion.getUsuario());
+                    this.repositorioUsuario.guardarNotificacion(notificacion);
                 }
 
             }
@@ -162,11 +168,6 @@ public class ServicioSuscripcionImpl implements ServicioSuscripcion {
         return null;
     }
 
-    @Override
-    public void generarNotificacion(Usuario usuario, String mensajeNotificacion, String colorNotificacion) {
-        Notificacion notificacion = new Notificacion(mensajeNotificacion, colorNotificacion, usuario);
-        this.repositorioUsuario.guardarNotificacion(notificacion);
-    }
 
     @Override
     public TipoSuscripcion getTipoPorid(Long id_tipo) {

@@ -43,4 +43,6 @@ public interface ServicioUsuario {
 
     void reactivarCuenta(Usuario usuario);
 
+    void generarNotificacion(Usuario usuario, String mensajeNotificacion, String colorNotificacion);
+
 }
