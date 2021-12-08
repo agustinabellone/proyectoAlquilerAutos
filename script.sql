@@ -15,9 +15,9 @@ INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VAL
 
 -- TIPO DE SUSCRIPCION
 INSERT INTO tiposuscripcion (id, descripcion, eleccionVehiculo, limiteKilometraje, permiteReserva, valorIncumplimientoHoraLugar, valorPorKmAdicional, valorPorMalasCondiciones, duracion, precio)
-VALUES (1, 'standard', 0, 50, 0, 900, 350,800, 31, 10000),
-       (2, 'premium', 1, 80, 1, 500, 280, 800, 31, 15000),
-       (3, 'golden', 1, 200, 1, 0, 100, 800, 31, 20000);
+VALUES (1, 'standard', 0, 50, 0, 900, 350,800, 31, 10000,'Basico'),
+       (2, 'premium', 1, 80, 1, 500, 280, 800, 31, 15000,'Oro'),
+       (3, 'golden', 1, 200, 1, 0, 100, 800, 31, 20000,'Diamante');
 
 -- MARCAS
 insert into marca(id,descripcion) values(01,'chevrolet');
