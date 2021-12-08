@@ -127,6 +127,11 @@
         </div>
 
     </c:forEach>
+    <c:if test="${not empty }">
+        <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
+                ${error_no_existe_el_auto}
+        </div>
+    </c:if>
 </div>
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">

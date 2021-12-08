@@ -69,7 +69,8 @@ public class ControladorMecanico {
                 model.put("auto_en_revision", conSituacionActualizada);
                 return new ModelAndView("envio-a-revision", model);
             } catch (AutoNoExistente e) {
-                e.printStackTrace();
+                model.put("error_no_existe_el_auto", "No existe el auto que queres enviar a revision");
+                return new ModelAndView("envio-a-revision", model);
             }
         }
         return enviarAlLoginConMensajeError(model);

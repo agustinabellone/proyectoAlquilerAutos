@@ -155,6 +155,22 @@ public class TestControladorMecanico {
     }
 
     @Test
+    public void queUnMecanicoVeaUnMensajeDeErrorCuandoEnvieUnAutoARevisionQueNoExiste() throws AutoNoExistente {
+        givenNoExisteUnAutoEnRevision();
+        whenUnMencanicoEnviaUnAutoEnMantenimientoARevision(1l,request);
+        thenSeMuestraLaVista("envio-a-revision",this.modelAndView);
+        thenSeMuestraUnMensajeDeErrorEnLaVista("No existe el auto que queres enviar a revision",this.modelAndView);
+    }
+
+    private void givenNoExisteUnAutoEnRevision() throws AutoNoExistente {
+        doThrow(AutoNoExistente.class).when(servicioAuto).buscarAutoPorId(anyLong());
+    }
+
+    private void thenSeMuestraUnMensajeDeErrorEnLaVista(String error, ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("error_no_existe_el_auto")).isEqualTo(error);
+    }
+
+    @Test
     public void queUnMencanicoPuedaVerUnaListaDeAutosEnRevision() throws NoHayAutosParaRevision {
         givenExistenAutosEnRevision(5, Situacion.EN_REVISION);
         whenSolicitaVerSuListaDeAutosEnRevision(request);
