@@ -1,14 +1,12 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Garage {
 
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String direccion;
     private Integer capacidad;

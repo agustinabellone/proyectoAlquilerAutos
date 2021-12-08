@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Alquiler;
-import ar.edu.unlam.tallerweb1.modelo.Solicitud;
-import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 
 import java.util.List;
 
@@ -18,5 +15,7 @@ public interface RepositorioDevolucion {
     void finalizarAlquilerCliente(Alquiler alquiler, Solicitud solAlquilerModificado);
 
     Suscripcion obtenerSuscripcionDeUnUsuario(Usuario usuario);
+
+    void updateAuto(Auto auto);
 }
 

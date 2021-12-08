@@ -33,12 +33,12 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
 
     @Override
     public void updateAlquiler(Alquiler alquiler) {
+        sessionFactory.getCurrentSession().update(alquiler.getAuto());
         sessionFactory.getCurrentSession().update(alquiler);
     }
 
     @Override
     public void finalizarAlquilerCliente(Alquiler alquiler, Solicitud solAlquilerModificado) {
-        sessionFactory.getCurrentSession().update(alquiler);
         sessionFactory.getCurrentSession().update(solAlquilerModificado);
     }
 
@@ -46,6 +46,11 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
     public Suscripcion obtenerSuscripcionDeUnUsuario(Usuario usuario) {
         return (Suscripcion) sessionFactory.getCurrentSession().createCriteria(Suscripcion.class)
                 .add(Restrictions.eq("Usuario", usuario)).uniqueResult();
+    }
+
+    @Override
+    public void updateAuto(Auto auto) {
+        sessionFactory.getCurrentSession().update(auto);
     }
 
 
