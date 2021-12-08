@@ -22,8 +22,7 @@ import java.util.List;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class TestControladorMecanico {
 
@@ -98,6 +97,22 @@ public class TestControladorMecanico {
     }
 
     @Test
+    public void queUnMecanicoVeaUnMensajeDeErrorCuandoNoHayanAutosParaMantenimiento() throws NoHayAutosEnMantenientoException {
+        givenNoExistenAutosParaMantenimiento();
+        whenEntraAlaPantallaPrincipal(request);
+        thenSeMuestraLaVista("pantalla-principal-mecanico",this.modelAndView);
+        thenSeMuestraUnMensajeDeError("No hay autos para mantenimiento actualmente",this.modelAndView);
+    }
+
+    private void givenNoExistenAutosParaMantenimiento() throws NoHayAutosEnMantenientoException {
+        doThrow(NoHayAutosEnMantenientoException.class).when(servicioAuto).obtenerAutosEnMantenimiento();
+    }
+
+    private void thenSeMuestraUnMensajeDeError(String error, ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("error")).isEqualTo(error);
+    }
+
+    @Test
     public void queUnMencanicoPuedaEnviarUnAutoASuListaDeRevisionMostrandoUnMensajeDeExito() throws AutoNoExistente {
         Long id_auto = givenQueExisteUnAutoEnMantenimiento(Situacion.EN_MANTENIMIENTO);
         Usuario mecanico = givenExisteUnUsuarioMecanico();
@@ -141,9 +156,9 @@ public class TestControladorMecanico {
 
     @Test
     public void queUnMencanicoPuedaVerUnaListaDeAutosEnRevision() throws NoHayAutosParaRevision {
-        givenExistenAutosEnRevision(5,Situacion.EN_REVISION);
+        givenExistenAutosEnRevision(5, Situacion.EN_REVISION);
         whenSolicitaVerSuListaDeAutosEnRevision(request);
-        thenSeMuestraLaVista("autos-en-revision",this.modelAndView);
+        thenSeMuestraLaVista("autos-en-revision", this.modelAndView);
         thenSeMuestraUnListaDeAutosEnRevision(this.modelAndView);
     }
 

@@ -50,7 +50,8 @@ public class ControladorMecanico {
                 model.put("lista_autos_mantenimiento", paraMantenimiento);
                 return new ModelAndView("pantalla-principal-mecanico", model);
             } catch (NoHayAutosEnMantenientoException e) {
-                e.printStackTrace();
+                model.put("error", "No hay autos para mantenimiento actualmente");
+                return new ModelAndView("pantalla-principal-mecanico", model);
             }
         }
         return enviarAlLoginConMensajeError(model);
@@ -81,7 +82,7 @@ public class ControladorMecanico {
             try {
                 List<Auto> enRevision = servicioAuto.obtenerAutosEnRevision();
                 model.put("lista_de_autos_en_revision", enRevision);
-                return new ModelAndView("autos-en-revision",model);
+                return new ModelAndView("autos-en-revision", model);
             } catch (NoHayAutosParaRevision e) {
                 e.printStackTrace();
             }
