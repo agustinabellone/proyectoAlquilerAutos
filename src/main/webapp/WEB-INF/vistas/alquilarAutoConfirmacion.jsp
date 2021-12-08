@@ -50,7 +50,7 @@
                ${mensaje}
             </div>
             <p class="text-center">¡Sumaste 50 puntos!</p>
-            <div class="col-sm-12 d-flex justify-content-center">
+            <div class="col-sm-12 d-flex justify-content-center pb-3">
                 <a href="main" class="btn btn-dark" >Volver a mi cuenta</a>
             </div>
         </c:if>
@@ -58,7 +58,7 @@
             <div class="alert alert-danger text-center container mt-3" role="alert">
                     ${mensajeFallido}
             </div>
-            <div class="col-sm-12 d-flex justify-content-center">
+            <div class="col-sm-12 d-flex justify-content-center pb-3">
                 <a href="alquilar-auto" class="btn btn-dark" >Volver</a>
             </div>
         </c:if>

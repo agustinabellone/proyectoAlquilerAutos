@@ -25,11 +25,21 @@
     </div>
     <div class="pricing6 py-5">
         <div class="container">
+            <c:if test="${viajesObtenidos.size() == 0}">
+                <div class="alert alert-danger" role="alert">
+                       No tiene alquileres finalizados aún
+                </div>
+                <div class="col-sm-12 d-flex justify-content-center pb-3">
+                    <a href="main" class="btn btn-dark" >Volver</a>
+                </div>
+            </c:if>
+            <c:if test="${viajesObtenidos.size() > 0} ">
             <div class="col center-block">
                 <div class="d-flex align-items-center">
                     <h5 class="font-weight-medium mb-3">Cantidad: ${viajesObtenidos.size()} </h5>
                 </div>
             </div>
+            </c:if>
                 <c:forEach var="viaje" items= "${viajesObtenidos}" >
                     <div class="col-md-12">
                         <div class="card card-shadow border-0 mb-4">
