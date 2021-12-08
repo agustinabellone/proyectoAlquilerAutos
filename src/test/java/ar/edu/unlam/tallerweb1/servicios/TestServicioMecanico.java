@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -182,4 +183,49 @@ public class TestServicioMecanico {
         assertThat(paraRevision).hasSize(cantidad_esperada);
     }
 
+    @Test(expected = AutoNoExistente.class)
+    public void lanzarUnaExceptionCuandoQuieraFincalizarUnaRevisionConUnAutoInexistente() throws AutoNoExistente, RevisionNoExistente {
+        givenNoExisteUnAutoParaFinalizarUnaRevision();
+        whenElMecanicoFinalizaLaRevision(new Auto(), LocalDate.now(), "comentario");
+    }
+
+    private void givenNoExisteUnAutoParaFinalizarUnaRevision() {
+
+    }
+
+    private Revision whenElMecanicoFinalizaLaRevision(Auto enRevision, LocalDate now, String comentario) throws AutoNoExistente, RevisionNoExistente {
+        return servicioAuto.finalizarRevision(enRevision,LocalDate.now(),comentario);
+    }
+
+    @Test
+    public void queSePuedaFinalizarUnaRevision() throws AutoNoExistente, RevisionNoExistente {
+        Auto enRevision = givenExisteUnAutoEnRevision();
+        givenexisteUnaRevision();
+        String comentario = givenExisteUnComentario();
+        Revision obtenida = whenElMecanicoFinalizaLaRevision(enRevision,LocalDate.now(),comentario);
+        thenObtengoLaRevisionConLaSituacionDelAutoEnDisponible(obtenida);
+    }
+
+    private void givenexisteUnaRevision() {
+        Auto auto = new Auto();
+        auto.setSituacion(Situacion.DISPONIBLE);
+        Revision revision = new Revision();
+        revision.setAuto(auto);
+        when(repositorioAuto.obtenerRevisionPorAuto(any())).thenReturn(revision);
+    }
+
+    private String givenExisteUnComentario() {
+        return "ruedas";
+    }
+
+    private Auto givenExisteUnAutoEnRevision() throws AutoNoExistente {
+        Auto auto = new Auto();
+        auto.setSituacion(Situacion.EN_REVISION);
+        when(repositorioAuto.buscarPor(anyLong())).thenReturn(auto);
+        return auto;
+    }
+
+    private void thenObtengoLaRevisionConLaSituacionDelAutoEnDisponible(Revision obtenida) {
+        assertThat(obtenida.getAuto().getSituacion()).isEqualTo(Situacion.DISPONIBLE);
+    }
 }

@@ -20,7 +20,6 @@ public interface ServicioDeAuto {
 
     List<Auto> obtenerAutosEnRevision() throws NoHayAutosParaRevision;
 
-    Revision finalizarRevision(Auto queVienePorRequestParam, LocalDate now, String comentario);
+    Revision finalizarRevision(Auto queVienePorRequestParam, LocalDate now, String comentario) throws AutoNoExistente, RevisionNoExistente;
 
-    String estaVacioElComentario(String comentario);
 }

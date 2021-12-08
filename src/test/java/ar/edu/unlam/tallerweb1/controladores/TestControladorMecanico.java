@@ -256,19 +256,12 @@ public class TestControladorMecanico {
     }
 
     @Test
-    public void queUnMecanicoAlFinalizarLaRevisionSeCambieLaSituacionDelAutoADisponibleYSeSeteeElNuevoLimiteDeKilometraje() throws AutoNoExistente {
+    public void queUnMecanicoAlFinalizarLaRevisionSeCambieLaSituacionDelAutoADisponibleYSeSeteeElNuevoLimiteDeKilometraje() throws AutoNoExistente, RevisionNoExistente {
         Long id_auto = givenExisteUnAutoParaFinalizarElFormulario();
-        String comentario = givenExisteUnComentario();
-        whenElServicioLlamaAFinzalizarLaRevision(comentario, LocalDate.now());
-        whenFinalizaElFormulario(id_auto, request, comentario);
+        whenElServicioLlamaAFinzalizarLaRevision("comentario", LocalDate.now());
+        whenFinalizaElFormulario(id_auto, request, "comentario");
         thenSeMuestraLaVista("finaliza-formulario-revision", this.modelAndView);
         thenSeMuestraUnMensajeAlFinalizarElFormulario("Se envio correctamente el formulario y el auto esta diponibles para alquiler nuevamente", this.modelAndView);
-    }
-
-    private String givenExisteUnComentario() {
-        String comentario = "Se cambio una rueda";
-        when(servicioAuto.estaVacioElComentario(anyString())).thenReturn(comentario);
-        return comentario;
     }
 
     private Long givenExisteUnAutoParaFinalizarElFormulario() throws AutoNoExistente {
@@ -278,7 +271,7 @@ public class TestControladorMecanico {
         return enRevision.getId();
     }
 
-    private void whenElServicioLlamaAFinzalizarLaRevision(String comentario, LocalDate now) {
+    private void whenElServicioLlamaAFinzalizarLaRevision(String comentario, LocalDate now) throws AutoNoExistente, RevisionNoExistente {
         Usuario usuario = new Usuario();
         usuario.setRol("mecanico");
         Revision revision = new Revision();
@@ -315,13 +308,17 @@ public class TestControladorMecanico {
     }
 
     @Test
-    public void queUnMecanicoVeaUnMensajeDeErrorAlFinzalizarUnaRevisionConUnAutoInexistente() throws AutoNoExistente {
+    public void queUnMecanicoVeaUnMensajeDeErrorAlFinzalizarUnaRevisionConUnAutoInexistente() throws AutoNoExistente, RevisionNoExistente {
         givenNoExisteUnAutoEnRevision();
         String comentario = givenExisteUnComentario();
         whenElServicioLlamaAFinzalizarLaRevision(comentario, LocalDate.now());
         whenFinalizaElFormulario(1l, request, comentario);
         thenSeMuestraLaVista("finaliza-formulario-revision", this.modelAndView);
         thenMuestraUnMensajeDeError("No existe el auto con el cual vas a finlizar la revision", this.modelAndView);
+    }
+
+    private String givenExisteUnComentario() {
+        return "null";
     }
 
     private void thenMuestraUnMensajeDeError(String error, ModelAndView modelAndView) {

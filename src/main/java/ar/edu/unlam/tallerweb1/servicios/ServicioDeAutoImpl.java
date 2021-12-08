@@ -77,21 +77,26 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     @Override
     public List<Auto> obtenerAutosEnRevision() throws NoHayAutosParaRevision {
         List<Auto> paraRevision = repositorioAuto.obtenerAutosEnRevision();
-        if (paraRevision.size() == 0){
+        if (paraRevision.size() == 0) {
             throw new NoHayAutosParaRevision();
         }
         return paraRevision;
     }
 
     @Override
-    public Revision finalizarRevision(Auto queVienePorRequestParam, LocalDate now, String comentario) {
-        return null;
+    public Revision finalizarRevision(Auto queVienePorRequestParam, LocalDate fecha_fin_revision, String comentario) throws AutoNoExistente, RevisionNoExistente {
+        Auto deLaRevision = repositorioAuto.buscarPor(queVienePorRequestParam.getId());
+        Revision revision = repositorioAuto.obtenerRevisionPorAuto(deLaRevision);
+        if (deLaRevision == null) {
+            throw new AutoNoExistente();
+        }
+        if (revision == null) {
+            throw new RevisionNoExistente();
+        }
+        revision.setFechaFinRevision(fecha_fin_revision);
+        revision.setComentario(comentario);
+        repositorioAuto.actualizarRevision(revision);
+        return revision;
     }
-
-    @Override
-    public String estaVacioElComentario(String comentario) {
-        return null;
-    }
-
 
 }

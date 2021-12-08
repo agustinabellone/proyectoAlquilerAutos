@@ -55,5 +55,15 @@ public class RepositorioAutoImpl implements RepositorioAuto {
         return null;
     }
 
+    @Override
+    public Revision obtenerRevisionPorAuto(Auto deLaRevision) {
+        return null;
+    }
+
+    @Override
+    public void actualizarRevision(Revision revision) {
+
+    }
+
 
 }

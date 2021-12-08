@@ -18,4 +18,8 @@ public interface RepositorioAuto {
     Revision enviarARevision(Auto aEnviar, Usuario deLaRevision, LocalDate fecha_de_envio);
 
     List<Auto> obtenerAutosEnRevision();
+
+    Revision obtenerRevisionPorAuto(Auto deLaRevision);
+
+    void actualizarRevision(Revision revision);
 }

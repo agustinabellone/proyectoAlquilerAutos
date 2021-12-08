@@ -130,6 +130,8 @@ public class ControladorMecanico {
             } catch (ComentarioVacio e) {
                 model.put("error_comentario_vacio", "La descripcion no puede estar vacia");
                 return new ModelAndView("finaliza-formulario-revision", model);
+            } catch (RevisionNoExistente e) {
+                e.printStackTrace();
             }
         } return enviarAlLoginConMensajeError(model);
     }
