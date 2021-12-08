@@ -22,5 +22,6 @@ public interface ServicioDevolucion {
 
     void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario, Integer km) throws NoEnviaAutoAMantenimiento, AutoNoExistente;
 
+    void adicionarAumentoPorSobrepasoDeKilometros (Alquiler alquiler, Suscripcion suscripcion, Float kilometrosSobrepasados);
 }
 

@@ -23,7 +23,7 @@ public interface ServicioUsuario {
 
     List<Usuario> obtenerUsuariosSuscriptosAlPlanBasico() throws NoHayClientesSuscriptosAlPlanBasico;
 
-    List <Solicitud> obtenerSolicitudesPendientesDeUnEncargado(Usuario usuario);
+    List <Solicitud> obtenerSolicitudesPendientesDeUnEncargado(Long IDusuario);
 
     List<Notificacion> getNotificacionesPorId(Usuario buscado);
 

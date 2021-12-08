@@ -101,7 +101,7 @@ public class ControladorDevolucion {
         modelo.put("valorarLuego", "valorarLuego");
         return new ModelAndView("valorar-auto", modelo);
     }
-
+/* LU BORRAR SE FUE PARA CONTROLADOR ENCARGADO
     @RequestMapping("/cierreDevolucion")
     public ModelAndView datosDevolucionAlquiler(@RequestParam(value = "solicitud") Long solicitudID) {
         ModelMap modelo = new ModelMap();
@@ -109,8 +109,8 @@ public class ControladorDevolucion {
         modelo.put("solicitud", solicitud);
         return new ModelAndView("cierreDevolucionEncargado", modelo);
     }
-
-
+*/
+/* lu BORRAR PARA ENCARGADO
     @RequestMapping("/finalizarAlquiler")
     public ModelAndView darPorFinalizadoElAlquiler(@RequestParam(value = "solicitud") Long solicitudID, @RequestParam(value = "condicion", required = false) String enCondiciones,@RequestParam(value = "comentario", required = false) String comentario,@RequestParam(value = "kilometros", required = true) Integer km) throws NoEnviaAutoAMantenimiento, AutoNoExistente {
         ModelMap modelo = new ModelMap();
@@ -119,5 +119,5 @@ public class ControladorDevolucion {
         modelo.put("funciono", "Alquiler finalizado");
         return new ModelAndView("mainEncargado", modelo);
     }
-
+*/
 }

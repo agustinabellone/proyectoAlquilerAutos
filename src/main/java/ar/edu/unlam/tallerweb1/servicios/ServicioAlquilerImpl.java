@@ -141,6 +141,17 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     }
 
     public Alquiler obtenerAlquilerPorID(Long alquilerID) {
-        return repositorioAlquiler.obtenerAlquilerPorId(alquilerID);}
+        return repositorioAlquiler.obtenerAlquilerPorId(alquilerID);
+    }
+
+    public void setAdicionalCondiciones(Alquiler alquiler, Suscripcion suscripcion) {
+        Usuario usuario = alquiler.getUsuario();
+        if (usuario.getRol().equals("cliente")) {
+            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
+                Float adicional = suscripcion.getTipoSuscripcion().getValorPorMalasCondiciones();
+                alquiler.setAdicionalCondiciones(adicional);
+            }
+        }
+    }
 
 }

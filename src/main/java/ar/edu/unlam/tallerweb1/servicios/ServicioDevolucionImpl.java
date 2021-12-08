@@ -62,7 +62,8 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
         }
     }
 */
-    private void adicionarAumentoPorSobrepasoDeKilometros(Alquiler alquiler, Suscripcion suscripcion, Float kilometrosSobrepasados) {
+    @Override
+    public void adicionarAumentoPorSobrepasoDeKilometros(Alquiler alquiler, Suscripcion suscripcion, Float kilometrosSobrepasados) {
         alquiler.setAdicionalKilometraje(suscripcion, kilometrosSobrepasados);
         repositorioDevolucion.updateAlquiler(alquiler);
     }
@@ -110,9 +111,9 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
     @Override
     public void adicionarAumentoPorDevolucionEnMalascondiciones(Alquiler alquiler) {
         Suscripcion suscripcion = obtenerSuscripcionDeUsuario(alquiler.getUsuario());
-        alquiler.setAdicionalCondiciones(alquiler, suscripcion);
+        Float adicional = suscripcion.getTipoSuscripcion().getValorPorMalasCondiciones();
+        alquiler.setAdicionalCondiciones(adicional);
     }
-
 
 
     private Suscripcion obtenerSuscripcionDeUsuario(Usuario usuario) {
