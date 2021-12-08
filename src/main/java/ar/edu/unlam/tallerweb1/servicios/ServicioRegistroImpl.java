@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClavesDistintasException;
 import ar.edu.unlam.tallerweb1.Exceptions.ClienteYaExisteException;
 import ar.edu.unlam.tallerweb1.controladores.DatosRegistro;
+import ar.edu.unlam.tallerweb1.modelo.EstadoUsuario;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,9 @@ public class ServicioRegistroImpl implements ServicioRegistro {
         if (datosRegistro.getEmail().contains("@tallerweb")) {
             Usuario nuevoUsuario = new Usuario(datosRegistro);
             nuevoUsuario.setRol("empleado");
+            nuevoUsuario.setEstado(EstadoUsuario.ACTIVO);
             repositorioUsuario.guardar(nuevoUsuario);
+            return nuevoUsuario;
         }
         Usuario nuevoUsuario = new Usuario(datosRegistro);
 

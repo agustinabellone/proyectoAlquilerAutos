@@ -3,8 +3,8 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
 import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Revision;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
@@ -56,10 +56,30 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
     public Auto enviarAMantenimiento(Long buscado) throws NoEnviaAutoAMantenimiento, AutoNoExistente {
         Auto obtenido = repositorioAuto.buscarPor(buscado);
         if (obtenido != null && obtenido.getSituacion().equals(Situacion.DISPONIBLE)) {
-            Auto actualizado = repositorioAuto.enviarAMantenimiento(obtenido.getId(), Situacion.EN_MANTENIMIENTO);
+            Auto actualizado = repositorioAuto.enviarAMantenimiento(obtenido.getId(), Situacion.EN_MANTENIMIENTO, localDate);
             return actualizado;
         }
         throw new NoEnviaAutoAMantenimiento();
+    }
+
+    @Override
+    public Auto enviarARevision(Auto enMantenimiento, Usuario mecanico, LocalDate fecha_de_envio) {
+        return null;
+    }
+
+    @Override
+    public List<Auto> obtenerAutosEnRevision() {
+        return null;
+    }
+
+    @Override
+    public Revision finalizarRevision(Auto queVienePorRequestParam, LocalDate now, String comentario) {
+        return null;
+    }
+
+    @Override
+    public String estaVacioElComentario(String comentario) {
+        return null;
     }
 
 
