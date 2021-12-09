@@ -38,20 +38,32 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
         List<Alquiler> alquiler = repositorioDevolucion.obtenerAlquilerActivoDeCliente(usuario);
         return alquiler;
     }
-
+/*
     @Override
     public Alquiler obtenerAlquilerPorID(Long alquilerID) {
         return repositorioDevolucion.obtenerAlquilerPorId(alquilerID);
     }
-
+*/
     @Override
     public void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler) {
         Suscripcion suscripcion = obtenerSuscripcionDeUsuario(alquiler.getUsuario());
         alquiler.setAdicionalCambioLugarFecha(alquiler, suscripcion);
-
     }
-
-    private void adicionarAumentoPorSobrepasoDeKilometros(Alquiler alquiler, Suscripcion suscripcion, Float kilometrosSobrepasados) {
+/*
+    private void setearAdicionalCambioLugarFecha(Alquiler alquiler, Suscripcion suscripcion) {
+        Usuario usuario = alquiler.getUsuario();
+        Float adicionalCambioLugarFecha = (alquiler.getAdicionalCambioLugarFecha()) + (suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar());
+        if (usuario.getRol().equals("cliente")) {
+            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
+                if (alquiler.getGarageLlegada() != null) //SI NO HUBO CAMBIO DE GARAGE GARAGE LLEGADA == NULL
+                        alquiler.getAdicionalCambioLugarFecha() + suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar();
+                    Float nuevoAdicional = alquiler.getAdicionalCambioLugarFecha() + suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar();
+            }
+        }
+    }
+*/
+    @Override
+    public void adicionarAumentoPorSobrepasoDeKilometros(Alquiler alquiler, Suscripcion suscripcion, Float kilometrosSobrepasados) {
         alquiler.setAdicionalKilometraje(suscripcion, kilometrosSobrepasados);
         repositorioDevolucion.updateAlquiler(alquiler);
     }
@@ -63,12 +75,12 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
         Solicitud solAlquilerModificado = modificarEstadosParaFinalizar(solicitud, enCondiciones, comentario);
         evaluarSobrepasoDeKilometrajes(kmPorEncargado, solAlquilerModificado);
         evaluarEnviarAMantenimiento(solicitud.getAlquiler().getAuto());
-        repositorioDevolucion.finalizarAlquilerCliente(solAlquilerModificado.getAlquiler(), solAlquilerModificado); //UPDATE
+        repositorioDevolucion.finalizarAlquilerCliente(solAlquilerModificado.getAlquiler(), solAlquilerModificado, solAlquilerModificado.getAlquiler().getAuto()); //UPDATE
     }
 
     private void evaluarEnviarAMantenimiento(Auto auto) {
         if(auto.getKm()>=auto.getLimiteKm()) {
-            Auto autoObtenido = repositorioAuto.enviarAMantenimiento(auto.getId(), Situacion.EN_MANTENIMIENTO);
+           repositorioAuto.enviarAMantenimiento(auto.getId(), Situacion.EN_MANTENIMIENTO);
         }
     }
 
@@ -80,7 +92,7 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
             adicionarAumentoPorSobrepasoDeKilometros(solAlquilerModificado.getAlquiler(), suscripcion, kmSobrepasados);
         }
         solAlquilerModificado.getAlquiler().getAuto().setKm(kmRealizados);
-        repositorioDevolucion.updateAlquiler(solAlquilerModificado.getAlquiler());
+        //repositorioDevolucion.updateAlquiler(solAlquilerModificado.getAlquiler());
     }
 
 
@@ -99,9 +111,9 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
     @Override
     public void adicionarAumentoPorDevolucionEnMalascondiciones(Alquiler alquiler) {
         Suscripcion suscripcion = obtenerSuscripcionDeUsuario(alquiler.getUsuario());
-        alquiler.setAdicionalCondiciones(alquiler, suscripcion);
+        Float adicional = suscripcion.getTipoSuscripcion().getValorPorMalasCondiciones();
+        alquiler.setAdicionalCondiciones(adicional);
     }
-
 
 
     private Suscripcion obtenerSuscripcionDeUsuario(Usuario usuario) {

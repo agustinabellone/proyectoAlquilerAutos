@@ -79,7 +79,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public List<Solicitud> obtenerSolicitudesPendientesDeUnEncargado(Usuario usuario) {
+    public List<Solicitud> obtenerSolicitudesPendientesDeUnEncargado(Long idUsuario) {
+        Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
         return repositorioUsuario.obtenerSolicitudesPendientesDeUnEncargado(usuario);
     }
 

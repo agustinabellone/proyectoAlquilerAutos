@@ -151,4 +151,13 @@ public class Auto {
     public void setLimiteKm(Integer limiteKm) {
         this.limiteKm = limiteKm;
     }
+
+
+    public LocalDate getFecha_inicio_mantenimiento() {
+        return fecha_inicio_mantenimiento;
+    }
+
+    public void setFecha_inicio_mantenimiento(LocalDate fecha_inicio_mantenimiento) {
+        this.fecha_inicio_mantenimiento = fecha_inicio_mantenimiento;
+    }
 }

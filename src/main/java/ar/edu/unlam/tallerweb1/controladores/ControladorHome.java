@@ -102,7 +102,7 @@ public class ControladorHome {
         out.print(json);
 
     }
-
+/* LUCIA P/ BORRAR
     @RequestMapping(path = "/ir-a-encargado-home", method = RequestMethod.GET)
     public ModelAndView mostrarMainEncargado(HttpServletRequest request) {
         ModelMap model = new ModelMap();
@@ -114,7 +114,7 @@ public class ControladorHome {
         }
         return new ModelAndView("redirect:/home");
     }
-
+*/
 
 
 }

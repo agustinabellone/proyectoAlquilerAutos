@@ -25,22 +25,24 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
                 .add(Restrictions.eq("usuario", usuario))
                 .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
     }
-
+/*
     @Override
     public Alquiler obtenerAlquilerPorId(Long alquilerID) {
         return sessionFactory.getCurrentSession().get(Alquiler.class, alquilerID);
     }
-
+*/
     @Override
     public void updateAlquiler(Alquiler alquiler) {
         sessionFactory.getCurrentSession().update(alquiler);
     }
 
     @Override
-    public void finalizarAlquilerCliente(Alquiler alquiler, Solicitud solAlquilerModificado) {
-        Auto auto = alquiler.getAuto();
-        sessionFactory.getCurrentSession().update(auto);
-        sessionFactory.getCurrentSession().update(alquiler);
+    public void finalizarAlquilerCliente(Alquiler alquiler, Solicitud solAlquilerModificado, Auto auto) {
+        //Auto auto = alquiler.getAuto();
+        //sessionFactory.getCurrentSession().update(auto);
+        sessionFactory.getCurrentSession().merge(auto);
+       // sessionFactory.getCurrentSession().update(alquiler); //ACA ESTA EL PROBLEMA
+        sessionFactory.getCurrentSession().merge(alquiler);
         sessionFactory.getCurrentSession().update(solAlquilerModificado);
     }
 
