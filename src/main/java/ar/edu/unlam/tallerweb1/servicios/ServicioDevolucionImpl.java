@@ -61,18 +61,18 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
     @Override
     public void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario, Integer kmPorEncargado) throws NoEnviaAutoAMantenimiento, AutoNoExistente {
         Solicitud solAlquilerModificado = modificarEstadosParaFinalizar(solicitud, enCondiciones, comentario);
-        Integer kmRealizados = evaluarSobrepasoDeKilometrajes(kmPorEncargado, solAlquilerModificado);
-        evaluarEnviarAMantenimiento(solicitud.getAlquiler().getAuto(), kmRealizados);
+        evaluarSobrepasoDeKilometrajes(kmPorEncargado, solAlquilerModificado);
+        evaluarEnviarAMantenimiento(solicitud.getAlquiler().getAuto());
         repositorioDevolucion.finalizarAlquilerCliente(solAlquilerModificado.getAlquiler(), solAlquilerModificado); //UPDATE
     }
 
-    private void evaluarEnviarAMantenimiento(Auto auto, Integer kmRealizados) {
-        if (kmRealizados >= auto.getLimiteKm()) {
+    private void evaluarEnviarAMantenimiento(Auto auto) {
+        if (auto.getKm() >= auto.getLimiteKm()) {
             Auto autoObtenido = repositorioAuto.enviarAMantenimiento(auto.getId(), Situacion.EN_MANTENIMIENTO, LocalDate.now());
         }
     }
 
-    private Integer evaluarSobrepasoDeKilometrajes(Integer kmPorEncargado, Solicitud solAlquilerModificado) {
+    private void evaluarSobrepasoDeKilometrajes(Integer kmPorEncargado, Solicitud solAlquilerModificado) {
         Suscripcion suscripcion = repositorioSuscripcion.obtenerSuscripcionDeUsuario(solAlquilerModificado.getUsuario());
         Integer kmRealizados = kmPorEncargado - solAlquilerModificado.getAlquiler().getAuto().getKm();
         if (kmRealizados > suscripcion.getTipoSuscripcion().getLimiteKilometraje()) {
@@ -80,8 +80,6 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
             adicionarAumentoPorSobrepasoDeKilometros(solAlquilerModificado.getAlquiler(), suscripcion, kmSobrepasados);
         }
         solAlquilerModificado.getAlquiler().getAuto().setKm(kmRealizados);
-        repositorioDevolucion.updateAlquiler(solAlquilerModificado.getAlquiler());
-        return kmRealizados;
     }
 
 

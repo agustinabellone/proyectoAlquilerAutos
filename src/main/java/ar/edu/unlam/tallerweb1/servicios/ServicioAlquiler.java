@@ -41,4 +41,6 @@ public interface ServicioAlquiler {
     Alquiler obtenerAlquilerPendienteDeUsuario(Usuario usuario);
 
     List<Garage> obtenerGaragesDisponibles();
+
+    List<Alquiler> obtenerAlquileresAcitvos() throws NoHayAutosAlquiladosException;
 }

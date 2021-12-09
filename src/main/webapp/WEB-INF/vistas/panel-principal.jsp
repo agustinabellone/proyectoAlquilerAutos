@@ -308,12 +308,12 @@
                 </div>
 
                 <!-- Empieza FOR-EAH-->
-                <c:forEach items="${autosAlquilados}" var="auto">
+                <c:forEach items="${autosAlquilados}" var="alquiler">
                     <div class="col-md-12">
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="font-weight-medium mb-0">Situacion: ${auto.situacion}</h5>
+                                    <h5 class="font-weight-medium mb-0">Situacion: ${alquiler.auto.situacion}</h5>
                                 </div>
                                 <div class="col">
                                     <div class="col-lg-12">
@@ -321,30 +321,30 @@
                                             <div class="col-lg-6 align-self-center">
                                                 <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
                                                     <li>
-                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio: dd/mm/yy</span>
+                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio de alquiler: ${alquiler.auto.f_ingreso}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Patente: <span>${auto.patente}</span>
+                                                        Patente: <span>${alquiler.auto.patente}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Marca: <span>${auto.marca.descripcion}</span>
+                                                        Marca: <span>${alquiler.auto.marca.descripcion}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Modelo: <span>${auto.modelo.descripcion}</span>
+                                                        Modelo: <span>${alquiler.auto.modelo.descripcion}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Kilometraje: <span>${auto.km}</span>
+                                                        Kilometraje: <span>${alquiler.auto.km}</span>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="container">
-                                                    <img src="${auto.imagen}"
+                                                    <img src="${alquiler.auto.imagen}"
                                                          alt="" style="width: 100%; height: auto;">
                                                 </div>
                                             </div>
                                             <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
-                                            >Fecha Retorno: dd/mm/yy</p>
+                                            >Fecha Retorno Alquiler: ${alquiler.auto.f_egreso}</p>
                                         </div>
                                     </div>
                                 </div>

@@ -62,6 +62,15 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     }
 
     @Override
+    public List<Alquiler> obtenerAlquileresAcitvos() throws NoHayAutosAlquiladosException {
+        List<Alquiler> alquilers = repositorioAlquiler.obtenerAlquileresActivos();
+        if (alquilers.size() == 0){
+            throw new NoHayAutosAlquiladosException();
+        }
+        return alquilers;
+    }
+
+    @Override
     public List<Auto> obtenerAutosDisponibles() throws NoHayAutosDisponiblesException {
         List<Auto> autosDisponibles = repositorioAlquiler.obtenerAutosDisponibles();
         if (autosDisponibles.size() == 0) {

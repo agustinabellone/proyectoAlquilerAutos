@@ -1,10 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.Exceptions.*;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Revision;
-import ar.edu.unlam.tallerweb1.modelo.Situacion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,8 +92,11 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         if (revision == null) {
             throw new RevisionNoExistente();
         }
+        deLaRevision.setSituacion(Situacion.DISPONIBLE);
+        revision.setAuto(deLaRevision);
         revision.setFechaFinRevision(fecha_fin_revision);
         revision.setComentario(comentario);
+        revision.setEstadoRevision(EstadoRevision.FINALIZADA);
         Revision actualizada = repositorioAuto.actualizarRevision(revision);
         return actualizada;
     }

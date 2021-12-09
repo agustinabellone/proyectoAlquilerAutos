@@ -34,4 +34,6 @@ public interface RepositorioAlquiler {
     Alquiler obtenerAlquileresPendientesDeUsuario(Usuario usuario);
 
     List<Garage> obtenerGaragesDisponibles();
+
+    List<Alquiler> obtenerAlquileresActivos();
 }

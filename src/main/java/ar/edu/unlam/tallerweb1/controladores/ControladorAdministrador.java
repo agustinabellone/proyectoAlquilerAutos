@@ -73,7 +73,8 @@ public class ControladorAdministrador {
                 }
                 model.put("nombre", request.getSession().getAttribute("nombre"));
                 List<Auto> autosAlquilados = obtenerListaDeAutosAlquilados();
-                model.put("autosAlquilados", autosAlquilados);
+                List<Alquiler> alquilers = servicioAlquiler.obtenerAlquileresAcitvos();
+                model.put("autosAlquilados", alquilers);
             } catch (NoHayAutosAlquiladosException e) {
                 vista = "panel-principal";
                 model.put("error_no_hay_autos_alquilados", "No hay autos alquilados actualmente");

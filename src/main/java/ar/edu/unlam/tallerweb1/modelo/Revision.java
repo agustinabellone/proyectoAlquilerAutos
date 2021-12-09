@@ -20,7 +20,7 @@ public class Revision {
     private LocalDate fechaInicioRevision;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaFinRevision;
-
+    private EstadoRevision estadoRevision;
     public Long getId() {
         return id;
     }
@@ -67,5 +67,13 @@ public class Revision {
 
     public void setFechaFinRevision(LocalDate fechaFinRevision) {
         this.fechaFinRevision = fechaFinRevision;
+    }
+
+    public EstadoRevision getEstadoRevision() {
+        return estadoRevision;
+    }
+
+    public void setEstadoRevision(EstadoRevision estadoRevision) {
+        this.estadoRevision = estadoRevision;
     }
 }

@@ -192,22 +192,6 @@
                 <div class="col-12 mb-4">
                     <h1 class="h3 mb-0 text-gray-800 text-center">Bienvenido ${nombre}</h1>
                 </div>
-
-                <!-- Topbar Search -->
-                <div class="row">
-                    <form class="d-sm-inline-block form-inline col-lg-12 mb-4">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-white border-0 small" placeholder="Buscar por..."
-                                   aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
                 <c:if test="${not empty mensaje_exito}">
                     <div class="alert alert-success text-center container mt-3 col-12" role="alert">
                             ${mensaje_exito}

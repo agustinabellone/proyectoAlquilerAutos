@@ -192,22 +192,6 @@
                     <h1 class="h3 mb-0 text-gray-800 text-center">Bienvenido ${nombre}</h1>
                 </div>
 
-                <!-- Topbar Search -->
-                <div class="row">
-                    <form class="d-sm-inline-block form-inline col-12 mb-4">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-white border-0 small" placeholder="Buscar por..."
-                                   aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
                 <!-- Empieza FOR-EAH-->
                 <c:forEach items="${en_mantenimiento}" var="auto">
                     <div class="col-md-12">
@@ -222,7 +206,7 @@
                                             <div class="col-lg-6 align-self-center">
                                                 <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
                                                     <li>
-                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio: dd/mm/yy</span>
+                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio:${auto.fecha_inicio_mantenimiento}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
                                                         Patente: <span>${auto.patente}</span>
@@ -244,8 +228,14 @@
                                                          alt="" style="width: 100%; height: auto;">
                                                 </div>
                                             </div>
-                                            <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
-                                            >Fecha Retorno: dd/mm/yy</p>
+                                            <c:if test="${not empty fecha_fin_mantenimiento}">
+                                                <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
+                                                >Fecha Retorno Mantenimiento: ${fecha_fin_mantenimiento}</p>
+                                            </c:if>
+                                            <c:if test="${empty fecha_fin_mantenimiento}">
+                                                <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
+                                                >Fecha Retorno Mantenimiento: a confirmar cuando finalize la revision del mecanico</p>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>

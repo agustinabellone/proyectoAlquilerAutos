@@ -122,10 +122,11 @@ public class ControladorMecanico {
                 LocalDate fecha_fin_revision = LocalDate.now();
                 Auto queVienePorRequestParam = servicioAuto.buscarAutoPorId(id_auto);
                 Revision conSituacionActualizada = servicioAuto.finalizarRevision(queVienePorRequestParam, fecha_fin_revision, comentarioAGuardar);
-                model.put("auto_con_situacion_actualizada", conSituacionActualizada.getAuto());
+                model.put("auto_con_situacion_actualizada", conSituacionActualizada);
                 model.put("usuario_mecanico", conSituacionActualizada.getUsuario());
                 model.put("fecha_fin_revision", conSituacionActualizada.getFechaFinRevision());
                 model.put("formulario_exitoso", "Se envio correctamente el formulario y el auto esta diponibles para alquiler nuevamente");
+                request.getSession().setAttribute("fecha_fin_mantenimiento",conSituacionActualizada.getFechaFinRevision());
                 return new ModelAndView("finaliza-formulario-revision", model);
             } catch (AutoNoExistente e) {
                 model.put("error_no_existe_auto", "No existe el auto con el cual vas a finlizar la revision");

@@ -104,6 +104,9 @@ public class ControladorLogin {
         if (request.getSession().getAttribute("rol").equals("encargado")){
             return new ModelAndView("redirect:/ir-a-encargado-home");
         }
+        if (request.getSession().getAttribute("rol").equals("empleado")){
+            return new ModelAndView("empleados");
+        }
         if (request.getSession().getAttribute("rol").equals("mecanico")){
             return new ModelAndView("redirect:/ir-a-pantalla-principal");
         }

@@ -24,4 +24,6 @@ public interface RepositorioAuto {
     Revision actualizarRevision(Revision revision);
 
     List<Revision> obtenerRevisionesPorMecanico(Usuario id_mecanico);
+
+    Revision obtenerRevisionEstadoYAuto(Auto deLaRevision, EstadoRevision activa);
 }

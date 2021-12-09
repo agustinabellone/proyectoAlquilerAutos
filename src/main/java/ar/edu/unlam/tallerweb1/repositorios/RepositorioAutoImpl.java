@@ -51,18 +51,22 @@ public class RepositorioAutoImpl implements RepositorioAuto {
         nueva.setAuto(aEnviar);
         nueva.setUsuario(deLaRevision);
         nueva.setFechaInicioRevision(fecha_de_envio);
+        nueva.setEstadoRevision(EstadoRevision.ACTIVA);
         sessionFactory.getCurrentSession().save(nueva);
         return nueva;
     }
 
     @Override
     public List<Auto> obtenerAutosEnRevision() {
-        return null;
+        return sessionFactory.getCurrentSession().createCriteria(Auto.class)
+                .add(Restrictions.eq("situacion",Situacion.EN_REVISION)).list();
     }
 
     @Override
     public Revision obtenerRevisionPorAuto(Auto deLaRevision) {
-        return (Revision) sessionFactory.getCurrentSession().createCriteria(Revision.class).add(Restrictions.eq("auto", deLaRevision)).uniqueResult();
+        return (Revision) sessionFactory.getCurrentSession().createCriteria(Revision.class)
+                .add(Restrictions.eq("auto", deLaRevision))
+                .add(Restrictions.eq("estadoRevision",EstadoRevision.ACTIVA)).uniqueResult();
     }
 
     @Override
@@ -74,6 +78,11 @@ public class RepositorioAutoImpl implements RepositorioAuto {
     @Override
     public List<Revision> obtenerRevisionesPorMecanico(Usuario mecanico) {
         return sessionFactory.getCurrentSession().createCriteria(Revision.class).add(Restrictions.eq("mecanico", mecanico)).list();
+    }
+
+    @Override
+    public Revision obtenerRevisionEstadoYAuto(Auto deLaRevision, EstadoRevision activa) {
+        return null;
     }
 
 

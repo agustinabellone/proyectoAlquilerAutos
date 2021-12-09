@@ -77,26 +77,35 @@
     </nav>
 </div>
 <div class="container mt-4">
-    <h1 class="text-center">Envio a Revision</h1>
-    <c:if test="${not empty error_no_existe_el_auto}">
-        <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                ${error_no_existe_el_auto}
+    <h1 class="text-center">Validacion de Formulario</h1>
+    <c:if test="${not empty formulario_exitoso}">
+        <div class="alert alert-success text-center container mt-3 col-12" role="alert">
+                ${formulario_exitoso}
         </div>
+        <p>Situacion: ${auto_con_situacion_actualizada.auto.situacion}</p>
+        <p>Patente: ${auto_con_situacion_actualizada.auto.patente}</p>
+        <p>Marca: ${auto_con_situacion_actualizada.auto.marca.descripcion}</p>
+        <p>Modelo: ${auto_con_situacion_actualizada.auto.modelo.descripcion}</p>
+        <p>Fecha en que se envio a mantenimiento: ${auto_con_situacion_actualizada.auto.fecha_inicio_mantenimiento}</p>
+        <p>Fecha de fin de mantenimiento: ${auto_con_situacion_actualizada.fechaFinRevision}</p>
+        <p>Descripcion de la Revision: ${auto_con_situacion_actualizada.comentario}</p>
+        <p>Usuario que realizo la Revision: ${auto_con_situacion_actualizada.usuario.email}</p>
     </c:if>
     <c:if test="${not empty envio_exitoso}">
         <div class="alert alert-success text-center container mt-3 col-12" role="alert">
                 ${envio_exitoso}
         </div>
     </c:if>
-    <c:if test="${not empty error_no_esta_en_mantenimiento}">
+    <c:if test="${not empty error_no_existe_auto}">
         <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                ${error_no_esta_en_mantenimiento}
+                ${error_no_existe_auto}
         </div>
     </c:if>
-    <c:if test="${not empty error_no_existe_el_usuario}">
+    <c:if test="${not empty error_comentario_vacio}">
         <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                ${error_no_existe_el_usuario}
+                ${error_comentario_vacio}
         </div>
+        <a class="nav-link btn-dark text-white" href="formulario-revision?id=${auto_con_situacion_actualizada.auto.id}">Volver al Formulario</a>
     </c:if>
 </div>
 <!-- Scroll to Top Button-->
