@@ -19,7 +19,6 @@ public interface ServicioAlquiler {
 
     List<Auto> obtenerAutosDisponiblesGamaBaja() throws NoHayAutosDisponiblesException;
 
-
     List<Auto> obtenerAutosDisponiblesGamaMedia() throws NoHayAutosDisponiblesException;
 
     List<Auto> obtenerAutosDisponiblesGamaAlta() throws NoHayAutosDisponiblesException;

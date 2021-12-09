@@ -39,7 +39,6 @@ public class ControladorEncargado {
     public ModelAndView mostrarMainEncargado(HttpServletRequest request) {
         ModelMap model = new ModelMap();
         if((request.getSession().getAttribute("id")!=null) && (request.getSession().getAttribute("rol").equals("encargado"))){
-           // Usuario usuario = servicioUsuario.buscarPorId((Long) request.getSession().getAttribute("id"));
             List<Solicitud> solicitudesEsperandoConfirmacion = servicioUsuario.obtenerSolicitudesPendientesDeUnEncargado((Long) request.getSession().getAttribute("id"));
             model.put("esperandoConfirmacion", solicitudesEsperandoConfirmacion);
             return new ModelAndView("mainEncargado", model);

@@ -40,37 +40,26 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
         return alquiler;
     }
 
-    /*
-        @Override
-        public Alquiler obtenerAlquilerPorID(Long alquilerID) {
-            return repositorioDevolucion.obtenerAlquilerPorId(alquilerID);
-        }
-    */
     @Override
-    public void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler) {
+    public void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler, Garage garage) {
         Suscripcion suscripcion = obtenerSuscripcionDeUsuario(alquiler.getUsuario());
-        alquiler.setAdicionalCambioLugarFecha(alquiler, suscripcion);
+        alquiler.setGarageLlegada(garage);
+        setearAdicionalCambioLugarFecha(alquiler, suscripcion);
+        repositorioDevolucion.updateAlquiler(alquiler);
     }
 
-    /*
-        private void setearAdicionalCambioLugarFecha(Alquiler alquiler, Suscripcion suscripcion) {
-            Usuario usuario = alquiler.getUsuario();
-            Float adicionalCambioLugarFecha = (alquiler.getAdicionalCambioLugarFecha()) + (suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar());
-            if (usuario.getRol().equals("cliente")) {
-                if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
-                    if (alquiler.getGarageLlegada() != null) //SI NO HUBO CAMBIO DE GARAGE GARAGE LLEGADA == NULL
-                            alquiler.getAdicionalCambioLugarFecha() + suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar();
-                        Float nuevoAdicional = alquiler.getAdicionalCambioLugarFecha() + suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar();
-                }
-            }
-        }
-    */
     @Override
     public void adicionarAumentoPorSobrepasoDeKilometros(Alquiler alquiler, Suscripcion suscripcion, Float kilometrosSobrepasados) {
         alquiler.setAdicionalKilometraje(suscripcion, kilometrosSobrepasados);
         repositorioDevolucion.updateAlquiler(alquiler);
     }
 
+    @Override
+    public void adicionarAumentoPorDevolucionEnMalascondiciones(Alquiler alquiler) {
+        Suscripcion suscripcion = obtenerSuscripcionDeUsuario(alquiler.getUsuario());
+        Float adicional = suscripcion.getTipoSuscripcion().getValorPorMalasCondiciones();
+        alquiler.setAdicionalCondiciones(adicional);
+    }
 
     @Override
     public void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario, Integer kmPorEncargado) throws NoEnviaAutoAMantenimiento, AutoNoExistente {
@@ -78,6 +67,16 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
         evaluarSobrepasoDeKilometrajes(kmPorEncargado, solAlquilerModificado);
         evaluarEnviarAMantenimiento(solicitud.getAlquiler().getAuto());
         repositorioDevolucion.finalizarAlquilerCliente(solAlquilerModificado.getAlquiler(), solAlquilerModificado, solAlquilerModificado.getAlquiler().getAuto()); //UPDATE
+    }
+
+    private void setearAdicionalCambioLugarFecha(Alquiler alquiler, Suscripcion suscripcion) {
+        Usuario usuario = alquiler.getUsuario();
+        if (usuario.getRol().equals("cliente")) {
+            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
+                if (alquiler.getGarageLlegada() != null) //QUIERE DECIR QUE HUBO CAMBIO DE GARAGE
+                    alquiler.setAdicionalCambioLugarFecha(suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar());
+            }
+        }
     }
 
     private void evaluarEnviarAMantenimiento(Auto auto) {
@@ -94,8 +93,6 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
             adicionarAumentoPorSobrepasoDeKilometros(solAlquilerModificado.getAlquiler(), suscripcion, kmSobrepasados);
         }
         solAlquilerModificado.getAlquiler().getAuto().setKm(kmRealizados);
-
-        //repositorioDevolucion.updateAlquiler(solAlquilerModificado.getAlquiler());
     }
 
 
@@ -109,13 +106,6 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
         solicitud.getAlquiler().setComentario(comentario);
         solicitud.getAlquiler().setEstado(Estado.FINALIZADO);
         return solicitud;
-    }
-
-    @Override
-    public void adicionarAumentoPorDevolucionEnMalascondiciones(Alquiler alquiler) {
-        Suscripcion suscripcion = obtenerSuscripcionDeUsuario(alquiler.getUsuario());
-        Float adicional = suscripcion.getTipoSuscripcion().getValorPorMalasCondiciones();
-        alquiler.setAdicionalCondiciones(adicional);
     }
 
 

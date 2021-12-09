@@ -1,11 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.AutoNoExistente;
-import ar.edu.unlam.tallerweb1.Exceptions.NoEnviaAutoAMantenimiento;
-import ar.edu.unlam.tallerweb1.Exceptions.UsuarioSinSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
-import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDevolucion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
@@ -46,21 +42,15 @@ public class ControladorDevolucion {
     public ModelAndView irFinalizarAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
         ModelMap model = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
-        //Alquiler alquilerActivo = servicioDevolucion.obtenerAlquilerPorID(alquilerID);
         Alquiler alquilerActivo = servicioAlquiler.obtenerAlquilerPorID(alquilerID);
-        Usuario usuario = servicioUsuario.buscarPorId(clienteID);
-        Garage garagePartida = servicioGarage.obtenerGaragePorID(alquilerActivo.getGaragePartida().getId());
-        Garage garageLlegada = servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegada().getId());
-        Auto auto = alquilerActivo.getAuto();
-        String fechaInicio = alquilerActivo.getF_egreso().toString();
 
         if (clienteID != null) {
-            model.put("fechaInicio", fechaInicio);
-            model.put("garagePartida", garagePartida);
-            model.put("garageLlegada", garageLlegada);
-            model.put("cliente", usuario);
+            model.put("garagePartida", servicioGarage.obtenerGaragePorID(alquilerActivo.getGaragePartida().getId()));
+            model.put("garageLlegada", servicioGarage.obtenerGaragePorID(alquilerActivo.getGarageLlegada().getId()));
+            model.put("cliente", servicioUsuario.buscarPorId(clienteID));
             model.put("alquiler", alquilerActivo);
-            model.put("auto", auto);
+            model.put("auto", alquilerActivo.getAuto());
+            model.put("fechaInicio", alquilerActivo.getF_egreso().toString());
             return new ModelAndView("mostrarConfirmacionDeFin", model);
         } else {
             return new ModelAndView("errorDevolucion");
@@ -81,19 +71,17 @@ public class ControladorDevolucion {
     public ModelAndView procesarSeleccionNuevoGarageLlegada(@RequestParam(value = "nuevoGarage") Long garageID, @RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
         Alquiler alquiler = servicioAlquiler.obtenerAlquilerPorID(alquilerID);
         Garage garage = servicioGarage.obtenerGaragePorID(garageID);
-        alquiler.setGarageLlegada(garage);
-        servicioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler);
+        servicioDevolucion.adicionarAumentoPorCambioDeLugarFecha(alquiler, garage);
         return new ModelAndView("redirect:/finalizar-alquiler?alquilerID=" + alquilerID);
     }
 
-    //return new ModelAndView("redirect:/confirmacion-fin-alquiler?alquilerID=" + alquilerID);
 
     @RequestMapping("/confirmacion-fin-alquiler")
     public ModelAndView procesarConfirmacionFinDeAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
         ModelMap modelo = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);
-        Alquiler alquiler = servicioAlquiler.obtenerAlquilerPorID(alquilerID); //SIEMPRE PARA MANEJAR ALQUILER CON SESSION?
+        Alquiler alquiler = servicioAlquiler.obtenerAlquilerPorID(alquilerID);
         servicioSolicitud.realizarPeticionDeDevolucion(alquiler);
         modelo.put("alquilerID", alquiler.getId());
         modelo.put("auto", alquiler.getAuto());
@@ -101,23 +89,5 @@ public class ControladorDevolucion {
         modelo.put("valorarLuego", "valorarLuego");
         return new ModelAndView("valorar-auto", modelo);
     }
-/* LU BORRAR SE FUE PARA CONTROLADOR ENCARGADO
-    @RequestMapping("/cierreDevolucion")
-    public ModelAndView datosDevolucionAlquiler(@RequestParam(value = "solicitud") Long solicitudID) {
-        ModelMap modelo = new ModelMap();
-        Solicitud solicitud = servicioSolicitud.obtenerSolicitudPorId(solicitudID);
-        modelo.put("solicitud", solicitud);
-        return new ModelAndView("cierreDevolucionEncargado", modelo);
-    }
-*/
-/* lu BORRAR PARA ENCARGADO
-    @RequestMapping("/finalizarAlquiler")
-    public ModelAndView darPorFinalizadoElAlquiler(@RequestParam(value = "solicitud") Long solicitudID, @RequestParam(value = "condicion", required = false) String enCondiciones,@RequestParam(value = "comentario", required = false) String comentario,@RequestParam(value = "kilometros", required = true) Integer km) throws NoEnviaAutoAMantenimiento, AutoNoExistente {
-        ModelMap modelo = new ModelMap();
-        Solicitud solicitud = servicioSolicitud.obtenerSolicitudPorId(solicitudID);
-        servicioDevolucion.finalizarAlquilerCliente(solicitud, enCondiciones, comentario, km);
-        modelo.put("funciono", "Alquiler finalizado");
-        return new ModelAndView("mainEncargado", modelo);
-    }
-*/
+
 }

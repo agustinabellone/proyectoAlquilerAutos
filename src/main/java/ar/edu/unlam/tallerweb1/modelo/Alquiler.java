@@ -171,14 +171,8 @@ public class Alquiler {
         this.estado = estado;
     }
 
-    public void setAdicionalCambioLugarFecha(Alquiler alquiler, Suscripcion suscripcion) {
-        Usuario usuario = alquiler.getUsuario();
-        if (usuario.getRol().equals("cliente")) {
-            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
-                if (this.garageLlegada != null) //SI NO HUBO CAMBIO DE GARAGE GARAGE LLEGADA == NULL
-                    adicionalCambioLugarFecha = adicionalCambioLugarFecha + suscripcion.getTipoSuscripcion().getValorIncumplimientoHoraLugar();
-            }
-        }
+    public void setAdicionalCambioLugarFecha(Float adicionalCambioLugarFechaParam) {
+        adicionalCambioLugarFecha = adicionalCambioLugarFecha + adicionalCambioLugarFechaParam;
     }
 
     public void setAdicionalKilometraje(Suscripcion suscripcion, Float kmSobrepasados) {

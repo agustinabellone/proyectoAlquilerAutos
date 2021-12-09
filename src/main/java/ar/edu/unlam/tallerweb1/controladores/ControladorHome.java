@@ -102,19 +102,5 @@ public class ControladorHome {
         out.print(json);
 
     }
-/* LUCIA P/ BORRAR
-    @RequestMapping(path = "/ir-a-encargado-home", method = RequestMethod.GET)
-    public ModelAndView mostrarMainEncargado(HttpServletRequest request) {
-        ModelMap model = new ModelMap();
-        if(request.getSession().getAttribute("id")!=null){
-            Usuario usuario = servicioUsuario.buscarPorId((Long) request.getSession().getAttribute("id"));
-            List<Solicitud> solicitudesEsperandoConfirmacion = servicioUsuario.obtenerSolicitudesPendientesDeUnEncargado(usuario);
-            model.put("esperandoConfirmacion", solicitudesEsperandoConfirmacion);
-            return new ModelAndView("mainEncargado", model);
-        }
-        return new ModelAndView("redirect:/home");
-    }
-*/
-
 
 }
