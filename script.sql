@@ -14,7 +14,7 @@ INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VAL
 INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (3, 12, 100, 'Sede La Matanza', 4);
 
 -- TIPO DE SUSCRIPCION
-<<<<<<< HEAD
+
 INSERT INTO tiposuscripcion (id, descripcion, eleccionVehiculo, limiteKilometraje, permiteReserva, valorIncumplimientoHoraLugar, valorPorKmAdicional, valorPorMalasCondiciones, duracion, precio)
 VALUES (1, 'standard', 0, 50, 0, 900, 350,800, 31, 10000,'Basico'),
        (2, 'premium', 1, 80, 1, 500, 280, 800, 31, 15000,'Oro'),
