@@ -37,10 +37,12 @@ public class RepositorioDevolucionImpl implements RepositorioDevolucion{
     }
 
     @Override
-    public void finalizarAlquilerCliente(Alquiler alquiler, Solicitud solAlquilerModificado) {
-        Auto auto = alquiler.getAuto();
-        sessionFactory.getCurrentSession().update(auto);
-        sessionFactory.getCurrentSession().update(alquiler);
+    public void finalizarAlquilerCliente(Alquiler alquiler, Solicitud solAlquilerModificado, Auto auto) {
+        //Auto auto = alquiler.getAuto();
+        //sessionFactory.getCurrentSession().update(auto);
+        sessionFactory.getCurrentSession().merge(auto);
+       // sessionFactory.getCurrentSession().update(alquiler); //ACA ESTA EL PROBLEMA
+        sessionFactory.getCurrentSession().merge(alquiler);
         sessionFactory.getCurrentSession().update(solAlquilerModificado);
     }
 

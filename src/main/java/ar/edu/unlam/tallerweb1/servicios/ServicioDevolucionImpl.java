@@ -75,7 +75,7 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
         Solicitud solAlquilerModificado = modificarEstadosParaFinalizar(solicitud, enCondiciones, comentario);
         evaluarSobrepasoDeKilometrajes(kmPorEncargado, solAlquilerModificado);
         evaluarEnviarAMantenimiento(solicitud.getAlquiler().getAuto());
-        repositorioDevolucion.finalizarAlquilerCliente(solAlquilerModificado.getAlquiler(), solAlquilerModificado); //UPDATE
+        repositorioDevolucion.finalizarAlquilerCliente(solAlquilerModificado.getAlquiler(), solAlquilerModificado, solAlquilerModificado.getAlquiler().getAuto()); //UPDATE
     }
 
     private void evaluarEnviarAMantenimiento(Auto auto) {
@@ -92,7 +92,7 @@ public class ServicioDevolucionImpl implements ServicioDevolucion {
             adicionarAumentoPorSobrepasoDeKilometros(solAlquilerModificado.getAlquiler(), suscripcion, kmSobrepasados);
         }
         solAlquilerModificado.getAlquiler().getAuto().setKm(kmRealizados);
-        repositorioDevolucion.updateAlquiler(solAlquilerModificado.getAlquiler());
+        //repositorioDevolucion.updateAlquiler(solAlquilerModificado.getAlquiler());
     }
 
 

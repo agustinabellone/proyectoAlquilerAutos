@@ -32,6 +32,7 @@ public class ControladorEncargado {
         this.servicioSuscripcion=servicioSuscripcion;
         this.servicioSolicitud=servicioSolicitud;
         this.servicioUsuario=servicioUsuario;
+        this.servicioDevolucion=servicioDevolucion;
     }
 
     @RequestMapping(path = "/ir-a-encargado-home", method = RequestMethod.GET)
