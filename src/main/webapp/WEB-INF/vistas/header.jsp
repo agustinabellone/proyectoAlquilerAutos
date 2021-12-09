@@ -46,7 +46,7 @@
               <a class="nav-link" href="admin-suscripcion">Manejo de suscripciones</a>
             </li>
           </c:when>
-          <c:when test = "${rol == Rol.ENCARGADO_DEVOLUCION }">
+          <c:when test = "${rol == encargado }">
             <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>
           </c:when>
 
