@@ -2,22 +2,22 @@ use alquiler;
 
 -- USUARIO ADMINISTRADOR CUANDO MOSTREMOS ES EL UNICO  QUE DEBE ESTAR CARGADO.
 INSERT INTO usuario (clave, email, rol, nombre, estado) VALUES ('admin', 'admin@tallerweb.com', 'admin', 'admin',1);
-INSERT INTO usuario (clave, email, rol, nombre, estado) VALUES ('clave', 'enca1@tallerweb.com', 'encargado', 'Encargado Av Mayo 2525', 1), ('clave', 'enca2@tallerweb.com', 'encargado', 'Encargado 9 de Julio 922', 1), ('clave', 'enca3@tallerweb.com', 'encargado', 'Encargado Dr. I. Arieta 5259', 1);
+INSERT INTO usuario (clave, email, rol, nombre, estado) VALUES ('clave', 'enca1@tallerweb.com', 'encargado', 'Encargado Liniers', 1), ('clave', 'enca2@tallerweb.com', 'encargado', 'Encargado Morón', 1), ('clave', 'enca3@tallerweb.com', 'encargado', 'Encargado La Matanza', 1);
 
 -- USUARIO CLIENTE
 insert into usuario (email, clave, estado, rol, puntaje, nombre)
 values ("cliente@gmail.com", "12345678", 1, "cliente", 0, "Juan");
 
 -- GARAGES
-INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (1, 36, 85, 'Sede Liniers"', 2);
+INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (1, 36, 85, 'Sede Liniers', 2);
 INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (2, 26, 40, 'Sede Morón', 3);
 INSERT INTO garage (id, cantAutosActual, capacidad, direccion, encargado_id) VALUES (3, 12, 100, 'Sede La Matanza', 4);
 
 -- TIPO DE SUSCRIPCION
-INSERT INTO tiposuscripcion (id, descripcion, eleccionVehiculo, limiteKilometraje, permiteReserva, valorIncumplimientoHoraLugar, valorPorKmAdicional, valorPorMalasCondiciones, duracion, precio)
-VALUES (1, 'standard', 0, 50, 0, 900, 350,800, 31, 10000),
-       (2, 'premium', 1, 80, 1, 500, 280, 800, 31, 15000),
-       (3, 'golden', 1, 200, 1, 0, 100, 800, 31, 20000);
+INSERT INTO tiposuscripcion (id, nombre, descripcion, eleccionVehiculo, limiteKilometraje, permiteReserva, valorIncumplimientoHoraLugar, valorPorKmAdicional, valorPorMalasCondiciones, duracion, precio)
+VALUES (1, 'básico', 'standard', 0, 50, 0, 900, 350,800, 31, 10000),
+       (2,  'oro', 'premium', 1, 80, 1, 500, 280, 800, 31, 15000),
+       (3, 'diamante', 'golden', 1, 200, 1, 0, 100, 800, 31, 20000);
 
 -- MARCAS
 insert into marca(id,descripcion) values(01,'chevrolet');
@@ -41,8 +41,6 @@ insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limit
 insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_48e01d974fcc4d20a9178b645526b693.jpg",80000,02,1,"DZA531",0, 1000);
 insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://cdn.wheel-size.com/automobile/body/volkswagen-gol-2019-2021-1605540845.02767.jpg",80000,04,2,"BCA121",0, 1000);
 insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://cdn.wheel-size.com/automobile/body/volkswagen-gol-2019-2021-1605540845.02767.jpg",80000,04,2,"ABL771",0, 1000);
-
-
 insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://vossrentals.com.ar/30-large_default/fiat-cronos.jpg",80000,03,3,"QQA891",1, 1000);
 insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://vossrentals.com.ar/30-large_default/fiat-cronos.jpg",80000,03,3,"ATY411",1, 1000);
 insert into auto (situacion, imagen, km, marca_id, modelo_id, patente,gama,limiteKm) values (0, "https://vossrentals.com.ar/30-large_default/fiat-cronos.jpg",80000,03,3,"SAA551",1, 1000);
@@ -72,8 +70,3 @@ select * from tiposuscripcion;
 select * from auto;
 select * from valoracionauto;
 select * from solicitud;
-
-
-
-
-
