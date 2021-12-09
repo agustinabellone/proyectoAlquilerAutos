@@ -101,4 +101,22 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         return actualizada;
     }
 
+    @Override
+    public List<Revision> obtenerRevisionesFinalizadas() throws NoHayAutosParaRevision {
+        List<Revision> revisados = repositorioAuto.obtenerRevisionesFinalizadas(EstadoRevision.FINALIZADA);
+        if (revisados.size() == 0){
+            throw new NoHayAutosParaRevision();
+        }
+        return revisados;
+    }
+
+    @Override
+    public List<Revision> obtenerRevisionesPorMecanico(Usuario mecanico) throws NoHayAutosParaRevision {
+        List<Revision> revisionesPorMecanico = repositorioAuto.obtenerRevisionesPorMecanico(mecanico);
+        if (revisionesPorMecanico.size() == 0){
+            throw new NoHayAutosParaRevision();
+        }
+        return revisionesPorMecanico;
+    }
+
 }

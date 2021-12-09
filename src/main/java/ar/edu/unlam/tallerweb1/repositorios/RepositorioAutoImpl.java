@@ -58,15 +58,12 @@ public class RepositorioAutoImpl implements RepositorioAuto {
 
     @Override
     public List<Auto> obtenerAutosEnRevision() {
-        return sessionFactory.getCurrentSession().createCriteria(Auto.class)
-                .add(Restrictions.eq("situacion",Situacion.EN_REVISION)).list();
+        return sessionFactory.getCurrentSession().createCriteria(Auto.class).add(Restrictions.eq("situacion", Situacion.EN_REVISION)).list();
     }
 
     @Override
     public Revision obtenerRevisionPorAuto(Auto deLaRevision) {
-        return (Revision) sessionFactory.getCurrentSession().createCriteria(Revision.class)
-                .add(Restrictions.eq("auto", deLaRevision))
-                .add(Restrictions.eq("estadoRevision",EstadoRevision.ACTIVA)).uniqueResult();
+        return (Revision) sessionFactory.getCurrentSession().createCriteria(Revision.class).add(Restrictions.eq("auto", deLaRevision)).add(Restrictions.eq("estadoRevision", EstadoRevision.ACTIVA)).uniqueResult();
     }
 
     @Override
@@ -77,12 +74,19 @@ public class RepositorioAutoImpl implements RepositorioAuto {
 
     @Override
     public List<Revision> obtenerRevisionesPorMecanico(Usuario mecanico) {
-        return sessionFactory.getCurrentSession().createCriteria(Revision.class).add(Restrictions.eq("mecanico", mecanico)).list();
+        return sessionFactory.getCurrentSession().createCriteria(Revision.class)
+                .add(Restrictions.eq("mecanico", mecanico))
+                .add(Restrictions.eq("estadoRevision",EstadoRevision.FINALIZADA)).list();
     }
 
     @Override
     public Revision obtenerRevisionEstadoYAuto(Auto deLaRevision, EstadoRevision activa) {
         return null;
+    }
+
+    @Override
+    public List<Revision> obtenerRevisionesFinalizadas(EstadoRevision finalizada) {
+        return sessionFactory.getCurrentSession().createCriteria(Revision.class).add(Restrictions.eq("estadoRevision", finalizada)).list();
     }
 
 

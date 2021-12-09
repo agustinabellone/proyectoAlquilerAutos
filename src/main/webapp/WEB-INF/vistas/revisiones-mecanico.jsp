@@ -195,26 +195,50 @@
                 </div>
 
                 <!-- Empieza FOR-EAH-->
-                <c:forEach items="${clientes_no_suscriptos}" var="noSuscriptos">
+                <c:forEach items="${revisiones}" var="revision">
                     <div class="col-md-12">
                         <div class="card card-shadow border-0 mb-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="font-weight-medium mb-0">Suscripcion: No Suscripto</h5>
+                                    <h5 class="font-weight-medium mb-0">Situacion: ${revision.auto.situacion}</h5>
                                 </div>
                                 <div class="col">
                                     <div class="col-lg-12">
                                         <div class="row mt-3">
                                             <div class="col-lg-6 align-self-center">
                                                 <ul class="list-inline pl-3 font-16 font-weight-medium text-dark mt-3">
-                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Nombre: <span>${noSuscriptos.nombre}</span>
+                                                    <li>
+                                                        <span class="badge badge-danger font-weight-normal p-2">Fecha Inicio de Mantenimiento: ${revision.auto.fecha_inicio_mantenimiento}</span>
                                                     </li>
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
-                                                        Mail: <span>${noSuscriptos.email}</span>
+                                                        Patente: <span>${revision.auto.patente}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Marca: <span>${revision.auto.marca.descripcion}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Modelo: <span>${revision.auto.modelo.descripcion}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Kilometraje: <span>${revision.auto.km}</span>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Mecanico que Realizo el Mantenimiento: <span>${revision.usuario.nombre}</span>
+                                                        <p>Mail: ${revision.usuario.email}</p>
+                                                    </li>
+                                                    <li class="py-2"><i class="icon-check text-info mr-2"></i>
+                                                        Observaciones: <span>${revision.comentario}</span>
                                                     </li>
                                                 </ul>
                                             </div>
+                                            <div class="col-lg-6">
+                                                <div class="container">
+                                                    <img src="${revision.auto.imagen}"
+                                                         alt="" style="width: 100%; height: auto;">
+                                                </div>
+                                            </div>
+                                            <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
+                                            >Fecha Retorno Mantenimiento: ${revision.fechaFinRevision}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -225,9 +249,9 @@
                 </c:forEach>
                 <!-- termina FOR-EACH -->
                 <!-- Content Row -->
-                <c:if test="${not empty error_no_hay_clientes_no_suscriptos}">
+                <c:if test="${not empty error}">
                     <div class="alert alert-danger text-center container mt-3 col-12" role="alert">
-                            ${error_no_hay_clientes_no_suscriptos}
+                            ${error}
                     </div>
                 </c:if>
                 <div class="row">

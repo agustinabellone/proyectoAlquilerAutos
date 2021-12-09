@@ -68,6 +68,7 @@
                     <a class="collapse-item" href="autos-disponibles">Disponibles</a>
                     <a class="collapse-item" href="autos-alquilados">Alquilados</a>
                     <a class="collapse-item" href="autos-en-mantenimiento">En mantenimiento</a>
+                    <a class="collapse-item" href="revisados">Revisiones</a>
                 </div>
             </div>
         </li>
@@ -193,23 +194,6 @@
                 <div class="col-12 mb-4">
                     <h1 class="h3 mb-0 text-gray-800 text-center">Bienvenido ${nombre}</h1>
                 </div>
-
-                <!-- Topbar Search -->
-                <div class="row">
-                    <form class="d-sm-inline-block form-inline col-12 mb-4">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-white border-0 small" placeholder="Buscar por..."
-                                   aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
                 <!-- Empieza FOR-EAH-->
                 <c:forEach items="${encargados_devolucion}" var="encargado">
                     <div class="col-md-12">

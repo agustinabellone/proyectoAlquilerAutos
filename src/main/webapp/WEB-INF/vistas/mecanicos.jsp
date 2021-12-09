@@ -121,6 +121,7 @@
                     <a class="collapse-item" href="utilities-color.html">Autos</a>
                     <a class="collapse-item" href="utilities-border.html">Clientes</a>
                     <a class="collapse-item" href="utilities-other.html">Empleados</a>
+                    <a class="collapse-item" href="revisados">Revisiones</a>
                 </div>
             </div>
         </li>
@@ -213,6 +214,8 @@
                                                     <li class="py-2"><i class="icon-check text-info mr-2"></i>
                                                         Mail: <span>${mecanico.email}</span>
                                                     </li>
+                                                    <p class="font-14 border-0 text-white text-center p-3 btn-block mt-3 bg-primary"
+                                                    ><a class="text-center text-white" href="revisiones-mecanico?id=${mecanico.id}">Ver reviciones hechas</a></p>
                                                 </ul>
                                             </div>
                                         </div>

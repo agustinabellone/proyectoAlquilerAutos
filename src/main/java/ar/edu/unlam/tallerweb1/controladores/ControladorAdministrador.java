@@ -172,7 +172,7 @@ public class ControladorAdministrador {
                 vista = "clientes-no-suscriptos";
                 List<Usuario> clientesNoSuscriptos = obtenerListaDeClientesNoSuscriptos();
                 model.put("clientes_no_suscriptos", clientesNoSuscriptos);
-                model.put("nombre",administrador.getSession().getAttribute("nombre"));
+                model.put("nombre", administrador.getSession().getAttribute("nombre"));
             } catch (NoHayClientesNoSuscriptos e) {
                 vista = "clientes-no-suscriptos";
                 model.put("error_no_hay_clientes_no_suscriptos", "Al parecer todos los clientes estan suscriptos");
@@ -277,12 +277,7 @@ public class ControladorAdministrador {
                 try {
                     Auto actualizado = servicioDeAuto.enviarAMantenimiento(buscado.getId());
                     model.put("autoAEnviar", actualizado);
-                    model.put("mensaje_exito", "Se envio un auto correctamente el auto: " +
-                            "\n Patente: "+actualizado.getPatente()+"" +
-                            "\n Marca: "+actualizado.getMarca()+""+
-                            "\n Modelo: "+actualizado.getModelo()+""+
-                            "\n Kilomtraje: "+actualizado.getKm()+""+
-                            "\n Situacion: "+actualizado.getSituacion()+"");
+                    model.put("mensaje_exito", "Se envio un auto correctamente el auto: " + "\n Patente: " + actualizado.getPatente() + "" + "\n Marca: " + actualizado.getMarca() + "" + "\n Modelo: " + actualizado.getModelo() + "" + "\n Kilomtraje: " + actualizado.getKm() + "" + "\n Situacion: " + actualizado.getSituacion() + "");
                 } catch (NoEnviaAutoAMantenimiento e) {
                     model.put("error", "No se envio el auto a mantenimiento porque esta ocupado");
                     model.put("auto", buscado);
@@ -292,6 +287,46 @@ public class ControladorAdministrador {
             vista = enviaAlaVistaDeLoginConMensajeDeError(model);
         }
         return setModelAndView(model, vista);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/revisados")
+    public ModelAndView mostrarHistorialDeRevisionesPorMenanico(HttpServletRequest request) {
+        ModelMap modelMap = new ModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
+            List<Revision> revionesFinalizadas = null;
+            try {
+                revionesFinalizadas = servicioDeAuto.obtenerRevisionesFinalizadas();
+                modelMap.put("revisiones", revionesFinalizadas);
+                return new ModelAndView("revisiones", modelMap);
+            } catch (NoHayAutosParaRevision e) {
+                modelMap.put("error", "No hay revisiones hechas actualmente");
+                return new ModelAndView("revisiones", modelMap);
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(modelMap);
+        }
+        return setModelAndView(modelMap, vista);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/revisiones-mecanico")
+    public ModelAndView mostrarRevisionesPorMecanico(@RequestParam(value = "id") Long id, HttpServletRequest request) {
+        ModelMap modelMap = new ModelMap();
+        String vista;
+        if (elRolEstaSeteadoYEsAdministrador(request)) {
+            Usuario mecanico = servicioUsuario.buscarPorId(id);
+            try {
+                List<Revision> revisionesPorMecanico = servicioDeAuto.obtenerRevisionesPorMecanico(mecanico);
+                modelMap.put("revisiones", revisionesPorMecanico);
+                return new ModelAndView("revisiones-mecanico", modelMap);
+            } catch (NoHayAutosParaRevision e) {
+                modelMap.put("error", "No hay revisiones hechas por este usuario");
+                return new ModelAndView("revisiones-mecanico", modelMap);
+            }
+        } else {
+            vista = enviaAlaVistaDeLoginConMensajeDeError(modelMap);
+        }
+        return setModelAndView(modelMap, vista);
     }
 
     private Auto obtenerAuto(Long id_auto) throws AutoNoExistente {
