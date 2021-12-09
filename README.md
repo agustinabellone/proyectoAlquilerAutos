@@ -16,7 +16,8 @@
 ### 7) Hace click en Configure y seleccioná la carpeta donde tengas Tomcat descargado
 ### 8) En la parte de deployments - agregá el Artefact que se creo previamente
 ### 9) Ir a File -> preferences (esto puede ser distinto según el sistema operativo) y seleccioná la version que tengas de jdk (en este caso el 8)
-### 10) Por ultimo, en services corré el TomCat.
+### 10) En services corré el TomCat.
+### 11) Por ultimo, corré el script.sql, que ademas ya tiene un cliente precargado para iniciar sesion, lo unico que deberias hacer es suscribirlo a un plan. Y si no queres usar ese cliente podes registrar uno nuevo.
 
 ## Integrantes
 
