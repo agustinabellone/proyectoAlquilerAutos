@@ -46,6 +46,14 @@
                 </button>
             </div>
         </c:if>
+        <c:if test="${not empty suscripcionActiva}">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              ${suscripcionActiva}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
         <c:if test="${not empty confirmacionDarDeAlta}">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>-</strong> ${confirmacionDarDeAlta}<strong>-</strong>
@@ -80,7 +88,7 @@
                             <img class="card-img-top mt-3" src="img/noTieneSuscripcion.png" alt="no tiene suscripcion">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">Suscripción</h5>
-                                <p class="card-text">No se encuentra suscripto a ningun plan :(</p>
+                                <p class="card-text">No se encuentra suscripto a ningún plan.</p>
                                 <a href="ir-a-suscribir" class="btn btn-info">¡Suscribirme!</a>
                             </div>
                         </div>
@@ -118,8 +126,8 @@
             </div>
         </c:if>
         <c:if test = "${not empty esperandoConfirmacion}">
-            <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
-                <h1 class="text-center">El alquiler aún no recibe confirmacion de finalizacion. Una vez terminado aparecera en el historia de tus alquileres.</h1>
+            <div class="alert alert-warning mt-3" role="alert">
+              El alquiler aún no recibe confirmación de finalización. Una vez confirmado aparecerá en el historial de tus alquileres.
             </div>
         </c:if>
 

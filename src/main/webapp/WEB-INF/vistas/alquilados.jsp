@@ -12,7 +12,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Administracion</title>
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
+    <title>Proyecto - Alquiler de autos</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -34,9 +35,9 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-            <div class="text-center sidebar-brand-text mx-3">Alquiler de Autos</div>
-        </a>
+        <div class="d-flex align-items-center bg-light">
+            <img style="height: 50px; width: 100%" src="img/nombreConLogo.svg" alt="logo">
+        </div>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
@@ -275,15 +276,6 @@
         </div>
         <!-- End of Main Content -->
 
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
 
     </div>
     <!-- End of Content Wrapper -->

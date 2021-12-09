@@ -62,7 +62,7 @@ public class ControladorSuscripcion {
 
     @RequestMapping(path = "/suscripcion-gratis", method = RequestMethod.GET)
     private ModelAndView mostrarSuscripcionGratis(HttpServletRequest request){
-
+        ModelMap modelo = new ModelMap();
         if(null != request.getSession().getAttribute("rol")){
             if(request.getSession().getAttribute("rol").equals("cliente")){
                 if(!(Boolean)request.getSession().getAttribute("tieneSuscripcion")){
@@ -70,7 +70,12 @@ public class ControladorSuscripcion {
                 }
             }
         }
-        return new ModelAndView("redirect:/main");
+        Long id_usuario = (Long)request.getSession().getAttribute("id");
+        Usuario usuario = this.servicioUsuario.buscarPorId(id_usuario);
+        int puntaje = usuario.getPuntaje();
+        modelo.put ("puntaje", puntaje);
+        modelo.put("suscripcionActiva", "Te encuentras con una suscripción activa. Cuando la misma termine podrás usar tus puntos.");
+        return new ModelAndView("main", modelo);
     }
 
 

@@ -70,17 +70,6 @@
             </div>
         </div>
         </form>
-    <c:if test="${not empty solicitud}">
-        <div class="d-flex justify-content-center">
-            <h3>Espere a que la devolución se de por finalizada</h3>
-        </div>
-    </c:if>
-    <c:if test="${not empty valorarLuego}">
-        <div class="d-flex justify-content-center">
-            <a href="main" class="btn btn-dark mt-3 mb-3">Valorar luego</a>
-        </div>
-    </c:if>
-
 
     </div>
 
