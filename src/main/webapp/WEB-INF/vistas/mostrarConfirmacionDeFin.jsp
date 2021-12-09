@@ -36,7 +36,7 @@
                     <div class="card card-shadow border-0 mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center">
-                                <h5 class="font-weight-medium mb-0">Codigo de alquiler: ${alquiler.id}</h5>
+                                <h5 class="font-weight-medium mb-3">Codigo de alquiler: ${alquiler.id}</h5>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 text-center">
@@ -69,7 +69,7 @@
                                 <h6 class="subtitle font-weight-normal" style="text-align: center">Recordar que se cobrara una tarifa por la modificacion</h6>
                             </div>
                             <div class="col-lg-12 text-center mt-2" >
-                                <a class="btn btn-info" href='confirmacion-fin-alquiler?alquilerID=${alquiler.id}'>CONFIRMAR FINALIZACION DE ALQUILER</a>
+                                <a class="btn btn-success" href='confirmacion-fin-alquiler?alquilerID=${alquiler.id}'>CONFIRMAR FINALIZACION DE ALQUILER</a>
                             </div>
                             </div>
                         </div>

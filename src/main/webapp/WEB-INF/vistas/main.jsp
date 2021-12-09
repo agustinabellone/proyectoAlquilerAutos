@@ -126,8 +126,8 @@
             </div>
         </c:if>
         <c:if test = "${not empty esperandoConfirmacion}">
-            <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
-                <h1 class="text-center">El alquiler aún no recibe confirmacion de finalizacion. Una vez terminado aparecera en el historia de tus alquileres.</h1>
+            <div class="alert alert-warning mt-3" role="alert">
+              El alquiler aún no recibe confirmación de finalización. Una vez confirmado aparecerá en el historial de tus alquileres.
             </div>
         </c:if>
 

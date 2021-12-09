@@ -43,7 +43,7 @@
                                 </select>
                                 <input type="hidden" name="alquilerID" value='${alquiler.id}'>
                                 <div class="col-lg-12 text-center" style="margin: 12px">
-                                    <button class="btn btn-outline-success btn-lg mt-2" Type="Submit">Confirmar</button>
+                                    <button class="btn btn-success btn-lg mt-2" Type="Submit">Confirmar</button>
                                 </div>
                             </form>
                         </div>
