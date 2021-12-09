@@ -25,6 +25,8 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
         this.repositorioAlquiler = repositorioAlquiler;
     }
 
+
+
     @Override
     public Alquiler AlquilarAuto(DatosAlquiler datosAlquiler) {
         Alquiler alquiler = new Alquiler(datosAlquiler);
@@ -114,8 +116,7 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
 
     @Override
     public Auto obtenerAutoPorId(Long id_auto) {
-        Auto auto = repositorioAlquiler.obtenerAutoPorId(id_auto);
-        return auto;
+        return repositorioAlquiler.obtenerAutoPorId(id_auto);
     }
 
     @Override
@@ -146,6 +147,20 @@ public class ServicioAlquilerImpl implements ServicioAlquiler {
     @Override
     public Garage obtenerGaragePorId(Long lugar) {
         return repositorioAlquiler.obtenerGaragePorId(lugar);
+    }
+
+    public Alquiler obtenerAlquilerPorID(Long alquilerID) {
+        return repositorioAlquiler.obtenerAlquilerPorId(alquilerID);
+    }
+
+    public void setAdicionalCondiciones(Alquiler alquiler, Suscripcion suscripcion) {
+        Usuario usuario = alquiler.getUsuario();
+        if (usuario.getRol().equals("cliente")) {
+            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
+                Float adicional = suscripcion.getTipoSuscripcion().getValorPorMalasCondiciones();
+                alquiler.setAdicionalCondiciones(adicional);
+            }
+        }
     }
 
 }

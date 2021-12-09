@@ -1,10 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
-import ar.edu.unlam.tallerweb1.modelo.Auto;
-import ar.edu.unlam.tallerweb1.modelo.Revision;
-import ar.edu.unlam.tallerweb1.modelo.Situacion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -114,18 +111,19 @@ public class TestRepositorioMecanico extends SpringTest {
         thenObtengoLaRevision(obtenido);
     }
 
-    private Revision whenSeBuscaUnaRevisionPorAuto(Auto auto) {
-        return repositorioAuto.obtenerRevisionPorAuto(auto);
-    }
-
     private Revision givenExisteUnAutoEnRevision() {
         Revision revision = new Revision();
         Auto auto = new Auto();
         auto.setSituacion(Situacion.EN_REVISION);
         session().save(auto);
         revision.setAuto(auto);
+        revision.setEstadoRevision(EstadoRevision.ACTIVA);
         session().save(revision);
         return revision;
+    }
+
+    private Revision whenSeBuscaUnaRevisionPorAuto(Auto auto) {
+        return repositorioAuto.obtenerRevisionPorAuto(auto);
     }
 
     private void thenObtengoLaRevision(Revision obtenido) {
@@ -190,6 +188,7 @@ public class TestRepositorioMecanico extends SpringTest {
             Revision revision = new Revision();
             revision.setAuto(auto);
             revision.setUsuario(mecanico);
+            revision.setEstadoRevision(EstadoRevision.FINALIZADA);
             session().save(auto);
             session().save(revision);
         }

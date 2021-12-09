@@ -252,24 +252,24 @@
             </div>
             <div class="row d-flex justify-content-around">
                 <div class="col-md-3 mb-2 bg-dark text-white rounded" >
-                    <img class="card-img-top mt-2 rounded"  src="img/sedeMorón.jpg" alt="Card image cap">
+                    <img class="card-img-top mt-3 rounded"  src="img/sedeMorón.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="text-center text-white">Sede Morón</h5>
                         <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
                     </div>
                 </div>
                 <div class="col-md-3 mb-2 bg-dark text-white rounded">
-                    <img class="card-img-top mt-2 rounded" src="img/sedeLaMatanza.jpg" alt="Card image cap">
+                    <img class="card-img-top mt-3 rounded" src="img/sedeLaMatanza.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="text-center text-white">Sede La Matanza</h5>
-                        <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
+                        <p class="card-text text-center">Av. Arieta 785 entre Honduras y Costa Rica</p>
                     </div>
                 </div>
                 <div class="col-md-3 mb-2 bg-dark text-white rounded" >
-                    <img class="card-img-top mt-2 rounded" src="img/sedeLiniers.jpg" alt="Card image cap">
+                    <img class="card-img-top mt-3 rounded" src="img/sedeLiniers.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="text-center text-white">Sede Liniers</h5>
-                        <p class="card-text text-center">Av. Argentina 784 entre Primera Junta y Noguera</p>
+                        <p class="card-text text-center">Av. Rivadavia 1070</p>
                     </div>
                 </div>
             </div>

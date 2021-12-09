@@ -14,7 +14,7 @@ public interface ServicioDevolucion {
 
     List<Alquiler> obtenerAlquilerActivoDeCliente(Usuario usuario);
 
-    Alquiler obtenerAlquilerPorID(Long alquilerID);
+    //Alquiler obtenerAlquilerPorID(Long alquilerID);
 
     void adicionarAumentoPorCambioDeLugarFecha(Alquiler alquiler);
 
@@ -22,5 +22,6 @@ public interface ServicioDevolucion {
 
     void finalizarAlquilerCliente(Solicitud solicitud, String enCondiciones, String comentario, Integer km) throws NoEnviaAutoAMantenimiento, AutoNoExistente;
 
+    void adicionarAumentoPorSobrepasoDeKilometros (Alquiler alquiler, Suscripcion suscripcion, Float kilometrosSobrepasados);
 }
 

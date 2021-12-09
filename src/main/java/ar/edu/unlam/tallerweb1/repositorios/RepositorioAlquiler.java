@@ -36,4 +36,6 @@ public interface RepositorioAlquiler {
     List<Garage> obtenerGaragesDisponibles();
 
     List<Alquiler> obtenerAlquileresActivos();
+
+    Alquiler obtenerAlquilerPorId(Long alquilerID);
 }

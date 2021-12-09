@@ -29,15 +29,15 @@
     <div class="container">
         <div class="col-sm-12 d-flex justify-content-around">
             <form action="confirmacion?id_auto=${id_auto}&imagen_auto=${imagen_auto}" method="post">
-                   <div class="container col-sm-12 d-flex justify-content-around">
-                        <div class="col-sm-5 d-flex flex-column justify-content-center">
+                   <div class="container col-sm-12 d-flex justify-content-around text-center">
+                        <div class="col-sm-6 d-flex flex-column justify-content-center">
                             <p>Fecha que planeo retirar el auto:</p>
                             <input name="salida" id="salida" type="date" required>
 
                         </div>
-                        <div class="col-sm-5 d-flex flex-column justify-content-center">
+                        <div class="col-sm-6 d-flex flex-column justify-content-center">
                             <p>Lugar de retiro:</p>
-                            <select name="lugarRetiro" id="lugarRetiro" class="form-select" required>
+                            <select name="lugarRetiro" id="lugarRetiro" class="form-select mt-4" required>
                                 <option value="">Seleccionar</option>
                                 <c:forEach items="${garages}" var="garage">
                                     <option value=${garage.id}>${garage.direccion}</option>
@@ -45,14 +45,14 @@
                             </select>
                         </div>
                    </div>
-                    <div class="container col-sm-12 d-flex justify-content-around mt-3">
-                        <div class="col-sm-5 d-flex flex-column justify-content-center">
+                    <div class="container col-sm-12 d-flex justify-content-around mt-3 text-center">
+                        <div class="col-sm-6 d-flex flex-column justify-content-center">
                             <p>Fecha que planeo devolverlo:</p>
                             <input name="ingreso" id="ingreso" type="date" required>
                         </div>
-                        <div class="col-sm-5 d-flex flex-column justify-content-center">
+                        <div class="col-sm-6 d-flex flex-column justify-content-center">
                             <p>Lugar de devolución:</p>
-                            <select name="lugarDevolucion" id="lugarDevolucion" class="form-select" required>
+                            <select name="lugarDevolucion" id="lugarDevolucion" class="form-select mt-4" required>
                                 <option value="">Seleccionar</option>
                                 <c:forEach items="${garages}" var="garage">
                                     <option value=${garage.id}>${garage.direccion}</option>

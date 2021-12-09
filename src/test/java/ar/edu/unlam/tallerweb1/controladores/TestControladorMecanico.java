@@ -292,9 +292,9 @@ public class TestControladorMecanico {
         assertThat(modelAndView.getModel().get("formulario_exitoso")).isEqualTo(mensaje);
 
         assertThat(modelAndView.getModel().get("auto_con_situacion_actualizada")).isNotNull();
-        assertThat(modelAndView.getModel().get("auto_con_situacion_actualizada")).isInstanceOf(Auto.class);
-        Auto disponible = (Auto) modelAndView.getModel().get("auto_con_situacion_actualizada");
-        assertThat(disponible.getSituacion()).isEqualTo(Situacion.DISPONIBLE);
+        assertThat(modelAndView.getModel().get("auto_con_situacion_actualizada")).isInstanceOf(Revision.class);
+        Revision disponible = (Revision) modelAndView.getModel().get("auto_con_situacion_actualizada");
+        assertThat(disponible.getAuto().getSituacion()).isEqualTo(Situacion.DISPONIBLE);
 
         assertThat(modelAndView.getModel().get("usuario_mecanico")).isNotNull();
         assertThat(modelAndView.getModel().get("usuario_mecanico")).isInstanceOf(Usuario.class);

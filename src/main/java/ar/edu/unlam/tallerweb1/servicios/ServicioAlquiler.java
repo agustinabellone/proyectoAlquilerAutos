@@ -43,4 +43,7 @@ public interface ServicioAlquiler {
     List<Garage> obtenerGaragesDisponibles();
 
     List<Alquiler> obtenerAlquileresAcitvos() throws NoHayAutosAlquiladosException;
+
+    Alquiler obtenerAlquilerPorID(Long alquilerID);
+
 }

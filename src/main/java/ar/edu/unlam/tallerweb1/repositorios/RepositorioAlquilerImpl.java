@@ -27,37 +27,24 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
 
 
     @Override
-    public List<Auto> obtenerAutosDisponibles() {
-        return this.sessionFactory.getCurrentSession()
-                .createCriteria(Auto.class)
-                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE)).list();
+    public List obtenerAutosDisponibles() {
+        return this.sessionFactory.getCurrentSession().createCriteria(Auto.class).add(Restrictions.eq("situacion", Situacion.DISPONIBLE)).list();
     }
 
 
     @Override
     public List<Auto> obtenerAutosDisponiblesGamaBaja() {
-        return this.sessionFactory.getCurrentSession()
-                .createCriteria(Auto.class)
-                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
-                .add(Restrictions.eq("gama", Gama.BAJA))
-                .list();
+        return this.sessionFactory.getCurrentSession().createCriteria(Auto.class).add(Restrictions.eq("situacion", Situacion.DISPONIBLE)).add(Restrictions.eq("gama", Gama.BAJA)).list();
     }
 
     @Override
     public List<Auto> obtenerAutosDisponiblesGamaMedia() {
-        return this.sessionFactory.getCurrentSession()
-                .createCriteria(Auto.class)
-                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
-                .add(Restrictions.not(Restrictions.eq("gama", Gama.ALTA)))
-                .list();
+        return this.sessionFactory.getCurrentSession().createCriteria(Auto.class).add(Restrictions.eq("situacion", Situacion.DISPONIBLE)).add(Restrictions.not(Restrictions.eq("gama", Gama.ALTA))).list();
     }
 
     @Override
     public List<Auto> obtenerAutosDisponiblesGamaAlta() {
-        return this.sessionFactory.getCurrentSession()
-                .createCriteria(Auto.class)
-                .add(Restrictions.eq("situacion", Situacion.DISPONIBLE))
-                .list();
+        return this.sessionFactory.getCurrentSession().createCriteria(Auto.class).add(Restrictions.eq("situacion", Situacion.DISPONIBLE)).list();
     }
 
     @Override
@@ -72,17 +59,13 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
 
     @Override
     public List<Alquiler> obtenerAlquileresActivosDeUsuario(Usuario usuario) {
-        return sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
-                .add(Restrictions.eq("usuario", usuario))
-                .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
+        return sessionFactory.getCurrentSession().createCriteria(Alquiler.class).add(Restrictions.eq("usuario", usuario)).add(Restrictions.eq("estado", Estado.ACTIVO)).list();
     }
 
 
     @Override
     public List<Auto> buscarAutosAlquilados(Situacion alquilado) {
-        return sessionFactory.getCurrentSession().createCriteria(Auto.class).
-                add(Restrictions.eq("situacion", alquilado))
-                .list();
+        return sessionFactory.getCurrentSession().createCriteria(Auto.class).add(Restrictions.eq("situacion", alquilado)).list();
     }
 
     @Override
@@ -92,9 +75,7 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
 
     @Override
     public List<Alquiler> obtenerAlquileresDelAuto(Auto id) {
-        return sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
-                .add(Restrictions.eq("auto", id))
-                .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
+        return sessionFactory.getCurrentSession().createCriteria(Alquiler.class).add(Restrictions.eq("auto", id)).add(Restrictions.eq("estado", Estado.ACTIVO)).list();
     }
 
     @Override
@@ -106,21 +87,20 @@ public class RepositorioAlquilerImpl implements RepositorioAlquiler {
 
     @Override
     public Alquiler obtenerAlquileresPendientesDeUsuario(Usuario usuario) {
-        return (Alquiler) sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
-                .add(Restrictions.eq("usuario", usuario))
-                .add(Restrictions.eq("estado", Estado.PENDIENTE)).uniqueResult();
+        return (Alquiler) sessionFactory.getCurrentSession().createCriteria(Alquiler.class).add(Restrictions.eq("usuario", usuario)).add(Restrictions.eq("estado", Estado.PENDIENTE)).uniqueResult();
     }
 
     @Override
     public List<Garage> obtenerGaragesDisponibles() {
-        return sessionFactory.getCurrentSession().createCriteria(Garage.class)
-                .list();
+        return sessionFactory.getCurrentSession().createCriteria(Garage.class).list();
     }
 
     @Override
     public List<Alquiler> obtenerAlquileresActivos() {
-        return sessionFactory.getCurrentSession().createCriteria(Alquiler.class)
-                .add(Restrictions.eq("estado", Estado.ACTIVO)).list();
+        return sessionFactory.getCurrentSession().createCriteria(Alquiler.class).add(Restrictions.eq("estado", Estado.ACTIVO)).list();
     }
 
+    public Alquiler obtenerAlquilerPorId(Long alquilerID) {
+        return sessionFactory.getCurrentSession().get(Alquiler.class, alquilerID);
+    }
 }

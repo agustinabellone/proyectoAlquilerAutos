@@ -17,13 +17,14 @@
     <link rel="stylesheet" type="text/css" href="css/planes.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <title>Proyecto - Alquiler de autos</title>
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 <section>
     <div class="container text-center">
-        <div class="col-sm-12 d-flex justify-content-center">
-            <h1 class="text-center mt-5">Registro de devolucion</h1>
+        <div class="col-sm-12 d-flex justify-content-center mb-3">
+            <h1 class="text-center display-4 p-4">Registro de devolucion</h1>
         </div>
     </div>
 </section>
@@ -32,13 +33,12 @@
         <div class="">
             <div class="col-lg-12">
                 <div class="d-flex ">
-                    <div class="col-lg-6 justify-content-center">
-                            <form:form action="finalizarAlquiler?solicitud=${solicitud.id}" method="get" >
+                    <div class="col-lg-12 d-flex justify-content-center">
+                            <form:form class="col-lg-9" action="finalizarAlquiler?solicitud=${solicitud.id}" method="get" >
                                 <input type="hidden" name="solicitud" value='${solicitud.id}'>
                                 <div class="form-group">
-                                    <label>
-                                        <input style="opacity:1;" type="number" step="any" name="kilometros" placeholder="${solicitud.alquiler.auto.km}">
-                                    </label>
+                                    <label>KM </label>
+                                    <input style="opacity:1;" type="number" step="any" name="kilometros" placeholder="${solicitud.alquiler.auto.km}">
                                 </div>
                                 <div class="form-group">
                                     <input style="opacity:1;" type="checkbox" data-required="1" name="condicion">
@@ -48,8 +48,8 @@
                                     <p><textarea class="form-control mt-3" name="comentario" rows="5" required
                                                  placeholder="Agregar observacion del estado del vehiculo devuelto... "></textarea></p>
                                 </div>
-                                <div class="form-group m-0">
-                                    <button class="btn btn-lg btn-dark btn-block" Type="Submit"/>Finalizar</button>
+                                <div class="form-group mb-4">
+                                    <button class="btn btn-lg btn-danger btn-block" Type="Submit"/>Finalizar</button>
                                 </div>
                             </form:form>
                         </div>

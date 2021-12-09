@@ -12,7 +12,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Administracion</title>
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
+    <title>Proyecto - Alquiler de autos</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -34,9 +35,9 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-            <div class="text-center sidebar-brand-text mx-3">Alquiler de Autos</div>
-        </a>
+        <div class="d-flex align-items-center bg-light">
+            <img style="height: 50px; width: 100%" src="img/nombreConLogo.svg" alt="logo">
+        </div>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
@@ -174,14 +175,9 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Mi Perfil
-                                </a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Cerrar Session
+                                    Cerrar Sesión
                                 </a>
                             </div>
                         </li>
@@ -259,7 +255,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                            Alquilers Nuevos
+                                            Alquileres Nuevos
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                                             <c:if test="${not empty autosAlquilados}">
@@ -376,14 +372,6 @@
         </div>
         <!-- End of Main Content -->
 
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
-                </div>
-            </div>
-        </footer>
         <!-- End of Footer -->
 
     </div>
@@ -403,15 +391,15 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Vamos a cerrar la sesión</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Estas seguro de cerrar la sesion?</div>
+            <div class="modal-body">¿Estás seguro/a?</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="logout">Cerrar Sesion</a>
+                <a class="btn btn-danger" href="logout">Cerrar</a>
             </div>
         </div>
     </div>

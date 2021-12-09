@@ -187,13 +187,8 @@ public class Alquiler {
         }
     }
 
-    public void setAdicionalCondiciones(Alquiler alquiler, Suscripcion suscripcion) {
-        Usuario usuario = alquiler.getUsuario();
-        if (usuario.getRol().equals("cliente")) {
-            if (suscripcion.getUsuario().getId().equals(usuario.getId())) {
-                adicionalCondiciones = adicionalCondiciones + suscripcion.getTipoSuscripcion().getValorPorMalasCondiciones();
-            }
-        }
+    public void setAdicionalCondiciones(Float adicionalCondicionesNuevo) {
+        this.adicionalCondiciones = this.adicionalCondiciones + adicionalCondicionesNuevo;
     }
 
     public Float getAdicionalCondiciones() {

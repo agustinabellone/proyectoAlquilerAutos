@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.*;
+import ar.edu.unlam.tallerweb1.modelo.Alquiler;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
@@ -200,13 +201,15 @@ public class TestControladorAdministradorSeccionAutos {
     }
 
     private void givenExisteUnaListaDeAutosAlquilados(int cantidad) throws NoHayAutosAlquiladosException {
-        List<Auto> listaDeAutos = new ArrayList<>();
+        List<Alquiler> listaDeAutos = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Auto auto = new Auto();
             auto.setSituacion(Situacion.OCUPADO);
-            listaDeAutos.add(auto);
+            Alquiler alquiler = new Alquiler();
+            alquiler.setAuto(auto);
+            listaDeAutos.add(alquiler);
         }
-        when(servicioAlquiler.obtenerAutosAlquilados()).thenReturn(listaDeAutos);
+        when(servicioAlquiler.obtenerAlquileresAcitvos()).thenReturn(listaDeAutos);
     }
 
     private void givenNoExistenAutosAlquilados() throws NoHayAutosAlquiladosException {
@@ -271,7 +274,7 @@ public class TestControladorAdministradorSeccionAutos {
         assertThat(modelAndView.getModel().get("nombre")).isEqualTo(request.getSession().getAttribute("nombre"));
         assertThat(modelAndView.getModel().get("autosAlquilados")).isNotNull();
         assertThat(modelAndView.getModel().get("autosAlquilados")).isInstanceOf(List.class);
-        List<Auto> autos = (List<Auto>) modelAndView.getModel().get("autosAlquilados");
+        List<Alquiler> autos = (List<Alquiler>) modelAndView.getModel().get("autosAlquilados");
         assertThat(autos).hasSize(10);
     }
 

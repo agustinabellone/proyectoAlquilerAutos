@@ -33,8 +33,9 @@
                         <div class="col-md-12 ">
                             <div class="card card-shadow border-0 mb-4">
                                 <div class="card-body p-4">
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex justify-content-between">
                                         <h5 class="font-weight-bold">${auto.marca.descripcion}</h5>
+                                        <span class="font-weight-bold text-info"> Gama ${auto.gama}</span>
                                     </div>
                                     <div class="col">
                                         <div class="col-lg-12">

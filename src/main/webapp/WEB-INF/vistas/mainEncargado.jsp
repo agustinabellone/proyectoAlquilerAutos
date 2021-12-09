@@ -15,13 +15,14 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Proyecto - Alquiler de autos</title>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 <section class="bg-light p-5">
     <div class="container">
-        <h1 class="mb-5">¡Hola <c:out value="${nombre}"/>!</h1>
+        <h1 class="text-center display-4 p-4">¡Hola <c:out value="${nombre}"/>!</h1>
         <c:if test="${not empty esperandoConfirmacion}">
             <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 10px">
                 <c:if test="${not empty funciono}">
@@ -30,9 +31,11 @@
                     </div>
                 </c:if>
                <c:forEach items="${esperandoConfirmacion}" var="esperandoConfirmacion">
-                    <h1 class="text-center">${esperandoConfirmacion.usuario.nombre} desea dar por finalizado el
-                        alquiler.</h1>
+                   <div class="d-flex justify-content-around align-items-center col-sm-12 border p-3 rounded">
+                    <h5 class="text-center">${esperandoConfirmacion.usuario.nombre} desea dar por finalizado el
+                        alquiler.</h5>
                     <a href='cierreDevolucion?solicitud=${esperandoConfirmacion.id}' class="btn btn-success">CONFIRMAR</a>
+                   </div>
                 </c:forEach>
             </div>
         </c:if>
@@ -49,7 +52,6 @@
         <br>
     </c:if>
 </section>
-<jsp:include page="footer.jsp"/>
 </body>
 
 <!-- Optional JavaScript -->

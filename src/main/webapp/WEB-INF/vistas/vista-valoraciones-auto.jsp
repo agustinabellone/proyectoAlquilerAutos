@@ -26,9 +26,9 @@
         <div class="col-sm-12 d-flex justify-content-center">
             <h1 class=" text-center display-4 p-4">Opiniones sobre el auto </h1>
         </div>
-        <section class="bg-white">
+        <section class="bg-light">
             <div class="row mt-3">
-                <div class="col-lg-6 align-self-center">
+                <div class="col-lg-6 align-self-center ">
                     <div class="d-flex align-items-center justify-content-around">
                     <h2>Puntuación: ${valoracionPromedio}</h2>
                     <div>
@@ -143,7 +143,7 @@
             <div class="alert alert-danger text-center container mt-3" role="alert">
                     ${mensaje}
             </div>
-            <div class="col-sm-12 d-flex justify-content-center">
+            <div class="col-sm-12 d-flex justify-content-center pb-3">
                 <a href="alquilar-auto" class="btn btn-dark" >Volver</a>
             </div>
         </c:if>
