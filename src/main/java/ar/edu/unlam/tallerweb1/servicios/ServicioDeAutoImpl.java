@@ -119,4 +119,9 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         return revisionesPorMecanico;
     }
 
+    @Override
+    public List<Auto> obtenerAutosAlquilados() {
+        return null;
+    }
+
 }
