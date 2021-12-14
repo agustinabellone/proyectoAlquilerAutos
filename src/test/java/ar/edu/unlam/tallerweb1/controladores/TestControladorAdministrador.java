@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -132,31 +131,23 @@ public class TestControladorAdministrador {
     }
 
     @Test
-    public void alAccederALaPantallaDeAutosEnRevisionPuedaVisualizarAutosEnRevision() throws NoHayAutosParaRevision {
-        givenExistenAutosEnRevision(5, Situacion.EN_REVISION);
+    public void alAccederALaPantallaDeAutosEnRevisionPuedaVisualizarAutosEnRevision(){
+        givenExistenAutosEnRevision(5,Situacion.EN_REVISION);
         whenAccedeALaPantallaDeAutosEnRevision(request);
         thenVisualizaLosAutosEnRevision(this.modelAndView);
     }
 
-    private void givenExistenAutosEnRevision(int cantidad, Situacion enRevision) throws NoHayAutosParaRevision {
+    private void givenExistenAutosEnRevision(int cantidad, Situacion enRevision) {
         List<Auto> autoList = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Auto auto = new Auto();
             auto.setSituacion(enRevision);
             autoList.add(auto);
         }
-        when(servicioDeAuto.obtenerAutosEnRevision()).thenReturn(autoList);
+        when(servicioDeAuto.obtenerAutosEnRevision()).thenReturn(autoList)
     }
 
     private void whenAccedeALaPantallaDeAutosEnRevision(HttpServletRequest request) {
         this.modelAndView = controlador.mostrarAutosEnRevision(request);
-    }
-
-    private void thenVisualizaLosAutosEnRevision(ModelAndView modelAndView) {
-        assertThat(modelAndView.getViewName()).isEqualTo("autos-en-revision");
-        assertThat(modelAndView.getModel().get("autos_en_revision")).isNotNull();
-        assertThat(modelAndView.getModel().get("autos_en_revision")).isInstanceOf(List.class);
-        List<Auto> autoList = (List<Auto>) modelAndView.getModel().get("autos_en_revision");
-        assertThat(autoList).hasSize(5);
     }
 }
