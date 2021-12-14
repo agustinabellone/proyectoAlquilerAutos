@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import org.springframework.ui.ModelMap;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 public class ControladorAdministrador {
     private ServicioDeAuto servicioDeAuto;
@@ -44,12 +46,26 @@ public class ControladorAdministrador {
     public ModelAndView mostrarAutosEnMantenimiento(HttpServletRequest request) {
         ModelMap model = new ModelMap();
         if (estaSeteadoElRol(request) && esAdiministrador(request)) {
-            List<Auto> enMantenimiento = null;
             try {
-                enMantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
+                List<Auto> enMantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
                 model.put("autos_en_mantenimiento", enMantenimiento);
                 return new ModelAndView("autos-en-mantenimiento", model);
             } catch (NoHayAutosEnMantenientoException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "autos-en-revision")
+    public ModelAndView mostrarAutosEnRevision(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esAdiministrador(request)) {
+            try {
+                List<Auto> enRevision = servicioDeAuto.obtenerAutosEnRevision();
+                model.put("autos_en_revision", enRevision);
+                return new ModelAndView("autos-en-revision", model);
+            } catch (NoHayAutosParaRevision e) {
                 e.printStackTrace();
             }
         }
