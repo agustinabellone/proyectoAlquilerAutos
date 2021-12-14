@@ -71,4 +71,32 @@ public class TestControladorAdministrador {
         this.modelAndView = controlador.irAlPanelPrincipal(request);
     }
 
+    @Test
+    public void alAccederALaPantallaDeAutosDisponiblesPuedaVisualizarUnaListaDeAutosDisponiblesParaAlquilar() {
+        givenExistenAutosDisponiblesParaAlquilar(5, Situacion.DISPONIBLE);
+        whenAccedoALaPantallaDeAutosDisponibles(request);
+        thenVisualizaLosAutosDisponibles(this.modelAndView);
+    }
+
+    private void givenExistenAutosDisponiblesParaAlquilar(int cantidad, Situacion disponible) {
+        List<Auto> autoList = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Auto auto = new Auto();
+            auto.setSituacion(disponible);
+            autoList.add(auto);
+        }
+        when(servicioDeAuto.obtenerAutosDisponiblesParaAlquilar()).thenReturn(autoList);
+    }
+
+    private void whenAccedoALaPantallaDeAutosDisponibles(HttpServletRequest request) {
+        this.modelAndView = controlador.mostrarAutosDisponiblesParaAlquilar(request);
+    }
+
+    private void thenVisualizaLosAutosDisponibles(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isEqualTo("autos-disponibles-para-alquilar");
+        assertThat(modelAndView.getModel().get("autos_disponibles_para_alquilar")).isNotNull();
+        assertThat(modelAndView.getModel().get("autos_disponibles_para_alquilar")).isInstanceOf(List.class);
+        List<Auto> autoList = (List<Auto>) modelAndView.getModel().get("autos_disponibles_para_alquilar");
+        assertThat(autoList).hasSize(5);
+    }
 }

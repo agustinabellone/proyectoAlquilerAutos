@@ -124,4 +124,9 @@ public class ServicioDeAutoImpl implements ServicioDeAuto {
         return null;
     }
 
+    @Override
+    public List<Auto> obtenerAutosDisponiblesParaAlquilar() {
+        return null;
+    }
+
 }
