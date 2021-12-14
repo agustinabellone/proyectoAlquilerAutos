@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import org.springframework.ui.ModelMap;
@@ -35,6 +36,22 @@ public class ControladorAdministrador {
             List<Auto> autosDisponiblesParaAlquilar = servicioDeAuto.obtenerAutosDisponiblesParaAlquilar();
             model.put("autos_disponibles_para_alquilar", autosDisponiblesParaAlquilar);
             return new ModelAndView("autos-disponibles-para-alquilar", model);
+        }
+        return null;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "autos-en-mantenimiento")
+    public ModelAndView mostrarAutosEnMantenimiento(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esAdiministrador(request)) {
+            List<Auto> enMantenimiento = null;
+            try {
+                enMantenimiento = servicioDeAuto.obtenerAutosEnMantenimiento();
+                model.put("autos_en_mantenimiento", enMantenimiento);
+                return new ModelAndView("autos-en-mantenimiento", model);
+            } catch (NoHayAutosEnMantenientoException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

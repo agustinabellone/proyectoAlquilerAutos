@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
@@ -98,5 +99,34 @@ public class TestControladorAdministrador {
         assertThat(modelAndView.getModel().get("autos_disponibles_para_alquilar")).isInstanceOf(List.class);
         List<Auto> autoList = (List<Auto>) modelAndView.getModel().get("autos_disponibles_para_alquilar");
         assertThat(autoList).hasSize(5);
+    }
+
+    @Test
+    public void alAccederAlaPantallaDeAutosEnMantenimientoPuedaVisualizarUnaListaConLosAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        givenExistenAutosEnMantenimiento(5, Situacion.EN_MANTENIMIENTO);
+        whenAccedeALaPantallaDeAutosEnMantenimiento(request);
+        thenVisualizaLosAutosEnMantenimiento(this.modelAndView, 5);
+    }
+
+    private void givenExistenAutosEnMantenimiento(int cantidad, Situacion enMantenimiento) throws NoHayAutosEnMantenientoException {
+        List<Auto> autoList = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Auto auto = new Auto();
+            auto.setSituacion(enMantenimiento);
+            autoList.add(auto);
+        }
+        when(servicioDeAuto.obtenerAutosEnMantenimiento()).thenReturn(autoList);
+    }
+
+    private void whenAccedeALaPantallaDeAutosEnMantenimiento(HttpServletRequest request) {
+        this.modelAndView = controlador.mostrarAutosEnMantenimiento(request);
+    }
+
+    private void thenVisualizaLosAutosEnMantenimiento(ModelAndView modelAndView, int cantidad_esperada) {
+        assertThat(modelAndView.getViewName()).isEqualTo("autos-en-mantenimiento");
+        assertThat(modelAndView.getModel().get("autos_en_mantenimiento")).isNotNull();
+        assertThat(modelAndView.getModel().get("autos_en_mantenimiento")).isInstanceOf(List.class);
+        List<Auto> autoList = (List<Auto>) modelAndView.getModel().get("autos_en_mantenimiento");
+        assertThat(autoList).hasSize(cantidad_esperada);
     }
 }
