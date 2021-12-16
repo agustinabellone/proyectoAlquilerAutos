@@ -78,7 +78,8 @@ public class ControladorAdministrador {
                 model.put("autos_en_revision", enRevision);
                 return new ModelAndView("autos-en-revision", model);
             } catch (NoHayAutosParaRevision e) {
-                e.printStackTrace();
+                model.put("error_no_hay_en_revision", "No hay autos para revision actualmente");
+                return new ModelAndView("autos-en-revision", model);
             }
         }
         return null;

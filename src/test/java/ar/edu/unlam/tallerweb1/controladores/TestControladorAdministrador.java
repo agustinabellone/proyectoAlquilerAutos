@@ -204,4 +204,16 @@ public class TestControladorAdministrador {
         List<Auto> autoList = (List<Auto>) modelAndView.getModel().get("autos_en_revision");
         assertThat(autoList).hasSize(5);
     }
+
+    @Test
+    public void alAccederALaPantallaDeAutosEnRevisionVisualiceUnMensajeDeErrorDeQueNoHayAutosEnRevision() throws NoHayAutosParaRevision {
+        givenQueNoExistenAutosEnRevision();
+        whenAccedeALaPantallaDeAutosEnRevision(request);
+        thenVisualizaLaVista(this.modelAndView, "autos-en-revision");
+        thenVisualizaUnMensajeDeError("No hay autos para revision actualmente", "error_no_hay_en_revision");
+    }
+
+    private void givenQueNoExistenAutosEnRevision() throws NoHayAutosParaRevision {
+        doThrow(NoHayAutosParaRevision.class).when(servicioDeAuto).obtenerAutosEnRevision();
+    }
 }
