@@ -34,7 +34,7 @@ public class ControladorAdministrador {
                 return new ModelAndView("panel-principal", model);
             }
         }
-        return null;
+        return enviarAlLoginConUnMensajeDeError(model);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "autos-disponibles-para-alquilar")
@@ -50,7 +50,7 @@ public class ControladorAdministrador {
                 return new ModelAndView("autos-disponibles-para-alquilar", model);
             }
         }
-        return null;
+        return enviarAlLoginConUnMensajeDeError(model);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "autos-en-mantenimiento")
@@ -66,7 +66,7 @@ public class ControladorAdministrador {
                 return new ModelAndView("autos-en-mantenimiento", model);
             }
         }
-        return null;
+        return enviarAlLoginConUnMensajeDeError(model);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "autos-en-revision")
@@ -82,7 +82,7 @@ public class ControladorAdministrador {
                 return new ModelAndView("autos-en-revision", model);
             }
         }
-        return null;
+        return enviarAlLoginConUnMensajeDeError(model);
     }
 
     private boolean esAdiministrador(HttpServletRequest request) {
@@ -91,5 +91,10 @@ public class ControladorAdministrador {
 
     private boolean estaSeteadoElRol(HttpServletRequest request) {
         return request.getSession().getAttribute("rol") != null;
+    }
+
+    private ModelAndView enviarAlLoginConUnMensajeDeError(ModelMap model) {
+        model.put("datosLogin", new DatosLogin());
+        return new ModelAndView("login", model);
     }
 }
