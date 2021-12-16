@@ -165,6 +165,18 @@ public class TestControladorAdministrador {
     }
 
     @Test
+    public void queAlAccederALaPantallaDeAutosEnMantenimientoPuedaVisualizarUnMensajeDeErrorDeQueNoHayAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        givenQueNoExistenAutosEnMantenimiento();
+        whenAccedeALaPantallaDeAutosEnMantenimiento(request);
+        thenVisualizaLaVista(this.modelAndView, "autos-en-mantenimiento");
+        thenVisualizaUnMensajeDeError("No hay autos para mantenimiento actualmente", "error_no_hay_en_mantenimiento");
+    }
+
+    private void givenQueNoExistenAutosEnMantenimiento() throws NoHayAutosEnMantenientoException {
+        doThrow(NoHayAutosEnMantenientoException.class).when(servicioDeAuto).obtenerAutosEnMantenimiento();
+    }
+
+    @Test
     public void alAccederALaPantallaDeAutosEnRevisionPuedaVisualizarAutosEnRevision() throws NoHayAutosParaRevision {
         givenExistenAutosEnRevision(5, Situacion.EN_REVISION);
         whenAccedeALaPantallaDeAutosEnRevision(request);

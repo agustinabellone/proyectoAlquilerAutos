@@ -62,7 +62,8 @@ public class ControladorAdministrador {
                 model.put("autos_en_mantenimiento", enMantenimiento);
                 return new ModelAndView("autos-en-mantenimiento", model);
             } catch (NoHayAutosEnMantenientoException e) {
-                e.printStackTrace();
+                model.put("error_no_hay_en_mantenimiento", "No hay autos para mantenimiento actualmente");
+                return new ModelAndView("autos-en-mantenimiento", model);
             }
         }
         return null;
