@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -11,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 public class ControladorAdministrador {
     private ServicioDeAuto servicioDeAuto;
@@ -24,9 +24,15 @@ public class ControladorAdministrador {
     public ModelAndView irAlPanelPrincipal(HttpServletRequest request) {
         ModelMap model = new ModelMap();
         if (estaSeteadoElRol(request) && esAdiministrador(request)) {
-            List<Auto> autosAlquilados = servicioDeAuto.obtenerAutosAlquilados();
-            model.put("autos_alquilados", autosAlquilados);
-            return new ModelAndView("panel-principal", model);
+            List<Auto> autosAlquilados = null;
+            try {
+                autosAlquilados = servicioDeAuto.obtenerAutosAlquilados();
+                model.put("autos_alquilados", autosAlquilados);
+                return new ModelAndView("panel-principal", model);
+            } catch (NoHayAutosAlquiladosException e) {
+                model.put("error_no_hay_alquilados", "No hay autos alquilados actualmente");
+                return new ModelAndView("panel-principal", model);
+            }
         }
         return null;
     }

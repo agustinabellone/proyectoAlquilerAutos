@@ -26,7 +26,7 @@ public interface ServicioDeAuto {
 
     List<Revision> obtenerRevisionesPorMecanico(Usuario mecanico) throws NoHayAutosParaRevision;
 
-    List<Auto> obtenerAutosAlquilados();
+    List<Auto> obtenerAutosAlquilados() throws NoHayAutosAlquiladosException;
 
     List<Auto> obtenerAutosDisponiblesParaAlquilar();
 }

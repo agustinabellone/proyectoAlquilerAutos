@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -16,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class TestControladorAdministrador {
 
@@ -45,13 +45,13 @@ public class TestControladorAdministrador {
     }
 
     @Test
-    public void alIngresarElAdministradorASuPantallaPrincipalVisualizaLosAutosActualmenteAlquilados() {
+    public void alIngresarElAdministradorASuPantallaPrincipalVisualizaLosAutosActualmenteAlquilados() throws NoHayAutosAlquiladosException {
         givenExistenAutosAlquilados(5, Situacion.OCUPADO);
         whenAccedeALaPantallaPrincipal(request);
         thenVisualizaLOsAutosAlquilados(this.modelAndView);
     }
 
-    private void givenExistenAutosAlquilados(int cantidad, Situacion ocupado) {
+    private void givenExistenAutosAlquilados(int cantidad, Situacion ocupado) throws NoHayAutosAlquiladosException {
         List<Auto> autoList = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Auto auto = new Auto();
@@ -59,6 +59,10 @@ public class TestControladorAdministrador {
             autoList.add(auto);
         }
         when(servicioDeAuto.obtenerAutosAlquilados()).thenReturn(autoList);
+    }
+
+    private void whenAccedeALaPantallaPrincipal(HttpServletRequest request) {
+        this.modelAndView = controlador.irAlPanelPrincipal(request);
     }
 
     private void thenVisualizaLOsAutosAlquilados(ModelAndView modelAndView) {
@@ -69,8 +73,24 @@ public class TestControladorAdministrador {
         assertThat(autoList).hasSize(5);
     }
 
-    private void whenAccedeALaPantallaPrincipal(HttpServletRequest request) {
-        this.modelAndView = controlador.irAlPanelPrincipal(request);
+    @Test
+    public void alIngresarElAdministradorASuPantallaPrincipalVisualizaUnMensajeDeErrorAvisandoQueNoHayAutosAlquilados() throws NoHayAutosAlquiladosException {
+        givenQueNoExistenAutosAlquilados();
+        whenAccedeALaPantallaPrincipal(request);
+        thenVisualizaLaVista(this.modelAndView, "panel-principal");
+        thenVisualizaUnMensajeDeError("No hay autos alquilados actualmente", "error_no_hay_alquilados");
+    }
+
+    private void givenQueNoExistenAutosAlquilados() throws NoHayAutosAlquiladosException {
+        doThrow(NoHayAutosAlquiladosException.class).when(servicioDeAuto).obtenerAutosAlquilados();
+    }
+
+    private void thenVisualizaLaVista(ModelAndView modelAndView, String vista) {
+        assertThat(modelAndView.getViewName()).isEqualTo(vista);
+    }
+
+    private void thenVisualizaUnMensajeDeError(String error, String nombre_error) {
+        assertThat(modelAndView.getModel().get(nombre_error)).isEqualTo(error);
     }
 
     @Test
