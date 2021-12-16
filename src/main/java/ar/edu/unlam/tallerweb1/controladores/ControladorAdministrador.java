@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -24,9 +25,8 @@ public class ControladorAdministrador {
     public ModelAndView irAlPanelPrincipal(HttpServletRequest request) {
         ModelMap model = new ModelMap();
         if (estaSeteadoElRol(request) && esAdiministrador(request)) {
-            List<Auto> autosAlquilados = null;
             try {
-                autosAlquilados = servicioDeAuto.obtenerAutosAlquilados();
+                List<Auto> autosAlquilados = servicioDeAuto.obtenerAutosAlquilados();
                 model.put("autos_alquilados", autosAlquilados);
                 return new ModelAndView("panel-principal", model);
             } catch (NoHayAutosAlquiladosException e) {
@@ -41,9 +41,14 @@ public class ControladorAdministrador {
     public ModelAndView mostrarAutosDisponiblesParaAlquilar(HttpServletRequest request) {
         ModelMap model = new ModelMap();
         if (estaSeteadoElRol(request) && esAdiministrador(request)) {
-            List<Auto> autosDisponiblesParaAlquilar = servicioDeAuto.obtenerAutosDisponiblesParaAlquilar();
-            model.put("autos_disponibles_para_alquilar", autosDisponiblesParaAlquilar);
-            return new ModelAndView("autos-disponibles-para-alquilar", model);
+            try {
+                List<Auto> autosDisponiblesParaAlquilar = servicioDeAuto.obtenerAutosDisponiblesParaAlquilar();
+                model.put("autos_disponibles_para_alquilar", autosDisponiblesParaAlquilar);
+                return new ModelAndView("autos-disponibles-para-alquilar", model);
+            } catch (NoHayAutosDisponiblesException e) {
+                model.put("error_no_hay_disponibles", "No hay autos disponibles para alquilar actualmente");
+                return new ModelAndView("autos-disponibles-para-alquilar", model);
+            }
         }
         return null;
     }

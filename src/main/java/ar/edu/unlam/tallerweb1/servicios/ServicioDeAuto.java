@@ -28,5 +28,5 @@ public interface ServicioDeAuto {
 
     List<Auto> obtenerAutosAlquilados() throws NoHayAutosAlquiladosException;
 
-    List<Auto> obtenerAutosDisponiblesParaAlquilar();
+    List<Auto> obtenerAutosDisponiblesParaAlquilar() throws NoHayAutosDisponiblesException;
 }

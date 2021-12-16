@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
 import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -94,13 +95,13 @@ public class TestControladorAdministrador {
     }
 
     @Test
-    public void alAccederALaPantallaDeAutosDisponiblesPuedaVisualizarUnaListaDeAutosDisponiblesParaAlquilar() {
+    public void alAccederALaPantallaDeAutosDisponiblesPuedaVisualizarUnaListaDeAutosDisponiblesParaAlquilar() throws NoHayAutosDisponiblesException {
         givenExistenAutosDisponiblesParaAlquilar(5, Situacion.DISPONIBLE);
         whenAccedoALaPantallaDeAutosDisponibles(request);
         thenVisualizaLosAutosDisponibles(this.modelAndView);
     }
 
-    private void givenExistenAutosDisponiblesParaAlquilar(int cantidad, Situacion disponible) {
+    private void givenExistenAutosDisponiblesParaAlquilar(int cantidad, Situacion disponible) throws NoHayAutosDisponiblesException {
         List<Auto> autoList = new ArrayList<>();
         for (int i = 0; i < cantidad; i++) {
             Auto auto = new Auto();
@@ -120,6 +121,18 @@ public class TestControladorAdministrador {
         assertThat(modelAndView.getModel().get("autos_disponibles_para_alquilar")).isInstanceOf(List.class);
         List<Auto> autoList = (List<Auto>) modelAndView.getModel().get("autos_disponibles_para_alquilar");
         assertThat(autoList).hasSize(5);
+    }
+
+    @Test
+    public void alAccederALaPantallaDeAutosDisponiblesPuedeVisualizarUnMensajeDeErrorDeQueNoHayAutosDisponibles() throws NoHayAutosDisponiblesException {
+        givenQueNoExistenAutosDisponiblesParaAlquilar();
+        whenAccedoALaPantallaDeAutosDisponibles(request);
+        thenVisualizaLaVista(this.modelAndView, "autos-disponibles-para-alquilar");
+        thenVisualizaUnMensajeDeError("No hay autos disponibles para alquilar actualmente", "error_no_hay_disponibles");
+    }
+
+    private void givenQueNoExistenAutosDisponiblesParaAlquilar() throws NoHayAutosDisponiblesException {
+        doThrow(NoHayAutosDisponiblesException.class).when(servicioDeAuto).obtenerAutosDisponiblesParaAlquilar();
     }
 
     @Test
