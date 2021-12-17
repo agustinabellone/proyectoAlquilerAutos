@@ -259,4 +259,32 @@ public class TestControladorAdministrador {
     private void givenQueNoExistenClientesSuscriptos() throws NoHayClientesSuscriptos {
         doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerClientesSuscriptos();
     }
+
+    @Test
+    public void alAccederALaPantallaDeClientesNoSuscriptosDebeVisualizarUnaListaConLosClientesNoSuscriptos() throws NoHayClientesNoSuscriptos {
+        givenQueExistenClientesNoSuscriptos(5);
+        whenAccedeALaPantallaDeClientesNoSuscriptos(request);
+        thenVisualizaLaVista(this.modelAndView, "clientes-no-suscriptos");
+        thenVisualizaLosClientesNoSuscriptos(this.modelAndView);
+    }
+
+    private void givenQueExistenClientesNoSuscriptos(int cantidad) throws NoHayClientesNoSuscriptos {
+        List<Usuario> usuarioList = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Usuario usuario = new Usuario();
+            usuarioList.add(usuario);
+        }
+        when(servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos()).thenReturn(usuarioList);
+    }
+
+    private void whenAccedeALaPantallaDeClientesNoSuscriptos(HttpServletRequest request) {
+        this.modelAndView = controlador.mostrarClientesNoSuscriptos(request);
+    }
+
+    private void thenVisualizaLosClientesNoSuscriptos(ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("clientes_no_suscriptos")).isNotNull();
+        assertThat(modelAndView.getModel().get("clientes_no_suscriptos")).isInstanceOf(List.class);
+        List<Usuario> usuarioList = (List<Usuario>) modelAndView.getModel().get("clientes_no_suscriptos");
+        assertThat(usuarioList).hasSize(5);
+    }
 }

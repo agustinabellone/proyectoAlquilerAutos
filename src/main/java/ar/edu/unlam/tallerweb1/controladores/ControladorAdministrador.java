@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -102,6 +104,21 @@ public class ControladorAdministrador {
             } catch (NoHayClientesSuscriptos e) {
                 model.put("error_no_hay_clientes_suscriptos", "No hay clientes suscriptos actualmente");
                 return new ModelAndView("clientes-suscriptos", model);
+            }
+        }
+        return enviarAlLoginConUnMensajeDeError(model);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "clientes-no-suscriptos")
+    public ModelAndView mostrarClientesNoSuscriptos(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esAdiministrador(request)) {
+            try {
+                List<Usuario> clientes_no_suscriptos = servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
+                model.put("clientes_no_suscriptos", clientes_no_suscriptos);
+                return new ModelAndView("clientes-no-suscriptos", model);
+            } catch (NoHayClientesNoSuscriptos e) {
+                e.printStackTrace();
             }
         }
         return enviarAlLoginConUnMensajeDeError(model);
