@@ -159,6 +159,22 @@ public class ControladorAdministrador {
         return enviarAlLoginConUnMensajeDeError(model);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "administradores")
+    public ModelAndView mostrarAdministradores(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esAdiministrador(request)) {
+            try {
+                List<Usuario> administradores = servicioUsuario.obtenerListaDeUsuariosPorRol("admin");
+                model.put("empleados_administradores", administradores);
+                return new ModelAndView("administradores", model);
+            } catch (NoHayEmpladosException e) {
+                model.put("error_no_hay_administradores", "No hay administradores registrados actualmente");
+                return new ModelAndView("administradores", model);
+            }
+        }
+        return enviarAlLoginConUnMensajeDeError(model);
+    }
+
     private boolean esAdiministrador(HttpServletRequest request) {
         return request.getSession().getAttribute("rol").equals("admin");
     }

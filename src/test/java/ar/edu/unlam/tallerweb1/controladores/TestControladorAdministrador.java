@@ -374,4 +374,35 @@ public class TestControladorAdministrador {
     private void givenQueNoExistenEmpleadosMecanicos() throws NoHayEmpladosException {
         doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(anyString());
     }
+
+    @Test
+    public void alAccederALaPantallaDeEmpleadosAdministradoresDebeVisualizarUnaListaConLosMismos() throws NoHayEmpladosException {
+        givenQueExitenEmpleados("admin", 5);
+        whenAccedeALaPantallaDeAdministradores(request);
+        thenVisualizaLaVista(this.modelAndView, "administradores");
+        thenVisualizaLosEmpleadosAdministradores(this.modelAndView);
+    }
+
+    private void whenAccedeALaPantallaDeAdministradores(HttpServletRequest request) {
+        this.modelAndView = controlador.mostrarAdministradores(request);
+    }
+
+    private void thenVisualizaLosEmpleadosAdministradores(ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("empleados_administradores")).isNotNull();
+        assertThat(modelAndView.getModel().get("empleados_administradores")).isInstanceOf(List.class);
+        List<Usuario> usuarioList = (List<Usuario>) modelAndView.getModel().get("empleados_administradores");
+        assertThat(usuarioList).hasSize(5);
+    }
+
+    @Test
+    public void alAccederALaPantallaDeEmpleadosAdministradoresDebeVisualizarUnMensajeDeErrorDeQueNoHayAdminitradores() throws NoHayEmpladosException {
+        givenNoExistenEmpleadosAdministradores();
+        whenAccedeALaPantallaDeAdministradores(request);
+        thenVisualizaLaVista(this.modelAndView, "administradores");
+        thenVisualizaUnMensajeDeError("No hay administradores registrados actualmente", "error_no_hay_administradores");
+    }
+
+    private void givenNoExistenEmpleadosAdministradores() throws NoHayEmpladosException {
+        doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(anyString());
+    }
 }
