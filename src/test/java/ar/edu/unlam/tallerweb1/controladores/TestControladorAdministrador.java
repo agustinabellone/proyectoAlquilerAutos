@@ -247,4 +247,16 @@ public class TestControladorAdministrador {
         List<Suscripcion> suscripcions = (List<Suscripcion>) modelAndView.getModel().get("clientes_suscriptos");
         assertThat(suscripcions).hasSize(5);
     }
+
+    @Test
+    public void alAccederALaPantallaDeClientesSusCriptosDebeVisualizarUnMensajeDeErrorDeQueNoHayClientesSuscriptos() throws NoHayClientesSuscriptos {
+        givenQueNoExistenClientesSuscriptos();
+        whenAccedeALaPantallaDeClientesSuscriptos(request);
+        thenVisualizaLaVista(this.modelAndView, "clientes-suscriptos");
+        thenVisualizaUnMensajeDeError("No hay clientes suscriptos actualmente", "error_no_hay_clientes_suscriptos");
+    }
+
+    private void givenQueNoExistenClientesSuscriptos() throws NoHayClientesSuscriptos {
+        doThrow(NoHayClientesSuscriptos.class).when(servicioSuscripcion).obtenerClientesSuscriptos();
+    }
 }

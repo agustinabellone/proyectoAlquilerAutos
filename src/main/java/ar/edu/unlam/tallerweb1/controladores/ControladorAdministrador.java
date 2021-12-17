@@ -100,7 +100,8 @@ public class ControladorAdministrador {
                 model.put("clientes_suscriptos", clientes_suscriptos);
                 return new ModelAndView("clientes-suscriptos", model);
             } catch (NoHayClientesSuscriptos e) {
-                e.printStackTrace();
+                model.put("error_no_hay_clientes_suscriptos", "No hay clientes suscriptos actualmente");
+                return new ModelAndView("clientes-suscriptos", model);
             }
         }
         return enviarAlLoginConUnMensajeDeError(model);
