@@ -331,4 +331,16 @@ public class TestControladorAdministrador {
         List<Usuario> usuarioList = (List<Usuario>) modelAndView.getModel().get("encargados_devolucion");
         assertThat(usuarioList).hasSize(5);
     }
+
+    @Test
+    public void alAccederALaPantallaDeEmpleadosEncargadosDeDevolucionVisualizeUnMensajeDeErrorDeQueNoHayanEncargados() throws NoHayEmpladosException {
+        givenNoExistenEncargadosDeDevolucion();
+        whenAccedeALaPantallaDeEncargados(request);
+        thenVisualizaLaVista(this.modelAndView, "encargados-devolucion");
+        thenVisualizaUnMensajeDeError("No hay encargados actualmente", "error_no_hay_encargados_devolucion");
+    }
+
+    private void givenNoExistenEncargadosDeDevolucion() throws NoHayEmpladosException {
+        doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(anyString());
+    }
 }

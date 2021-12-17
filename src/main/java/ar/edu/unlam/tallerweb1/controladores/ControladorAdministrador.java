@@ -136,7 +136,8 @@ public class ControladorAdministrador {
                 model.put("encargados_devolucion", encargados_devolucion);
                 return new ModelAndView("encargados-devolucion", model);
             } catch (NoHayEmpladosException e) {
-                e.printStackTrace();
+                model.put("error_no_hay_encargados_devolucion", "No hay encargados actualmente");
+                return new ModelAndView("encargados-devolucion", model);
             }
         }
         return enviarAlLoginConUnMensajeDeError(model);
