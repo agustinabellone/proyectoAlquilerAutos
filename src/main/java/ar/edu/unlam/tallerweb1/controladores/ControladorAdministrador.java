@@ -1,11 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,11 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Controller
 public class ControladorAdministrador {
-    private ServicioDeAuto servicioDeAuto;
 
-    public ControladorAdministrador(ServicioDeAuto servicioDeAuto) {
+    private ServicioDeAuto servicioDeAuto;
+    private ServicioSuscripcion servicioSuscripcion;
+
+    @Autowired
+    public ControladorAdministrador(ServicioDeAuto servicioDeAuto, ServicioSuscripcion servicioSuscripcion) {
         this.servicioDeAuto = servicioDeAuto;
+        this.servicioSuscripcion = servicioSuscripcion;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
@@ -80,6 +86,21 @@ public class ControladorAdministrador {
             } catch (NoHayAutosParaRevision e) {
                 model.put("error_no_hay_en_revision", "No hay autos para revision actualmente");
                 return new ModelAndView("autos-en-revision", model);
+            }
+        }
+        return enviarAlLoginConUnMensajeDeError(model);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "clientes-suscriptos")
+    public ModelAndView mostrarClientesSuscriptos(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esAdiministrador(request)) {
+            try {
+                List<Suscripcion> clientes_suscriptos = servicioSuscripcion.obtenerClientesSuscriptos();
+                model.put("clientes_suscriptos", clientes_suscriptos);
+                return new ModelAndView("clientes-suscriptos", model);
+            } catch (NoHayClientesSuscriptos e) {
+                e.printStackTrace();
             }
         }
         return enviarAlLoginConUnMensajeDeError(model);

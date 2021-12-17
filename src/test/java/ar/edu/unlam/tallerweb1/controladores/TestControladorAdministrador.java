@@ -1,12 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosAlquiladosException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosDisponiblesException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosEnMantenientoException;
-import ar.edu.unlam.tallerweb1.Exceptions.NoHayAutosParaRevision;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Situacion;
+import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,16 +27,18 @@ public class TestControladorAdministrador {
     private HttpSession session;
     private ControladorAdministrador controlador;
     private ServicioDeAuto servicioDeAuto;
+    private ServicioSuscripcion servicioSuscripcion;
     private ModelAndView modelAndView;
 
     @Before
     public void init() {
         request = mock(HttpServletRequest.class);
         session = mock(HttpSession.class);
-        servicioDeAuto = mock(ServicioDeAuto.class);
-        controlador = new ControladorAdministrador(servicioDeAuto);
-        request = givenExsiteUnUsuarioConRol(ADMINISTRADOR);
         modelAndView = new ModelAndView();
+        servicioSuscripcion = mock(ServicioSuscripcion.class);
+        servicioDeAuto = mock(ServicioDeAuto.class);
+        controlador = new ControladorAdministrador(servicioDeAuto, servicioSuscripcion);
+        request = givenExsiteUnUsuarioConRol(ADMINISTRADOR);
     }
 
     private HttpServletRequest givenExsiteUnUsuarioConRol(String administrador) {
@@ -215,5 +217,34 @@ public class TestControladorAdministrador {
 
     private void givenQueNoExistenAutosEnRevision() throws NoHayAutosParaRevision {
         doThrow(NoHayAutosParaRevision.class).when(servicioDeAuto).obtenerAutosEnRevision();
+    }
+
+    @Test
+    public void alAccederALaPantallaDeClientesSuscriptosDebeVisualizarUnaListaConLosClientesSusCriptos() throws NoHayClientesSuscriptos {
+        givenExistenClientesSusCriptos(5);
+        whenAccedeALaPantallaDeClientesSuscriptos(request);
+        thenVisualizaLaVista(this.modelAndView, "clientes-suscriptos");
+        thenVisualizaLosClientesSuscriptos(this.modelAndView);
+    }
+
+    private void givenExistenClientesSusCriptos(int cantidad) throws NoHayClientesSuscriptos {
+        List<Suscripcion> clientes_suscriptos = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Suscripcion suscripcion = new Suscripcion();
+            suscripcion.setUsuario(new Usuario());
+            clientes_suscriptos.add(suscripcion);
+        }
+        when(servicioSuscripcion.obtenerClientesSuscriptos()).thenReturn(clientes_suscriptos);
+    }
+
+    private void whenAccedeALaPantallaDeClientesSuscriptos(HttpServletRequest request) {
+        this.modelAndView = controlador.mostrarClientesSuscriptos(request);
+    }
+
+    private void thenVisualizaLosClientesSuscriptos(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName()).isNotNull();
+        assertThat(modelAndView.getModel().get("clientes_suscriptos")).isInstanceOf(List.class);
+        List<Suscripcion> suscripcions = (List<Suscripcion>) modelAndView.getModel().get("clientes_suscriptos");
+        assertThat(suscripcions).hasSize(5);
     }
 }
