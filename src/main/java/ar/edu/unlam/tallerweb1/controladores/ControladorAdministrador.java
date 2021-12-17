@@ -143,6 +143,21 @@ public class ControladorAdministrador {
         return enviarAlLoginConUnMensajeDeError(model);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "mecanicos")
+    public ModelAndView mostrarMecanicos(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esAdiministrador(request)) {
+            try {
+                List<Usuario> mecanicos = servicioUsuario.obtenerListaDeUsuariosPorRol("mecanico");
+                model.put("empleados_mecanicos", mecanicos);
+                return new ModelAndView("mecanicos", model);
+            } catch (NoHayEmpladosException e) {
+                e.printStackTrace();
+            }
+        }
+        return enviarAlLoginConUnMensajeDeError(model);
+    }
+
     private boolean esAdiministrador(HttpServletRequest request) {
         return request.getSession().getAttribute("rol").equals("admin");
     }

@@ -343,4 +343,23 @@ public class TestControladorAdministrador {
     private void givenNoExistenEncargadosDeDevolucion() throws NoHayEmpladosException {
         doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(anyString());
     }
+
+    @Test
+    public void alAccederALaPantallaDeEmpleadosMecanicosDebeVisualizarUnaListaConLosEmpleados() throws NoHayEmpladosException {
+        givenQueExitenEmpleados("mecanico", 5);
+        whenAccedeALaPantallaDeMecanicos(request);
+        thenVisualizaLaVista(this.modelAndView, "mecanicos");
+        thenVisualizaLosEmpleadosMecanicos(this.modelAndView);
+    }
+
+    private void whenAccedeALaPantallaDeMecanicos(HttpServletRequest request) {
+        this.modelAndView = controlador.mostrarMecanicos(request);
+    }
+
+    private void thenVisualizaLosEmpleadosMecanicos(ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("empleados_mecanicos")).isNotNull();
+        assertThat(modelAndView.getModel().get("empleados_mecanicos")).isInstanceOf(List.class);
+        List<Usuario> usuarioList = (List<Usuario>) modelAndView.getModel().get("empleados_mecanicos");
+        assertThat(usuarioList).hasSize(5);
+    }
 }
