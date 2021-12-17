@@ -175,6 +175,22 @@ public class ControladorAdministrador {
         return enviarAlLoginConUnMensajeDeError(model);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "empleados-pendientes-de-rol")
+    public ModelAndView mostrarEmpleadosPendientesDeRol(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esAdiministrador(request)) {
+            try {
+                List<Usuario> pendientes_de_rol = servicioUsuario.obtenerListaDeUsuariosPorRol("empleado");
+                model.put("empleados_pendientes_de_rol", pendientes_de_rol);
+                return new ModelAndView("asignacion-de-rol", model);
+            } catch (NoHayEmpladosException e) {
+                model.put("error_no_hay_empledos_pendientes_de_rol", "No hay empleados pendientes de rol actualmente");
+                return new ModelAndView("asignacion-de-rol", model);
+            }
+        }
+        return enviarAlLoginConUnMensajeDeError(model);
+    }
+
     private boolean esAdiministrador(HttpServletRequest request) {
         return request.getSession().getAttribute("rol").equals("admin");
     }
