@@ -118,7 +118,7 @@ public class ControladorAdministrador {
                 model.put("clientes_no_suscriptos", clientes_no_suscriptos);
                 return new ModelAndView("clientes-no-suscriptos", model);
             } catch (NoHayClientesNoSuscriptos e) {
-                model.put("error_no_hay_sin_suscripcion", "No hay clientes sin suscripcion");
+                model.put("error_no_hay_sin_suscripcion", "No hay clientes sin suscripcion actualmente");
                 return new ModelAndView("clientes-no-suscriptos", model);
             }
         }
