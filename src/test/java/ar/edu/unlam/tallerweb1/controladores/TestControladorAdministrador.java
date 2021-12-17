@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,15 +30,17 @@ public class TestControladorAdministrador {
     private ServicioDeAuto servicioDeAuto;
     private ServicioSuscripcion servicioSuscripcion;
     private ModelAndView modelAndView;
+    private ServicioUsuario servicioUsuario;
 
     @Before
     public void init() {
         request = mock(HttpServletRequest.class);
         session = mock(HttpSession.class);
         modelAndView = new ModelAndView();
+        servicioUsuario = mock(ServicioUsuario.class);
         servicioSuscripcion = mock(ServicioSuscripcion.class);
         servicioDeAuto = mock(ServicioDeAuto.class);
-        controlador = new ControladorAdministrador(servicioDeAuto, servicioSuscripcion);
+        controlador = new ControladorAdministrador(servicioDeAuto, servicioSuscripcion, servicioUsuario);
         request = givenExsiteUnUsuarioConRol(ADMINISTRADOR);
     }
 
@@ -298,5 +301,34 @@ public class TestControladorAdministrador {
 
     private void givenQueNoExistenClientesConSuscripcion() throws NoHayClientesNoSuscriptos {
         doThrow(NoHayClientesNoSuscriptos.class).when(servicioSuscripcion).obtenerListaDeUsuariosNoSuscriptos();
+    }
+
+    @Test
+    public void alAccederALaPantallaDeEmpleadosEncargadosDeDevolucionVisualizaUnaListaDeLosEmpleados() throws NoHayEmpladosException {
+        givenQueExitenEmpleados("encargado", 5);
+        whenAccedeALaPantallaDeEncargados(request);
+        thenVisualizaLaVista(this.modelAndView, "encargados-devolucion");
+        thenVisualizaLosEmpleadosEncargados(this.modelAndView);
+    }
+
+    private void givenQueExitenEmpleados(String rol, int cantidad) throws NoHayEmpladosException {
+        List<Usuario> usuarioList = new ArrayList<>();
+        for (int i = 0; i < cantidad; i++) {
+            Usuario usuario = new Usuario();
+            usuario.setRol(rol);
+            usuarioList.add(usuario);
+        }
+        when(servicioUsuario.obtenerListaDeUsuariosPorRol(rol)).thenReturn(usuarioList);
+    }
+
+    private void whenAccedeALaPantallaDeEncargados(HttpServletRequest request) {
+        this.modelAndView = controlador.mostrarEncargadosDeDevolucion(request);
+    }
+
+    private void thenVisualizaLosEmpleadosEncargados(ModelAndView modelAndView) {
+        assertThat(modelAndView.getModel().get("encargados_devolucion")).isNotNull();
+        assertThat(modelAndView.getModel().get("encargados_devolucion")).isInstanceOf(List.class);
+        List<Usuario> usuarioList = (List<Usuario>) modelAndView.getModel().get("encargados_devolucion");
+        assertThat(usuarioList).hasSize(5);
     }
 }

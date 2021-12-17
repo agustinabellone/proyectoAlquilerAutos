@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.modelo.Suscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDeAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioSuscripcion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,11 +22,13 @@ public class ControladorAdministrador {
 
     private ServicioDeAuto servicioDeAuto;
     private ServicioSuscripcion servicioSuscripcion;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorAdministrador(ServicioDeAuto servicioDeAuto, ServicioSuscripcion servicioSuscripcion) {
+    public ControladorAdministrador(ServicioDeAuto servicioDeAuto, ServicioSuscripcion servicioSuscripcion, ServicioUsuario servicioUsuario) {
         this.servicioDeAuto = servicioDeAuto;
         this.servicioSuscripcion = servicioSuscripcion;
+        this.servicioUsuario = servicioUsuario;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
@@ -120,6 +122,21 @@ public class ControladorAdministrador {
             } catch (NoHayClientesNoSuscriptos e) {
                 model.put("error_no_hay_sin_suscripcion", "No hay clientes sin suscripcion actualmente");
                 return new ModelAndView("clientes-no-suscriptos", model);
+            }
+        }
+        return enviarAlLoginConUnMensajeDeError(model);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "encargados-devolucion")
+    public ModelAndView mostrarEncargadosDeDevolucion(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esAdiministrador(request)) {
+            try {
+                List<Usuario> encargados_devolucion = servicioUsuario.obtenerListaDeUsuariosPorRol("encargado");
+                model.put("encargados_devolucion", encargados_devolucion);
+                return new ModelAndView("encargados-devolucion", model);
+            } catch (NoHayEmpladosException e) {
+                e.printStackTrace();
             }
         }
         return enviarAlLoginConUnMensajeDeError(model);
