@@ -152,7 +152,8 @@ public class ControladorAdministrador {
                 model.put("empleados_mecanicos", mecanicos);
                 return new ModelAndView("mecanicos", model);
             } catch (NoHayEmpladosException e) {
-                e.printStackTrace();
+                model.put("error_no_hay_mecanicos", "No hay mecanicos registrados actualmente");
+                return new ModelAndView("mecanicos", model);
             }
         }
         return enviarAlLoginConUnMensajeDeError(model);

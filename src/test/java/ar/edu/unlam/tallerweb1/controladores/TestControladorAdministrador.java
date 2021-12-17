@@ -362,4 +362,16 @@ public class TestControladorAdministrador {
         List<Usuario> usuarioList = (List<Usuario>) modelAndView.getModel().get("empleados_mecanicos");
         assertThat(usuarioList).hasSize(5);
     }
+
+    @Test
+    public void alAccederALaPantallaDeEmpleadosMecanicosDebeVisualizarUnMensajeDeErrorDeQueNoHayEmpleadosMecanicos() throws NoHayEmpladosException {
+        givenQueNoExistenEmpleadosMecanicos();
+        whenAccedeALaPantallaDeMecanicos(request);
+        thenVisualizaLaVista(this.modelAndView, "mecanicos");
+        thenVisualizaUnMensajeDeError("No hay mecanicos registrados actualmente", "error_no_hay_mecanicos");
+    }
+
+    private void givenQueNoExistenEmpleadosMecanicos() throws NoHayEmpladosException {
+        doThrow(NoHayEmpladosException.class).when(servicioUsuario).obtenerListaDeUsuariosPorRol(anyString());
+    }
 }
