@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -40,7 +41,7 @@ public class ControladorMercadoPago {
 
     @RequestMapping(path = "/confirmar-suscripcion", method = RequestMethod.GET)
     private ModelAndView confirmarSuscripcion(HttpServletRequest request,
-                                              @RequestParam(value="id_tipo") Long id_tipo ) throws MPException {
+                                              @RequestParam(value="id_tipo") Long id_tipo ) throws MPException, NoHayEmpladosException {
 
         ModelMap model = obtenerPreferencia(id_tipo, request, 0);
 
@@ -114,7 +115,7 @@ public class ControladorMercadoPago {
     private ModelAndView pagoRealizado(HttpServletRequest request,
                                               @RequestParam(value="collection_status") String resultado,
                                               @RequestParam(value="id_tipo") Long id_tipo,
-                                              @RequestParam(value="opcion") int opcion)  {
+                                              @RequestParam(value="opcion") int opcion) throws NoHayEmpladosException {
 
         String mail = (String) request.getSession().getAttribute("email");
 

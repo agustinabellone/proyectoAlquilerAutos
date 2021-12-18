@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaActivadaException;
 import ar.edu.unlam.tallerweb1.Exceptions.SuscripcionYaCanceladaException;
 import ar.edu.unlam.tallerweb1.modelo.TipoSuscripcion;
@@ -46,7 +47,7 @@ public class ControladorSuscripcion {
     }
 
     @RequestMapping(path = "/confirmar-suscripcion-gratis", method = RequestMethod.GET)
-    private ModelAndView mostrarConfirmacionSuscripcionGratuita(HttpServletRequest request){
+    private ModelAndView mostrarConfirmacionSuscripcionGratuita(HttpServletRequest request) throws NoHayEmpladosException {
         Long id_suscripcion = Long.valueOf(3);
         Long id_usuario = (Long)request.getSession().getAttribute("id");
         Usuario usuario = this.servicioUsuario.buscarPorId(id_usuario);
@@ -61,7 +62,7 @@ public class ControladorSuscripcion {
     }
 
     @RequestMapping(path = "/suscripcion-gratis", method = RequestMethod.GET)
-    private ModelAndView mostrarSuscripcionGratis(HttpServletRequest request){
+    private ModelAndView mostrarSuscripcionGratis(HttpServletRequest request) throws NoHayEmpladosException {
         ModelMap modelo = new ModelMap();
         if(null != request.getSession().getAttribute("rol")){
             if(request.getSession().getAttribute("rol").equals("cliente")){

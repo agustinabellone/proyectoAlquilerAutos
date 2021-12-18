@@ -112,7 +112,7 @@ public class TestControladorMecanico {
     }
 
     @Test
-    public void queUnMencanicoPuedaEnviarUnAutoASuListaDeRevisionMostrandoUnMensajeDeExito() throws AutoNoExistente, UsuarioNoExistente, NoSeEnviaARevision {
+    public void queUnMencanicoPuedaEnviarUnAutoASuListaDeRevisionMostrandoUnMensajeDeExito() throws AutoNoExistente, UsuarioNoExistente, NoSeEnviaARevision, NoHayEmpladosException {
         Long id_auto = givenQueExisteUnAutoEnMantenimiento(Situacion.EN_MANTENIMIENTO);
         Usuario mecanico = givenExisteUnUsuarioMecanico();
         whenElServicioLLamaAEnviarUnAutoARevision(id_auto, mecanico, LocalDate.now());
@@ -129,7 +129,7 @@ public class TestControladorMecanico {
         when(servicioAuto.enviarARevision(any(), any(), any())).thenReturn(revision);
     }
 
-    private Usuario givenExisteUnUsuarioMecanico() {
+    private Usuario givenExisteUnUsuarioMecanico() throws NoHayEmpladosException {
         Usuario mecanico = new Usuario();
         mecanico.setRol("mecanico");
         when(servicioUsuario.buscarPorId(anyLong())).thenReturn(mecanico);

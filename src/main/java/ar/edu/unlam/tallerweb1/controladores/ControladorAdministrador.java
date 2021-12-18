@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -186,6 +187,21 @@ public class ControladorAdministrador {
             } catch (NoHayEmpladosException e) {
                 model.put("error_no_hay_empledos_pendientes_de_rol", "No hay empleados pendientes de rol actualmente");
                 return new ModelAndView("asignacion-de-rol", model);
+            }
+        }
+        return enviarAlLoginConUnMensajeDeError(model);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "asignacion-de-rol")
+    public ModelAndView asignarRol(@RequestParam(value = "id_usuario") Long id_usuario, HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+        if (estaSeteadoElRol(request) && esAdiministrador(request)) {
+            try {
+                Usuario paraAsignarleElRol = servicioUsuario.buscarPorId(id_usuario);
+                model.put("usuario_con_rol_asignado", paraAsignarleElRol);
+                return new ModelAndView("asignacion-de-rol", model);
+            } catch (NoHayEmpladosException e) {
+                e.printStackTrace();
             }
         }
         return enviarAlLoginConUnMensajeDeError(model);

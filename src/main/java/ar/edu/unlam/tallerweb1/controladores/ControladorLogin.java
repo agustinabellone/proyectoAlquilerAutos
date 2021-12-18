@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.Exceptions.ClienteEstaInactivoException;
-import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoConfirmoEmail;
-import ar.edu.unlam.tallerweb1.Exceptions.ClienteNoExisteException;
-import ar.edu.unlam.tallerweb1.Exceptions.PasswordIncorrectaException;
+import ar.edu.unlam.tallerweb1.Exceptions.*;
 import ar.edu.unlam.tallerweb1.modelo.Notificacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
@@ -44,7 +41,7 @@ public class ControladorLogin {
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
     public ModelAndView ingresar(@ModelAttribute("datosLogin") DatosLogin datosLogin,
-                                 HttpServletRequest request) {
+                                 HttpServletRequest request) throws NoHayEmpladosException {
         ModelMap modelo = new ModelMap();
 
         try {
@@ -79,7 +76,7 @@ public class ControladorLogin {
 
     }
 
-    private void iniciarSesion(Usuario buscado, HttpServletRequest request) {
+    private void iniciarSesion(Usuario buscado, HttpServletRequest request) throws NoHayEmpladosException {
 
         request.getSession().setAttribute("rol", buscado.getRol());
         request.getSession().setAttribute("id", buscado.getId());

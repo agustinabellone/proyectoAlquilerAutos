@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface ServicioUsuario {
 
-    Usuario buscarPorId(Long id);
+    Usuario buscarPorId(Long id) throws NoHayEmpladosException;
 
     Usuario buscarPorEmail(String email);
 
@@ -23,7 +23,7 @@ public interface ServicioUsuario {
 
     List<Usuario> obtenerUsuariosSuscriptosAlPlanBasico() throws NoHayClientesSuscriptosAlPlanBasico;
 
-    List <Solicitud> obtenerSolicitudesPendientesDeUnEncargado(Long IDusuario);
+    List<Solicitud> obtenerSolicitudesPendientesDeUnEncargado(Long IDusuario);
 
     List<Notificacion> getNotificacionesPorId(Usuario buscado);
 

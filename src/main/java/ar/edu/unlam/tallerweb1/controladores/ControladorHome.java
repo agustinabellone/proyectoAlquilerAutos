@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAlquiler;
 import ar.edu.unlam.tallerweb1.servicios.ServicioHome;
@@ -45,7 +46,7 @@ public class ControladorHome {
     }
 
     @RequestMapping(path = "/main", method = RequestMethod.GET)
-    public ModelAndView mostrarMain(HttpServletRequest request) {
+    public ModelAndView mostrarMain(HttpServletRequest request) throws NoHayEmpladosException {
         ModelMap model = new ModelMap();
             if(request.getSession().getAttribute("id")!=null){
                 Usuario usuario = servicioUsuario.buscarPorId((Long) request.getSession().getAttribute("id"));
@@ -86,7 +87,7 @@ public class ControladorHome {
     public void actualizarNotificaciones(@RequestParam(value="id_noti") Long id_noti,
                                          @RequestParam(value="id_usuario") Long id_usuario,
                                          HttpServletResponse response,
-                                         HttpServletRequest request) throws IOException {
+                                         HttpServletRequest request) throws IOException, NoHayEmpladosException {
 
         this.servicioUsuario.actualizarNotificacion(id_noti);
         Usuario buscado = this.servicioUsuario.buscarPorId(id_usuario);

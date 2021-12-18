@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.Exceptions.ClaveLongitudIncorrectaException;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,16 @@ public class ControladorConfiguracion {
     @RequestMapping(path = "/configuracion", method = RequestMethod.GET)
     public ModelAndView mostrarConfiguracion(HttpServletRequest request) {
         Long id_usuario = (Long) request.getSession().getAttribute("id");
-        Usuario usuario = servicioUsuario.buscarPorId(id_usuario);
+        Usuario usuario = null;
         ModelMap modelo = new ModelMap();
-        modelo.put("usuario", usuario);
-        return new ModelAndView("configuracion", modelo);
+        try {
+            usuario = servicioUsuario.buscarPorId(id_usuario);
+            modelo.put("usuario", usuario);
+            return new ModelAndView("configuracion", modelo);
+        } catch (NoHayEmpladosException e) {
+            modelo.put("error", "no existe el usuario con el que queres hacer la configuracion");
+            return new ModelAndView("configuracion", modelo);
+        }
     }
 
     @RequestMapping(path = "/eliminar-cuenta", method = RequestMethod.GET)
@@ -44,9 +51,7 @@ public class ControladorConfiguracion {
     }
 
     @RequestMapping(path = "/guardar-cambios", method = RequestMethod.GET)
-    public ModelAndView guardarCambios(HttpServletRequest request,
-                                       @RequestParam("nombre") String nombre,
-                                       @RequestParam("password") String contraseña) {
+    public ModelAndView guardarCambios(HttpServletRequest request, @RequestParam("nombre") String nombre, @RequestParam("password") String contraseña) {
         ModelMap modelo = new ModelMap();
 
         try {
@@ -56,8 +61,7 @@ public class ControladorConfiguracion {
             request.getSession().setAttribute("nombre", nombre);
             request.getSession().setAttribute("contraseña", contraseña);
             return new ModelAndView("configuracion", modelo);
-        }
-        catch(ClaveLongitudIncorrectaException e) {
+        } catch (ClaveLongitudIncorrectaException e) {
             modelo.put("error", "La clave debe tener al menos 8 caracteres.");
             return new ModelAndView("configuracion", modelo);
         }

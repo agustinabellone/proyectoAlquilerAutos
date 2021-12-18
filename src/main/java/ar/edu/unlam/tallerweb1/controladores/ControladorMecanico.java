@@ -76,6 +76,8 @@ public class ControladorMecanico {
             } catch (NoSeEnviaARevision e) {
                 model.put("error_no_esta_en_mantenimiento","El auto queres enviar tiene que estar en mantenimiento");
                 return new ModelAndView("envio-a-revision", model);
+            } catch (NoHayEmpladosException e) {
+                e.printStackTrace();
             }
         }
         return enviarAlLoginConMensajeError(model);

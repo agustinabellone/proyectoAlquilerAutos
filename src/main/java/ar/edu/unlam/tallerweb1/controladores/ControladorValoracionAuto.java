@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 
 import ar.edu.unlam.tallerweb1.Exceptions.AutoNoValorado;
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -66,8 +67,7 @@ public class ControladorValoracionAuto {
                                               @RequestParam(value = "estrellasValoracion") int cantidadEstrellas,
                                               @RequestParam(value = "comentario") String comentarioAuto,
                                               @RequestParam(value ="autoID") Long autoID,
-                                              @RequestParam(value = "alquilerID")Long alquilerID)
-                                              {
+                                              @RequestParam(value = "alquilerID")Long alquilerID) throws NoHayEmpladosException {
         ModelMap modelo=new ModelMap();
         Auto auto=servicioValoracion.obtenerAutoPorId(autoID);
         modelo.put("auto", auto);

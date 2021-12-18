@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.Exceptions.NoHayEmpladosException;
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.servicios.*;
 import ar.edu.unlam.tallerweb1.servicios.ServicioDevolucion;
@@ -39,7 +40,7 @@ public class ControladorDevolucion {
 
 
     @RequestMapping("finalizar-alquiler")
-    public ModelAndView irFinalizarAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
+    public ModelAndView irFinalizarAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) throws NoHayEmpladosException {
         ModelMap model = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Alquiler alquilerActivo = servicioAlquiler.obtenerAlquilerPorID(alquilerID);
@@ -77,7 +78,7 @@ public class ControladorDevolucion {
 
 
     @RequestMapping("/confirmacion-fin-alquiler")
-    public ModelAndView procesarConfirmacionFinDeAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) {
+    public ModelAndView procesarConfirmacionFinDeAlquiler(@RequestParam(value = "alquilerID") Long alquilerID, HttpServletRequest request) throws NoHayEmpladosException {
         ModelMap modelo = new ModelMap();
         Long clienteID = (Long) request.getSession().getAttribute("id");
         Usuario usuario = servicioUsuario.buscarPorId(clienteID);

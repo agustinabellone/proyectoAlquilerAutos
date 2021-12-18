@@ -97,4 +97,33 @@ public class TestControladorAsignacionDeRol {
     private void thenVisualizaUnMensajedeError(String error, String nombre_error) {
         assertThat(modelAndView.getModel().get(nombre_error)).isEqualTo(error);
     }
+
+    @Test
+    public void alSeleccionarUnRolSeMuestraUnMensajeDeExito() throws NoHayEmpladosException {
+        Usuario empleado = givenExisteUnEmpleadoParaAsignarleElRol("empleado");
+        whenSeLeAsignaElRolAlUsuario(empleado.getId(), request);
+        thenVisualizaLaVista(this.modelAndView, "asignacion-de-rol");
+        thenVisualizaAlEmpleado(this.modelAndView, empleado);
+    }
+
+    private Usuario givenExisteUnEmpleadoParaAsignarleElRol(String empleado) throws NoHayEmpladosException {
+        Usuario sinRol = new Usuario();
+        sinRol.setId(1l);
+        sinRol.setRol(empleado);
+        sinRol.setEmail("mecanico@tallerweb.com");
+        when(servicioUsuario.buscarPorId(sinRol.getId())).thenReturn(sinRol);
+        return sinRol;
+    }
+
+    private void whenSeLeAsignaElRolAlUsuario(Long id, HttpServletRequest request) {
+        this.modelAndView = controlador.asignarRol(id, request);
+    }
+
+    private void thenVisualizaAlEmpleado(ModelAndView modelAndView, Usuario empleado) {
+        assertThat(modelAndView.getModel().get("usuario_con_rol_asignado")).isNotNull();
+        assertThat(modelAndView.getModel().get("usuario_con_rol_asignado")).isInstanceOf(Usuario.class);
+        Usuario conRolAsignado = (Usuario) modelAndView.getModel().get("usuario_con_rol_asignado");
+        assertThat(conRolAsignado.getEmail()).isEqualTo(empleado.getEmail());
+        assertThat(conRolAsignado.getRol()).isEqualTo(empleado.getRol());
+    }
 }
