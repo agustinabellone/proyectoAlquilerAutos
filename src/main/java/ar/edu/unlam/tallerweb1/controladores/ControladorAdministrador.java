@@ -91,7 +91,7 @@ public class ControladorAdministrador {
         return enviarAlLoginConUnMensajeDeError(model);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "autos-en-revision")
+    @RequestMapping(method = RequestMethod.GET, path = "lista-autos-en-revision")
     public ModelAndView mostrarAutosEnRevision(HttpServletRequest request) {
         ModelMap model = new ModelMap();
         if (estaSeteadoElRol(request) && esAdiministrador(request)) {

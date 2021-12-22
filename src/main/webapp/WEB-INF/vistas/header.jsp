@@ -60,7 +60,7 @@
                         <a class="dropdown-item" href="ir-a-panel-principal">Alquilados</a>
                         <a class="dropdown-item" href="autos-disponibles-para-alquilar">Disponibles para Alquilar</a>
                         <a class="dropdown-item" href="autos-en-mantenimiento">En Mantenimiento</a>
-                        <a class="dropdown-item" href="autos-en-revision">En Revision</a>
+                        <a class="dropdown-item" href="lista-autos-en-revision">En Revision</a>
                     </div>
                 </div>
 
