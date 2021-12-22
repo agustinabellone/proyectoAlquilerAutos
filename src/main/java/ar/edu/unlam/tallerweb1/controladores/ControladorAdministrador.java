@@ -65,7 +65,6 @@ public class ControladorAdministrador {
                 }
 
                 model.put("nombre", request.getSession().getAttribute("nombre"));
-                model.put("rol", request.getSession().getAttribute("rol"));
                 return new ModelAndView("panel-principal", model);
             } catch (NoHayAutosAlquiladosException e) {
                 model.put("error_no_hay_alquilados", "No hay autos alquilados actualmente");

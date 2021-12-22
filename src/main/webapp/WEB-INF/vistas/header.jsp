@@ -14,127 +14,129 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ">
                 <c:if test="${id != null}">
-                <li class="nav-item">
-                    <div class="text-secondary avatar dropdown">
-                        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <c:if test="${notificaciones !=null}">
-                                <span id="cantidadNotis" class="badge badge-danger ml-2">${notificaciones.size()}</span>
-                            </c:if>
-                            <i class="fas fa-bell"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
-                             aria-labelledby="navbarDropdownMenuLink-5">
-                            <c:forEach items="${notificaciones}" var="noti">
-                                <div class="alert alert-${noti.getColor()} alert-dismissible fade show"
-                                     style="margin-bottom: 5px; width: 350px" role="alert">
-                                    <strong>${noti.getDescripcion()}</strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                                            onclick="actualizarNotificaciones(${noti.getId()},${noti.getUsuario().getId()})">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                    <c:choose>
+                        <c:when test="${rol == 'cliente'}">
+                            <li class="nav-item">
+                                <div class="text-secondary avatar dropdown">
+                                    <a class="nav-link dropdown-toggle waves-effect waves-light"
+                                       id="navbarDropdownMenuLink-5"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <c:if test="${notificaciones !=null}">
+                                            <span id="cantidadNotis"
+                                                  class="badge badge-danger ml-2">${notificaciones.size()}</span>
+                                        </c:if>
+                                        <i class="fas fa-bell"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                                         aria-labelledby="navbarDropdownMenuLink-5">
+                                        <c:forEach items="${notificaciones}" var="noti">
+                                            <div class="alert alert-${noti.getColor()} alert-dismissible fade show"
+                                                 style="margin-bottom: 5px; width: 350px" role="alert">
+                                                <strong>${noti.getDescripcion()}</strong>
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-label="Close"
+                                                        onclick="actualizarNotificaciones(${noti.getId()},${noti.getUsuario().getId()})">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
                                 </div>
-                            </c:forEach>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="home">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="main">Mi Cuenta</a>
-                </li>
+                            </li>
 
-                <c:choose>
-                <c:when test="${rol == admin }">
-                <li class="nav-item">
-                    <a class="nav-link" href="admin-suscripcion">Manejo de suscripciones</a>
-                </li>
-                    <%-- Seccion Autos --%>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Autos
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="ir-a-panel-principal">Alquilados</a>
-                        <a class="dropdown-item" href="autos-disponibles-para-alquilar">Disponibles para Alquilar</a>
-                        <a class="dropdown-item" href="autos-en-mantenimiento">En Mantenimiento</a>
-                        <a class="dropdown-item" href="lista-autos-en-revision">En Revision</a>
-                    </div>
-                </div>
+                            <li class="nav-item">
+                                <a class="nav-link" href="main">Mi Cuenta</a>
+                            </li>
 
-                    <%-- Seccion Clientes --%>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonClientes"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Clientes
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonClientes">
-                        <a class="dropdown-item" href="clientes-suscriptos">Suscriptos</a>
-                        <a class="dropdown-item" href="clientes-no-suscriptos">No Suscriptos</a>
-                    </div>
-                </div>
+                            <li class="nav-item">
+                                <a class="nav-link" href="home">Inicio</a>
+                            </li>
+                        </c:when>
 
-                    <%-- Seccion Empleados --%>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonEmpleados"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Empleados
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonEmpleados">
-                        <a class="dropdown-item" href="administradores">Administradores</a>
-                        <a class="dropdown-item" href="mecanicos">Mecanicos</a>
-                        <a class="dropdown-item" href="encargados-devolucion">Encargados de Devolucion</a>
-                        <a class="dropdown-item" href="empleados-pendientes-de-rol">Pendientes de Rol</a>
-                    </div>
-                </div>
+                        <c:when test="${rol == 'admin' }">
+                            <li class="nav-item">
+                                <a class="nav-link" href="ir-a-panel-principal">Inicio</a>
+                            </li>
 
-                    <%-- Seccion Asignacion --%>
-                <li class="nav-item">
-                    <a class="nav-link" href="empleados-pendientes-de-rol">Asignar Rol</a>
-                </li>
-        </div>
-        </c:when>
-        <c:when test="${rol == encargado }">
-            <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>
-        </c:when>
+                            <%-- Seccion Autos --%>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <b>Autos</b>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
 
+                            <%-- Seccion Clientes --%>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownClientes" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <b>Clientes</b>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownClientes">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
 
-        <c:when test="${rol == Rol.MECANICO }">
-            <%-- POR EL MOMENTO NO HAY OPCIONES EXTRA PARA ESTE ROL --%>
-        </c:when>
-        <c:otherwise>
-            <c:if test="${tieneSuscripcion==false}">
-                <li class="nav-item">
-                    <a class="nav-link" href="ir-a-suscribir">Suscribirse a un plan</a>
-                </li>
-            </c:if>
-            <c:if test="${tieneSuscripcion==true}">
-                <li class="nav-item">
-                    <a class="nav-link" href="administrar-suscripcion">Administrar Suscripcion</a>
-                </li>
-            </c:if>
-            <li class="nav-item">
-                <a class="nav-link" href="configuracion">Configuración</a>
-            </li>
-        </c:otherwise>
-        </c:choose>
-        <li class="nav-item">
-            <a type="button" class="nav-link text-danger" data-toggle="modal" data-target="#exampleModal">
-                Cerrar sesion
-            </a>
-        </li>
-        </c:if>
-        <c:if test="${id == null}">
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="registro">Crear cuenta</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-info" href="login">Iniciar sesión</a>
-            </li>
-        </c:if>
-        </ul>
+                            <%-- Seccion Empleados --%>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownEmpleados" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <b>Empleados</b>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownEmpleados">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
+
+                            <%-- Seccion Asignacion --%>
+                            <li class="nav-item">
+                                <a class="nav-link" href="empleados-pendientes-de-rol">Asignar Rol</a>
+                            </li>
+                        </c:when>
+
+                        <c:otherwise>
+                            <c:if test="${tieneSuscripcion==false && rol == 'cliente'}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="ir-a-suscribir">Suscribirse a un plan</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${tieneSuscripcion==true && rol == 'cliente'}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="administrar-suscripcion">Administrar Suscripcion</a>
+                                </li>
+                            </c:if>
+                            <li class="nav-item">
+                                <a class="nav-link" href="configuracion">Configuración</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                    <li class="nav-item">
+                        <a type="button" class="nav-link text-danger" data-toggle="modal" data-target="#exampleModal">
+                            Cerrar sesion
+                        </a>
+                    </li>
+                </c:if>
+                <c:if test="${id == null}">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="registro">Crear cuenta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-info" href="login">Iniciar sesión</a>
+                    </li>
+                </c:if>
+            </ul>
         </div>
     </nav>
 
