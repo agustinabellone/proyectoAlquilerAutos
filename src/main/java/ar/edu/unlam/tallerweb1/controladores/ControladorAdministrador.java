@@ -39,6 +39,7 @@ public class ControladorAdministrador {
             try {
                 List<Auto> autosAlquilados = servicioDeAuto.obtenerAutosAlquilados();
                 model.put("autos_alquilados", autosAlquilados);
+                model.put("nombre",request.getSession().getAttribute("nombre"));
                 return new ModelAndView("panel-principal", model);
             } catch (NoHayAutosAlquiladosException e) {
                 model.put("error_no_hay_alquilados", "No hay autos alquilados actualmente");
