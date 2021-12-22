@@ -63,10 +63,10 @@
                             Clientes Suscriptos
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            <c:if test="${not empty lista_de_suscripto}">
-                                ${lista_de_suscripto.size()}
+                            <c:if test="${not empty clientes_suscriptos}">
+                                ${clientes_suscriptos.size()}
                             </c:if>
-                            <c:if test="${empty lista_de_suscripto}">
+                            <c:if test="${empty clientes_suscriptos}">
                                 0
                             </c:if>
                         </div>
@@ -118,17 +118,17 @@
                             Pendiente de Rol
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            <c:if test="${not empty pendientes_de_rol}">
-                                ${pendientes_de_rol.size()}
+                            <c:if test="${not empty empleados_pendientes_de_rol}">
+                                ${empleados_pendientes_de_rol.size()}
                             </c:if>
-                            <c:if test="${empty pendientes_de_rol}">
+                            <c:if test="${empty empleados_pendientes_de_rol}">
                                 0
                             </c:if>
                         </div>
                     </div>
                     <div class="col-auto">
 
-                        <a href="asignacion-de-rol"
+                        <a href="empleados-pendientes-de-rol"
                            class="text-warning font-weight-bold text-lg">Ver</a>
 
                     </div>
