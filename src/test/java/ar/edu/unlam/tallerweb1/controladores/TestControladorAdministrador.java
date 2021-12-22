@@ -51,7 +51,7 @@ public class TestControladorAdministrador {
     }
 
     @Test
-    public void alIngresarElAdministradorASuPantallaPrincipalVisualizaLosAutosActualmenteAlquilados() throws NoHayAutosAlquiladosException {
+    public void alIngresarElAdministradorASuPantallaPrincipalVisualizaLosAutosActualmenteAlquilados() throws NoHayAutosAlquiladosException, NoHayClientesSuscriptos, NoHayEmpladosException, NoHayClientesNoSuscriptos {
         givenExistenAutosAlquilados(5, Situacion.OCUPADO);
         whenAccedeALaPantallaPrincipal(request);
         thenVisualizaLOsAutosAlquilados(this.modelAndView);
@@ -67,7 +67,7 @@ public class TestControladorAdministrador {
         when(servicioDeAuto.obtenerAutosAlquilados()).thenReturn(autoList);
     }
 
-    private void whenAccedeALaPantallaPrincipal(HttpServletRequest request) {
+    private void whenAccedeALaPantallaPrincipal(HttpServletRequest request) throws NoHayClientesSuscriptos, NoHayEmpladosException, NoHayClientesNoSuscriptos {
         this.modelAndView = controlador.irAlPanelPrincipal(request);
     }
 
@@ -80,7 +80,7 @@ public class TestControladorAdministrador {
     }
 
     @Test
-    public void alIngresarElAdministradorASuPantallaPrincipalVisualizaUnMensajeDeErrorAvisandoQueNoHayAutosAlquilados() throws NoHayAutosAlquiladosException {
+    public void alIngresarElAdministradorASuPantallaPrincipalVisualizaUnMensajeDeErrorAvisandoQueNoHayAutosAlquilados() throws NoHayAutosAlquiladosException, NoHayClientesSuscriptos, NoHayEmpladosException, NoHayClientesNoSuscriptos {
         givenQueNoExistenAutosAlquilados();
         whenAccedeALaPantallaPrincipal(request);
         thenVisualizaLaVista(this.modelAndView, "panel-principal");

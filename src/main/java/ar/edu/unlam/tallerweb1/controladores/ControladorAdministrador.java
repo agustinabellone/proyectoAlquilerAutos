@@ -33,13 +33,23 @@ public class ControladorAdministrador {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/ir-a-panel-principal")
-    public ModelAndView irAlPanelPrincipal(HttpServletRequest request) {
+    public ModelAndView irAlPanelPrincipal(HttpServletRequest request) throws NoHayClientesNoSuscriptos, NoHayClientesSuscriptos, NoHayEmpladosException {
         ModelMap model = new ModelMap();
         if (estaSeteadoElRol(request) && esAdiministrador(request)) {
             try {
                 List<Auto> autosAlquilados = servicioDeAuto.obtenerAutosAlquilados();
                 model.put("autos_alquilados", autosAlquilados);
-                model.put("nombre",request.getSession().getAttribute("nombre"));
+
+                List<Usuario> clientes_no_suscriptos = servicioSuscripcion.obtenerListaDeUsuariosNoSuscriptos();
+                model.put("clientes_no_suscriptos", clientes_no_suscriptos);
+
+                List<Suscripcion> clientes_suscriptos = servicioSuscripcion.obtenerClientesSuscriptos();
+                model.put("clientes_suscriptos", clientes_suscriptos);
+
+                List<Usuario> pendientes_de_rol = servicioUsuario.obtenerListaDeUsuariosPorRol("empleado");
+                model.put("empleados_pendientes_de_rol", pendientes_de_rol);
+
+                model.put("nombre", request.getSession().getAttribute("nombre"));
                 return new ModelAndView("panel-principal", model);
             } catch (NoHayAutosAlquiladosException e) {
                 model.put("error_no_hay_alquilados", "No hay autos alquilados actualmente");
