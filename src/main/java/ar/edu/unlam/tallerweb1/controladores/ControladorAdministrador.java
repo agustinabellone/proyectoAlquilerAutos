@@ -48,7 +48,7 @@ public class ControladorAdministrador {
         return enviarAlLoginConUnMensajeDeError(model);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "autos-disponibles-para-alquilar")
+    @RequestMapping(method = RequestMethod.GET, path = "/autos-disponibles-para-alquilar")
     public ModelAndView mostrarAutosDisponiblesParaAlquilar(HttpServletRequest request) {
         ModelMap model = new ModelMap();
         if (estaSeteadoElRol(request) && esAdiministrador(request)) {
@@ -64,7 +64,7 @@ public class ControladorAdministrador {
         return enviarAlLoginConUnMensajeDeError(model);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "autos-en-mantenimiento")
+    @RequestMapping(method = RequestMethod.GET, path = "/autos-en-mantenimiento")
     public ModelAndView mostrarAutosEnMantenimiento(HttpServletRequest request) {
         ModelMap model = new ModelMap();
         if (estaSeteadoElRol(request) && esAdiministrador(request)) {
