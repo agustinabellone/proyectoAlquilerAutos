@@ -187,6 +187,11 @@
         </div>
     </div>
 </section>
+<c:if test="${not empty error_no_hay_alquilados}">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>${error_no_hay_alquilados}</strong>
+    </div>
+</c:if>
 <jsp:include page="footer.jsp"/>
 </body>
 </html>
